@@ -7,13 +7,8 @@
 
 <title>MShare Space</title>
 
-
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0;}
 
 body{
     font-family:Arial,Helvetica,sans-serif;
@@ -26,201 +21,91 @@ body{
     padding:18px;
 }
 
-.container{
-    width:100%;
-    max-width:700px;
-    margin:auto;
-}
-
-.header{
-    text-align:center;
-    margin-bottom:20px;
-}
+.container{width:100%;max-width:700px;margin:auto;}
+.header{text-align:center;margin-bottom:20px;}
 
 .logo{
-    font-size:34px;
-    font-weight:900;
-    letter-spacing:1px;
+    font-size:34px;font-weight:900;letter-spacing:1px;
     background:linear-gradient(90deg,#00e5ff,#9d4edd,#ff3cac);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
 }
 
-.subtitle{
-    color:#aebdce;
-    font-size:14px;
-    margin-top:5px;
-}
-
-.frase{
-    color:#00d9ff;
-    font-size:13px;
-    margin-top:12px;
-    font-weight:bold;
-}
+.subtitle{color:#aebdce;font-size:14px;margin-top:5px;}
+.frase{color:#00d9ff;font-size:13px;margin-top:12px;font-weight:bold;}
 
 .data-hora{
-    margin:15px 0 20px;
-    padding:12px;
-    border:1px solid #193652;
-    background:rgba(5,20,35,.8);
-    border-radius:14px;
-    text-align:center;
+    margin:15px 0 20px;padding:12px;
+    border:1px solid #193652;background:rgba(5,20,35,.8);
+    border-radius:14px;text-align:center;
 }
 
-.data{
-    color:#9eb1c5;
-    font-size:12px;
-}
-
-.hora{
-    font-size:23px;
-    font-weight:bold;
-    color:#00e5ff;
-    margin-top:3px;
-}
+.data{color:#9eb1c5;font-size:12px;}
+.hora{font-size:23px;font-weight:bold;color:#00e5ff;margin-top:3px;}
 
 .card{
     background:rgba(8,19,32,.92);
-    border:1px solid #1a3a55;
-    border-radius:18px;
-    padding:18px;
-    margin-bottom:15px;
+    border:1px solid #1a3a55;border-radius:18px;
+    padding:18px;margin-bottom:15px;
     box-shadow:0 10px 35px rgba(0,0,0,.25);
 }
 
-.card h2{
-    font-size:17px;
-    margin-bottom:15px;
-    color:#00d9ff;
-}
+.card h2{font-size:17px;margin-bottom:15px;color:#00d9ff;}
 
-.grid{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:12px;
-}
+.grid{display:grid;grid-template-columns:1fr;gap:12px;}
 
-label{
-    display:block;
-    color:#aabbd0;
-    font-size:13px;
-    margin-bottom:6px;
-}
+label{display:block;color:#aabbd0;font-size:13px;margin-bottom:6px;}
 
 input{
-    width:100%;
-    padding:14px;
-    border-radius:12px;
-    border:1px solid #244866;
-    background:#071522;
-    color:white;
-    outline:none;
-    font-size:16px;
+    width:100%;padding:14px;border-radius:12px;
+    border:1px solid #244866;background:#071522;
+    color:white;outline:none;font-size:16px;
 }
 
-input:focus{
-    border-color:#00d9ff;
-    box-shadow:0 0 0 2px rgba(0,217,255,.12);
-}
+input:focus{border-color:#00d9ff;box-shadow:0 0 0 2px rgba(0,217,255,.12);}
 
-.input-prefix{
-    position:relative;
-}
-
-.input-prefix input{
-    padding-right:55px;
-}
-
+.input-prefix{position:relative;}
+.input-prefix input{padding-right:55px;}
 .input-prefix span{
-    position:absolute;
-    right:14px;
-    top:50%;
-    transform:translateY(-50%);
-    color:#7d91a7;
-    font-weight:bold;
+    position:absolute;right:14px;top:50%;transform:translateY(-50%);
+    color:#7d91a7;font-weight:bold;
 }
 
 .botao{
-    width:100%;
-    border:none;
-    border-radius:13px;
-    padding:15px;
-    font-size:15px;
-    font-weight:bold;
-    cursor:pointer;
-    margin-top:10px;
-    transition:.2s;
+    width:100%;border:none;border-radius:13px;
+    padding:15px;font-size:15px;font-weight:bold;
+    cursor:pointer;margin-top:10px;transition:.2s;
 }
 
-.botao:active{
-    transform:scale(.98);
-}
+.botao:active{transform:scale(.98);}
 
-.calculadora-btn{
-    background:linear-gradient(90deg,#6a11cb,#2575fc);
-    color:#fff;
-}
-
-.pdf-btn{
-    background:linear-gradient(90deg,#00b894,#00cec9);
-    color:#fff;
-}
+.calculadora-btn{background:linear-gradient(90deg,#6a11cb,#2575fc);color:#fff;}
 
 .resultado{
-    text-align:center;
-    padding:24px 15px;
-    border-radius:18px;
-    border:1px solid #244866;
-    background:#071522;
-    transition:.3s;
+    text-align:center;padding:24px 15px;
+    border-radius:18px;border:1px solid #244866;
+    background:#071522;transition:.3s;
 }
 
-.resultado.bom{
-    border-color:#00d084;
-    box-shadow:0 0 25px rgba(0,208,132,.12);
-}
-
-.resultado.ruim{
-    border-color:#ff3b4f;
-    box-shadow:0 0 25px rgba(255,59,79,.12);
-}
-
-.resultado.neutro{
-    border-color:#244866;
-}
+.resultado.bom{border-color:#00d084;box-shadow:0 0 25px rgba(0,208,132,.12);}
+.resultado.ruim{border-color:#ff3b4f;box-shadow:0 0 25px rgba(255,59,79,.12);}
+.resultado.neutro{border-color:#244866;}
 
 .emoji-resultado{
-    display:none;
-    font-size:50px;
-    line-height:1;
-    margin-bottom:10px;
-    transform-origin:center;
+    display:none;font-size:50px;line-height:1;
+    margin-bottom:10px;transform-origin:center;
 }
 
-.emoji-resultado.mostrar{
-    display:block;
-}
+.emoji-resultado.mostrar{display:block;}
 
-.emoji-resultado.bom{
-    animation:puloJoinha .8s ease-in-out infinite alternate;
-}
+.emoji-resultado.bom{animation:puloJoinha .8s ease-in-out infinite alternate;}
 
 @keyframes puloJoinha{
-    0%{
-        transform:translateY(0) rotate(-8deg) scale(1);
-    }
-    50%{
-        transform:translateY(-9px) rotate(8deg) scale(1.12);
-    }
-    100%{
-        transform:translateY(0) rotate(-4deg) scale(1);
-    }
+    0%{transform:translateY(0) rotate(-8deg) scale(1);}
+    50%{transform:translateY(-9px) rotate(8deg) scale(1.12);}
+    100%{transform:translateY(0) rotate(-4deg) scale(1);}
 }
 
-.emoji-resultado.ruim{
-    animation:tristeAnimacao 1s ease-in-out infinite;
-}
+.emoji-resultado.ruim{animation:tristeAnimacao 1s ease-in-out infinite;}
 
 @keyframes tristeAnimacao{
     0%{transform:translateY(0) rotate(0deg);}
@@ -230,400 +115,100 @@ input:focus{
     100%{transform:translateY(0) rotate(0deg);}
 }
 
-.resultado .numero{
-    font-size:52px;
-    font-weight:900;
-    color:#fff;
-}
+.resultado .numero{font-size:52px;font-weight:900;color:#fff;}
+.resultado .titulo{color:#8da2b7;font-size:13px;margin-bottom:5px;}
+.status{margin-top:12px;font-size:17px;font-weight:900;}
+.resultado.bom .status{color:#00e58a;}
+.resultado.ruim .status{color:#ff4054;}
+.resultado.neutro .status{color:#8da2b7;}
 
-.resultado .titulo{
-    color:#8da2b7;
-    font-size:13px;
-    margin-bottom:5px;
-}
-
-.status{
-    margin-top:12px;
-    font-size:17px;
-    font-weight:900;
-}
-
-.resultado.bom .status{
-    color:#00e58a;
-}
-
-.resultado.ruim .status{
-    color:#ff4054;
-}
-
-.resultado.neutro .status{
-    color:#8da2b7;
-}
-
-/* GRГҒFICO */
-
-.grafico-container{
-    margin-top:18px;
-}
-
-.grafico-titulo{
-    font-size:14px;
-    color:#aebed0;
-    margin-bottom:10px;
-    text-align:center;
-}
+.grafico-container{margin-top:18px;}
+.grafico-titulo{font-size:14px;color:#aebed0;margin-bottom:10px;text-align:center;}
 
 svg{
-    width:100%;
-    height:auto;
-    display:block;
-    background:#06111d;
-    border-radius:15px;
+    width:100%;height:auto;display:block;
+    background:#06111d;border-radius:15px;
     border:1px solid #193b56;
 }
 
 .tooltip-grafico{
-    text-align:center;
-    color:#dce8f3;
-    font-size:12px;
-    min-height:18px;
-    margin-top:8px;
+    text-align:center;color:#dce8f3;
+    font-size:12px;min-height:18px;margin-top:8px;
 }
 
-/* RESUMO */
-
-.resumo{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
+.resumo{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 
 .resumo-item{
-    background:#071522;
-    border:1px solid #193650;
-    border-radius:13px;
-    padding:13px;
+    background:#071522;border:1px solid #193650;
+    border-radius:13px;padding:13px;
 }
 
-.resumo-item .rotulo{
-    color:#7f95aa;
-    font-size:11px;
-    margin-bottom:5px;
-}
-
-.resumo-item .valor{
-    font-weight:bold;
-    font-size:16px;
-}
+.resumo-item .rotulo{color:#7f95aa;font-size:11px;margin-bottom:5px;}
+.resumo-item .valor{font-weight:bold;font-size:16px;}
 
 .resumo-mensagem{
-    grid-column:1/-1;
-    margin-top:2px;
-    padding:14px;
-    border-radius:13px;
-    background:#0a1826;
-    border:1px solid #1c405b;
-    color:#b9c8d7;
-    font-size:13px;
-    line-height:1.5;
+    grid-column:1/-1;margin-top:2px;padding:14px;
+    border-radius:13px;background:#0a1826;
+    border:1px solid #1c405b;color:#b9c8d7;
+    font-size:13px;line-height:1.5;
 }
-
-/* CALCULADORA */
 
 .modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.75);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:15px;
-    z-index:1000;
+    position:fixed;inset:0;background:rgba(0,0,0,.75);
+    display:none;align-items:center;justify-content:center;
+    padding:15px;z-index:1000;
 }
 
-.modal.ativo{
-    display:flex;
-}
+.modal.ativo{display:flex;}
 
 .calculadora{
-    width:100%;
-    max-width:370px;
-    background:#081522;
-    border:1px solid #214763;
-    border-radius:20px;
-    padding:18px;
+    width:100%;max-width:370px;background:#081522;
+    border:1px solid #214763;border-radius:20px;padding:18px;
     box-shadow:0 20px 60px rgba(0,0,0,.5);
 }
 
 .calculadora-topo{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:15px;
+    display:flex;align-items:center;
+    justify-content:space-between;margin-bottom:15px;
 }
 
-.calculadora-topo h3{
-    color:#00e5ff;
-}
+.calculadora-topo h3{color:#00e5ff;}
 
 .fechar{
-    background:#172838;
-    color:#fff;
-    border:none;
-    width:35px;
-    height:35px;
-    border-radius:10px;
-    cursor:pointer;
-    font-size:18px;
+    background:#172838;color:#fff;border:none;
+    width:35px;height:35px;border-radius:10px;
+    cursor:pointer;font-size:18px;
 }
 
 .calc-display{
-    width:100%;
-    background:#02080d;
-    border:1px solid #23435b;
-    color:#00ffcc;
-    padding:15px;
-    border-radius:12px;
-    font-size:24px;
-    text-align:right;
-    margin-bottom:12px;
+    width:100%;background:#02080d;border:1px solid #23435b;
+    color:#00ffcc;padding:15px;border-radius:12px;
+    font-size:24px;text-align:right;margin-bottom:12px;
 }
 
-.calc-botoes{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:7px;
-}
+.calc-botoes{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;}
 
 .calc-botoes button{
-    border:none;
-    background:#102638;
-    color:#fff;
-    border-radius:10px;
-    padding:16px 5px;
-    font-size:17px;
-    cursor:pointer;
+    border:none;background:#102638;color:#fff;
+    border-radius:10px;padding:16px 5px;
+    font-size:17px;cursor:pointer;
 }
 
-.calc-botoes button.operador{
-    background:#193d5a;
-    color:#00e5ff;
-}
-
-.calc-botoes button.igual{
-    background:#00a878;
-}
-
-.calc-botoes button.limpar{
-    background:#7c2632;
-}
+.calc-botoes button.operador{background:#193d5a;color:#00e5ff;}
+.calc-botoes button.igual{background:#00a878;}
+.calc-botoes button.limpar{background:#7c2632;}
 
 .footer{
-    text-align:center;
-    color:#65798e;
-    font-size:11px;
-    padding:20px 5px 8px;
-    line-height:1.7;
-}
-
-/* PDF */
-
-#relatorioPDF{
-    position:absolute;
-    left:-10000px;
-    top:0;
-    width:794px;
-    background:#fff;
-    color:#111;
-    padding:45px;
-    font-family:Arial,Helvetica,sans-serif;
-}
-
-.pdf-header{
-    border-bottom:3px solid #00a8ff;
-    padding-bottom:18px;
-    margin-bottom:22px;
-}
-
-.pdf-logo{
-    font-size:30px;
-    font-weight:900;
-    color:#071522;
-}
-
-.pdf-subtitulo{
-    color:#555;
-    font-size:14px;
-    margin-top:4px;
-}
-
-.pdf-info{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-bottom:20px;
-}
-
-.pdf-info-box{
-    border:1px solid #ddd;
-    border-radius:8px;
-    padding:12px;
-    background:#fafafa;
-}
-
-.pdf-info-box small{
-    display:block;
-    color:#777;
-    font-size:10px;
-    margin-bottom:5px;
-    text-transform:uppercase;
-}
-
-.pdf-info-box strong{
-    font-size:14px;
-    color:#111;
-}
-
-.pdf-data{
-    text-align:right;
-    color:#666;
-    font-size:11px;
-    margin-bottom:18px;
-}
-
-.pdf-resultado{
-    text-align:center;
-    padding:18px;
-    border-radius:10px;
-    margin-bottom:20px;
-    border:2px solid #00a878;
-    background:#effff8;
-}
-
-.pdf-resultado.ruim{
-    border-color:#e53950;
-    background:#fff1f3;
-}
-
-.pdf-resultado .numero{
-    font-size:38px;
-    font-weight:900;
-}
-
-.pdf-resultado .status{
-    font-size:16px;
-    margin-top:5px;
-}
-
-.pdf-tabela{
-    width:100%;
-    border-collapse:collapse;
-    margin-bottom:25px;
-}
-
-.pdf-tabela th,
-.pdf-tabela td{
-    border:1px solid #ddd;
-    padding:10px;
-    text-align:left;
-}
-
-.pdf-tabela th{
-    background:#071522;
-    color:#fff;
-    font-size:12px;
-}
-
-.pdf-tabela td{
-    font-size:12px;
-}
-
-.pdf-grafico-titulo{
-    text-align:center;
-    font-size:16px;
-    font-weight:bold;
-    margin-bottom:15px;
-}
-
-.pizza-area{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:30px;
-    margin:15px 0 25px;
-}
-
-.pizza{
-    width:190px;
-    height:190px;
-    border-radius:50%;
-    background:#ddd;
-}
-
-.legenda-pizza{
-    font-size:13px;
-    line-height:2;
-}
-
-.legenda-cor{
-    display:inline-block;
-    width:12px;
-    height:12px;
-    border-radius:3px;
-    margin-right:7px;
-}
-
-.cor-meu{
-    background:#00a8ff;
-}
-
-.cor-restante{
-    background:#e5e5e5;
-    border:1px solid #bbb;
-}
-
-.pdf-mensagem{
-    padding:14px;
-    background:#f5f7f9;
-    border-left:4px solid #00a8ff;
-    font-size:12px;
-    line-height:1.5;
-    margin-bottom:30px;
-}
-
-.pdf-footer{
-    border-top:1px solid #ddd;
-    padding-top:12px;
-    text-align:center;
-    color:#777;
-    font-size:10px;
+    text-align:center;color:#65798e;font-size:11px;
+    padding:20px 5px 8px;line-height:1.7;
 }
 
 @media(max-width:500px){
-
-    body{
-        padding:12px;
-    }
-
-    .logo{
-        font-size:29px;
-    }
-
-    .card{
-        padding:15px;
-    }
-
-    .resultado .numero{
-        font-size:45px;
-    }
-
-    .resumo{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .pdf-info{
-        grid-template-columns:1fr;
-    }
+    body{padding:12px;}
+    .logo{font-size:29px;}
+    .card{padding:15px;}
+    .resultado .numero{font-size:45px;}
+    .resumo{grid-template-columns:1fr 1fr;}
 }
 </style>
 </head>
@@ -634,7 +219,7 @@ svg{
 
 <header class="header">
     <div class="logo">MShare Space</div>
-    <div class="subtitle">Calculadora de Share de GГҙndola</div>
+    <div class="subtitle">Calculadora de Share de Gôndola</div>
     <div class="frase">Para facilitar ainda mais seus dias</div>
 </header>
 
@@ -643,1791 +228,200 @@ svg{
     <div class="hora" id="horaAtual">--:--:--</div>
 </div>
 
-
-<!-- INFORMAГҮГ•ES DA LOJA -->
-
 <section class="card">
-
-    <h2>рҹҸӘ InformaГ§Гөes da loja</h2>
-
+    <h2>🏪 Informações da loja</h2>
     <div class="grid">
-
         <div>
             <label for="nomeLoja">Nome da loja</label>
-
-            <input
-                type="text"
-                id="nomeLoja"
-                placeholder="Ex.: Supermercado Central"
-            >
+            <input type="text" id="nomeLoja" placeholder="Ex.: Supermercado Central">
         </div>
-
         <div>
-            <label for="enderecoLoja">EndereГ§o da loja</label>
-
-            <input
-                type="text"
-                id="enderecoLoja"
-                placeholder="Ex.: Av. Brasil, 1000"
-            >
+            <label for="enderecoLoja">Endereço da loja</label>
+            <input type="text" id="enderecoLoja" placeholder="Ex.: Av. Brasil, 1000">
         </div>
-
         <div>
             <label for="nomeUsuario">Meu nome</label>
-
-            <input
-                type="text"
-                id="nomeUsuario"
-                placeholder="Digite seu nome"
-            >
+            <input type="text" id="nomeUsuario" placeholder="Digite seu nome">
         </div>
-
     </div>
-
 </section>
 
-
-<!-- MEDIГҮГғO -->
-
 <section class="card">
-
-    <h2>рҹ“Ҹ MediГ§ГЈo da gГҙndola</h2>
-
+    <h2>📏 Medição da gôndola</h2>
     <div class="grid">
-
         <div>
-
-            <label for="meta">
-                Meta desejada
-            </label>
-
+            <label for="meta">Meta desejada</label>
             <div class="input-prefix">
-
-                <input
-                    type="number"
-                    id="meta"
-                    min="0"
-                    max="100"
-                    step="0.01"
-                    placeholder="Ex.: 25"
-                >
-
+                <input type="number" id="meta" min="0" max="100" step="0.01" placeholder="Ex.: 25">
                 <span>%</span>
-
             </div>
-
         </div>
-
-
         <div>
-
-            <label for="total">
-                EspaГ§o total
-            </label>
-
+            <label for="total">Espaço total</label>
             <div class="input-prefix">
-
-                <input
-                    type="number"
-                    id="total"
-                    min="0"
-                    step="0.01"
-                    placeholder="Ex.: 300"
-                >
-
+                <input type="number" id="total" min="0" step="0.01" placeholder="Ex.: 300">
                 <span>cm</span>
-
             </div>
-
         </div>
-
-
         <div>
-
-            <label for="meuEspaco">
-                Meu espaГ§o
-            </label>
-
+            <label for="meuEspaco">Meu espaço</label>
             <div class="input-prefix">
-
-                <input
-                    type="number"
-                    id="meuEspaco"
-                    min="0"
-                    step="0.01"
-                    placeholder="Ex.: 80"
-                >
-
+                <input type="number" id="meuEspaco" min="0" step="0.01" placeholder="Ex.: 80">
                 <span>cm</span>
-
             </div>
-
         </div>
-
     </div>
-
-
-    <button
-        class="botao calculadora-btn"
-        onclick="abrirCalculadora()"
-    >
-        рҹ§® ABRIR CALCULADORA
-    </button>
-
+    <button class="botao calculadora-btn" onclick="abrirCalculadora()">🧮 ABRIR CALCULADORA</button>
 </section>
 
-
-<!-- RESULTADO -->
-
 <section class="card">
-
-    <div
-        id="resultado"
-        class="resultado neutro"
-    >
-
-        <div
-            id="emojiResultado"
-            class="emoji-resultado"
-        ></div>
-
-        <div class="titulo">
-            SHARE APURADO
-        </div>
-
-        <div
-            id="shareResultado"
-            class="numero"
-        >
-            0,00%
-        </div>
-
-        <div
-            id="statusResultado"
-            class="status"
-        >
-            Preencha os dados
-        </div>
-
+    <div id="resultado" class="resultado neutro">
+        <div id="emojiResultado" class="emoji-resultado"></div>
+        <div class="titulo">SHARE APURADO</div>
+        <div id="shareResultado" class="numero">0,00%</div>
+        <div id="statusResultado" class="status">Preencha os dados</div>
     </div>
-
-
-    <!-- GRГҒFICO -->
 
     <div class="grafico-container">
+        <div class="grafico-titulo">Comparação entre Meta e Share</div>
+        <svg id="graficoSVG" viewBox="0 0 700 300" preserveAspectRatio="xMidYMid meet">
+            <rect x="0" y="0" width="700" height="300" rx="15" fill="#06111d"/>
+            <line x1="100" y1="70" x2="650" y2="70" stroke="#193650" stroke-width="1"/>
+            <line x1="100" y1="140" x2="650" y2="140" stroke="#193650" stroke-width="1"/>
+            <line x1="100" y1="210" x2="650" y2="210" stroke="#193650" stroke-width="1"/>
+            <text x="100" y="270" fill="#668096" font-size="11">0%</text>
+            <text x="365" y="270" fill="#668096" font-size="11" text-anchor="middle">50%</text>
+            <text x="650" y="270" fill="#668096" font-size="11" text-anchor="end">100%</text>
 
-        <div class="grafico-titulo">
-            ComparaГ§ГЈo entre Meta e Share
-        </div>
+            <text x="35" y="82" fill="#9eb1c5" font-size="13" font-weight="bold">META</text>
+            <rect id="barraMeta" x="100" y="55" width="0" height="30" rx="8" fill="#8d6bff"/>
 
-        <svg
-            id="graficoSVG"
-            viewBox="0 0 700 300"
-            preserveAspectRatio="xMidYMid meet"
-        >
+            <text x="35" y="152" fill="#9eb1c5" font-size="13" font-weight="bold">SHARE</text>
+            <rect id="barraShare" x="100" y="125" width="0" height="30" rx="8" fill="#00d9ff"/>
 
-            <rect
-                x="0"
-                y="0"
-                width="700"
-                height="300"
-                rx="15"
-                fill="#06111d"
-            />
+            <text x="35" y="222" fill="#9eb1c5" font-size="13" font-weight="bold">DIF.</text>
+            <rect id="barraDiferenca" x="100" y="195" width="0" height="30" rx="8" fill="#00d084"/>
 
-            <line
-                x1="100"
-                y1="70"
-                x2="650"
-                y2="70"
-                stroke="#193650"
-                stroke-width="1"
-            />
+            <text id="textoMetaGrafico" x="110" y="76" fill="#fff" font-size="12" font-weight="bold">0%</text>
+            <text id="textoShareGrafico" x="110" y="146" fill="#fff" font-size="12" font-weight="bold">0%</text>
+            <text id="textoDiferencaGrafico" x="110" y="216" fill="#fff" font-size="12" font-weight="bold">0%</text>
 
-            <line
-                x1="100"
-                y1="140"
-                x2="650"
-                y2="140"
-                stroke="#193650"
-                stroke-width="1"
-            />
-
-            <line
-                x1="100"
-                y1="210"
-                x2="650"
-                y2="210"
-                stroke="#193650"
-                stroke-width="1"
-            />
-
-            <text
-                x="100"
-                y="270"
-                fill="#668096"
-                font-size="11"
-            >
-                0%
-            </text>
-
-            <text
-                x="365"
-                y="270"
-                fill="#668096"
-                font-size="11"
-                text-anchor="middle"
-            >
-                50%
-            </text>
-
-            <text
-                x="650"
-                y="270"
-                fill="#668096"
-                font-size="11"
-                text-anchor="end"
-            >
-                100%
-            </text>
-
-
-            <!-- META -->
-
-            <text
-                x="35"
-                y="82"
-                fill="#9eb1c5"
-                font-size="13"
-                font-weight="bold"
-            >
-                META
-            </text>
-
-            <rect
-                id="barraMeta"
-                x="100"
-                y="55"
-                width="0"
-                height="30"
-                rx="8"
-                fill="#8d6bff"
-            />
-
-
-            <!-- SHARE -->
-
-            <text
-                x="35"
-                y="152"
-                fill="#9eb1c5"
-                font-size="13"
-                font-weight="bold"
-            >
-                SHARE
-            </text>
-
-            <rect
-                id="barraShare"
-                x="100"
-                y="125"
-                width="0"
-                height="30"
-                rx="8"
-                fill="#00d9ff"
-            />
-
-
-            <!-- DIFERENГҮA -->
-
-            <text
-                x="35"
-                y="222"
-                fill="#9eb1c5"
-                font-size="13"
-                font-weight="bold"
-            >
-                DIF.
-            </text>
-
-            <rect
-                id="barraDiferenca"
-                x="100"
-                y="195"
-                width="0"
-                height="30"
-                rx="8"
-                fill="#00d084"
-            />
-
-
-            <text
-                id="textoMetaGrafico"
-                x="110"
-                y="76"
-                fill="#fff"
-                font-size="12"
-                font-weight="bold"
-            >
-                0%
-            </text>
-
-            <text
-                id="textoShareGrafico"
-                x="110"
-                y="146"
-                fill="#fff"
-                font-size="12"
-                font-weight="bold"
-            >
-                0%
-            </text>
-
-            <text
-                id="textoDiferencaGrafico"
-                x="110"
-                y="216"
-                fill="#fff"
-                font-size="12"
-                font-weight="bold"
-            >
-                0%
-            </text>
-
-            <line
-                id="linhaMeta"
-                x1="100"
-                y1="35"
-                x2="100"
-                y2="235"
-                stroke="#ff4fd8"
-                stroke-width="3"
-                stroke-dasharray="6 5"
-            />
-
+            <line id="linhaMeta" x1="100" y1="35" x2="100" y2="235" stroke="#ff4fd8" stroke-width="3" stroke-dasharray="6 5"/>
         </svg>
 
-        <div
-            id="tooltipGrafico"
-            class="tooltip-grafico"
-        >
-            Toque nas barras para visualizar os valores.
-        </div>
-
+        <div id="tooltipGrafico" class="tooltip-grafico">Toque nas barras para visualizar os valores.</div>
     </div>
-
 </section>
-
-
-<!-- RESUMO -->
 
 <section class="card">
-
-    <h2>рҹ“Ӣ Resumo da mediГ§ГЈo</h2>
-
+    <h2>📋 Resumo da medição</h2>
     <div class="resumo">
-
         <div class="resumo-item">
-
-            <div class="rotulo">
-                META DESEJADA
-            </div>
-
-            <div
-                class="valor"
-                id="resumoMeta"
-            >
-                0,00%
-            </div>
-
+            <div class="rotulo">META DESEJADA</div>
+            <div class="valor" id="resumoMeta">0,00%</div>
         </div>
-
-
         <div class="resumo-item">
-
-            <div class="rotulo">
-                ESPAГҮO TOTAL
-            </div>
-
-            <div
-                class="valor"
-                id="resumoTotal"
-            >
-                0,00 cm
-            </div>
-
+            <div class="rotulo">ESPAÇO TOTAL</div>
+            <div class="valor" id="resumoTotal">0,00 cm</div>
         </div>
-
-
         <div class="resumo-item">
-
-            <div class="rotulo">
-                MEU ESPAГҮO
-            </div>
-
-            <div
-                class="valor"
-                id="resumoMeuEspaco"
-            >
-                0,00 cm
-            </div>
-
+            <div class="rotulo">MEU ESPAÇO</div>
+            <div class="valor" id="resumoMeuEspaco">0,00 cm</div>
         </div>
-
-
         <div class="resumo-item">
-
-            <div class="rotulo">
-                ESPAГҮO RESTANTE
-            </div>
-
-            <div
-                class="valor"
-                id="resumoRestante"
-            >
-                0,00 cm
-            </div>
-
+            <div class="rotulo">ESPAÇO RESTANTE</div>
+            <div class="valor" id="resumoRestante">0,00 cm</div>
         </div>
-
-
         <div class="resumo-item">
-
-            <div class="rotulo">
-                SHARE APURADO
-            </div>
-
-            <div
-                class="valor"
-                id="resumoShare"
-            >
-                0,00%
-            </div>
-
+            <div class="rotulo">SHARE APURADO</div>
+            <div class="valor" id="resumoShare">0,00%</div>
         </div>
-
-
         <div class="resumo-item">
-
-            <div class="rotulo">
-                DIFERENГҮA
-            </div>
-
-            <div
-                class="valor"
-                id="resumoDiferenca"
-            >
-                0,00%
-            </div>
-
+            <div class="rotulo">DIFERENÇA</div>
+            <div class="valor" id="resumoDiferenca">0,00%</div>
         </div>
-
-
         <div class="resumo-item">
-
-            <div class="rotulo">
-                SITUAГҮГғO
-            </div>
-
-            <div
-                class="valor"
-                id="resumoSituacao"
-            >
-                вҖ”
-            </div>
-
+            <div class="rotulo">SITUAÇÃO</div>
+            <div class="valor" id="resumoSituacao">—</div>
         </div>
-
-
-        <div
-            class="resumo-mensagem"
-            id="resumoMensagem"
-        >
-            Preencha os dados para realizar a apuraГ§ГЈo.
+        <div class="resumo-mensagem" id="resumoMensagem">
+            Preencha os dados para realizar a apuração.
         </div>
-
     </div>
-
-
-    <button
-        class="botao pdf-btn"
-        onclick="baixarPDF()"
-    >
-        рҹ“„ BAIXAR PDF DA MEDIГҮГғO
-    </button>
-
 </section>
 
-
 <footer class="footer">
-
-    MShare Space вҖў Share de GГҙndola<br>
+    MShare Space • Share de Gôndola<br>
     Desenvolvido por Yuri Lima
-
 </footer>
 
 </div>
 
-
-<!-- CALCULADORA -->
-
-<div
-    class="modal"
-    id="modalCalculadora"
->
-
+<div class="modal" id="modalCalculadora">
     <div class="calculadora">
-
         <div class="calculadora-topo">
-
-            <h3>рҹ§® CALCULADORA</h3>
-
-            <button
-                class="fechar"
-                onclick="fecharCalculadora()"
-            >
-                Г—
-            </button>
-
+            <h3>🧮 CALCULADORA</h3>
+            <button class="fechar" onclick="fecharCalculadora()">×</button>
         </div>
-
-        <input
-            id="calcDisplay"
-            class="calc-display"
-            type="text"
-            value=""
-            readonly
-        >
-
+        <input id="calcDisplay" class="calc-display" type="text" value="" readonly>
         <div class="calc-botoes">
-
-            <button
-                class="limpar"
-                onclick="calcLimpar()"
-            >
-                C
-            </button>
-
-            <button onclick="calcAdicionar('(')">
-                (
-            </button>
-
-            <button onclick="calcAdicionar(')')">
-                )
-            </button>
-
-            <button
-                class="operador"
-                onclick="calcAdicionar('/')"
-            >
-                Г·
-            </button>
+            <button class="limpar" onclick="calcLimpar()">C</button>
+            <button onclick="calcAdicionar('(')">(</button>
+            <button onclick="calcAdicionar(')')">)</button>
+            <button class="operador" onclick="calcAdicionar('/')">÷</button>
 
             <button onclick="calcAdicionar('7')">7</button>
             <button onclick="calcAdicionar('8')">8</button>
             <button onclick="calcAdicionar('9')">9</button>
-
-            <button
-                class="operador"
-                onclick="calcAdicionar('*')"
-            >
-                Г—
-            </button>
+            <button class="operador" onclick="calcAdicionar('*')">×</button>
 
             <button onclick="calcAdicionar('4')">4</button>
             <button onclick="calcAdicionar('5')">5</button>
             <button onclick="calcAdicionar('6')">6</button>
-
-            <button
-                class="operador"
-                onclick="calcAdicionar('-')"
-            >
-                вҲ’
-            </button>
+            <button class="operador" onclick="calcAdicionar('-')">−</button>
 
             <button onclick="calcAdicionar('1')">1</button>
             <button onclick="calcAdicionar('2')">2</button>
             <button onclick="calcAdicionar('3')">3</button>
+            <button class="operador" onclick="calcAdicionar('+')">+</button>
 
-            <button
-                class="operador"
-                onclick="calcAdicionar('+')"
-            >
-                +
-            </button>
-
-            <button onclick="calcAdicionar('0')">
-                0
-            </button>
-
-            <button onclick="calcAdicionar('.')">
-                .
-            </button>
-
-            <button
-                class="igual"
-                style="grid-column:span 2"
-                onclick="calcResultado()"
-            >
-                =
-            </button>
-
+            <button onclick="calcAdicionar('0')">0</button>
+            <button onclick="calcAdicionar('.')">.</button>
+            <button class="igual" style="grid-column:span 2" onclick="calcResultado()">=</button>
         </div>
-
     </div>
-
 </div>
-
-
-<!-- RELATГ“RIO PDF -->
-
-<div id="relatorioPDF">
-
-    <div class="pdf-header">
-
-        <div class="pdf-logo">
-            MShare Space
-        </div>
-
-        <div class="pdf-subtitulo">
-            Calculadora de Share de GГҙndola
-        </div>
-
-    </div>
-
-
-    <div class="pdf-info">
-
-        <div class="pdf-info-box">
-
-            <small>Nome da loja</small>
-
-            <strong id="pdfNomeLoja">
-                NГЈo informado
-            </strong>
-
-        </div>
-
-
-        <div class="pdf-info-box">
-
-            <small>EndereГ§o da loja</small>
-
-            <strong id="pdfEnderecoLoja">
-                NГЈo informado
-            </strong>
-
-        </div>
-
-
-        <div class="pdf-info-box">
-
-            <small>ResponsГЎvel pela mediГ§ГЈo</small>
-
-            <strong id="pdfNomeUsuario">
-                NГЈo informado
-            </strong>
-
-        </div>
-
-
-        <div class="pdf-info-box">
-
-            <small>Data da mediГ§ГЈo</small>
-
-            <strong id="pdfData">
-                --
-            </strong>
-
-        </div>
-
-    </div>
-
-
-    <div class="pdf-data">
-
-        HorГЎrio da mediГ§ГЈo:
-        <strong id="pdfHora">
-            --
-        </strong>
-
-    </div>
-
-
-    <div
-        id="pdfResultado"
-        class="pdf-resultado"
-    >
-
-        <div
-            class="numero"
-            id="pdfShare"
-        >
-            0,00%
-        </div>
-
-        <div
-            class="status"
-            id="pdfStatus"
-        >
-            вҖ”
-        </div>
-
-    </div>
-
-
-    <table class="pdf-tabela">
-
-        <thead>
-
-            <tr>
-
-                <th>
-                    InformaГ§ГЈo
-                </th>
-
-                <th>
-                    Resultado
-                </th>
-
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            <tr>
-
-                <td>
-                    Meta desejada
-                </td>
-
-                <td id="pdfMeta">
-                    0,00%
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    EspaГ§o total
-                </td>
-
-                <td id="pdfTotal">
-                    0,00 cm
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Meu espaГ§o
-                </td>
-
-                <td id="pdfMeuEspaco">
-                    0,00 cm
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    EspaГ§o restante
-                </td>
-
-                <td id="pdfRestante">
-                    0,00 cm
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    Share apurado
-                </td>
-
-                <td id="pdfShareTabela">
-                    0,00%
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    DiferenГ§a para a meta
-                </td>
-
-                <td id="pdfDiferenca">
-                    0,00%
-                </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>
-                    SituaГ§ГЈo
-                </td>
-
-                <td id="pdfSituacao">
-                    вҖ”
-                </td>
-
-            </tr>
-
-        </tbody>
-
-    </table>
-
-
-    <div class="pdf-grafico-titulo">
-        DistribuiГ§ГЈo do espaГ§o da gГҙndola
-    </div>
-
-
-    <div class="pizza-area">
-
-        <div
-            class="pizza"
-            id="pizzaPDF"
-        ></div>
-
-
-        <div class="legenda-pizza">
-
-            <div>
-
-                <span
-                    class="legenda-cor cor-meu"
-                ></span>
-
-                Meu espaГ§o:
-
-                <strong id="pizzaMeuTexto">
-                    0,00 cm
-                </strong>
-
-            </div>
-
-
-            <div>
-
-                <span
-                    class="legenda-cor cor-restante"
-                ></span>
-
-                EspaГ§o restante:
-
-                <strong id="pizzaRestanteTexto">
-                    0,00 cm
-                </strong>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div
-        class="pdf-mensagem"
-        id="pdfMensagem"
-    >
-        вҖ”
-    </div>
-
-
-    <div class="pdf-footer">
-
-        MShare Space вҖў Share de GГҙndola<br>
-        Desenvolvido por Yuri Lima
-
-    </div>
-
-</div>
-
 
 <script>
 
-/* ================================
-   ELEMENTOS
-================================ */
-
-const metaInput =
-    document.getElementById("meta");
-
-const totalInput =
-    document.getElementById("total");
-
-const meuEspacoInput =
-    document.getElementById("meuEspaco");
-
-const resultado =
-    document.getElementById("resultado");
-
-const shareResultado =
-    document.getElementById("shareResultado");
-
-const statusResultado =
-    document.getElementById("statusResultado");
-
-const emoji =
-    document.getElementById("emojiResultado");
-
-
-/* ================================
-   FORMATAГҮГғO
-================================ */
+const metaInput = document.getElementById("meta");
+const totalInput = document.getElementById("total");
+const meuEspacoInput = document.getElementById("meuEspaco");
+const resultado = document.getElementById("resultado");
+const shareResultado = document.getElementById("shareResultado");
+const statusResultado = document.getElementById("statusResultado");
+const emoji = document.getElementById("emojiResultado");
 
 function numero(valor){
-
-    if(
-        valor===null ||
-        valor===undefined ||
-        valor===""
-    ){
-        return 0;
-    }
-
-    let texto=
-        String(valor)
-        .replace(",", ".");
-
+    if(valor===null||valor===undefined||valor==="")return 0;
+    let texto=String(valor).replace(",",".");
     const n=parseFloat(texto);
-
-    return Number.isFinite(n)
-        ? n
-        : 0;
+    return Number.isFinite(n)?n:0;
 }
-
 
 function formatarNumero(valor){
-
-    return Number(valor||0)
-        .toLocaleString(
-            "pt-BR",
-            {
-                minimumFractionDigits:2,
-                maximumFractionDigits:2
-            }
-        );
-
+    return Number(valor||0).toLocaleString("pt-BR",{
+        minimumFractionDigits:2,maximumFractionDigits:2
+    });
 }
-
 
 function formatarPercentual(valor){
-
-    return Number(valor||0)
-        .toLocaleString(
-            "pt-BR",
-            {
-                minimumFractionDigits:2,
-                maximumFractionDigits:2
-            }
-        )+"%";
-
+    return Number(valor||0).toLocaleString("pt-BR",{
+        minimumFractionDigits:2,maximumFractionDigits:2
+    })+"%";
 }
-
-
-/* ================================
-   DATA E HORA
-================================ */
 
 function atualizarDataHora(){
-
-    const agora=new Date();
-
-    const data=
-        new Intl.DateTimeFormat(
-            "pt-BR",
-            {
-                timeZone:"America/Fortaleza",
-                day:"2-digit",
-                month:"2-digit",
-                year:"numeric"
-            }
-        ).format(agora);
-
-    const hora=
-        new Intl.DateTimeFormat(
-            "pt-BR",
-            {
-                timeZone:"America/Fortaleza",
-                hour:"2-digit",
-                minute:"2-digit",
-                second:"2-digit",
-                hour12:false
-            }
-        ).format(agora);
-
-    document.getElementById(
-        "dataAtual"
-    ).textContent=data;
-
-    document.getElementById(
-        "horaAtual"
-    ).textContent=hora;
-
-}
-
-atualizarDataHora();
-
-setInterval(
-    atualizarDataHora,
-    1000
-);
-
-
-/* ================================
-   CГҒLCULO
-================================ */
-
-function calcular(){
-
-    const meta=
-        numero(metaInput.value);
-
-    const total=
-        numero(totalInput.value);
-
-    const meuEspaco=
-        numero(meuEspacoInput.value);
-
-
-    const espacoRestante=
-        Math.max(
-            0,
-            total-meuEspaco
-        );
-
-
-    document.getElementById(
-        "resumoMeta"
-    ).textContent=
-        formatarPercentual(meta);
-
-
-    document.getElementById(
-        "resumoTotal"
-    ).textContent=
-        formatarNumero(total)+" cm";
-
-
-    document.getElementById(
-        "resumoMeuEspaco"
-    ).textContent=
-        formatarNumero(meuEspaco)+" cm";
-
-
-    document.getElementById(
-        "resumoRestante"
-    ).textContent=
-        formatarNumero(espacoRestante)+" cm";
-
-
-    if(total<=0){
-
-        resultado.className=
-            "resultado neutro";
-
-        shareResultado.textContent=
-            "0,00%";
-
-        statusResultado.textContent=
-            "Preencha o espaГ§o total";
-
-        emoji.textContent="";
-        emoji.className=
-            "emoji-resultado";
-
-        atualizarResumo(
-            meta,
-            total,
-            meuEspaco,
-            espacoRestante,
-            0,
-            0,
-            "вҖ”"
-        );
-
-        atualizarGrafico(
-            meta,
-            0,
-            0
-        );
-
-        return;
-    }
-
-
-    const share=
-        (meuEspaco/total)*100;
-
-    const diferenca=
-        share-meta;
-
-
-    shareResultado.textContent=
-        formatarPercentual(share);
-
-
-    document.getElementById(
-        "resumoShare"
-    ).textContent=
-        formatarPercentual(share);
-
-
-    document.getElementById(
-        "resumoDiferenca"
-    ).textContent=
-        (diferenca>=0 ? "+" : "")+
-        formatarPercentual(diferenca);
-
-
-    if(meta<=0){
-
-        resultado.className=
-            "resultado neutro";
-
-        statusResultado.textContent=
-            "Informe uma meta para avaliar";
-
-        emoji.textContent="";
-        emoji.className=
-            "emoji-resultado";
-
-        atualizarResumo(
-            meta,
-            total,
-            meuEspaco,
-            espacoRestante,
-            share,
-            diferenca,
-            "вҖ”"
-        );
-
-        atualizarGrafico(
-            meta,
-            share,
-            diferenca
-        );
-
-        return;
-    }
-
-
-    if(share>=meta){
-
-        resultado.className=
-            "resultado bom";
-
-        statusResultado.textContent=
-            "вң“ META ATINGIDA";
-
-        emoji.textContent="рҹ‘Қ";
-
-        emoji.className=
-            "emoji-resultado mostrar bom";
-
-        atualizarResumo(
-            meta,
-            total,
-            meuEspaco,
-            espacoRestante,
-            share,
-            diferenca,
-            "Atingida"
-        );
-
-        atualizarGrafico(
-            meta,
-            share,
-            diferenca
-        );
-
-    }
-
-    else{
-
-        resultado.className=
-            "resultado ruim";
-
-        statusResultado.textContent=
-            "вң• META NГғO ATINGIDA";
-
-        emoji.textContent="рҹҳ”";
-
-        emoji.className=
-            "emoji-resultado mostrar ruim";
-
-        atualizarResumo(
-            meta,
-            total,
-            meuEspaco,
-            espacoRestante,
-            share,
-            diferenca,
-            "NГЈo atingida"
-        );
-
-        atualizarGrafico(
-            meta,
-            share,
-            diferenca
-        );
-
-    }
-
-}
-
-
-/* ================================
-   RESUMO
-================================ */
-
-function atualizarResumo(
-    meta,
-    total,
-    meuEspaco,
-    espacoRestante,
-    share,
-    diferenca,
-    situacao
-){
-
-    document.getElementById(
-        "resumoMeta"
-    ).textContent=
-        formatarPercentual(meta);
-
-    document.getElementById(
-        "resumoTotal"
-    ).textContent=
-        formatarNumero(total)+" cm";
-
-    document.getElementById(
-        "resumoMeuEspaco"
-    ).textContent=
-        formatarNumero(meuEspaco)+" cm";
-
-    document.getElementById(
-        "resumoRestante"
-    ).textContent=
-        formatarNumero(espacoRestante)+" cm";
-
-    document.getElementById(
-        "resumoShare"
-    ).textContent=
-        formatarPercentual(share);
-
-    document.getElementById(
-        "resumoDiferenca"
-    ).textContent=
-        (diferenca>=0 ? "+" : "")+
-        formatarPercentual(diferenca);
-
-    document.getElementById(
-        "resumoSituacao"
-    ).textContent=
-        situacao;
-
-
-    const mensagem=
-        document.getElementById(
-            "resumoMensagem"
-        );
-
-
-    if(situacao==="Atingida"){
-
-        mensagem.innerHTML=
-            "рҹҺҜ Sua participaГ§ГЈo Г© de <strong>"+
-            formatarPercentual(share)+
-            "</strong>, atingindo a meta de <strong>"+
-            formatarPercentual(meta)+
-            "</strong>.";
-
-    }
-
-    else if(situacao==="NГЈo atingida"){
-
-        mensagem.innerHTML=
-            "вҡ пёҸ Seu share Г© de <strong>"+
-            formatarPercentual(share)+
-            "</strong>. Faltam <strong>"+
-            formatarPercentual(
-                Math.abs(diferenca)
-            )+
-            "</strong> para atingir a meta.";
-
-    }
-
-    else{
-
-        mensagem.textContent=
-            "Preencha a meta e os espaГ§os para realizar a apuraГ§ГЈo.";
-
-    }
-
-}
-
-
-/* ================================
-   GRГҒFICO
-================================ */
-
-function atualizarGrafico(
-    meta,
-    share,
-    diferenca
-){
-
-    const escala=550;
-
-
-    const larguraMeta=
-        Math.max(
-            0,
-            Math.min(100,meta)
-        )/100*escala;
-
-
-    const larguraShare=
-        Math.max(
-            0,
-            Math.min(100,share)
-        )/100*escala;
-
-
-    const larguraDiferenca=
-        Math.max(
-            0,
-            Math.min(100,Math.abs(diferenca))
-        )/100*escala;
-
-
-    document.getElementById(
-        "barraMeta"
-    ).setAttribute(
-        "width",
-        larguraMeta
-    );
-
-
-    document.getElementById(
-        "barraShare"
-    ).setAttribute(
-        "width",
-        larguraShare
-    );
-
-
-    document.getElementById(
-        "barraDiferenca"
-    ).setAttribute(
-        "width",
-        larguraDiferenca
-    );
-
-
-    document.getElementById(
-        "textoMetaGrafico"
-    ).textContent=
-        formatarPercentual(meta);
-
-
-    document.getElementById(
-        "textoShareGrafico"
-    ).textContent=
-        formatarPercentual(share);
-
-
-    document.getElementById(
-        "textoDiferencaGrafico"
-    ).textContent=
-        (diferenca>=0 ? "+" : "")+
-        formatarPercentual(diferenca);
-
-
-    const posicaoMeta=
-        100+
-        Math.max(
-            0,
-            Math.min(100,meta)
-        )/100*550;
-
-
-    document.getElementById(
-        "linhaMeta"
-    ).setAttribute(
-        "x1",
-        posicaoMeta
-    );
-
-    document.getElementById(
-        "linhaMeta"
-    ).setAttribute(
-        "x2",
-        posicaoMeta
-    );
-
-
-    const barraDiferenca=
-        document.getElementById(
-            "barraDiferenca"
-        );
-
-
-    if(diferenca>=0){
-
-        barraDiferenca.setAttribute(
-            "fill",
-            "#00d084"
-        );
-
-    }
-
-    else{
-
-        barraDiferenca.setAttribute(
-            "fill",
-            "#ff4054"
-        );
-
-    }
-
-}
-
-
-/* ================================
-   TOOLTIP
-================================ */
-
-document.getElementById(
-    "barraMeta"
-).addEventListener(
-    "click",
-    function(){
-
-        const meta=
-            numero(metaInput.value);
-
-        document.getElementById(
-            "tooltipGrafico"
-        ).textContent=
-            "Meta desejada: "+
-            formatarPercentual(meta);
-
-    }
-);
-
-
-document.getElementById(
-    "barraShare"
-).addEventListener(
-    "click",
-    function(){
-
-        const total=
-            numero(totalInput.value);
-
-        const meuEspaco=
-            numero(meuEspacoInput.value);
-
-        const share=
-            total>0
-            ? (meuEspaco/total)*100
-            : 0;
-
-        document.getElementById(
-            "tooltipGrafico"
-        ).textContent=
-            "Share apurado: "+
-            formatarPercentual(share);
-
-    }
-);
-
-
-document.getElementById(
-    "barraDiferenca"
-).addEventListener(
-    "click",
-    function(){
-
-        const meta=
-            numero(metaInput.value);
-
-        const total=
-            numero(totalInput.value);
-
-        const meuEspaco=
-            numero(meuEspacoInput.value);
-
-        const share=
-            total>0
-            ? (meuEspaco/total)*100
-            : 0;
-
-        const diferenca=
-            share-meta;
-
-        document.getElementById(
-            "tooltipGrafico"
-        ).textContent=
-            "DiferenГ§a: "+
-            (diferenca>=0 ? "+" : "")+
-            formatarPercentual(diferenca);
-
-    }
-);
-
-
-/* ================================
-   CALCULADORA
-================================ */
-
-function abrirCalculadora(){
-
-    document.getElementById(
-        "modalCalculadora"
-    ).classList.add("ativo");
-
-}
-
-
-function fecharCalculadora(){
-
-    document.getElementById(
-        "modalCalculadora"
-    ).classList.remove("ativo");
-
-}
-
-
-function calcAdicionar(valor){
-
-    const display=
-        document.getElementById(
-            "calcDisplay"
-        );
-
-    if(display.value==="Erro"){
-        display.value="";
-    }
-
-    display.value+=valor;
-
-}
-
-
-function calcLimpar(){
-
-    document.getElementById(
-        "calcDisplay"
-    ).value="";
-
-}
-
-
-function calcResultado(){
-
-    const display=
-        document.getElementById(
-            "calcDisplay"
-        );
-
-    const expressao=
-        display.value;
-
-    if(!expressao){
-        return;
-    }
-
-
-    if(
-        !/^[0-9+\-*/().\s]+$/.test(
-            expressao
-        )
-    ){
-
-        display.value="Erro";
-
-        return;
-
-    }
-
-
-    try{
-
-        const resultadoCalc=
-            Function(
-                "return "+expressao
-            )();
-
-        if(
-            typeof resultadoCalc!=="number" ||
-            !Number.isFinite(resultadoCalc)
-        ){
-
-            display.value="Erro";
-
-            return;
-
-        }
-
-        display.value=
-            String(resultadoCalc);
-
-    }
-
-    catch(e){
-
-        display.value="Erro";
-
-    }
-
-}
-
-
-/* ================================
-   PIZZA DO PDF
-================================ */
-
-function prepararPizzaPDF(
-    meuEspaco,
-    total
-){
-
-    const pizza=
-        document.getElementById(
-            "pizzaPDF"
-        );
-
-
-    if(total<=0){
-
-        pizza.style.background="#ddd";
-
-        return;
-
-    }
-
-
-    let percentualMeu=
-        (meuEspaco/total)*100;
-
-
-    percentualMeu=
-        Math.max(
-            0,
-            Math.min(
-                100,
-                percentualMeu
-            )
-        );
-
-
-    const restante=
-        100-percentualMeu;
-
-
-    pizza.style.background=
-        "conic-gradient("+
-        "#00a8ff 0% "+
-        percentualMeu+"%, "+
-        "#e5e5e5 "+
-        percentualMeu+"% 100%)";
-
-
-    document.getElementById(
-        "pizzaMeuTexto"
-    ).textContent=
-        formatarNumero(meuEspaco)+
-        " cm ("+
-        formatarPercentual(percentualMeu)+
-        ")";
-
-
-    document.getElementById(
-        "pizzaRestanteTexto"
-    ).textContent=
-        formatarNumero(
-            Math.max(
-                0,
-                total-meuEspaco
-            )
-        )+
-        " cm ("+
-        formatarPercentual(restante)+
-        ")";
-
-}
-
-
-/* ================================
-   PDF
-================================ */
-
-async function baixarPDF(){
-
-    const meta=numero(metaInput.value);
-    const total=numero(totalInput.value);
-    const meuEspaco=numero(meuEspacoInput.value);
-
-    const nomeLoja=document.getElementById("nomeLoja").value.trim();
-    const enderecoLoja=document.getElementById("enderecoLoja").value.trim();
-    const nomeUsuario=document.getElementById("nomeUsuario").value.trim();
-
-    if(!nomeLoja){
-        alert("Informe o nome da loja antes de gerar o PDF.");
-        document.getElementById("nomeLoja").focus();
-        return;
-    }
-
-    if(!enderecoLoja){
-        alert("Informe o endereГ§o da loja antes de gerar o PDF.");
-        document.getElementById("enderecoLoja").focus();
-        return;
-    }
-
-    if(!nomeUsuario){
-        alert("Informe seu nome antes de gerar o PDF.");
-        document.getElementById("nomeUsuario").focus();
-        return;
-    }
-
-    if(total<=0){
-        alert("Informe o espaГ§o total antes de gerar o PDF.");
-        return;
-    }
-
-    if(meta<=0){
-        alert("Informe a meta desejada antes de gerar o PDF.");
-        return;
-    }
-
-    if(meuEspaco<0){
-        alert("Informe um valor vГЎlido para o seu espaГ§o.");
-        return;
-    }
-
-    const share=(meuEspaco/total)*100;
-    const diferenca=share-meta;
-    const atingida=share>=meta;
-    const espacoRestante=Math.max(0,total-meuEspaco);
-
     const agora=new Date();
     const data=new Intl.DateTimeFormat("pt-BR",{
         timeZone:"America/Fortaleza",
@@ -2437,443 +431,192 @@ async function baixarPDF(){
         timeZone:"America/Fortaleza",
         hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false
     }).format(agora);
+    document.getElementById("dataAtual").textContent=data;
+    document.getElementById("horaAtual").textContent=hora;
+}
 
-    /*
-      PDF nativo, sem jsPDF e sem html2canvas.
-      Isso deixa o relatГіrio independente de internet/CDN.
-    */
+atualizarDataHora();
+setInterval(atualizarDataHora,1000);
+
+function calcular(){
+    const meta=numero(metaInput.value);
+    const total=numero(totalInput.value);
+    const meuEspaco=numero(meuEspacoInput.value);
+    const espacoRestante=Math.max(0,total-meuEspaco);
+
+    document.getElementById("resumoMeta").textContent=formatarPercentual(meta);
+    document.getElementById("resumoTotal").textContent=formatarNumero(total)+" cm";
+    document.getElementById("resumoMeuEspaco").textContent=formatarNumero(meuEspaco)+" cm";
+    document.getElementById("resumoRestante").textContent=formatarNumero(espacoRestante)+" cm";
+
+    if(total<=0){
+        resultado.className="resultado neutro";
+        shareResultado.textContent="0,00%";
+        statusResultado.textContent="Preencha o espaço total";
+        emoji.textContent="";
+        emoji.className="emoji-resultado";
+        atualizarResumo(meta,total,meuEspaco,espacoRestante,0,0,"—");
+        atualizarGrafico(meta,0,0);
+        return;
+    }
+
+    const share=(meuEspaco/total)*100;
+    const diferenca=share-meta;
+
+    shareResultado.textContent=formatarPercentual(share);
+    document.getElementById("resumoShare").textContent=formatarPercentual(share);
+    document.getElementById("resumoDiferenca").textContent=
+        (diferenca>=0?"+":"")+formatarPercentual(diferenca);
+
+    if(meta<=0){
+        resultado.className="resultado neutro";
+        statusResultado.textContent="Informe uma meta para avaliar";
+        emoji.textContent="";
+        emoji.className="emoji-resultado";
+        atualizarResumo(meta,total,meuEspaco,espacoRestante,share,diferenca,"—");
+        atualizarGrafico(meta,share,diferenca);
+        return;
+    }
+
+    if(share>=meta){
+        resultado.className="resultado bom";
+        statusResultado.textContent="✓ META ATINGIDA";
+        emoji.textContent="👍";
+        emoji.className="emoji-resultado mostrar bom";
+        atualizarResumo(meta,total,meuEspaco,espacoRestante,share,diferenca,"Atingida");
+        atualizarGrafico(meta,share,diferenca);
+    } else {
+        resultado.className="resultado ruim";
+        statusResultado.textContent="✕ META NÃO ATINGIDA";
+        emoji.textContent="😔";
+        emoji.className="emoji-resultado mostrar ruim";
+        atualizarResumo(meta,total,meuEspaco,espacoRestante,share,diferenca,"Não atingida");
+        atualizarGrafico(meta,share,diferenca);
+    }
+}
+
+function atualizarResumo(meta,total,meuEspaco,espacoRestante,share,diferenca,situacao){
+    document.getElementById("resumoMeta").textContent=formatarPercentual(meta);
+    document.getElementById("resumoTotal").textContent=formatarNumero(total)+" cm";
+    document.getElementById("resumoMeuEspaco").textContent=formatarNumero(meuEspaco)+" cm";
+    document.getElementById("resumoRestante").textContent=formatarNumero(espacoRestante)+" cm";
+    document.getElementById("resumoShare").textContent=formatarPercentual(share);
+    document.getElementById("resumoDiferenca").textContent=
+        (diferenca>=0?"+":"")+formatarPercentual(diferenca);
+    document.getElementById("resumoSituacao").textContent=situacao;
+
+    const mensagem=document.getElementById("resumoMensagem");
+
+    if(situacao==="Atingida"){
+        mensagem.innerHTML=
+            "🎯 Sua participação é de <strong>"+
+            formatarPercentual(share)+
+            "</strong>, atingindo a meta de <strong>"+
+            formatarPercentual(meta)+"</strong>.";
+    } else if(situacao==="Não atingida"){
+        mensagem.innerHTML=
+            "⚠️ Seu share é de <strong>"+
+            formatarPercentual(share)+
+            "</strong>. Faltam <strong>"+
+            formatarPercentual(Math.abs(diferenca))+
+            "</strong> para atingir a meta.";
+    } else {
+        mensagem.textContent=
+            "Preencha a meta e os espaços para realizar a apuração.";
+    }
+}
+
+function atualizarGrafico(meta,share,diferenca){
+    const escala=550;
+    const larguraMeta=Math.max(0,Math.min(100,meta))/100*escala;
+    const larguraShare=Math.max(0,Math.min(100,share))/100*escala;
+    const larguraDiferenca=Math.max(0,Math.min(100,Math.abs(diferenca)))/100*escala;
+
+    document.getElementById("barraMeta").setAttribute("width",larguraMeta);
+    document.getElementById("barraShare").setAttribute("width",larguraShare);
+    document.getElementById("barraDiferenca").setAttribute("width",larguraDiferenca);
+
+    document.getElementById("textoMetaGrafico").textContent=formatarPercentual(meta);
+    document.getElementById("textoShareGrafico").textContent=formatarPercentual(share);
+    document.getElementById("textoDiferencaGrafico").textContent=
+        (diferenca>=0?"+":"")+formatarPercentual(diferenca);
+
+    const posicaoMeta=100+Math.max(0,Math.min(100,meta))/100*550;
+    document.getElementById("linhaMeta").setAttribute("x1",posicaoMeta);
+    document.getElementById("linhaMeta").setAttribute("x2",posicaoMeta);
+
+    const barraDiferenca=document.getElementById("barraDiferenca");
+    barraDiferenca.setAttribute("fill",diferenca>=0?"#00d084":"#ff4054");
+}
+
+document.getElementById("barraMeta").addEventListener("click",function(){
+    document.getElementById("tooltipGrafico").textContent=
+        "Meta desejada: "+formatarPercentual(numero(metaInput.value));
+});
+
+document.getElementById("barraShare").addEventListener("click",function(){
+    const total=numero(totalInput.value);
+    const meuEspaco=numero(meuEspacoInput.value);
+    const share=total>0?(meuEspaco/total)*100:0;
+    document.getElementById("tooltipGrafico").textContent=
+        "Share apurado: "+formatarPercentual(share);
+});
+
+document.getElementById("barraDiferenca").addEventListener("click",function(){
+    const meta=numero(metaInput.value);
+    const total=numero(totalInput.value);
+    const meuEspaco=numero(meuEspacoInput.value);
+    const share=total>0?(meuEspaco/total)*100:0;
+    const diferenca=share-meta;
+    document.getElementById("tooltipGrafico").textContent=
+        "Diferença: "+(diferenca>=0?"+":"")+formatarPercentual(diferenca);
+});
+
+function abrirCalculadora(){
+    document.getElementById("modalCalculadora").classList.add("ativo");
+}
+
+function fecharCalculadora(){
+    document.getElementById("modalCalculadora").classList.remove("ativo");
+}
+
+function calcAdicionar(valor){
+    const display=document.getElementById("calcDisplay");
+    if(display.value==="Erro"){display.value="";}
+    display.value+=valor;
+}
+
+function calcLimpar(){
+    document.getElementById("calcDisplay").value="";
+}
+
+function calcResultado(){
+    const display=document.getElementById("calcDisplay");
+    const expressao=display.value;
+    if(!expressao)return;
+    if(!/^[0-9+\-*/().\s]+$/.test(expressao)){
+        display.value="Erro";return;
+    }
     try{
-        const pdfBytes=criarPDFMShare({
-            nomeLoja,enderecoLoja,nomeUsuario,data,hora,
-            meta,total,meuEspaco,espacoRestante,share,diferenca,atingida
-        });
-
-        const blob=new Blob([pdfBytes],{type:"application/pdf"});
-        const nomeArquivo="MShare-Space-"+agora.getFullYear()+"-"+
-            String(agora.getMonth()+1).padStart(2,"0")+"-"+
-            String(agora.getDate()).padStart(2,"0")+".pdf";
-
-        const salvo=await salvarPDFAndroid(blob,nomeArquivo);
-
-        if(!salvo){
-            alert("O PDF foi gerado. Escolha 'Salvar/Download' ou 'Compartilhar' na opГ§ГЈo exibida.");
-            const url=URL.createObjectURL(blob);
-
-            /*
-              Primeiro tentamos o download tradicional. Em navegadores mГіveis
-              ele abre o gerenciador de downloads; em WebViews que bloqueiam
-              downloads, a segunda tentativa abre o PDF para impressГЈo/salvamento.
-            */
-            const a=document.createElement("a");
-            a.href=url;
-            a.download=nomeArquivo;
-            a.rel="noopener";
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-
-            setTimeout(function(){
-                try{
-                    window.open(url,"_blank");
-                }catch(e){}
-                setTimeout(function(){URL.revokeObjectURL(url);},60000);
-            },900);
+        const r=Function("return "+expressao)();
+        if(typeof r!=="number"||!Number.isFinite(r)){
+            display.value="Erro";return;
         }
-
-    }catch(erro){
-        console.error("Erro ao gerar PDF:",erro);
-        alert("NГЈo foi possГӯvel gerar o PDF. Tente novamente.");
-    }
-}
-
-
-/* =========================================================
-   GERADOR DE PDF NATIVO вҖ” FUNCIONA OFFLINE
-   ========================================================= */
-
-function pdfEscape(texto){
-    return String(texto==null?"":texto)
-        .replace(/\\/g,"\\\\")
-        .replace(/\(/g,"\\(")
-        .replace(/\)/g,"\\)");
-}
-
-/* Converte Unicode para uma aproximaГ§ГЈo compatГӯvel com WinAnsi.
-   O conteГәdo do relatГіrio Г© portuguГӘs; os caracteres mais comuns
-   sГЈo mapeados para cГіdigos octais do PDF/WinAnsi. */
-function pdfWinAnsi(texto){
-    const mapa={
-        "вӮ¬":"\\200","вҖҡ":"\\202","Ж’":"\\203","вҖһ":"\\204","вҖҰ":"\\205","вҖ  ":"\\206",
-        "вҖЎ":"\\207","ЛҶ":"\\210","вҖ°":"\\211","Е  ":"\\212","вҖ№":"\\213","Е’":"\\214",
-        "ЕҪ":"\\216","вҖҳ":"\\221","вҖҷ":"\\222","вҖң":"\\223","вҖқ":"\\224","вҖў":"\\225",
-        "вҖ“":"\\226","вҖ”":"\\227","Лң":"\\230","в„ў":"\\231","ЕЎ":"\\232","вҖә":"\\233",
-        "Е“":"\\234","Еҫ":"\\236","Её":"\\237",
-        "ГҖ":"\\300","ГҒ":"\\301","ГӮ":"\\302","Гғ":"\\303","Г„":"\\304","Г…":"\\305",
-        "ГҶ":"\\306","ГҮ":"\\307","ГҲ":"\\310","Гү":"\\311","ГҠ":"\\312","ГӢ":"\\313",
-        "ГҢ":"\\314","ГҚ":"\\315","ГҺ":"\\316","ГҸ":"\\317","Гҗ":"\\320","Г‘":"\\321",
-        "Г’":"\\322","Г“":"\\323","Г”":"\\324","Г•":"\\325","Г–":"\\326","Гҳ":"\\330",
-        "Гҷ":"\\331","Гҡ":"\\332","Гӣ":"\\333","Гң":"\\334","Гқ":"\\335","Гһ":"\\336",
-        "Гҹ":"\\337","Г  ":"\\340","ГЎ":"\\341","Гў":"\\342","ГЈ":"\\343","ГӨ":"\\344",
-        "ГҘ":"\\345","ГҰ":"\\346","Г§":"\\347","ГЁ":"\\350","Г©":"\\351","ГӘ":"\\352",
-        "Г«":"\\353","Г¬":"\\354","Гӯ":"\\355","Г®":"\\356","ГҜ":"\\357","Г°":"\\360",
-        "Гұ":"\\361","ГІ":"\\362","Гі":"\\363","Гҙ":"\\364","Гө":"\\365","Г¶":"\\366",
-        "Гё":"\\370","Г№":"\\371","Гә":"\\372","Г»":"\\373","Гј":"\\374","ГҪ":"\\375",
-        "Гҫ":"\\376","Гҝ":"\\377"
-    };
-    let out="";
-    for(const ch of String(texto)){
-        out += mapa[ch] || (ch.charCodeAt(0)<=255 ? ch : "?");
-    }
-    return out;
-}
-
-function pdfText(cmds,text,x,y,size=10,bold=false){
-    const font=bold?"F2":"F1";
-    cmds.push("BT");
-    cmds.push("/"+font+" "+size+" Tf");
-    cmds.push(x.toFixed(2)+" "+y.toFixed(2)+" Td");
-    cmds.push("("+pdfWinAnsi(pdfEscape(text))+") Tj");
-    cmds.push("ET");
-}
-
-function pdfLine(cmds,x1,y1,x2,y2){
-    cmds.push(x1+" "+y1+" m "+x2+" "+y2+" l S");
-}
-
-function pdfRect(cmds,x,y,w,h,fillRGB,strokeRGB=null,lineWidth=1){
-    if(fillRGB){
-        cmds.push(fillRGB[0]+" "+fillRGB[1]+" "+fillRGB[2]+" rg");
-    }
-    if(strokeRGB){
-        cmds.push(strokeRGB[0]+" "+strokeRGB[1]+" "+strokeRGB[2]+" RG");
-        cmds.push(lineWidth+" w");
-    }
-    cmds.push(x+" "+y+" "+w+" "+h+" re "+(fillRGB?"f":"S"));
-}
-
-function pdfCircle(cmds,cx,cy,r,fillRGB){
-    const k=0.5522847498;
-    const c=r*k;
-    cmds.push(fillRGB[0]+" "+fillRGB[1]+" "+fillRGB[2]+" rg");
-    cmds.push((cx+r)+" "+cy+" m");
-    cmds.push((cx+r)+" "+(cy+c)+" "+(cx+c)+" "+(cy+r)+" "+cx+" "+(cy+r)+" c");
-    cmds.push((cx-c)+" "+(cy+r)+" "+(cx-r)+" "+(cy+c)+" "+(cx-r)+" "+cy+" c");
-    cmds.push((cx-r)+" "+(cy-c)+" "+(cx-c)+" "+(cy-r)+" "+cx+" "+(cy-r)+" c");
-    cmds.push((cx+c)+" "+(cy-r)+" "+(cx+r)+" "+(cy-c)+" "+(cx+r)+" "+cy+" c f");
-}
-
-function criarPDFMShare(d){
-    const W=595.28,H=841.89; // A4 em pontos
-    const paginas=[];
-    let cmds=[];
-    let pageNo=0;
-
-    const azul=[0,0.66,1];
-    const azulEscuro=[0.03,0.08,0.13];
-    const cinza=[0.92,0.93,0.94];
-    const cinzaTexto=[0.30,0.34,0.38];
-    const verde=[0.0,0.66,0.47];
-    const vermelho=[0.90,0.18,0.31];
-
-    function novaPagina(){
-        if(cmds.length) paginas.push(cmds.join("\n"));
-        cmds=[];
-        pageNo++;
-        // cabeГ§alho
-        pdfText(cmds,"MShare Space",42,800,22,true);
-        pdfText(cmds,"Calculadora de Share de Gondola",42,780,10,false);
-        cmds.push(azul[0]+" "+azul[1]+" "+azul[2]+" RG");
-        cmds.push("2.5 w");
-        pdfLine(cmds,42,768,553,768);
-    }
-
-    function rodape(){
-        cmds.push("0.75 0.75 0.75 RG");
-        pdfLine(cmds,42,42,553,42);
-        pdfText(cmds,"MShare Space - Share de Gondola",42,26,8,false);
-        pdfText(cmds,"Desenvolvido por Yuri Lima",410,26,8,false);
-    }
-
-    novaPagina();
-
-    // Dados da loja
-    pdfText(cmds,"INFORMACOES DA MEDICAO",42,738,13,true);
-    const caixas=[
-        ["Nome da loja",d.nomeLoja],
-        ["Endereco",d.enderecoLoja],
-        ["Responsavel pela medicao",d.nomeUsuario],
-        ["Data",d.data+"  "+d.hora]
-    ];
-    let y=705;
-    for(let i=0;i<caixas.length;i++){
-        const col=i%2, row=Math.floor(i/2);
-        const x=42+col*258, yy=y-row*62;
-        pdfRect(cmds,x,yy-42,245,48,[0.97,0.97,0.97],[0.85,0.85,0.85],1);
-        pdfText(cmds,caixas[i][0].toUpperCase(),x+10,yy-8,7,false);
-        pdfText(cmds,caixas[i][1],x+10,yy-27,10,true);
-    }
-
-    let base=575;
-    const corStatus=d.atingida?verde:vermelho;
-    pdfRect(cmds,42,base-70,511,70,d.atingida?[0.93,1,0.97]:[1,0.94,0.95],corStatus,2);
-    pdfText(cmds,formatarPercentual(d.share),42,base-35,28,true);
-    pdfText(cmds,d.atingida?"META ATINGIDA":"META NAO ATINGIDA",210,base-30,14,true);
-
-    const rows=[
-        ["Meta desejada",formatarPercentual(d.meta)],
-        ["Espaco total",formatarNumero(d.total)+" cm"],
-        ["Meu espaco",formatarNumero(d.meuEspaco)+" cm"],
-        ["Espaco restante",formatarNumero(d.espacoRestante)+" cm"],
-        ["Share apurado",formatarPercentual(d.share)],
-        ["Diferenca para a meta",(d.diferenca>=0?"+":"")+formatarPercentual(d.diferenca)],
-        ["Situacao",d.atingida?"Meta atingida":"Meta nao atingida"]
-    ];
-
-    let ty=460;
-    pdfText(cmds,"RESUMO DA APURACAO",42,ty+25,13,true);
-    pdfRect(cmds,42,ty-225,511,230,[1,1,1],[0.82,0.82,0.82],1);
-    pdfRect(cmds,42,ty-20,511,25,azulEscuro,null,0);
-    pdfText(cmds,"Informacao",55,ty-12,9,true);
-    pdfText(cmds,"Resultado",400,ty-12,9,true);
-
-    let ry=ty-42;
-    rows.forEach((r,i)=>{
-        if(i%2===0) pdfRect(cmds,42,ry-7,511,24,[0.97,0.97,0.97],null,0);
-        pdfText(cmds,r[0],55,ry,9,false);
-        pdfText(cmds,r[1],400,ry,9,true);
-        ry-=27;
-    });
-
-    // Pizza em vetor
-    const cy=150,cx=170,r=72;
-    pdfText(cmds,"DISTRIBUICAO DO ESPACO DA GONDOLA",42,255,13,true);
-    const pct=Math.max(0,Math.min(100,d.share))/100;
-    // cГӯrculo restante
-    pdfCircle(cmds,cx,cy,r,[0.90,0.90,0.90]);
-    // setor do meu espaГ§o usando polГӯgono aproximado
-    if(pct>0.001){
-        const steps=Math.max(8,Math.ceil(72*pct));
-        let path=cx+" "+cy+" m ";
-        for(let i=0;i<=steps;i++){
-            const a=-Math.PI/2+i*(Math.PI*2*pct/steps);
-            path+=(cx+r*Math.cos(a)).toFixed(2)+" "+(cy+r*Math.sin(a)).toFixed(2)+" l ";
-        }
-        path+="h f";
-        cmds.push("0 0.66 1 rg");
-        cmds.push(path);
-    }
-    pdfRect(cmds,300,180,12,12,[0,0.66,1],null,0);
-    pdfText(cmds,"Meu espaco: "+formatarNumero(d.meuEspaco)+" cm",320,184,10,false);
-    pdfRect(cmds,300,150,12,12,[0.90,0.90,0.90],null,0);
-    pdfText(cmds,"Espaco restante: "+formatarNumero(d.espacoRestante)+" cm",320,154,10,false);
-    pdfText(cmds,"Participacao: "+formatarPercentual(d.share),320,124,10,true);
-
-    rodape();
-    paginas.push(cmds.join("\n"));
-
-    // Montagem do PDF
-    const objs=[];
-    function addObj(body){objs.push(body);return objs.length;}
-    const catalog=addObj("<< /Type /Catalog /Pages 2 0 R >>");
-    const pagesObjIndex=addObj(""); // preenchido depois
-    const font1=addObj("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>");
-    const font2=addObj("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>");
-
-    const pageNums=[], contentNums=[];
-    for(const content of paginas){
-        const stream=content+"\n";
-        const contentNum=addObj("<< /Length "+stream.length+" >>\nstream\n"+stream+"\nendstream");
-        contentNums.push(contentNum);
-        const pageNum=addObj("<< /Type /Page /Parent 2 0 R /MediaBox [0 0 "+W+" "+H+"] /Resources << /Font << /F1 "+font1+" 0 R /F2 "+font2+" 0 R >> >> /Contents "+contentNum+" 0 R >>");
-        pageNums.push(pageNum);
-    }
-    objs[pagesObjIndex-1]="<< /Type /Pages /Kids ["+pageNums.map(n=>n+" 0 R").join(" ")+"] /Count "+pageNums.length+" >>";
-
-    let pdf="%PDF-1.4\n%\xE2\xE3\xCF\xD3\n";
-    const offsets=[0];
-    for(let i=0;i<objs.length;i++){
-        offsets.push(pdf.length);
-        pdf+=(i+1)+" 0 obj\n"+objs[i]+"\nendobj\n";
-    }
-    const xref=pdf.length;
-    pdf+="xref\n0 "+(objs.length+1)+"\n";
-    pdf+="0000000000 65535 f \n";
-    for(let i=1;i<=objs.length;i++){
-        pdf+=String(offsets[i]).padStart(10,"0")+" 00000 n \n";
-    }
-    pdf+="trailer\n<< /Size "+(objs.length+1)+" /Root "+catalog+" 0 R >>\n";
-    pdf+="startxref\n"+xref+"\n%%EOF";
-
-    const bytes=new Uint8Array(pdf.length);
-    for(let i=0;i<pdf.length;i++) bytes[i]=pdf.charCodeAt(i)&255;
-    return bytes;
-}
-
-
-/* IntegraГ§ГЈo opcional com APK.
-   Se o aplicativo Android expuser window.Android.savePdf(base64,nome),
-   o arquivo serГЎ salvo diretamente pelo cГіdigo nativo.
-   Sem essa ponte, o HTML usa download/abertura do PDF. */
-async function salvarPDFAndroid(blob,nomeArquivo){
-    try{
-        if(window.Android && typeof window.Android.savePdf==="function"){
-            const buffer=await blob.arrayBuffer();
-            let binary="";
-            const bytes=new Uint8Array(buffer);
-            const chunk=0x8000;
-            for(let i=0;i<bytes.length;i+=chunk){
-                binary+=String.fromCharCode(...bytes.subarray(i,i+chunk));
-            }
-            const base64=btoa(binary);
-            window.Android.savePdf(base64,nomeArquivo);
-            return true;
-        }
-
-        if(navigator.share && typeof File!=="undefined"){
-            const arquivo=new File([blob],nomeArquivo,{type:"application/pdf"});
-            if(!navigator.canShare || navigator.canShare({files:[arquivo]})){
-                try{
-                    await navigator.share({
-                        title:"MShare Space",
-                        text:"Relatorio de Share de Gondola",
-                        files:[arquivo]
-                    });
-                    return true;
-                }catch(e){
-                    if(e && e.name==="AbortError") return true;
-                }
-            }
-        }
+        display.value=String(r);
     }catch(e){
-        console.warn("Salvar/compartilhar nativo indisponivel:",e);
+        display.value="Erro";
     }
-    return false;
 }
 
+document.getElementById("meta").addEventListener("input", calcular);
+document.getElementById("total").addEventListener("input", calcular);
+document.getElementById("meuEspaco").addEventListener("input", calcular);
 
-/* ================================
-   EVENTOS
-================================ */
-
-document.getElementById(
-    "meta"
-).addEventListener(
-    "input",
-    calcular
-);
-
-document.getElementById(
-    "total"
-).addEventListener(
-    "input",
-    calcular
-);
-
-document.getElementById(
-    "meuEspaco"
-).addEventListener(
-    "input",
-    calcular
-);
-
-
-document.getElementById(
-    "barraMeta"
-).addEventListener(
-    "click",
-    function(){
-
-        const meta=
-            numero(metaInput.value);
-
-        document.getElementById(
-            "tooltipGrafico"
-        ).textContent=
-            "Meta desejada: "+
-            formatarPercentual(meta);
-
+document.getElementById("modalCalculadora").addEventListener("click", function(event){
+    if(event.target === this){
+        fecharCalculadora();
     }
-);
-
-
-document.getElementById(
-    "barraShare"
-).addEventListener(
-    "click",
-    function(){
-
-        const total=
-            numero(totalInput.value);
-
-        const meuEspaco=
-            numero(meuEspacoInput.value);
-
-        const share=
-            total>0
-            ? (meuEspaco/total)*100
-            : 0;
-
-        document.getElementById(
-            "tooltipGrafico"
-        ).textContent=
-            "Share apurado: "+
-            formatarPercentual(share);
-
-    }
-);
-
-
-document.getElementById(
-    "barraDiferenca"
-).addEventListener(
-    "click",
-    function(){
-
-        const meta=
-            numero(metaInput.value);
-
-        const total=
-            numero(totalInput.value);
-
-        const meuEspaco=
-            numero(meuEspacoInput.value);
-
-        const share=
-            total>0
-            ? (meuEspaco/total)*100
-            : 0;
-
-        const diferenca=
-            share-meta;
-
-        document.getElementById(
-            "tooltipGrafico"
-        ).textContent=
-            "DiferenГ§a: "+
-            (diferenca>=0 ? "+" : "")+
-            formatarPercentual(diferenca);
-
-    }
-);
-
-
-document.getElementById(
-    "modalCalculadora"
-).addEventListener(
-    "click",
-    function(event){
-
-        if(event.target===this){
-
-            fecharCalculadora();
-
-        }
-
-    }
-);
-
-
-/* InicializaГ§ГЈo */
+});
 
 calcular();
 
