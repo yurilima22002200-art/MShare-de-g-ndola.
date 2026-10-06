@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MShare Space</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+html, body { min-height: 100%; }
+
+body {
+    background: #05060a;
+    color: #e8eaf0;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0,255,240,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,240,0.06) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+    animation: moverGrade 20s linear infinite;
+}
+
+@keyframes moverGrade {
+    from { background-position: 0 0, 0 0; }
+    to   { background-position: 50px 50px, 50px 50px; }
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(255,0,128,0.25), transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(0,255,240,0.22), transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(140,0,255,0.15), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+    animation: pulsarLuz 8s ease-in-out infinite alternate;
+}
+
+@keyframes pulsarLuz {
+    from { opacity: .6; }
+    to   { opacity: 1; }
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    position: relative;
+    z-index: 2;
+}
+
+.bebidas-fundo {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.bebida {
+    position: absolute;
+    font-size: 42px;
+    opacity: .35;
+    filter: drop-shadow(0 0 12px rgba(0,255,240,.6));
+    animation: flutuar linear infinite;
+    user-select: none;
+}
+
+@keyframes flutuar {
+    0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    10%  { opacity: .4; }
+    90%  { opacity: .4; }
+    100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+}
+
+.header {
+    background: linear-gradient(135deg, #0a0f1c 0%, #131a2e 100%);
+    color: white;
+    padding: 26px 22px;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 18px;
+    position: relative;
+    border: 1px solid rgba(0,255,240,0.35);
+    box-shadow:
+        0 0 20px rgba(0,255,240,0.25),
+        0 0 40px rgba(255,0,128,0.15),
+        inset 0 0 30px rgba(0,255,240,0.05);
+}
+
+.header h1 {
+    font-size: 28px;
+    margin-bottom: 6px;
+    background: linear-gradient(90deg, #00fff0, #ff00a0, #00fff0);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: brilharTexto 3s linear infinite;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+@keyframes brilharTexto {
+    to { background-position: 200% center; }
+}
+
+.header p {
+    font-size: 14px;
+    color: #8ad8e0;
+    letter-spacing: .5px;
+}
+
+.btn-calc {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid #00fff0;
+    background: rgba(0,255,240,0.08);
+    color: #00fff0;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .25s;
+    box-shadow: 0 0 12px rgba(0,255,240,.5);
+}
+
+.btn-calc:hover {
+    background: rgba(0,255,240,0.2);
+    transform: scale(1.08);
+    box-shadow: 0 0 22px rgba(0,255,240,.9);
+}
+
+.card,
+.resumo {
+    background: rgba(10,15,28,0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 22px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+    border: 1px solid rgba(0,255,240,0.25);
+    box-shadow:
+        0 8px 30px rgba(0,0,0,0.5),
+        0 0 25px rgba(0,255,240,0.08),
+        inset 0 0 20px rgba(0,255,240,0.03);
+}
+
+.card h2,
+.resumo h2 {
+    font-size: 17px;
+    margin-bottom: 18px;
+    color: #00fff0;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(0,255,240,0.6);
+}
+
+.campo { margin-bottom: 16px; }
+
+.campo label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #a8b6c8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.campo input {
+    width: 100%;
+    height: 54px;
+    background: rgba(0,0,0,0.6);
+    border: 2px solid rgba(0,255,240,0.3);
+    border-radius: 14px;
+    padding: 0 16px;
+    font-size: 18px;
+    color: #fff;
+    outline: none;
+    transition: .25s;
+    font-weight: 600;
+}
+
+.campo input::placeholder { color: #4a5a70; }
+
+.campo input:focus {
+    border-color: #00fff0;
+    box-shadow:
+        0 0 15px rgba(0,255,240,0.5),
+        inset 0 0 10px rgba(0,255,240,0.08);
+}
+
+.resultado {
+    text-align: center;
+    padding: 28px 18px;
+    border-radius: 18px;
+    margin-top: 10px;
+    transition: .4s;
+    position: relative;
+    background: rgba(0,0,0,0.5);
+    border: 2px solid;
+}
+
+.resultado .titulo {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    opacity: .85;
+}
+
+.resultado .percentual {
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: 1px;
+}
+
+.resultado .status {
+    margin-top: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.resultado.neutro {
+    border-color: rgba(120,140,180,0.5);
+    color: #8899b8;
+}
+
+.resultado.neutro .percentual {
+    text-shadow: 0 0 15px rgba(120,140,180,0.6);
+}
+
+.resultado.verde {
+    border-color: #00ff88;
+    color: #00ff88;
+    box-shadow:
+        0 0 30px rgba(0,255,136,0.5),
+        0 0 60px rgba(0,255,136,0.25),
+        inset 0 0 30px rgba(0,255,136,0.08);
+    animation: pulsoVerde 2s ease-in-out infinite;
+}
+
+.resultado.verde .percentual {
+    text-shadow:
+        0 0 10px #00ff88,
+        0 0 25px #00ff88,
+        0 0 45px rgba(0,255,136,0.7);
+}
+
+@keyframes pulsoVerde {
+    0%, 100% {
+        box-shadow:
+            0 0 30px rgba(0,255,136,0.5),
+            0 0 60px rgba(0,255,136,0.25),
+            inset 0 0 30px rgba(0,255,136,0.08);
+    }
+    50% {
+        box-shadow:
+            0 0 45px rgba(0,255,136,0.8),
+            0 0 90px rgba(0,255,136,0.4),
+            inset 0 0 40px rgba(0,255,136,0.15);
+    }
+}
+
+.resultado.vermelho {
+    border-color: #ff0055;
+    color: #ff0055;
+    box-shadow:
+        0 0 30px rgba(255,0,85,0.5),
+        0 0 60px rgba(255,0,85,0.25),
+        inset 0 0 30px rgba(255,0,85,0.08);
+    animation: pulsoVermelho 2s ease-in-out infinite;
+}
+
+.resultado.vermelho .percentual {
+    text-shadow:
+        0 0 10px #ff0055,
+        0 0 25px #ff0055,
+        0 0 45px rgba(255,0,85,0.7);
+}
+
+@keyframes pulsoVermelho {
+    0%, 100% {
+        box-shadow:
+            0 0 30px rgba(255,0,85,0.5),
+            0 0 60px rgba(255,0,85,0.25),
+            inset 0 0 30px rgba(255,0,85,0.08);
+    }
+    50% {
+        box-shadow:
+            0 0 45px rgba(255,0,85,0.8),
+            0 0 90px rgba(255,0,85,0.4),
+            inset 0 0 40px rgba(255,0,85,0.15);
+    }
+}
+
+.linha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0,255,240,0.12);
+    gap: 15px;
+}
+
+.linha:last-child { border-bottom: none; }
+
+.linha span:first-child {
+    color: #8fa0b8;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.linha span:last-child {
+    font-weight: 700;
+    font-size: 16px;
+    text-align: right;
+    color: #00fff0;
+    text-shadow: 0 0 8px rgba(0,255,240,0.5);
+}
+
+.destaque {
+    margin-top: 16px;
+    padding: 16px;
+    border-radius: 14px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: .5px;
+    border: 1px solid;
+}
+
+.destaque.verde {
+    background: rgba(0,255,136,0.08);
+    color: #00ff88;
+    border-color: rgba(0,255,136,0.5);
+    box-shadow: 0 0 20px rgba(0,255,136,0.2);
+    text-shadow: 0 0 8px rgba(0,255,136,0.6);
+}
+
+.destaque.vermelho {
+    background: rgba(255,0,85,0.08);
+    color: #ff0055;
+    border-color: rgba(255,0,85,0.5);
+    box-shadow: 0 0 20px rgba(255,0,85,0.2);
+    text-shadow: 0 0 8px rgba(255,0,85,0.6);
+}
+
+.destaque:not(.verde):not(.vermelho) {
+    background: rgba(0,255,240,0.05);
+    color: #8ad8e0;
+    border-color: rgba(0,255,240,0.3);
+}
+
+.rodape {
+    text-align: center;
+    margin-top: 22px;
+    color: #5a6a80;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* ============================= */
+/* MODAL CALCULADORA             */
+/* ============================= */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal-overlay.ativo { display: flex; }
+
+.calculadora-modal {
+    background: #0a0f1c;
+    border-radius: 24px;
+    padding: 20px;
+    width: 100%;
+    max-width: 340px;
+    position: relative;
+    border: 1px solid #00fff0;
+    box-shadow:
+        0 0 30px rgba(0,255,240,0.5),
+        0 0 60px rgba(255,0,160,0.2),
+        inset 0 0 30px rgba(0,255,240,0.05);
+    animation: aparecer .25s ease-out;
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: scale(.85); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+.btn-fechar {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: #ff0055;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 15px rgba(255,0,85,0.8);
+    transition: .2s;
+}
+
+.btn-fechar:hover {
+    background: #ff2a70;
+    transform: scale(1.1);
+}
+
+.visor-calc {
+    background: #000;
+    border: 1px solid rgba(0,255,240,0.4);
+    border-radius: 14px;
+    padding: 18px;
+    text-align: right;
+    margin-bottom: 16px;
+    min-height: 95px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    box-shadow: inset 0 0 20px rgba(0,255,240,0.1);
+}
+
+.historico-calc {
+    font-size: 13px;
+    color: #00fff0;
+    min-height: 16px;
+    word-wrap: break-word;
+    opacity: .7;
+    text-shadow: 0 0 8px rgba(0,255,240,0.6);
+}
+
+.resultado-calc {
+    font-size: 38px;
+    font-weight: 300;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    color: #fff;
+    text-shadow:
+        0 0 10px #00fff0,
+        0 0 20px rgba(0,255,240,0.6);
+}
+
+.teclado-calc {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.teclado-calc button {
+    border: 1px solid rgba(0,255,240,0.25);
+    border-radius: 50%;
+    height: 58px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: #fff;
+    background: rgba(255,255,255,0.06);
+    user-select: none;
+    font-weight: 600;
+}
+
+.teclado-calc button:hover {
+    background: rgba(0,255,240,0.15);
+    box-shadow: 0 0 15px rgba(0,255,240,0.5);
+    filter: brightness(1.2);
+}
+
+.teclado-calc button:active { transform: scale(0.95); }
+
+.teclado-calc .operador-calc {
+    background: rgba(255,0,160,0.15);
+    border-color: rgba(255,0,160,0.6);
+    color: #ff60c0;
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(255,0,160,0.7);
+}
+
+.teclado-calc .operador-calc:hover {
+    background: rgba(255,0,160,0.3);
+    box-shadow: 0 0 18px rgba(255,0,160,0.8);
+}
+
+.teclado-calc .funcao-calc {
+    background: rgba(255,255,255,0.1);
+    color: #00fff0;
+    border-color: rgba(0,255,240,0.4);
+}
+
+.teclado-calc .igual-calc {
+    background: linear-gradient(135deg, #ff00a0, #00fff0);
+    border: none;
+    grid-column: span 2;
+    border-radius: 30px;
+    color: #05060a;
+    font-weight: 900;
+    box-shadow: 0 0 20px rgba(0,255,240,0.6);
+}
+
+.teclado-calc .igual-calc:hover {
+    filter: brightness(1.15);
+    box-shadow: 0 0 30px rgba(0,255,240,0.9);
+}
+
+.teclado-calc .zero-calc {
+    grid-column: span 2;
+    border-radius: 30px;
+    text-align: left;
+    padding-left: 24px;
+}
+
+@media (max-width: 400px) {
+    body { padding: 12px; }
+    .header { padding: 20px; }
+    .header h1 { font-size: 22px; }
+    .resultado .percentual { font-size: 44px; }
+    .btn-calc {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        top: 12px;
+        right: 12px;
+    }
+    .teclado-calc button {
+        height: 52px;
+        font-size: 18px;
+    }
+    .resultado-calc { font-size: 32px; }
+    .bebida { font-size: 32px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bebidas-fundo" id="bebidasFundo"></div>
+
+<div class="container">
+
+    <div class="header">
+        <button type="button" class="btn-calc" id="btnCalc" title="Abrir calculadora">🧮</button>
+        <h1>MShare Space</h1>
+        <p>Calculadora de Share de Gôndola</p>
+    </div>
+
+    <div class="card">
+        <h2>Dados da medição</h2>
+
+        <div class="campo">
+            <label for="meta">Meta desejada (%)</label>
+            <input type="number" id="meta" min="0" max="100" step="0.01" placeholder="Ex.: 30" inputmode="decimal">
+        </div>
+
+        <div class="campo">
+            <label for="total">Espaço total</label>
+            <input type="number" id="total" min="0" step="0.01" placeholder="Ex.: 100" inputmode="decimal">
+        </div>
+
+        <div class="campo">
+            <label for="meuEspaco">Meu espaço</label>
+            <input type="number" id="meuEspaco" min="0" step="0.01" placeholder="Ex.: 35" inputmode="decimal">
+        </div>
+
+        <div id="resultado" class="resultado neutro">
+            <div class="titulo">Resultado</div>
+            <div id="percentual" class="percentual">0,00%</div>
+            <div id="status" class="status">Preencha os campos</div>
+        </div>
+    </div>
+
+    <div class="resumo">
+        <h2>Resumo do apurado</h2>
+
+        <div class="linha">
+            <span>Meta desejada</span>
+            <span id="resumoMeta">—</span>
+        </div>
+        <div class="linha">
+            <span>Espaço total</span>
+            <span id="resumoTotal">—</span>
+        </div>
+        <div class="linha">
+            <span>Meu espaço</span>
+            <span id="resumoMeuEspaco">—</span>
+        </div>
+        <div class="linha">
+            <span>Share apurado</span>
+            <span id="resumoResultado">—</span>
+        </div>
+        <div class="linha">
+            <span>Diferença para a meta</span>
+            <span id="resumoDiferenca">—</span>
+        </div>
+
+        <div id="mensagemResumo" class="destaque">
+            Preencha os dados para visualizar o resultado.
+        </div>
+    </div>
+
+    <div class="rodape">
+        MShare Space • Medição de Share de Gôndola
+    </div>
+
+</div>
+
+<div class="modal-overlay" id="modalCalc">
+    <div class="calculadora-modal">
+
+        <button type="button" class="btn-fechar" id="btnFecharCalc" title="Fechar">✕</button>
+
+        <div class="visor-calc">
+            <div class="historico-calc" id="historicoCalc"></div>
+            <div class="resultado-calc" id="resultadoCalc">0</div>
+        </div>
+
+        <div class="teclado-calc">
+            <button class="funcao-calc" onclick="calcLimpar()">AC</button>
+            <button class="funcao-calc" onclick="calcApagar()">⌫</button>
+            <button class="funcao-calc" onclick="calcPorcento()">%</button>
+            <button class="operador-calc" onclick="calcOperador('/')">÷</button>
+
+            <button onclick="calcDigito('7')">7</button>
+            <button onclick="calcDigito('8')">8</button>
+            <button onclick="calcDigito('9')">9</button>
+            <button class="operador-calc" onclick="calcOperador('*')">×</button>
+
+            <button onclick="calcDigito('4')">4</button>
+            <button onclick="calcDigito('5')">5</button>
+            <button onclick="calcDigito('6')">6</button>
+            <button class="operador-calc" onclick="calcOperador('-')">−</button>
+
+            <button onclick="calcDigito('1')">1</button>
+            <button onclick="calcDigito('2')">2</button>
+            <button onclick="calcDigito('3')">3</button>
+            <button class="operador-calc" onclick="calcOperador('+')">+</button>
+
+            <button class="zero-calc" onclick="calcDigito('0')">0</button>
+            <button onclick="calcDigito('.')">,</button>
+            <button class="igual-calc" onclick="calcCalcular()">=</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+/* ============================= */
+/* BEBIDAS FLUTUANTES            */
+/* ============================= */
+
+(function criarBebidas() {
+    const container = document.getElementById('bebidasFundo');
+    const bebidas = ['🍺', '🍻', '🥤', '🍾', '🥫', '🍶', '🥂', '🍷'];
+    const quantidade = 22;
+
+    for (let i = 0; i < quantidade; i++) {
+        const el = document.createElement('div');
+        el.className = 'bebida';
+        el.textContent = bebidas[Math.floor(Math.random() * bebidas.length)];
+        el.style.left = Math.random() * 100 + '%';
+
+        const duracao = 12 + Math.random() * 18;
+        el.style.animationDuration = duracao + 's';
+        el.style.animationDelay = (-Math.random() * duracao) + 's';
+
+        const tamanho = 26 + Math.random() * 40;
+        el.style.fontSize = tamanho + 'px';
+        el.style.opacity = 0.15 + Math.random() * 0.35;
+
+        container.appendChild(el);
+    }
+})();
+
+
+/* ============================= */
+/* SHARE DE GÔNDOLA              */
+/* ============================= */
+
+const metaInput = document.getElementById("meta");
+const totalInput = document.getElementById("total");
+const meuEspacoInput = document.getElementById("meuEspaco");
+
+const resultado = document.getElementById("resultado");
+const percentual = document.getElementById("percentual");
+const status = document.getElementById("status");
+
+const resumoMeta = document.getElementById("resumoMeta");
+const resumoTotal = document.getElementById("resumoTotal");
+const resumoMeuEspaco = document.getElementById("resumoMeuEspaco");
+const resumoResultado = document.getElementById("resumoResultado");
+const resumoDiferenca = document.getElementById("resumoDiferenca");
+const mensagemResumo = document.getElementById("mensagemResumo");
+
+function numero(valor) {
+    return parseFloat(valor) || 0;
+}
+
+function formatarNumero(valor) {
+    return valor.toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
+function calcular() {
+
+    const meta = numero(metaInput.value);
+    const total = numero(totalInput.value);
+    const meuEspaco = numero(meuEspacoInput.value);
+
+    resumoMeta.textContent = meta > 0 ? formatarNumero(meta) + "%" : "—";
+    resumoTotal.textContent = total > 0 ? formatarNumero(total) : "—";
+    resumoMeuEspaco.textContent = meuEspaco > 0 ? formatarNumero(meuEspaco) : "—";
+
+    if (total <= 0) {
+        percentual.textContent = "0,00%";
+        status.textContent = "Preencha o espaço total";
+        resultado.className = "resultado neutro";
+        resumoResultado.textContent = "—";
+        resumoDiferenca.textContent = "—";
+        mensagemResumo.className = "destaque";
+        mensagemResumo.textContent = "Informe o espaço total para calcular o Share.";
+        return;
+    }
+
+    const share = (meuEspaco / total) * 100;
+    const diferenca = share - meta;
+
+    percentual.textContent = formatarNumero(share) + "%";
+    resumoResultado.textContent = formatarNumero(share) + "%";
+
+    if (share >= meta && meta > 0) {
+        resultado.className = "resultado verde";
+        status.textContent = "META ATINGIDA ✓";
+        resumoDiferenca.textContent = "+" + formatarNumero(diferenca) + " p.p.";
+        mensagemResumo.className = "destaque verde";
+        mensagemResumo.textContent = "Meta atingida! Seu Share está dentro ou acima do objetivo.";
+    } else {
+        resultado.className = "resultado vermelho";
+        status.textContent = "META NÃO ATINGIDA";
+        resumoDiferenca.textContent = formatarNumero(diferenca) + " p.p.";
+        mensagemResumo.className = "destaque vermelho";
+
+        if (meta > 0) {
+            mensagemResumo.textContent = "Meta não atingida. É necessário aumentar seu espaço para alcançar o objetivo.";
+        } else {
+            mensagemResumo.textContent = "Informe uma meta desejada para avaliar o resultado.";
+        }
+    }
+}
+
+metaInput.addEventListener("input", calcular);
+totalInput.addEventListener("input", calcular);
+meuEspacoInput.addEventListener("input", calcular);
+
+calcular();
+
+
+/* ============================= */
+/* CALCULADORA (MODAL)           */
+/* ============================= */
+
+let calcAtual = '0';
+let calcAnterior = null;
+let calcOperacao = null;
+let calcAguardandoNovo = false;
+
+const elResultadoCalc = document.getElementById('resultadoCalc');
+const elHistoricoCalc = document.getElementById('historicoCalc');
+const modalCalc = document.getElementById('modalCalc');
+const btnCalc = document.getElementById('btnCalc');
+const btnFecharCalc = document.getElementById('btnFecharCalc');
+
+function calcAtualizarVisor() {
+    elResultadoCalc.textContent = calcAtual.replace('.', ',');
+
+    if (calcAnterior !== null && calcOperacao) {
+        const simbolos = { '+': '+', '-': '−', '*': '×', '/': '÷' };
+        elHistoricoCalc.textContent =
+            calcAnterior.toString().replace('.', ',') + ' ' + simbolos[calcOperacao];
+    } else {
+        elHistoricoCalc.textContent = '';
+    }
+}
+
+function calcDigito(d) {
+    if (calcAguardandoNovo) {
+        calcAtual = (d === '.') ? '0.' : d;
+        calcAguardandoNovo = false;
+    } else {
+        if (d === '.' && calcAtual.includes('.')) return;
+        calcAtual = (calcAtual === '0' && d !== '.') ? d : calcAtual + d;
+    }
+    calcAtualizarVisor();
+}
+
+function calcOperador(op) {
+    if (calcOperacao && !calcAguardandoNovo) calcCalcular();
+    calcAnterior = parseFloat(calcAtual);
+    calcOperacao = op;
+    calcAguardandoNovo = true;
+    calcAtualizarVisor();
+}
+
+function calcCalcular() {
+    if (calcOperacao === null || calcAnterior === null) return;
+
+    const b = parseFloat(calcAtual);
+    let resultadoCalc;
+
+    switch (calcOperacao) {
+        case '+': resultadoCalc = calcAnterior + b; break;
+        case '-': resultadoCalc = calcAnterior - b; break;
+        case '*': resultadoCalc = calcAnterior * b; break;
+        case '/': resultadoCalc = (b === 0) ? 'Erro' : calcAnterior / b; break;
+    }
+
+    if (resultadoCalc !== 'Erro') {
+        resultadoCalc = Math.round(resultadoCalc * 1e10) / 1e10;
+    }
+
+    calcAtual = resultadoCalc.toString();
+    calcOperacao = null;
+    calcAnterior = null;
+    calcAguardandoNovo = true;
+    calcAtualizarVisor();
+}
+
+function calcLimpar() {
+    calcAtual = '0';
+    calcAnterior = null;
+    calcOperacao = null;
+    calcAguardandoNovo = false;
+    calcAtualizarVisor();
+}
+
+function calcApagar() {
+    if (calcAguardandoNovo) return;
+    calcAtual = calcAtual.length > 1 ? calcAtual.slice(0, -1) : '0';
+    calcAtualizarVisor();
+}
+
+function calcPorcento() {
+    calcAtual = (parseFloat(calcAtual) / 100).toString();
+    calcAtualizarVisor();
+}
+
+btnCalc.addEventListener('click', function () {
+    modalCalc.classList.add('ativo');
+});
+
+btnFecharCalc.addEventListener('click', function () {
+    modalCalc.classList.remove('ativo');
+});
+
+modalCalc.addEventListener('click', function (e) {
+    if (e.target === modalCalc) modalCalc.classList.remove('ativo');
+});
+
+document.addEventListener('keydown', function (e) {
+
+    if (!modalCalc.classList.contains('ativo')) return;
+
+    if (e.key >= '0' && e.key <= '9') calcDigito(e.key);
+    else if (e.key === '.' || e.key === ',') calcDigito('.');
+    else if (e.key === '+') calcOperador('+');
+    else if (e.key === '-') calcOperador('-');
+    else if (e.key === '*') calcOperador('*');
+    else if (e.key === '/') { e.preventDefault(); calcOperador('/'); }
+    else if (e.key === 'Enter' || e.key === '=') calcCalcular();
+    else if (e.key === 'Backspace') calcApagar();
+    else if (e.key === 'Escape') modalCalc.classList.remove('ativo');
+    else if (e.key === '%') calcPorcento();
+});
+
+calcAtualizarVisor();
+
+</script>
+
+</body>
+</html>
