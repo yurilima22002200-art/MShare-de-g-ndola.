@@ -7,6 +7,9 @@
 
 <title>MShare Space</title>
 
+<!-- Biblioteca para gerar print da tela -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 
@@ -159,6 +162,32 @@ input:focus{border-color:#00d9ff;box-shadow:0 0 0 2px rgba(0,217,255,.12);}
 
 .calculadora-btn{background:linear-gradient(90deg,#6a11cb,#2575fc);}
 
+/* ==========================================
+   BOTÕES DE PRINT
+   ========================================== */
+.area-print{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:5px;
+}
+
+.botao-print{
+    background:linear-gradient(90deg,#008f6b,#00d9ff);
+    margin-top:0;
+}
+
+.botao-share{
+    background:linear-gradient(90deg,#6a11cb,#ff3cac);
+    margin-top:0;
+}
+
+.botao-print:disabled,
+.botao-share:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
 .resultado{
     text-align:center;padding:24px 15px;
     border-radius:18px;border:1px solid #244866;
@@ -288,31 +317,67 @@ svg rect{cursor:pointer;transition:width .4s ease;}
     padding:20px 5px 8px;line-height:1.7;
 }
 
+/* Toast de feedback */
+.toast{
+    position:fixed;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:linear-gradient(90deg,#008f6b,#00d9ff);
+    color:#fff;
+    padding:13px 24px;
+    border-radius:30px;
+    font-size:14px;
+    font-weight:bold;
+    z-index:2000;
+    opacity:0;
+    transition:all .35s ease;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+    pointer-events:none;
+    max-width:90%;
+    text-align:center;
+}
+
+.toast.mostrar{
+    transform:translateX(-50%) translateY(0);
+    opacity:1;
+}
+
+.toast.erro{
+    background:linear-gradient(90deg,#a83048,#ff4054);
+}
+
 @media(max-width:500px){
     body{padding:12px;}
     .logo{font-size:29px;}
     .card{padding:15px;}
     .resultado .numero{font-size:45px;}
     .resumo{grid-template-columns:1fr 1fr;}
+    .area-print{grid-template-columns:1fr;}
+}
+
+/* Esconde botões de print no momento da captura */
+.capturando .area-print,
+.capturando .aviso-offline{
+    display:none !important;
 }
 </style>
 </head>
 
 <body>
 
-<!-- Aviso de offline (aparece no topo quando cai) -->
+<!-- Aviso de offline -->
 <div id="avisoOffline" class="aviso-offline">
     📡 Sem conexão com a internet — os cálculos continuam funcionando normalmente
 </div>
 
-<div class="container">
+<div class="container" id="conteudoCaptura">
 
 <header class="header">
     <div class="logo">MShare Space</div>
     <div class="subtitle">Calculadora de Share de Gôndola</div>
     <div class="frase">Para facilitar ainda mais seus dias</div>
 
-    <!-- Indicador Online/Offline -->
     <div id="statusConexao" class="status-conexao online">
         <span class="bolinha"></span>
         <span id="textoConexao">Verificando...</span>
@@ -449,12 +514,28 @@ svg rect{cursor:pointer;transition:width .4s ease;}
     </div>
 </section>
 
+<!-- BOTÕES DE PRINT -->
+<section class="card">
+    <h2>📸 Exportar resultado</h2>
+    <div class="area-print">
+        <button class="botao botao-print" id="btnPrint" onclick="tirarPrint()">
+            📥 SALVAR IMAGEM
+        </button>
+        <button class="botao botao-share" id="btnShare" onclick="compartilharPrint()">
+            📤 COMPARTILHAR
+        </button>
+    </div>
+</section>
+
 <footer class="footer">
     MShare Space • Share de Gôndola<br>
     Desenvolvido por Yuri Lima
 </footer>
 
 </div>
+
+<!-- Toast de feedback -->
+<div id="toast" class="toast"></div>
 
 <div class="modal" id="modalCalculadora">
     <div class="calculadora">
@@ -512,6 +593,10 @@ const statusConexaoEl = $("statusConexao");
 const textoConexaoEl  = $("textoConexao");
 const avisoOfflineEl  = $("avisoOffline");
 
+const toastEl         = $("toast");
+const btnPrint        = $("btnPrint");
+const btnShare        = $("btnShare");
+
 /* ==========================================
    UTILITÁRIOS SEGUROS
    ========================================== */
@@ -543,6 +628,19 @@ function limitar(valor, min, max){
 }
 
 /* ==========================================
+   TOAST (feedback visual)
+   ========================================== */
+let toastTimeout = null;
+function mostrarToast(mensagem, erro){
+    if(toastTimeout) clearTimeout(toastTimeout);
+    toastEl.textContent = mensagem;
+    toastEl.className = "toast mostrar" + (erro ? " erro" : "");
+    toastTimeout = setTimeout(() => {
+        toastEl.className = "toast" + (erro ? " erro" : "");
+    }, 2600);
+}
+
+/* ==========================================
    DATA E HORA
    ========================================== */
 function atualizarDataHora(){
@@ -571,17 +669,13 @@ setInterval(atualizarDataHora, 1000);
 /* ==========================================
    STATUS ONLINE / OFFLINE
    ========================================== */
+let estadoConexao = "verificando";
 
-// Estado atual da conexão
-let estadoConexao = "verificando"; // "online" | "offline" | "aviso"
-
-// Aplica visual do status
 function aplicarStatus(tipo, texto){
     estadoConexao = tipo;
     statusConexaoEl.className = "status-conexao " + tipo;
     textoConexaoEl.textContent = texto;
 
-    // Mostra/esconde aviso fixo no topo
     if(tipo === "offline"){
         avisoOfflineEl.textContent =
             "📡 Sem conexão com a internet — os cálculos continuam funcionando normalmente";
@@ -595,7 +689,6 @@ function aplicarStatus(tipo, texto){
     }
 }
 
-// Verificação básica (rápida, sem fetch)
 function statusBasico(){
     if(!navigator.onLine){
         aplicarStatus("offline", "Offline");
@@ -604,9 +697,7 @@ function statusBasico(){
     return true;
 }
 
-// Verificação real (faz fetch em URL confiável)
 async function verificarInternetReal(){
-    // Se o navegador já diz que está offline, não perde tempo
     if(!navigator.onLine){
         aplicarStatus("offline", "Offline");
         return;
@@ -618,7 +709,6 @@ async function verificarInternetReal(){
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 5000);
 
-        // URL leve do Google (retorna 204, sem conteúdo)
         await fetch("https://www.gstatic.com/generate_204", {
             method: "HEAD",
             cache: "no-store",
@@ -629,7 +719,6 @@ async function verificarInternetReal(){
         clearTimeout(timeout);
         aplicarStatus("online", "Online");
     }catch(e){
-        // Se fetch falhou mas navigator.onLine = true → provavelmente wi-fi sem internet
         if(navigator.onLine){
             aplicarStatus("aviso", "Sem Internet");
         } else {
@@ -638,15 +727,12 @@ async function verificarInternetReal(){
     }
 }
 
-// Atualização completa (básica + real)
 async function atualizarConexao(){
     if(!statusBasico()) return;
     await verificarInternetReal();
 }
 
-// Eventos nativos do navegador
 window.addEventListener("online", function(){
-    // Espera 500ms para dar tempo do sistema estabilizar
     setTimeout(atualizarConexao, 500);
 });
 
@@ -654,17 +740,14 @@ window.addEventListener("offline", function(){
     aplicarStatus("offline", "Offline");
 });
 
-// Verifica a cada 30 segundos
 setInterval(atualizarConexao, 30000);
 
-// Re-verifica quando o app volta ao foco
 document.addEventListener("visibilitychange", function(){
     if(!document.hidden){
         atualizarConexao();
     }
 });
 
-// Verificação inicial
 atualizarConexao();
 
 /* ==========================================
@@ -966,6 +1049,118 @@ function avaliarExpressao(expr){
     const resultado = parseExpressao();
     if(pos < tokens.length) throw new Error("Expressão malformada");
     return resultado;
+}
+
+/* ==========================================
+   PRINT / COMPARTILHAR
+   ========================================== */
+async function gerarCanvas(){
+    const conteudo = $("conteudoCaptura");
+
+    // Marca o container para esconder botões/avisos durante a captura
+    document.body.classList.add("capturando");
+
+    try{
+        const canvas = await html2canvas(conteudo, {
+            backgroundColor:"#050b13",
+            scale:2,
+            useCORS:true,
+            logging:false,
+            windowWidth: conteudo.scrollWidth,
+            windowHeight: conteudo.scrollHeight
+        });
+        return canvas;
+    } finally {
+        document.body.classList.remove("capturando");
+    }
+}
+
+function nomeArquivo(){
+    const agora = new Date();
+    const data = agora.toLocaleDateString("pt-BR").replace(/\//g,"-");
+    const hora = agora.toLocaleTimeString("pt-BR").replace(/:/g,"-");
+    const loja = ($("nomeLoja").value || "loja")
+        .trim()
+        .replace(/[^a-zA-Z0-9]+/g,"_")
+        .substring(0,25) || "loja";
+    return `MShare_${loja}_${data}_${hora}.png`;
+}
+
+/* ---- SALVAR IMAGEM ---- */
+async function tirarPrint(){
+    if(typeof html2canvas === "undefined"){
+        mostrarToast("Biblioteca não carregou. Verifique a internet.", true);
+        return;
+    }
+
+    const textoOriginal = btnPrint.innerHTML;
+    btnPrint.disabled = true;
+    btnPrint.innerHTML = "⏳ GERANDO...";
+
+    try{
+        const canvas = await gerarCanvas();
+
+        const link = document.createElement("a");
+        link.download = nomeArquivo();
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+
+        mostrarToast("✅ Imagem salva com sucesso!");
+    }catch(e){
+        console.error("Erro ao gerar print:", e);
+        mostrarToast("Erro ao gerar imagem. Tente novamente.", true);
+    }finally{
+        btnPrint.disabled = false;
+        btnPrint.innerHTML = textoOriginal;
+    }
+}
+
+/* ---- COMPARTILHAR ---- */
+async function compartilharPrint(){
+    if(typeof html2canvas === "undefined"){
+        mostrarToast("Biblioteca não carregou. Verifique a internet.", true);
+        return;
+    }
+
+    const textoOriginal = btnShare.innerHTML;
+    btnShare.disabled = true;
+    btnShare.innerHTML = "⏳ GERANDO...";
+
+    try{
+        const canvas = await gerarCanvas();
+
+        const blob = await new Promise(res => canvas.toBlob(res, "image/png"));
+        const arquivo = new File([blob], nomeArquivo(), { type:"image/png" });
+
+        // Verifica suporte a compartilhamento de arquivos (celular)
+        if(navigator.canShare && navigator.canShare({ files:[arquivo] })){
+            await navigator.share({
+                files: [arquivo],
+                title: "MShare Space",
+                text: "Confira minha medição de share de gôndola:"
+            });
+            mostrarToast("✅ Compartilhado!");
+        }else{
+            // Fallback: baixar arquivo
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.download = nomeArquivo();
+            link.href = url;
+            link.click();
+            URL.revokeObjectURL(url);
+            mostrarToast("Navegador sem compartilhamento. Imagem baixada!");
+        }
+    }catch(e){
+        if(e.name === "AbortError"){
+            // Usuário cancelou o compartilhamento, não precisa avisar
+        }else{
+            console.error("Erro ao compartilhar:", e);
+            mostrarToast("Erro ao compartilhar. Tente novamente.", true);
+        }
+    }finally{
+        btnShare.disabled = false;
+        btnShare.innerHTML = textoOriginal;
+    }
 }
 
 /* ==========================================
