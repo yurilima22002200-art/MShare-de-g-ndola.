@@ -3,926 +3,2949 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07111f">
+
 <title>MShare Space</title>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-html, body { min-height: 100%; }
-
-body {
-    background: #05060a;
-    color: #e8eaf0;
-    padding: 20px;
-    position: relative;
-    overflow-x: hidden;
-}
-
-body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(0,255,240,0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,255,240,0.06) 1px, transparent 1px);
-    background-size: 50px 50px;
-    pointer-events: none;
-    z-index: 0;
-    animation: moverGrade 20s linear infinite;
-}
-
-@keyframes moverGrade {
-    from { background-position: 0 0, 0 0; }
-    to   { background-position: 50px 50px, 50px 50px; }
-}
-
-body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
+body{
+    font-family:Arial,Helvetica,sans-serif;
     background:
-        radial-gradient(circle at 15% 20%, rgba(255,0,128,0.25), transparent 40%),
-        radial-gradient(circle at 85% 80%, rgba(0,255,240,0.22), transparent 45%),
-        radial-gradient(circle at 50% 50%, rgba(140,0,255,0.15), transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-    animation: pulsarLuz 8s ease-in-out infinite alternate;
+        radial-gradient(circle at top left,#102d4a 0%,transparent 35%),
+        radial-gradient(circle at bottom right,#301331 0%,transparent 35%),
+        #050b13;
+    color:#fff;
+    min-height:100vh;
+    padding:18px;
 }
 
-@keyframes pulsarLuz {
-    from { opacity: .6; }
-    to   { opacity: 1; }
+.container{
+    width:100%;
+    max-width:700px;
+    margin:auto;
 }
 
-.container {
-    width: 100%;
-    max-width: 600px;
-    margin: auto;
-    position: relative;
-    z-index: 2;
+.header{
+    text-align:center;
+    margin-bottom:20px;
 }
 
-.bebidas-fundo {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    overflow: hidden;
+.logo{
+    font-size:34px;
+    font-weight:900;
+    letter-spacing:1px;
+    background:linear-gradient(90deg,#00e5ff,#9d4edd,#ff3cac);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 }
 
-.bebida {
-    position: absolute;
-    font-size: 42px;
-    opacity: .35;
-    filter: drop-shadow(0 0 12px rgba(0,255,240,.6));
-    animation: flutuar linear infinite;
-    user-select: none;
+.subtitle{
+    color:#aebdce;
+    font-size:14px;
+    margin-top:5px;
 }
 
-@keyframes flutuar {
-    0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-    10%  { opacity: .4; }
-    90%  { opacity: .4; }
-    100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+.frase{
+    color:#00d9ff;
+    font-size:13px;
+    margin-top:12px;
+    font-weight:bold;
 }
 
-.header {
-    background: linear-gradient(135deg, #0a0f1c 0%, #131a2e 100%);
-    color: white;
-    padding: 26px 22px;
-    border-radius: 20px;
-    text-align: center;
-    margin-bottom: 18px;
-    position: relative;
-    border: 1px solid rgba(0,255,240,0.35);
-    box-shadow:
-        0 0 20px rgba(0,255,240,0.25),
-        0 0 40px rgba(255,0,128,0.15),
-        inset 0 0 30px rgba(0,255,240,0.05);
+.data-hora{
+    margin:15px 0 20px;
+    padding:12px;
+    border:1px solid #193652;
+    background:rgba(5,20,35,.8);
+    border-radius:14px;
+    text-align:center;
 }
 
-.header h1 {
-    font-size: 28px;
-    margin-bottom: 6px;
-    background: linear-gradient(90deg, #00fff0, #ff00a0, #00fff0);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: brilharTexto 3s linear infinite;
-    font-weight: 800;
-    letter-spacing: 1px;
+.data{
+    color:#9eb1c5;
+    font-size:12px;
 }
 
-@keyframes brilharTexto {
-    to { background-position: 200% center; }
+.hora{
+    font-size:23px;
+    font-weight:bold;
+    color:#00e5ff;
+    margin-top:3px;
 }
 
-.header p {
-    font-size: 14px;
-    color: #8ad8e0;
-    letter-spacing: .5px;
+.card{
+    background:rgba(8,19,32,.92);
+    border:1px solid #1a3a55;
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:15px;
+    box-shadow:0 10px 35px rgba(0,0,0,.25);
 }
 
-.btn-calc {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    border: 1px solid #00fff0;
-    background: rgba(0,255,240,0.08);
-    color: #00fff0;
-    font-size: 22px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: .25s;
-    box-shadow: 0 0 12px rgba(0,255,240,.5);
+.card h2{
+    font-size:17px;
+    margin-bottom:15px;
+    color:#00d9ff;
 }
 
-.btn-calc:hover {
-    background: rgba(0,255,240,0.2);
-    transform: scale(1.08);
-    box-shadow: 0 0 22px rgba(0,255,240,.9);
+.grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:12px;
 }
 
-.card,
-.resumo {
-    background: rgba(10,15,28,0.85);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 22px;
-    border-radius: 20px;
-    margin-bottom: 18px;
-    border: 1px solid rgba(0,255,240,0.25);
-    box-shadow:
-        0 8px 30px rgba(0,0,0,0.5),
-        0 0 25px rgba(0,255,240,0.08),
-        inset 0 0 20px rgba(0,255,240,0.03);
+label{
+    display:block;
+    color:#aabbd0;
+    font-size:13px;
+    margin-bottom:6px;
 }
 
-.card h2,
-.resumo h2 {
-    font-size: 17px;
-    margin-bottom: 18px;
-    color: #00fff0;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-weight: 700;
-    text-shadow: 0 0 10px rgba(0,255,240,0.6);
+input{
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid #244866;
+    background:#071522;
+    color:white;
+    outline:none;
+    font-size:16px;
 }
 
-.campo { margin-bottom: 16px; }
-
-.campo label {
-    display: block;
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: #a8b6c8;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+input:focus{
+    border-color:#00d9ff;
+    box-shadow:0 0 0 2px rgba(0,217,255,.12);
 }
 
-.campo input {
-    width: 100%;
-    height: 54px;
-    background: rgba(0,0,0,0.6);
-    border: 2px solid rgba(0,255,240,0.3);
-    border-radius: 14px;
-    padding: 0 16px;
-    font-size: 18px;
-    color: #fff;
-    outline: none;
-    transition: .25s;
-    font-weight: 600;
+.input-prefix{
+    position:relative;
 }
 
-.campo input::placeholder { color: #4a5a70; }
-
-.campo input:focus {
-    border-color: #00fff0;
-    box-shadow:
-        0 0 15px rgba(0,255,240,0.5),
-        inset 0 0 10px rgba(0,255,240,0.08);
+.input-prefix input{
+    padding-right:55px;
 }
 
-.resultado {
-    text-align: center;
-    padding: 28px 18px;
-    border-radius: 18px;
-    margin-top: 10px;
-    transition: .4s;
-    position: relative;
-    background: rgba(0,0,0,0.5);
-    border: 2px solid;
+.input-prefix span{
+    position:absolute;
+    right:14px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#7d91a7;
+    font-weight:bold;
 }
 
-.resultado .titulo {
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    letter-spacing: 2px;
-    opacity: .85;
+.botao{
+    width:100%;
+    border:none;
+    border-radius:13px;
+    padding:15px;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:10px;
+    transition:.2s;
 }
 
-.resultado .percentual {
-    font-size: 56px;
-    font-weight: 900;
-    line-height: 1.1;
-    letter-spacing: 1px;
+.botao:active{
+    transform:scale(.98);
 }
 
-.resultado .status {
-    margin-top: 12px;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+.calculadora-btn{
+    background:linear-gradient(90deg,#6a11cb,#2575fc);
+    color:#fff;
 }
 
-.resultado.neutro {
-    border-color: rgba(120,140,180,0.5);
-    color: #8899b8;
+.pdf-btn{
+    background:linear-gradient(90deg,#00b894,#00cec9);
+    color:#fff;
 }
 
-.resultado.neutro .percentual {
-    text-shadow: 0 0 15px rgba(120,140,180,0.6);
+.resultado{
+    text-align:center;
+    padding:24px 15px;
+    border-radius:18px;
+    border:1px solid #244866;
+    background:#071522;
+    transition:.3s;
 }
 
-.resultado.verde {
-    border-color: #00ff88;
-    color: #00ff88;
-    box-shadow:
-        0 0 30px rgba(0,255,136,0.5),
-        0 0 60px rgba(0,255,136,0.25),
-        inset 0 0 30px rgba(0,255,136,0.08);
-    animation: pulsoVerde 2s ease-in-out infinite;
+.resultado.bom{
+    border-color:#00d084;
+    box-shadow:0 0 25px rgba(0,208,132,.12);
 }
 
-.resultado.verde .percentual {
-    text-shadow:
-        0 0 10px #00ff88,
-        0 0 25px #00ff88,
-        0 0 45px rgba(0,255,136,0.7);
+.resultado.ruim{
+    border-color:#ff3b4f;
+    box-shadow:0 0 25px rgba(255,59,79,.12);
 }
 
-@keyframes pulsoVerde {
-    0%, 100% {
-        box-shadow:
-            0 0 30px rgba(0,255,136,0.5),
-            0 0 60px rgba(0,255,136,0.25),
-            inset 0 0 30px rgba(0,255,136,0.08);
+.resultado.neutro{
+    border-color:#244866;
+}
+
+.emoji-resultado{
+    display:none;
+    font-size:50px;
+    line-height:1;
+    margin-bottom:10px;
+    transform-origin:center;
+}
+
+.emoji-resultado.mostrar{
+    display:block;
+}
+
+.emoji-resultado.bom{
+    animation:puloJoinha .8s ease-in-out infinite alternate;
+}
+
+@keyframes puloJoinha{
+    0%{
+        transform:translateY(0) rotate(-8deg) scale(1);
     }
-    50% {
-        box-shadow:
-            0 0 45px rgba(0,255,136,0.8),
-            0 0 90px rgba(0,255,136,0.4),
-            inset 0 0 40px rgba(0,255,136,0.15);
+    50%{
+        transform:translateY(-9px) rotate(8deg) scale(1.12);
+    }
+    100%{
+        transform:translateY(0) rotate(-4deg) scale(1);
     }
 }
 
-.resultado.vermelho {
-    border-color: #ff0055;
-    color: #ff0055;
-    box-shadow:
-        0 0 30px rgba(255,0,85,0.5),
-        0 0 60px rgba(255,0,85,0.25),
-        inset 0 0 30px rgba(255,0,85,0.08);
-    animation: pulsoVermelho 2s ease-in-out infinite;
+.emoji-resultado.ruim{
+    animation:tristeAnimacao 1s ease-in-out infinite;
 }
 
-.resultado.vermelho .percentual {
-    text-shadow:
-        0 0 10px #ff0055,
-        0 0 25px #ff0055,
-        0 0 45px rgba(255,0,85,0.7);
+@keyframes tristeAnimacao{
+    0%{transform:translateY(0) rotate(0deg);}
+    25%{transform:translateY(2px) rotate(-7deg);}
+    50%{transform:translateY(4px) rotate(7deg);}
+    75%{transform:translateY(2px) rotate(-5deg);}
+    100%{transform:translateY(0) rotate(0deg);}
 }
 
-@keyframes pulsoVermelho {
-    0%, 100% {
-        box-shadow:
-            0 0 30px rgba(255,0,85,0.5),
-            0 0 60px rgba(255,0,85,0.25),
-            inset 0 0 30px rgba(255,0,85,0.08);
+.resultado .numero{
+    font-size:52px;
+    font-weight:900;
+    color:#fff;
+}
+
+.resultado .titulo{
+    color:#8da2b7;
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.status{
+    margin-top:12px;
+    font-size:17px;
+    font-weight:900;
+}
+
+.resultado.bom .status{
+    color:#00e58a;
+}
+
+.resultado.ruim .status{
+    color:#ff4054;
+}
+
+.resultado.neutro .status{
+    color:#8da2b7;
+}
+
+/* GRÁFICO */
+
+.grafico-container{
+    margin-top:18px;
+}
+
+.grafico-titulo{
+    font-size:14px;
+    color:#aebed0;
+    margin-bottom:10px;
+    text-align:center;
+}
+
+svg{
+    width:100%;
+    height:auto;
+    display:block;
+    background:#06111d;
+    border-radius:15px;
+    border:1px solid #193b56;
+}
+
+.tooltip-grafico{
+    text-align:center;
+    color:#dce8f3;
+    font-size:12px;
+    min-height:18px;
+    margin-top:8px;
+}
+
+/* RESUMO */
+
+.resumo{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.resumo-item{
+    background:#071522;
+    border:1px solid #193650;
+    border-radius:13px;
+    padding:13px;
+}
+
+.resumo-item .rotulo{
+    color:#7f95aa;
+    font-size:11px;
+    margin-bottom:5px;
+}
+
+.resumo-item .valor{
+    font-weight:bold;
+    font-size:16px;
+}
+
+.resumo-mensagem{
+    grid-column:1/-1;
+    margin-top:2px;
+    padding:14px;
+    border-radius:13px;
+    background:#0a1826;
+    border:1px solid #1c405b;
+    color:#b9c8d7;
+    font-size:13px;
+    line-height:1.5;
+}
+
+/* CALCULADORA */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
+    z-index:1000;
+}
+
+.modal.ativo{
+    display:flex;
+}
+
+.calculadora{
+    width:100%;
+    max-width:370px;
+    background:#081522;
+    border:1px solid #214763;
+    border-radius:20px;
+    padding:18px;
+    box-shadow:0 20px 60px rgba(0,0,0,.5);
+}
+
+.calculadora-topo{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:15px;
+}
+
+.calculadora-topo h3{
+    color:#00e5ff;
+}
+
+.fechar{
+    background:#172838;
+    color:#fff;
+    border:none;
+    width:35px;
+    height:35px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.calc-display{
+    width:100%;
+    background:#02080d;
+    border:1px solid #23435b;
+    color:#00ffcc;
+    padding:15px;
+    border-radius:12px;
+    font-size:24px;
+    text-align:right;
+    margin-bottom:12px;
+}
+
+.calc-botoes{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:7px;
+}
+
+.calc-botoes button{
+    border:none;
+    background:#102638;
+    color:#fff;
+    border-radius:10px;
+    padding:16px 5px;
+    font-size:17px;
+    cursor:pointer;
+}
+
+.calc-botoes button.operador{
+    background:#193d5a;
+    color:#00e5ff;
+}
+
+.calc-botoes button.igual{
+    background:#00a878;
+}
+
+.calc-botoes button.limpar{
+    background:#7c2632;
+}
+
+.footer{
+    text-align:center;
+    color:#65798e;
+    font-size:11px;
+    padding:20px 5px 8px;
+    line-height:1.7;
+}
+
+/* PDF */
+
+#relatorioPDF{
+    position:absolute;
+    left:-10000px;
+    top:0;
+    width:794px;
+    background:#fff;
+    color:#111;
+    padding:45px;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+.pdf-header{
+    border-bottom:3px solid #00a8ff;
+    padding-bottom:18px;
+    margin-bottom:22px;
+}
+
+.pdf-logo{
+    font-size:30px;
+    font-weight:900;
+    color:#071522;
+}
+
+.pdf-subtitulo{
+    color:#555;
+    font-size:14px;
+    margin-top:4px;
+}
+
+.pdf-info{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.pdf-info-box{
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:12px;
+    background:#fafafa;
+}
+
+.pdf-info-box small{
+    display:block;
+    color:#777;
+    font-size:10px;
+    margin-bottom:5px;
+    text-transform:uppercase;
+}
+
+.pdf-info-box strong{
+    font-size:14px;
+    color:#111;
+}
+
+.pdf-data{
+    text-align:right;
+    color:#666;
+    font-size:11px;
+    margin-bottom:18px;
+}
+
+.pdf-resultado{
+    text-align:center;
+    padding:18px;
+    border-radius:10px;
+    margin-bottom:20px;
+    border:2px solid #00a878;
+    background:#effff8;
+}
+
+.pdf-resultado.ruim{
+    border-color:#e53950;
+    background:#fff1f3;
+}
+
+.pdf-resultado .numero{
+    font-size:38px;
+    font-weight:900;
+}
+
+.pdf-resultado .status{
+    font-size:16px;
+    margin-top:5px;
+}
+
+.pdf-tabela{
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:25px;
+}
+
+.pdf-tabela th,
+.pdf-tabela td{
+    border:1px solid #ddd;
+    padding:10px;
+    text-align:left;
+}
+
+.pdf-tabela th{
+    background:#071522;
+    color:#fff;
+    font-size:12px;
+}
+
+.pdf-tabela td{
+    font-size:12px;
+}
+
+.pdf-grafico-titulo{
+    text-align:center;
+    font-size:16px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.pizza-area{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:30px;
+    margin:15px 0 25px;
+}
+
+.pizza{
+    width:190px;
+    height:190px;
+    border-radius:50%;
+    background:#ddd;
+}
+
+.legenda-pizza{
+    font-size:13px;
+    line-height:2;
+}
+
+.legenda-cor{
+    display:inline-block;
+    width:12px;
+    height:12px;
+    border-radius:3px;
+    margin-right:7px;
+}
+
+.cor-meu{
+    background:#00a8ff;
+}
+
+.cor-restante{
+    background:#e5e5e5;
+    border:1px solid #bbb;
+}
+
+.pdf-mensagem{
+    padding:14px;
+    background:#f5f7f9;
+    border-left:4px solid #00a8ff;
+    font-size:12px;
+    line-height:1.5;
+    margin-bottom:30px;
+}
+
+.pdf-footer{
+    border-top:1px solid #ddd;
+    padding-top:12px;
+    text-align:center;
+    color:#777;
+    font-size:10px;
+}
+
+@media(max-width:500px){
+
+    body{
+        padding:12px;
     }
-    50% {
-        box-shadow:
-            0 0 45px rgba(255,0,85,0.8),
-            0 0 90px rgba(255,0,85,0.4),
-            inset 0 0 40px rgba(255,0,85,0.15);
+
+    .logo{
+        font-size:29px;
     }
-}
 
-.linha {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 0;
-    border-bottom: 1px solid rgba(0,255,240,0.12);
-    gap: 15px;
-}
-
-.linha:last-child { border-bottom: none; }
-
-.linha span:first-child {
-    color: #8fa0b8;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: .5px;
-}
-
-.linha span:last-child {
-    font-weight: 700;
-    font-size: 16px;
-    text-align: right;
-    color: #00fff0;
-    text-shadow: 0 0 8px rgba(0,255,240,0.5);
-}
-
-.destaque {
-    margin-top: 16px;
-    padding: 16px;
-    border-radius: 14px;
-    text-align: center;
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: .5px;
-    border: 1px solid;
-}
-
-.destaque.verde {
-    background: rgba(0,255,136,0.08);
-    color: #00ff88;
-    border-color: rgba(0,255,136,0.5);
-    box-shadow: 0 0 20px rgba(0,255,136,0.2);
-    text-shadow: 0 0 8px rgba(0,255,136,0.6);
-}
-
-.destaque.vermelho {
-    background: rgba(255,0,85,0.08);
-    color: #ff0055;
-    border-color: rgba(255,0,85,0.5);
-    box-shadow: 0 0 20px rgba(255,0,85,0.2);
-    text-shadow: 0 0 8px rgba(255,0,85,0.6);
-}
-
-.destaque:not(.verde):not(.vermelho) {
-    background: rgba(0,255,240,0.05);
-    color: #8ad8e0;
-    border-color: rgba(0,255,240,0.3);
-}
-
-.rodape {
-    text-align: center;
-    margin-top: 22px;
-    color: #5a6a80;
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
-
-/* ============================= */
-/* MODAL CALCULADORA             */
-/* ============================= */
-
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    padding: 20px;
-}
-
-.modal-overlay.ativo { display: flex; }
-
-.calculadora-modal {
-    background: #0a0f1c;
-    border-radius: 24px;
-    padding: 20px;
-    width: 100%;
-    max-width: 340px;
-    position: relative;
-    border: 1px solid #00fff0;
-    box-shadow:
-        0 0 30px rgba(0,255,240,0.5),
-        0 0 60px rgba(255,0,160,0.2),
-        inset 0 0 30px rgba(0,255,240,0.05);
-    animation: aparecer .25s ease-out;
-}
-
-@keyframes aparecer {
-    from { opacity: 0; transform: scale(.85); }
-    to   { opacity: 1; transform: scale(1); }
-}
-
-.btn-fechar {
-    position: absolute;
-    top: -12px;
-    right: -12px;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: none;
-    background: #ff0055;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 15px rgba(255,0,85,0.8);
-    transition: .2s;
-}
-
-.btn-fechar:hover {
-    background: #ff2a70;
-    transform: scale(1.1);
-}
-
-.visor-calc {
-    background: #000;
-    border: 1px solid rgba(0,255,240,0.4);
-    border-radius: 14px;
-    padding: 18px;
-    text-align: right;
-    margin-bottom: 16px;
-    min-height: 95px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
-    box-shadow: inset 0 0 20px rgba(0,255,240,0.1);
-}
-
-.historico-calc {
-    font-size: 13px;
-    color: #00fff0;
-    min-height: 16px;
-    word-wrap: break-word;
-    opacity: .7;
-    text-shadow: 0 0 8px rgba(0,255,240,0.6);
-}
-
-.resultado-calc {
-    font-size: 38px;
-    font-weight: 300;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    color: #fff;
-    text-shadow:
-        0 0 10px #00fff0,
-        0 0 20px rgba(0,255,240,0.6);
-}
-
-.teclado-calc {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-}
-
-.teclado-calc button {
-    border: 1px solid rgba(0,255,240,0.25);
-    border-radius: 50%;
-    height: 58px;
-    font-size: 20px;
-    cursor: pointer;
-    transition: all 0.15s;
-    color: #fff;
-    background: rgba(255,255,255,0.06);
-    user-select: none;
-    font-weight: 600;
-}
-
-.teclado-calc button:hover {
-    background: rgba(0,255,240,0.15);
-    box-shadow: 0 0 15px rgba(0,255,240,0.5);
-    filter: brightness(1.2);
-}
-
-.teclado-calc button:active { transform: scale(0.95); }
-
-.teclado-calc .operador-calc {
-    background: rgba(255,0,160,0.15);
-    border-color: rgba(255,0,160,0.6);
-    color: #ff60c0;
-    font-weight: bold;
-    text-shadow: 0 0 8px rgba(255,0,160,0.7);
-}
-
-.teclado-calc .operador-calc:hover {
-    background: rgba(255,0,160,0.3);
-    box-shadow: 0 0 18px rgba(255,0,160,0.8);
-}
-
-.teclado-calc .funcao-calc {
-    background: rgba(255,255,255,0.1);
-    color: #00fff0;
-    border-color: rgba(0,255,240,0.4);
-}
-
-.teclado-calc .igual-calc {
-    background: linear-gradient(135deg, #ff00a0, #00fff0);
-    border: none;
-    grid-column: span 2;
-    border-radius: 30px;
-    color: #05060a;
-    font-weight: 900;
-    box-shadow: 0 0 20px rgba(0,255,240,0.6);
-}
-
-.teclado-calc .igual-calc:hover {
-    filter: brightness(1.15);
-    box-shadow: 0 0 30px rgba(0,255,240,0.9);
-}
-
-.teclado-calc .zero-calc {
-    grid-column: span 2;
-    border-radius: 30px;
-    text-align: left;
-    padding-left: 24px;
-}
-
-@media (max-width: 400px) {
-    body { padding: 12px; }
-    .header { padding: 20px; }
-    .header h1 { font-size: 22px; }
-    .resultado .percentual { font-size: 44px; }
-    .btn-calc {
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
-        top: 12px;
-        right: 12px;
+    .card{
+        padding:15px;
     }
-    .teclado-calc button {
-        height: 52px;
-        font-size: 18px;
+
+    .resultado .numero{
+        font-size:45px;
     }
-    .resultado-calc { font-size: 32px; }
-    .bebida { font-size: 32px; }
+
+    .resumo{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .pdf-info{
+        grid-template-columns:1fr;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="bebidas-fundo" id="bebidasFundo"></div>
-
 <div class="container">
 
-    <div class="header">
-        <button type="button" class="btn-calc" id="btnCalc" title="Abrir calculadora">🧮</button>
-        <h1>MShare Space</h1>
-        <p>Calculadora de Share de Gôndola</p>
+<header class="header">
+    <div class="logo">MShare Space</div>
+    <div class="subtitle">Calculadora de Share de Gôndola</div>
+    <div class="frase">Para facilitar ainda mais seus dias</div>
+</header>
+
+<div class="data-hora">
+    <div class="data" id="dataAtual">--/--/----</div>
+    <div class="hora" id="horaAtual">--:--:--</div>
+</div>
+
+
+<!-- INFORMAÇÕES DA LOJA -->
+
+<section class="card">
+
+    <h2>🏪 Informações da loja</h2>
+
+    <div class="grid">
+
+        <div>
+            <label for="nomeLoja">Nome da loja</label>
+
+            <input
+                type="text"
+                id="nomeLoja"
+                placeholder="Ex.: Supermercado Central"
+            >
+        </div>
+
+        <div>
+            <label for="enderecoLoja">Endereço da loja</label>
+
+            <input
+                type="text"
+                id="enderecoLoja"
+                placeholder="Ex.: Av. Brasil, 1000"
+            >
+        </div>
+
+        <div>
+            <label for="nomeUsuario">Meu nome</label>
+
+            <input
+                type="text"
+                id="nomeUsuario"
+                placeholder="Digite seu nome"
+            >
+        </div>
+
     </div>
 
-    <div class="card">
-        <h2>Dados da medição</h2>
+</section>
 
-        <div class="campo">
-            <label for="meta">Meta desejada (%)</label>
-            <input type="number" id="meta" min="0" max="100" step="0.01" placeholder="Ex.: 30" inputmode="decimal">
+
+<!-- MEDIÇÃO -->
+
+<section class="card">
+
+    <h2>📏 Medição da gôndola</h2>
+
+    <div class="grid">
+
+        <div>
+
+            <label for="meta">
+                Meta desejada
+            </label>
+
+            <div class="input-prefix">
+
+                <input
+                    type="number"
+                    id="meta"
+                    min="0"
+                    max="100"
+                    step="0.01"
+                    placeholder="Ex.: 25"
+                >
+
+                <span>%</span>
+
+            </div>
+
         </div>
 
-        <div class="campo">
-            <label for="total">Espaço total</label>
-            <input type="number" id="total" min="0" step="0.01" placeholder="Ex.: 100" inputmode="decimal">
+
+        <div>
+
+            <label for="total">
+                Espaço total
+            </label>
+
+            <div class="input-prefix">
+
+                <input
+                    type="number"
+                    id="total"
+                    min="0"
+                    step="0.01"
+                    placeholder="Ex.: 300"
+                >
+
+                <span>cm</span>
+
+            </div>
+
         </div>
 
-        <div class="campo">
-            <label for="meuEspaco">Meu espaço</label>
-            <input type="number" id="meuEspaco" min="0" step="0.01" placeholder="Ex.: 35" inputmode="decimal">
+
+        <div>
+
+            <label for="meuEspaco">
+                Meu espaço
+            </label>
+
+            <div class="input-prefix">
+
+                <input
+                    type="number"
+                    id="meuEspaco"
+                    min="0"
+                    step="0.01"
+                    placeholder="Ex.: 80"
+                >
+
+                <span>cm</span>
+
+            </div>
+
         </div>
 
-        <div id="resultado" class="resultado neutro">
-            <div class="titulo">Resultado</div>
-            <div id="percentual" class="percentual">0,00%</div>
-            <div id="status" class="status">Preencha os campos</div>
-        </div>
     </div>
+
+
+    <button
+        class="botao calculadora-btn"
+        onclick="abrirCalculadora()"
+    >
+        🧮 ABRIR CALCULADORA
+    </button>
+
+</section>
+
+
+<!-- RESULTADO -->
+
+<section class="card">
+
+    <div
+        id="resultado"
+        class="resultado neutro"
+    >
+
+        <div
+            id="emojiResultado"
+            class="emoji-resultado"
+        ></div>
+
+        <div class="titulo">
+            SHARE APURADO
+        </div>
+
+        <div
+            id="shareResultado"
+            class="numero"
+        >
+            0,00%
+        </div>
+
+        <div
+            id="statusResultado"
+            class="status"
+        >
+            Preencha os dados
+        </div>
+
+    </div>
+
+
+    <!-- GRÁFICO -->
+
+    <div class="grafico-container">
+
+        <div class="grafico-titulo">
+            Comparação entre Meta e Share
+        </div>
+
+        <svg
+            id="graficoSVG"
+            viewBox="0 0 700 300"
+            preserveAspectRatio="xMidYMid meet"
+        >
+
+            <rect
+                x="0"
+                y="0"
+                width="700"
+                height="300"
+                rx="15"
+                fill="#06111d"
+            />
+
+            <line
+                x1="100"
+                y1="70"
+                x2="650"
+                y2="70"
+                stroke="#193650"
+                stroke-width="1"
+            />
+
+            <line
+                x1="100"
+                y1="140"
+                x2="650"
+                y2="140"
+                stroke="#193650"
+                stroke-width="1"
+            />
+
+            <line
+                x1="100"
+                y1="210"
+                x2="650"
+                y2="210"
+                stroke="#193650"
+                stroke-width="1"
+            />
+
+            <text
+                x="100"
+                y="270"
+                fill="#668096"
+                font-size="11"
+            >
+                0%
+            </text>
+
+            <text
+                x="365"
+                y="270"
+                fill="#668096"
+                font-size="11"
+                text-anchor="middle"
+            >
+                50%
+            </text>
+
+            <text
+                x="650"
+                y="270"
+                fill="#668096"
+                font-size="11"
+                text-anchor="end"
+            >
+                100%
+            </text>
+
+
+            <!-- META -->
+
+            <text
+                x="35"
+                y="82"
+                fill="#9eb1c5"
+                font-size="13"
+                font-weight="bold"
+            >
+                META
+            </text>
+
+            <rect
+                id="barraMeta"
+                x="100"
+                y="55"
+                width="0"
+                height="30"
+                rx="8"
+                fill="#8d6bff"
+            />
+
+
+            <!-- SHARE -->
+
+            <text
+                x="35"
+                y="152"
+                fill="#9eb1c5"
+                font-size="13"
+                font-weight="bold"
+            >
+                SHARE
+            </text>
+
+            <rect
+                id="barraShare"
+                x="100"
+                y="125"
+                width="0"
+                height="30"
+                rx="8"
+                fill="#00d9ff"
+            />
+
+
+            <!-- DIFERENÇA -->
+
+            <text
+                x="35"
+                y="222"
+                fill="#9eb1c5"
+                font-size="13"
+                font-weight="bold"
+            >
+                DIF.
+            </text>
+
+            <rect
+                id="barraDiferenca"
+                x="100"
+                y="195"
+                width="0"
+                height="30"
+                rx="8"
+                fill="#00d084"
+            />
+
+
+            <text
+                id="textoMetaGrafico"
+                x="110"
+                y="76"
+                fill="#fff"
+                font-size="12"
+                font-weight="bold"
+            >
+                0%
+            </text>
+
+            <text
+                id="textoShareGrafico"
+                x="110"
+                y="146"
+                fill="#fff"
+                font-size="12"
+                font-weight="bold"
+            >
+                0%
+            </text>
+
+            <text
+                id="textoDiferencaGrafico"
+                x="110"
+                y="216"
+                fill="#fff"
+                font-size="12"
+                font-weight="bold"
+            >
+                0%
+            </text>
+
+            <line
+                id="linhaMeta"
+                x1="100"
+                y1="35"
+                x2="100"
+                y2="235"
+                stroke="#ff4fd8"
+                stroke-width="3"
+                stroke-dasharray="6 5"
+            />
+
+        </svg>
+
+        <div
+            id="tooltipGrafico"
+            class="tooltip-grafico"
+        >
+            Toque nas barras para visualizar os valores.
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- RESUMO -->
+
+<section class="card">
+
+    <h2>📋 Resumo da medição</h2>
 
     <div class="resumo">
-        <h2>Resumo do apurado</h2>
 
-        <div class="linha">
-            <span>Meta desejada</span>
-            <span id="resumoMeta">—</span>
-        </div>
-        <div class="linha">
-            <span>Espaço total</span>
-            <span id="resumoTotal">—</span>
-        </div>
-        <div class="linha">
-            <span>Meu espaço</span>
-            <span id="resumoMeuEspaco">—</span>
-        </div>
-        <div class="linha">
-            <span>Share apurado</span>
-            <span id="resumoResultado">—</span>
-        </div>
-        <div class="linha">
-            <span>Diferença para a meta</span>
-            <span id="resumoDiferenca">—</span>
+        <div class="resumo-item">
+
+            <div class="rotulo">
+                META DESEJADA
+            </div>
+
+            <div
+                class="valor"
+                id="resumoMeta"
+            >
+                0,00%
+            </div>
+
         </div>
 
-        <div id="mensagemResumo" class="destaque">
-            Preencha os dados para visualizar o resultado.
+
+        <div class="resumo-item">
+
+            <div class="rotulo">
+                ESPAÇO TOTAL
+            </div>
+
+            <div
+                class="valor"
+                id="resumoTotal"
+            >
+                0,00 cm
+            </div>
+
         </div>
+
+
+        <div class="resumo-item">
+
+            <div class="rotulo">
+                MEU ESPAÇO
+            </div>
+
+            <div
+                class="valor"
+                id="resumoMeuEspaco"
+            >
+                0,00 cm
+            </div>
+
+        </div>
+
+
+        <div class="resumo-item">
+
+            <div class="rotulo">
+                ESPAÇO RESTANTE
+            </div>
+
+            <div
+                class="valor"
+                id="resumoRestante"
+            >
+                0,00 cm
+            </div>
+
+        </div>
+
+
+        <div class="resumo-item">
+
+            <div class="rotulo">
+                SHARE APURADO
+            </div>
+
+            <div
+                class="valor"
+                id="resumoShare"
+            >
+                0,00%
+            </div>
+
+        </div>
+
+
+        <div class="resumo-item">
+
+            <div class="rotulo">
+                DIFERENÇA
+            </div>
+
+            <div
+                class="valor"
+                id="resumoDiferenca"
+            >
+                0,00%
+            </div>
+
+        </div>
+
+
+        <div class="resumo-item">
+
+            <div class="rotulo">
+                SITUAÇÃO
+            </div>
+
+            <div
+                class="valor"
+                id="resumoSituacao"
+            >
+                —
+            </div>
+
+        </div>
+
+
+        <div
+            class="resumo-mensagem"
+            id="resumoMensagem"
+        >
+            Preencha os dados para realizar a apuração.
+        </div>
+
     </div>
 
-    <div class="rodape">
-        MShare Space • Medição de Share de Gôndola
+
+    <button
+        class="botao pdf-btn"
+        onclick="baixarPDF()"
+    >
+        📄 BAIXAR PDF DA MEDIÇÃO
+    </button>
+
+</section>
+
+
+<footer class="footer">
+
+    MShare Space • Share de Gôndola<br>
+    Desenvolvido por Yuri Lima
+
+</footer>
+
+</div>
+
+
+<!-- CALCULADORA -->
+
+<div
+    class="modal"
+    id="modalCalculadora"
+>
+
+    <div class="calculadora">
+
+        <div class="calculadora-topo">
+
+            <h3>🧮 CALCULADORA</h3>
+
+            <button
+                class="fechar"
+                onclick="fecharCalculadora()"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <input
+            id="calcDisplay"
+            class="calc-display"
+            type="text"
+            value=""
+            readonly
+        >
+
+        <div class="calc-botoes">
+
+            <button
+                class="limpar"
+                onclick="calcLimpar()"
+            >
+                C
+            </button>
+
+            <button onclick="calcAdicionar('(')">
+                (
+            </button>
+
+            <button onclick="calcAdicionar(')')">
+                )
+            </button>
+
+            <button
+                class="operador"
+                onclick="calcAdicionar('/')"
+            >
+                ÷
+            </button>
+
+            <button onclick="calcAdicionar('7')">7</button>
+            <button onclick="calcAdicionar('8')">8</button>
+            <button onclick="calcAdicionar('9')">9</button>
+
+            <button
+                class="operador"
+                onclick="calcAdicionar('*')"
+            >
+                ×
+            </button>
+
+            <button onclick="calcAdicionar('4')">4</button>
+            <button onclick="calcAdicionar('5')">5</button>
+            <button onclick="calcAdicionar('6')">6</button>
+
+            <button
+                class="operador"
+                onclick="calcAdicionar('-')"
+            >
+                −
+            </button>
+
+            <button onclick="calcAdicionar('1')">1</button>
+            <button onclick="calcAdicionar('2')">2</button>
+            <button onclick="calcAdicionar('3')">3</button>
+
+            <button
+                class="operador"
+                onclick="calcAdicionar('+')"
+            >
+                +
+            </button>
+
+            <button onclick="calcAdicionar('0')">
+                0
+            </button>
+
+            <button onclick="calcAdicionar('.')">
+                .
+            </button>
+
+            <button
+                class="igual"
+                style="grid-column:span 2"
+                onclick="calcResultado()"
+            >
+                =
+            </button>
+
+        </div>
+
     </div>
 
 </div>
 
-<div class="modal-overlay" id="modalCalc">
-    <div class="calculadora-modal">
 
-        <button type="button" class="btn-fechar" id="btnFecharCalc" title="Fechar">✕</button>
+<!-- RELATÓRIO PDF -->
 
-        <div class="visor-calc">
-            <div class="historico-calc" id="historicoCalc"></div>
-            <div class="resultado-calc" id="resultadoCalc">0</div>
+<div id="relatorioPDF">
+
+    <div class="pdf-header">
+
+        <div class="pdf-logo">
+            MShare Space
         </div>
 
-        <div class="teclado-calc">
-            <button class="funcao-calc" onclick="calcLimpar()">AC</button>
-            <button class="funcao-calc" onclick="calcApagar()">⌫</button>
-            <button class="funcao-calc" onclick="calcPorcento()">%</button>
-            <button class="operador-calc" onclick="calcOperador('/')">÷</button>
-
-            <button onclick="calcDigito('7')">7</button>
-            <button onclick="calcDigito('8')">8</button>
-            <button onclick="calcDigito('9')">9</button>
-            <button class="operador-calc" onclick="calcOperador('*')">×</button>
-
-            <button onclick="calcDigito('4')">4</button>
-            <button onclick="calcDigito('5')">5</button>
-            <button onclick="calcDigito('6')">6</button>
-            <button class="operador-calc" onclick="calcOperador('-')">−</button>
-
-            <button onclick="calcDigito('1')">1</button>
-            <button onclick="calcDigito('2')">2</button>
-            <button onclick="calcDigito('3')">3</button>
-            <button class="operador-calc" onclick="calcOperador('+')">+</button>
-
-            <button class="zero-calc" onclick="calcDigito('0')">0</button>
-            <button onclick="calcDigito('.')">,</button>
-            <button class="igual-calc" onclick="calcCalcular()">=</button>
+        <div class="pdf-subtitulo">
+            Calculadora de Share de Gôndola
         </div>
 
     </div>
+
+
+    <div class="pdf-info">
+
+        <div class="pdf-info-box">
+
+            <small>Nome da loja</small>
+
+            <strong id="pdfNomeLoja">
+                Não informado
+            </strong>
+
+        </div>
+
+
+        <div class="pdf-info-box">
+
+            <small>Endereço da loja</small>
+
+            <strong id="pdfEnderecoLoja">
+                Não informado
+            </strong>
+
+        </div>
+
+
+        <div class="pdf-info-box">
+
+            <small>Responsável pela medição</small>
+
+            <strong id="pdfNomeUsuario">
+                Não informado
+            </strong>
+
+        </div>
+
+
+        <div class="pdf-info-box">
+
+            <small>Data da medição</small>
+
+            <strong id="pdfData">
+                --
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="pdf-data">
+
+        Horário da medição:
+        <strong id="pdfHora">
+            --
+        </strong>
+
+    </div>
+
+
+    <div
+        id="pdfResultado"
+        class="pdf-resultado"
+    >
+
+        <div
+            class="numero"
+            id="pdfShare"
+        >
+            0,00%
+        </div>
+
+        <div
+            class="status"
+            id="pdfStatus"
+        >
+            —
+        </div>
+
+    </div>
+
+
+    <table class="pdf-tabela">
+
+        <thead>
+
+            <tr>
+
+                <th>
+                    Informação
+                </th>
+
+                <th>
+                    Resultado
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr>
+
+                <td>
+                    Meta desejada
+                </td>
+
+                <td id="pdfMeta">
+                    0,00%
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Espaço total
+                </td>
+
+                <td id="pdfTotal">
+                    0,00 cm
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Meu espaço
+                </td>
+
+                <td id="pdfMeuEspaco">
+                    0,00 cm
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Espaço restante
+                </td>
+
+                <td id="pdfRestante">
+                    0,00 cm
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Share apurado
+                </td>
+
+                <td id="pdfShareTabela">
+                    0,00%
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Diferença para a meta
+                </td>
+
+                <td id="pdfDiferenca">
+                    0,00%
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Situação
+                </td>
+
+                <td id="pdfSituacao">
+                    —
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+    <div class="pdf-grafico-titulo">
+        Distribuição do espaço da gôndola
+    </div>
+
+
+    <div class="pizza-area">
+
+        <div
+            class="pizza"
+            id="pizzaPDF"
+        ></div>
+
+
+        <div class="legenda-pizza">
+
+            <div>
+
+                <span
+                    class="legenda-cor cor-meu"
+                ></span>
+
+                Meu espaço:
+
+                <strong id="pizzaMeuTexto">
+                    0,00 cm
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span
+                    class="legenda-cor cor-restante"
+                ></span>
+
+                Espaço restante:
+
+                <strong id="pizzaRestanteTexto">
+                    0,00 cm
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="pdf-mensagem"
+        id="pdfMensagem"
+    >
+        —
+    </div>
+
+
+    <div class="pdf-footer">
+
+        MShare Space • Share de Gôndola<br>
+        Desenvolvido por Yuri Lima
+
+    </div>
+
 </div>
+
 
 <script>
 
-/* ============================= */
-/* BEBIDAS FLUTUANTES            */
-/* ============================= */
+/* ================================
+   ELEMENTOS
+================================ */
 
-(function criarBebidas() {
-    const container = document.getElementById('bebidasFundo');
-    const bebidas = ['🍺', '🍻', '🥤', '🍾', '🥫', '🍶', '🥂', '🍷'];
-    const quantidade = 22;
+const metaInput =
+    document.getElementById("meta");
 
-    for (let i = 0; i < quantidade; i++) {
-        const el = document.createElement('div');
-        el.className = 'bebida';
-        el.textContent = bebidas[Math.floor(Math.random() * bebidas.length)];
-        el.style.left = Math.random() * 100 + '%';
+const totalInput =
+    document.getElementById("total");
 
-        const duracao = 12 + Math.random() * 18;
-        el.style.animationDuration = duracao + 's';
-        el.style.animationDelay = (-Math.random() * duracao) + 's';
+const meuEspacoInput =
+    document.getElementById("meuEspaco");
 
-        const tamanho = 26 + Math.random() * 40;
-        el.style.fontSize = tamanho + 'px';
-        el.style.opacity = 0.15 + Math.random() * 0.35;
+const resultado =
+    document.getElementById("resultado");
 
-        container.appendChild(el);
+const shareResultado =
+    document.getElementById("shareResultado");
+
+const statusResultado =
+    document.getElementById("statusResultado");
+
+const emoji =
+    document.getElementById("emojiResultado");
+
+
+/* ================================
+   FORMATAÇÃO
+================================ */
+
+function numero(valor){
+
+    if(
+        valor===null ||
+        valor===undefined ||
+        valor===""
+    ){
+        return 0;
     }
-})();
 
+    let texto=
+        String(valor)
+        .replace(",", ".");
 
-/* ============================= */
-/* SHARE DE GÔNDOLA              */
-/* ============================= */
+    const n=parseFloat(texto);
 
-const metaInput = document.getElementById("meta");
-const totalInput = document.getElementById("total");
-const meuEspacoInput = document.getElementById("meuEspaco");
-
-const resultado = document.getElementById("resultado");
-const percentual = document.getElementById("percentual");
-const status = document.getElementById("status");
-
-const resumoMeta = document.getElementById("resumoMeta");
-const resumoTotal = document.getElementById("resumoTotal");
-const resumoMeuEspaco = document.getElementById("resumoMeuEspaco");
-const resumoResultado = document.getElementById("resumoResultado");
-const resumoDiferenca = document.getElementById("resumoDiferenca");
-const mensagemResumo = document.getElementById("mensagemResumo");
-
-function numero(valor) {
-    return parseFloat(valor) || 0;
+    return Number.isFinite(n)
+        ? n
+        : 0;
 }
 
-function formatarNumero(valor) {
-    return valor.toLocaleString("pt-BR", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    });
+
+function formatarNumero(valor){
+
+    return Number(valor||0)
+        .toLocaleString(
+            "pt-BR",
+            {
+                minimumFractionDigits:2,
+                maximumFractionDigits:2
+            }
+        );
+
 }
 
-function calcular() {
 
-    const meta = numero(metaInput.value);
-    const total = numero(totalInput.value);
-    const meuEspaco = numero(meuEspacoInput.value);
+function formatarPercentual(valor){
 
-    resumoMeta.textContent = meta > 0 ? formatarNumero(meta) + "%" : "—";
-    resumoTotal.textContent = total > 0 ? formatarNumero(total) : "—";
-    resumoMeuEspaco.textContent = meuEspaco > 0 ? formatarNumero(meuEspaco) : "—";
+    return Number(valor||0)
+        .toLocaleString(
+            "pt-BR",
+            {
+                minimumFractionDigits:2,
+                maximumFractionDigits:2
+            }
+        )+"%";
 
-    if (total <= 0) {
-        percentual.textContent = "0,00%";
-        status.textContent = "Preencha o espaço total";
-        resultado.className = "resultado neutro";
-        resumoResultado.textContent = "—";
-        resumoDiferenca.textContent = "—";
-        mensagemResumo.className = "destaque";
-        mensagemResumo.textContent = "Informe o espaço total para calcular o Share.";
+}
+
+
+/* ================================
+   DATA E HORA
+================================ */
+
+function atualizarDataHora(){
+
+    const agora=new Date();
+
+    const data=
+        new Intl.DateTimeFormat(
+            "pt-BR",
+            {
+                timeZone:"America/Fortaleza",
+                day:"2-digit",
+                month:"2-digit",
+                year:"numeric"
+            }
+        ).format(agora);
+
+    const hora=
+        new Intl.DateTimeFormat(
+            "pt-BR",
+            {
+                timeZone:"America/Fortaleza",
+                hour:"2-digit",
+                minute:"2-digit",
+                second:"2-digit",
+                hour12:false
+            }
+        ).format(agora);
+
+    document.getElementById(
+        "dataAtual"
+    ).textContent=data;
+
+    document.getElementById(
+        "horaAtual"
+    ).textContent=hora;
+
+}
+
+atualizarDataHora();
+
+setInterval(
+    atualizarDataHora,
+    1000
+);
+
+
+/* ================================
+   CÁLCULO
+================================ */
+
+function calcular(){
+
+    const meta=
+        numero(metaInput.value);
+
+    const total=
+        numero(totalInput.value);
+
+    const meuEspaco=
+        numero(meuEspacoInput.value);
+
+
+    const espacoRestante=
+        Math.max(
+            0,
+            total-meuEspaco
+        );
+
+
+    document.getElementById(
+        "resumoMeta"
+    ).textContent=
+        formatarPercentual(meta);
+
+
+    document.getElementById(
+        "resumoTotal"
+    ).textContent=
+        formatarNumero(total)+" cm";
+
+
+    document.getElementById(
+        "resumoMeuEspaco"
+    ).textContent=
+        formatarNumero(meuEspaco)+" cm";
+
+
+    document.getElementById(
+        "resumoRestante"
+    ).textContent=
+        formatarNumero(espacoRestante)+" cm";
+
+
+    if(total<=0){
+
+        resultado.className=
+            "resultado neutro";
+
+        shareResultado.textContent=
+            "0,00%";
+
+        statusResultado.textContent=
+            "Preencha o espaço total";
+
+        emoji.textContent="";
+        emoji.className=
+            "emoji-resultado";
+
+        atualizarResumo(
+            meta,
+            total,
+            meuEspaco,
+            espacoRestante,
+            0,
+            0,
+            "—"
+        );
+
+        atualizarGrafico(
+            meta,
+            0,
+            0
+        );
+
         return;
     }
 
-    const share = (meuEspaco / total) * 100;
-    const diferenca = share - meta;
 
-    percentual.textContent = formatarNumero(share) + "%";
-    resumoResultado.textContent = formatarNumero(share) + "%";
+    const share=
+        (meuEspaco/total)*100;
 
-    if (share >= meta && meta > 0) {
-        resultado.className = "resultado verde";
-        status.textContent = "META ATINGIDA ✓";
-        resumoDiferenca.textContent = "+" + formatarNumero(diferenca) + " p.p.";
-        mensagemResumo.className = "destaque verde";
-        mensagemResumo.textContent = "Meta atingida! Seu Share está dentro ou acima do objetivo.";
-    } else {
-        resultado.className = "resultado vermelho";
-        status.textContent = "META NÃO ATINGIDA";
-        resumoDiferenca.textContent = formatarNumero(diferenca) + " p.p.";
-        mensagemResumo.className = "destaque vermelho";
+    const diferenca=
+        share-meta;
 
-        if (meta > 0) {
-            mensagemResumo.textContent = "Meta não atingida. É necessário aumentar seu espaço para alcançar o objetivo.";
-        } else {
-            mensagemResumo.textContent = "Informe uma meta desejada para avaliar o resultado.";
-        }
+
+    shareResultado.textContent=
+        formatarPercentual(share);
+
+
+    document.getElementById(
+        "resumoShare"
+    ).textContent=
+        formatarPercentual(share);
+
+
+    document.getElementById(
+        "resumoDiferenca"
+    ).textContent=
+        (diferenca>=0 ? "+" : "")+
+        formatarPercentual(diferenca);
+
+
+    if(meta<=0){
+
+        resultado.className=
+            "resultado neutro";
+
+        statusResultado.textContent=
+            "Informe uma meta para avaliar";
+
+        emoji.textContent="";
+        emoji.className=
+            "emoji-resultado";
+
+        atualizarResumo(
+            meta,
+            total,
+            meuEspaco,
+            espacoRestante,
+            share,
+            diferenca,
+            "—"
+        );
+
+        atualizarGrafico(
+            meta,
+            share,
+            diferenca
+        );
+
+        return;
     }
+
+
+    if(share>=meta){
+
+        resultado.className=
+            "resultado bom";
+
+        statusResultado.textContent=
+            "✓ META ATINGIDA";
+
+        emoji.textContent="👍";
+
+        emoji.className=
+            "emoji-resultado mostrar bom";
+
+        atualizarResumo(
+            meta,
+            total,
+            meuEspaco,
+            espacoRestante,
+            share,
+            diferenca,
+            "Atingida"
+        );
+
+        atualizarGrafico(
+            meta,
+            share,
+            diferenca
+        );
+
+    }
+
+    else{
+
+        resultado.className=
+            "resultado ruim";
+
+        statusResultado.textContent=
+            "✕ META NÃO ATINGIDA";
+
+        emoji.textContent="😔";
+
+        emoji.className=
+            "emoji-resultado mostrar ruim";
+
+        atualizarResumo(
+            meta,
+            total,
+            meuEspaco,
+            espacoRestante,
+            share,
+            diferenca,
+            "Não atingida"
+        );
+
+        atualizarGrafico(
+            meta,
+            share,
+            diferenca
+        );
+
+    }
+
 }
 
-metaInput.addEventListener("input", calcular);
-totalInput.addEventListener("input", calcular);
-meuEspacoInput.addEventListener("input", calcular);
+
+/* ================================
+   RESUMO
+================================ */
+
+function atualizarResumo(
+    meta,
+    total,
+    meuEspaco,
+    espacoRestante,
+    share,
+    diferenca,
+    situacao
+){
+
+    document.getElementById(
+        "resumoMeta"
+    ).textContent=
+        formatarPercentual(meta);
+
+    document.getElementById(
+        "resumoTotal"
+    ).textContent=
+        formatarNumero(total)+" cm";
+
+    document.getElementById(
+        "resumoMeuEspaco"
+    ).textContent=
+        formatarNumero(meuEspaco)+" cm";
+
+    document.getElementById(
+        "resumoRestante"
+    ).textContent=
+        formatarNumero(espacoRestante)+" cm";
+
+    document.getElementById(
+        "resumoShare"
+    ).textContent=
+        formatarPercentual(share);
+
+    document.getElementById(
+        "resumoDiferenca"
+    ).textContent=
+        (diferenca>=0 ? "+" : "")+
+        formatarPercentual(diferenca);
+
+    document.getElementById(
+        "resumoSituacao"
+    ).textContent=
+        situacao;
+
+
+    const mensagem=
+        document.getElementById(
+            "resumoMensagem"
+        );
+
+
+    if(situacao==="Atingida"){
+
+        mensagem.innerHTML=
+            "🎯 Sua participação é de <strong>"+
+            formatarPercentual(share)+
+            "</strong>, atingindo a meta de <strong>"+
+            formatarPercentual(meta)+
+            "</strong>.";
+
+    }
+
+    else if(situacao==="Não atingida"){
+
+        mensagem.innerHTML=
+            "⚠️ Seu share é de <strong>"+
+            formatarPercentual(share)+
+            "</strong>. Faltam <strong>"+
+            formatarPercentual(
+                Math.abs(diferenca)
+            )+
+            "</strong> para atingir a meta.";
+
+    }
+
+    else{
+
+        mensagem.textContent=
+            "Preencha a meta e os espaços para realizar a apuração.";
+
+    }
+
+}
+
+
+/* ================================
+   GRÁFICO
+================================ */
+
+function atualizarGrafico(
+    meta,
+    share,
+    diferenca
+){
+
+    const escala=550;
+
+
+    const larguraMeta=
+        Math.max(
+            0,
+            Math.min(100,meta)
+        )/100*escala;
+
+
+    const larguraShare=
+        Math.max(
+            0,
+            Math.min(100,share)
+        )/100*escala;
+
+
+    const larguraDiferenca=
+        Math.max(
+            0,
+            Math.min(100,Math.abs(diferenca))
+        )/100*escala;
+
+
+    document.getElementById(
+        "barraMeta"
+    ).setAttribute(
+        "width",
+        larguraMeta
+    );
+
+
+    document.getElementById(
+        "barraShare"
+    ).setAttribute(
+        "width",
+        larguraShare
+    );
+
+
+    document.getElementById(
+        "barraDiferenca"
+    ).setAttribute(
+        "width",
+        larguraDiferenca
+    );
+
+
+    document.getElementById(
+        "textoMetaGrafico"
+    ).textContent=
+        formatarPercentual(meta);
+
+
+    document.getElementById(
+        "textoShareGrafico"
+    ).textContent=
+        formatarPercentual(share);
+
+
+    document.getElementById(
+        "textoDiferencaGrafico"
+    ).textContent=
+        (diferenca>=0 ? "+" : "")+
+        formatarPercentual(diferenca);
+
+
+    const posicaoMeta=
+        100+
+        Math.max(
+            0,
+            Math.min(100,meta)
+        )/100*550;
+
+
+    document.getElementById(
+        "linhaMeta"
+    ).setAttribute(
+        "x1",
+        posicaoMeta
+    );
+
+    document.getElementById(
+        "linhaMeta"
+    ).setAttribute(
+        "x2",
+        posicaoMeta
+    );
+
+
+    const barraDiferenca=
+        document.getElementById(
+            "barraDiferenca"
+        );
+
+
+    if(diferenca>=0){
+
+        barraDiferenca.setAttribute(
+            "fill",
+            "#00d084"
+        );
+
+    }
+
+    else{
+
+        barraDiferenca.setAttribute(
+            "fill",
+            "#ff4054"
+        );
+
+    }
+
+}
+
+
+/* ================================
+   TOOLTIP
+================================ */
+
+document.getElementById(
+    "barraMeta"
+).addEventListener(
+    "click",
+    function(){
+
+        const meta=
+            numero(metaInput.value);
+
+        document.getElementById(
+            "tooltipGrafico"
+        ).textContent=
+            "Meta desejada: "+
+            formatarPercentual(meta);
+
+    }
+);
+
+
+document.getElementById(
+    "barraShare"
+).addEventListener(
+    "click",
+    function(){
+
+        const total=
+            numero(totalInput.value);
+
+        const meuEspaco=
+            numero(meuEspacoInput.value);
+
+        const share=
+            total>0
+            ? (meuEspaco/total)*100
+            : 0;
+
+        document.getElementById(
+            "tooltipGrafico"
+        ).textContent=
+            "Share apurado: "+
+            formatarPercentual(share);
+
+    }
+);
+
+
+document.getElementById(
+    "barraDiferenca"
+).addEventListener(
+    "click",
+    function(){
+
+        const meta=
+            numero(metaInput.value);
+
+        const total=
+            numero(totalInput.value);
+
+        const meuEspaco=
+            numero(meuEspacoInput.value);
+
+        const share=
+            total>0
+            ? (meuEspaco/total)*100
+            : 0;
+
+        const diferenca=
+            share-meta;
+
+        document.getElementById(
+            "tooltipGrafico"
+        ).textContent=
+            "Diferença: "+
+            (diferenca>=0 ? "+" : "")+
+            formatarPercentual(diferenca);
+
+    }
+);
+
+
+/* ================================
+   CALCULADORA
+================================ */
+
+function abrirCalculadora(){
+
+    document.getElementById(
+        "modalCalculadora"
+    ).classList.add("ativo");
+
+}
+
+
+function fecharCalculadora(){
+
+    document.getElementById(
+        "modalCalculadora"
+    ).classList.remove("ativo");
+
+}
+
+
+function calcAdicionar(valor){
+
+    const display=
+        document.getElementById(
+            "calcDisplay"
+        );
+
+    if(display.value==="Erro"){
+        display.value="";
+    }
+
+    display.value+=valor;
+
+}
+
+
+function calcLimpar(){
+
+    document.getElementById(
+        "calcDisplay"
+    ).value="";
+
+}
+
+
+function calcResultado(){
+
+    const display=
+        document.getElementById(
+            "calcDisplay"
+        );
+
+    const expressao=
+        display.value;
+
+    if(!expressao){
+        return;
+    }
+
+
+    if(
+        !/^[0-9+\-*/().\s]+$/.test(
+            expressao
+        )
+    ){
+
+        display.value="Erro";
+
+        return;
+
+    }
+
+
+    try{
+
+        const resultadoCalc=
+            Function(
+                "return "+expressao
+            )();
+
+        if(
+            typeof resultadoCalc!=="number" ||
+            !Number.isFinite(resultadoCalc)
+        ){
+
+            display.value="Erro";
+
+            return;
+
+        }
+
+        display.value=
+            String(resultadoCalc);
+
+    }
+
+    catch(e){
+
+        display.value="Erro";
+
+    }
+
+}
+
+
+/* ================================
+   PIZZA DO PDF
+================================ */
+
+function prepararPizzaPDF(
+    meuEspaco,
+    total
+){
+
+    const pizza=
+        document.getElementById(
+            "pizzaPDF"
+        );
+
+
+    if(total<=0){
+
+        pizza.style.background="#ddd";
+
+        return;
+
+    }
+
+
+    let percentualMeu=
+        (meuEspaco/total)*100;
+
+
+    percentualMeu=
+        Math.max(
+            0,
+            Math.min(
+                100,
+                percentualMeu
+            )
+        );
+
+
+    const restante=
+        100-percentualMeu;
+
+
+    pizza.style.background=
+        "conic-gradient("+
+        "#00a8ff 0% "+
+        percentualMeu+"%, "+
+        "#e5e5e5 "+
+        percentualMeu+"% 100%)";
+
+
+    document.getElementById(
+        "pizzaMeuTexto"
+    ).textContent=
+        formatarNumero(meuEspaco)+
+        " cm ("+
+        formatarPercentual(percentualMeu)+
+        ")";
+
+
+    document.getElementById(
+        "pizzaRestanteTexto"
+    ).textContent=
+        formatarNumero(
+            Math.max(
+                0,
+                total-meuEspaco
+            )
+        )+
+        " cm ("+
+        formatarPercentual(restante)+
+        ")";
+
+}
+
+
+/* ================================
+   PDF
+================================ */
+
+async function baixarPDF(){
+
+    const meta=
+        numero(metaInput.value);
+
+    const total=
+        numero(totalInput.value);
+
+    const meuEspaco=
+        numero(meuEspacoInput.value);
+
+
+    const nomeLoja=
+        document.getElementById(
+            "nomeLoja"
+        ).value.trim();
+
+
+    const enderecoLoja=
+        document.getElementById(
+            "enderecoLoja"
+        ).value.trim();
+
+
+    const nomeUsuario=
+        document.getElementById(
+            "nomeUsuario"
+        ).value.trim();
+
+
+    if(!nomeLoja){
+
+        alert(
+            "Informe o nome da loja antes de gerar o PDF."
+        );
+
+        document.getElementById(
+            "nomeLoja"
+        ).focus();
+
+        return;
+
+    }
+
+
+    if(!enderecoLoja){
+
+        alert(
+            "Informe o endereço da loja antes de gerar o PDF."
+        );
+
+        document.getElementById(
+            "enderecoLoja"
+        ).focus();
+
+        return;
+
+    }
+
+
+    if(!nomeUsuario){
+
+        alert(
+            "Informe seu nome antes de gerar o PDF."
+        );
+
+        document.getElementById(
+            "nomeUsuario"
+        ).focus();
+
+        return;
+
+    }
+
+
+    if(total<=0){
+
+        alert(
+            "Informe o espaço total antes de gerar o PDF."
+        );
+
+        return;
+
+    }
+
+
+    if(meta<=0){
+
+        alert(
+            "Informe a meta desejada antes de gerar o PDF."
+        );
+
+        return;
+
+    }
+
+
+    if(meuEspaco<0){
+
+        alert(
+            "Informe um valor válido para o seu espaço."
+        );
+
+        return;
+
+    }
+
+
+    const share=
+        (meuEspaco/total)*100;
+
+    const diferenca=
+        share-meta;
+
+    const atingida=
+        share>=meta;
+
+    const espacoRestante=
+        Math.max(
+            0,
+            total-meuEspaco
+        );
+
+
+    const data=
+        document.getElementById(
+            "dataAtual"
+        ).textContent;
+
+    const hora=
+        document.getElementById(
+            "horaAtual"
+        ).textContent;
+
+
+    /* Informações da loja */
+
+    document.getElementById(
+        "pdfNomeLoja"
+    ).textContent=
+        nomeLoja;
+
+
+    document.getElementById(
+        "pdfEnderecoLoja"
+    ).textContent=
+        enderecoLoja;
+
+
+    document.getElementById(
+        "pdfNomeUsuario"
+    ).textContent=
+        nomeUsuario;
+
+
+    document.getElementById(
+        "pdfData"
+    ).textContent=
+        data;
+
+
+    document.getElementById(
+        "pdfHora"
+    ).textContent=
+        hora;
+
+
+    /* Resultado */
+
+    document.getElementById(
+        "pdfShare"
+    ).textContent=
+        formatarPercentual(share);
+
+
+    document.getElementById(
+        "pdfShareTabela"
+    ).textContent=
+        formatarPercentual(share);
+
+
+    document.getElementById(
+        "pdfMeta"
+    ).textContent=
+        formatarPercentual(meta);
+
+
+    document.getElementById(
+        "pdfTotal"
+    ).textContent=
+        formatarNumero(total)+" cm";
+
+
+    document.getElementById(
+        "pdfMeuEspaco"
+    ).textContent=
+        formatarNumero(meuEspaco)+" cm";
+
+
+    document.getElementById(
+        "pdfRestante"
+    ).textContent=
+        formatarNumero(
+            espacoRestante
+        )+" cm";
+
+
+    document.getElementById(
+        "pdfDiferenca"
+    ).textContent=
+        (diferenca>=0 ? "+" : "")+
+        formatarPercentual(diferenca);
+
+
+    document.getElementById(
+        "pdfSituacao"
+    ).textContent=
+        atingida
+        ? "Meta atingida"
+        : "Meta não atingida";
+
+
+    document.getElementById(
+        "pdfStatus"
+    ).textContent=
+        atingida
+        ? "✓ META ATINGIDA"
+        : "✕ META NÃO ATINGIDA";
+
+
+    const pdfResultado=
+        document.getElementById(
+            "pdfResultado"
+        );
+
+
+    if(atingida){
+
+        pdfResultado.className=
+            "pdf-resultado";
+
+    }
+
+    else{
+
+        pdfResultado.className=
+            "pdf-resultado ruim";
+
+    }
+
+
+    /* Mensagem */
+
+    const pdfMensagem=
+        document.getElementById(
+            "pdfMensagem"
+        );
+
+
+    if(atingida){
+
+        pdfMensagem.innerHTML=
+            "A meta de <strong>"+
+            formatarPercentual(meta)+
+            "</strong> foi atingida. "+
+            "O share apurado foi de <strong>"+
+            formatarPercentual(share)+
+            "</strong>, representando uma diferença de <strong>"+
+            (diferenca>=0 ? "+" : "")+
+            formatarPercentual(diferenca)+
+            "</strong> em relação à meta. "+
+            "Seu espaço ocupa <strong>"+
+            formatarNumero(meuEspaco)+
+            " cm</strong> de um total de <strong>"+
+            formatarNumero(total)+
+            " cm</strong>.";
+
+    }
+
+    else{
+
+        pdfMensagem.innerHTML=
+            "A meta de <strong>"+
+            formatarPercentual(meta)+
+            "</strong> não foi atingida. "+
+            "O share apurado foi de <strong>"+
+            formatarPercentual(share)+
+            "</strong>. "+
+            "Faltam <strong>"+
+            formatarPercentual(
+                Math.abs(diferenca)
+            )+
+            "</strong> para alcançar a meta. "+
+            "Seu espaço atual é de <strong>"+
+            formatarNumero(meuEspaco)+
+            " cm</strong>.";
+
+    }
+
+
+    prepararPizzaPDF(
+        meuEspaco,
+        total
+    );
+
+
+    const relatorio=
+        document.getElementById(
+            "relatorioPDF"
+        );
+
+
+    try{
+
+        const canvas=
+            await html2canvas(
+                relatorio,
+                {
+                    scale:2,
+                    backgroundColor:"#ffffff",
+                    useCORS:true
+                }
+            );
+
+
+        const imgData=
+            canvas.toDataURL(
+                "image/png"
+            );
+
+
+        const {jsPDF}=
+            window.jspdf;
+
+
+        const pdf=
+            new jsPDF(
+                "p",
+                "mm",
+                "a4"
+            );
+
+
+        const larguraPagina=210;
+
+        const alturaPagina=297;
+
+        const margem=10;
+
+        const larguraUtil=
+            larguraPagina-
+            margem*2;
+
+        const alturaImagem=
+            canvas.height*
+            larguraUtil/
+            canvas.width;
+
+        const alturaUtil=
+            alturaPagina-
+            margem*2;
+
+
+        let alturaRestante=
+            alturaImagem;
+
+        let deslocamento=0;
+
+        let primeiraPagina=true;
+
+
+        while(
+            alturaRestante>0
+        ){
+
+            if(!primeiraPagina){
+
+                pdf.addPage();
+
+            }
+
+
+            const posicaoY=
+                margem-
+                deslocamento;
+
+
+            pdf.addImage(
+                imgData,
+                "PNG",
+                margem,
+                posicaoY,
+                larguraUtil,
+                alturaImagem
+            );
+
+
+            deslocamento+=alturaUtil;
+
+            alturaRestante=
+                alturaImagem-
+                deslocamento;
+
+            primeiraPagina=false;
+
+        }
+
+
+        const dataArquivo=
+            new Date()
+            .toISOString()
+            .slice(0,10);
+
+
+        const nomeArquivo=
+            "MShare-Space-"+
+            dataArquivo+
+            ".pdf";
+
+
+        pdf.save(
+            nomeArquivo
+        );
+
+    }
+
+    catch(erro){
+
+        console.error(erro);
+
+        alert(
+            "Não foi possível gerar o PDF. Verifique sua conexão com a internet e tente novamente."
+        );
+
+    }
+
+}
+
+
+/* ================================
+   EVENTOS
+================================ */
+
+document.getElementById(
+    "meta"
+).addEventListener(
+    "input",
+    calcular
+);
+
+document.getElementById(
+    "total"
+).addEventListener(
+    "input",
+    calcular
+);
+
+document.getElementById(
+    "meuEspaco"
+).addEventListener(
+    "input",
+    calcular
+);
+
+
+document.getElementById(
+    "barraMeta"
+).addEventListener(
+    "click",
+    function(){
+
+        const meta=
+            numero(metaInput.value);
+
+        document.getElementById(
+            "tooltipGrafico"
+        ).textContent=
+            "Meta desejada: "+
+            formatarPercentual(meta);
+
+    }
+);
+
+
+document.getElementById(
+    "barraShare"
+).addEventListener(
+    "click",
+    function(){
+
+        const total=
+            numero(totalInput.value);
+
+        const meuEspaco=
+            numero(meuEspacoInput.value);
+
+        const share=
+            total>0
+            ? (meuEspaco/total)*100
+            : 0;
+
+        document.getElementById(
+            "tooltipGrafico"
+        ).textContent=
+            "Share apurado: "+
+            formatarPercentual(share);
+
+    }
+);
+
+
+document.getElementById(
+    "barraDiferenca"
+).addEventListener(
+    "click",
+    function(){
+
+        const meta=
+            numero(metaInput.value);
+
+        const total=
+            numero(totalInput.value);
+
+        const meuEspaco=
+            numero(meuEspacoInput.value);
+
+        const share=
+            total>0
+            ? (meuEspaco/total)*100
+            : 0;
+
+        const diferenca=
+            share-meta;
+
+        document.getElementById(
+            "tooltipGrafico"
+        ).textContent=
+            "Diferença: "+
+            (diferenca>=0 ? "+" : "")+
+            formatarPercentual(diferenca);
+
+    }
+);
+
+
+document.getElementById(
+    "modalCalculadora"
+).addEventListener(
+    "click",
+    function(event){
+
+        if(event.target===this){
+
+            fecharCalculadora();
+
+        }
+
+    }
+);
+
+
+/* Inicialização */
 
 calcular();
-
-
-/* ============================= */
-/* CALCULADORA (MODAL)           */
-/* ============================= */
-
-let calcAtual = '0';
-let calcAnterior = null;
-let calcOperacao = null;
-let calcAguardandoNovo = false;
-
-const elResultadoCalc = document.getElementById('resultadoCalc');
-const elHistoricoCalc = document.getElementById('historicoCalc');
-const modalCalc = document.getElementById('modalCalc');
-const btnCalc = document.getElementById('btnCalc');
-const btnFecharCalc = document.getElementById('btnFecharCalc');
-
-function calcAtualizarVisor() {
-    elResultadoCalc.textContent = calcAtual.replace('.', ',');
-
-    if (calcAnterior !== null && calcOperacao) {
-        const simbolos = { '+': '+', '-': '−', '*': '×', '/': '÷' };
-        elHistoricoCalc.textContent =
-            calcAnterior.toString().replace('.', ',') + ' ' + simbolos[calcOperacao];
-    } else {
-        elHistoricoCalc.textContent = '';
-    }
-}
-
-function calcDigito(d) {
-    if (calcAguardandoNovo) {
-        calcAtual = (d === '.') ? '0.' : d;
-        calcAguardandoNovo = false;
-    } else {
-        if (d === '.' && calcAtual.includes('.')) return;
-        calcAtual = (calcAtual === '0' && d !== '.') ? d : calcAtual + d;
-    }
-    calcAtualizarVisor();
-}
-
-function calcOperador(op) {
-    if (calcOperacao && !calcAguardandoNovo) calcCalcular();
-    calcAnterior = parseFloat(calcAtual);
-    calcOperacao = op;
-    calcAguardandoNovo = true;
-    calcAtualizarVisor();
-}
-
-function calcCalcular() {
-    if (calcOperacao === null || calcAnterior === null) return;
-
-    const b = parseFloat(calcAtual);
-    let resultadoCalc;
-
-    switch (calcOperacao) {
-        case '+': resultadoCalc = calcAnterior + b; break;
-        case '-': resultadoCalc = calcAnterior - b; break;
-        case '*': resultadoCalc = calcAnterior * b; break;
-        case '/': resultadoCalc = (b === 0) ? 'Erro' : calcAnterior / b; break;
-    }
-
-    if (resultadoCalc !== 'Erro') {
-        resultadoCalc = Math.round(resultadoCalc * 1e10) / 1e10;
-    }
-
-    calcAtual = resultadoCalc.toString();
-    calcOperacao = null;
-    calcAnterior = null;
-    calcAguardandoNovo = true;
-    calcAtualizarVisor();
-}
-
-function calcLimpar() {
-    calcAtual = '0';
-    calcAnterior = null;
-    calcOperacao = null;
-    calcAguardandoNovo = false;
-    calcAtualizarVisor();
-}
-
-function calcApagar() {
-    if (calcAguardandoNovo) return;
-    calcAtual = calcAtual.length > 1 ? calcAtual.slice(0, -1) : '0';
-    calcAtualizarVisor();
-}
-
-function calcPorcento() {
-    calcAtual = (parseFloat(calcAtual) / 100).toString();
-    calcAtualizarVisor();
-}
-
-btnCalc.addEventListener('click', function () {
-    modalCalc.classList.add('ativo');
-});
-
-btnFecharCalc.addEventListener('click', function () {
-    modalCalc.classList.remove('ativo');
-});
-
-modalCalc.addEventListener('click', function (e) {
-    if (e.target === modalCalc) modalCalc.classList.remove('ativo');
-});
-
-document.addEventListener('keydown', function (e) {
-
-    if (!modalCalc.classList.contains('ativo')) return;
-
-    if (e.key >= '0' && e.key <= '9') calcDigito(e.key);
-    else if (e.key === '.' || e.key === ',') calcDigito('.');
-    else if (e.key === '+') calcOperador('+');
-    else if (e.key === '-') calcOperador('-');
-    else if (e.key === '*') calcOperador('*');
-    else if (e.key === '/') { e.preventDefault(); calcOperador('/'); }
-    else if (e.key === 'Enter' || e.key === '=') calcCalcular();
-    else if (e.key === 'Backspace') calcApagar();
-    else if (e.key === 'Escape') modalCalc.classList.remove('ativo');
-    else if (e.key === '%') calcPorcento();
-});
-
-calcAtualizarVisor();
 
 </script>
 
