@@ -220,6 +220,46 @@ input:focus{border-color:#00d9ff;box-shadow:0 0 0 2px rgba(0,217,255,.12);}
     color:#7d91a7;font-weight:bold;pointer-events:none;
 }
 
+/* ==========================================
+   SELETOR DE UNIDADE (FRENTES / CENTÍMETROS)
+   ========================================== */
+.seletor-unidade{
+    display:flex;
+    gap:8px;
+    margin-bottom:14px;
+    background:#071522;
+    border:1px solid #1a3a55;
+    border-radius:14px;
+    padding:6px;
+}
+
+.seletor-unidade button{
+    flex:1;
+    border:none;
+    background:transparent;
+    color:#8da2b7;
+    padding:12px 8px;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    transition:all .25s ease;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+}
+
+.seletor-unidade button.ativo{
+    background:linear-gradient(90deg,#6a11cb,#2575fc);
+    color:#fff;
+    box-shadow:0 4px 15px rgba(37,117,252,.3);
+}
+
+.seletor-unidade button:active{
+    transform:scale(.97);
+}
+
 .botao{
     width:100%;border:none;border-radius:13px;
     padding:15px;font-size:15px;font-weight:bold;
@@ -391,6 +431,7 @@ svg rect{cursor:pointer;transition:width .4s ease;}
     .resumo{grid-template-columns:1fr 1fr;}
     .splash-frase{font-size:22px;}
     .splash-emoji{font-size:60px;}
+    .seletor-unidade button{font-size:13px;padding:10px 5px;}
 }
 </style>
 </head>
@@ -431,6 +472,13 @@ svg rect{cursor:pointer;transition:width .4s ease;}
 
 <section class="card">
     <h2>📏 Medição da gôndola</h2>
+
+    <!-- SELETOR DE UNIDADE -->
+    <div class="seletor-unidade" id="seletorUnidade">
+        <button id="btnFrentes" class="ativo" onclick="mudarUnidade('frentes')">📦 FRENTES</button>
+        <button id="btnCentimetros" onclick="mudarUnidade('centimetros')">📐 CENTÍMETROS</button>
+    </div>
+
     <div class="grid">
         <div>
             <label for="meta">Meta desejada</label>
@@ -441,19 +489,19 @@ svg rect{cursor:pointer;transition:width .4s ease;}
             </div>
         </div>
         <div>
-            <label for="total">Espaço total</label>
+            <label for="total" id="labelTotal">Espaço total (frentes)</label>
             <div class="input-prefix">
-                <input type="number" id="total" min="0" step="0.01"
-                       inputmode="decimal" placeholder="Ex.: 300">
-                <span>cm</span>
+                <input type="number" id="total" min="0" step="1"
+                       inputmode="numeric" placeholder="Ex.: 20">
+                <span id="unidadeTotal">frentes</span>
             </div>
         </div>
         <div>
-            <label for="meuEspaco">Meu espaço</label>
+            <label for="meuEspaco" id="labelMeuEspaco">Meu espaço (frentes)</label>
             <div class="input-prefix">
-                <input type="number" id="meuEspaco" min="0" step="0.01"
-                       inputmode="decimal" placeholder="Ex.: 80">
-                <span>cm</span>
+                <input type="number" id="meuEspaco" min="0" step="1"
+                       inputmode="numeric" placeholder="Ex.: 5">
+                <span id="unidadeMeuEspaco">frentes</span>
             </div>
         </div>
     </div>
@@ -507,16 +555,16 @@ svg rect{cursor:pointer;transition:width .4s ease;}
             <div class="valor" id="resumoMeta">0,00%</div>
         </div>
         <div class="resumo-item">
-            <div class="rotulo">ESPAÇO TOTAL</div>
-            <div class="valor" id="resumoTotal">0,00 cm</div>
+            <div class="rotulo" id="rotuloResumoTotal">ESPAÇO TOTAL</div>
+            <div class="valor" id="resumoTotal">0 frentes</div>
         </div>
         <div class="resumo-item">
-            <div class="rotulo">MEU ESPAÇO</div>
-            <div class="valor" id="resumoMeuEspaco">0,00 cm</div>
+            <div class="rotulo" id="rotuloResumoMeuEspaco">MEU ESPAÇO</div>
+            <div class="valor" id="resumoMeuEspaco">0 frentes</div>
         </div>
         <div class="resumo-item">
             <div class="rotulo">ESPAÇO RESTANTE</div>
-            <div class="valor" id="resumoRestante">0,00 cm</div>
+            <div class="valor" id="resumoRestante">0 frentes</div>
         </div>
         <div class="resumo-item">
             <div class="rotulo">SHARE APURADO</div>
@@ -595,13 +643,12 @@ window.addEventListener("load", function(){
     setTimeout(function(){
         splash.classList.add("esconder");
 
-        // Remove o splash do DOM após a animação pra liberar memória
         setTimeout(function(){
             if(splash.parentNode){
                 splash.parentNode.removeChild(splash);
             }
         }, 700);
-    }, 2000); // 2 segundos
+    }, 2000);
 });
 
 /* ==========================================
@@ -621,6 +668,11 @@ const tooltipGrafico  = $("tooltipGrafico");
 const statusConexaoEl = $("statusConexao");
 const textoConexaoEl  = $("textoConexao");
 const avisoOfflineEl  = $("avisoOffline");
+
+/* ==========================================
+   ESTADO DA UNIDADE
+   ========================================== */
+let unidadeAtual = "frentes"; // "frentes" ou "centimetros"
 
 /* ==========================================
    TOAST
@@ -655,6 +707,18 @@ function formatarNumero(valor){
     return n.toLocaleString("pt-BR", {
         minimumFractionDigits:2,
         maximumFractionDigits:2
+    });
+}
+
+/* Formata sem decimais para frentes (unidades inteiras) */
+function formatarFrentes(valor){
+    const n = Number(valor);
+    if(!Number.isFinite(n)) return "0";
+    // Se for inteiro, sem decimais; senão, até 1 casa
+    if(Number.isInteger(n)) return n.toLocaleString("pt-BR");
+    return n.toLocaleString("pt-BR", {
+        minimumFractionDigits:1,
+        maximumFractionDigits:1
     });
 }
 
@@ -778,6 +842,62 @@ document.addEventListener("visibilitychange", function(){
 atualizarConexao();
 
 /* ==========================================
+   TROCA DE UNIDADE (FRENTES / CENTÍMETROS)
+   ========================================== */
+function mudarUnidade(novaUnidade){
+    if(novaUnidade === unidadeAtual) return;
+
+    unidadeAtual = novaUnidade;
+
+    // Atualiza botões ativos
+    $("btnFrentes").classList.toggle("ativo", novaUnidade === "frentes");
+    $("btnCentimetros").classList.toggle("ativo", novaUnidade === "centimetros");
+
+    const ehFrentes = novaUnidade === "frentes";
+    const rotulo = ehFrentes ? "frentes" : "cm";
+
+    // Atualiza labels e unidades dos inputs
+    $("labelTotal").textContent = ehFrentes
+        ? "Espaço total (frentes)"
+        : "Espaço total (centímetros)";
+    $("labelMeuEspaco").textContent = ehFrentes
+        ? "Meu espaço (frentes)"
+        : "Meu espaço (centímetros)";
+    $("unidadeTotal").textContent = rotulo;
+    $("unidadeMeuEspaco").textContent = rotulo;
+
+    // Atualiza rótulos do resumo
+    $("rotuloResumoTotal").textContent = ehFrentes
+        ? "ESPAÇO TOTAL (FRENTES)"
+        : "ESPAÇO TOTAL (CM)";
+    $("rotuloResumoMeuEspaco").textContent = ehFrentes
+        ? "MEU ESPAÇO (FRENTES)"
+        : "MEU ESPAÇO (CM)";
+
+    // Ajusta step e placeholders
+    if(ehFrentes){
+        totalInput.setAttribute("step", "1");
+        totalInput.setAttribute("placeholder", "Ex.: 20");
+        meuEspacoInput.setAttribute("step", "1");
+        meuEspacoInput.setAttribute("placeholder", "Ex.: 5");
+    } else {
+        totalInput.setAttribute("step", "0.01");
+        totalInput.setAttribute("placeholder", "Ex.: 300");
+        meuEspacoInput.setAttribute("step", "0.01");
+        meuEspacoInput.setAttribute("placeholder", "Ex.: 80");
+    }
+
+    // Limpa os campos de espaço ao trocar de unidade (evita confusão)
+    totalInput.value = "";
+    meuEspacoInput.value = "";
+
+    // Recalcula com os novos valores vazios
+    calcular();
+
+    mostrarToast("📏", "Medição em " + (ehFrentes ? "frentes" : "centímetros"), "info");
+}
+
+/* ==========================================
    CÁLCULO PRINCIPAL
    ========================================== */
 function calcular(){
@@ -789,10 +909,14 @@ function calcular(){
             : numero(meuEspacoInput.value);
         const espacoRestante = Math.max(0, total - meuEspaco);
 
+        const ehFrentes = unidadeAtual === "frentes";
+        const sufixo = ehFrentes ? " frentes" : " cm";
+        const formatador = ehFrentes ? formatarFrentes : formatarNumero;
+
         $("resumoMeta").textContent      = formatarPercentual(meta);
-        $("resumoTotal").textContent     = formatarNumero(total) + " cm";
-        $("resumoMeuEspaco").textContent = formatarNumero(meuEspaco) + " cm";
-        $("resumoRestante").textContent  = formatarNumero(espacoRestante) + " cm";
+        $("resumoTotal").textContent     = formatador(total) + sufixo;
+        $("resumoMeuEspaco").textContent = formatador(meuEspaco) + sufixo;
+        $("resumoRestante").textContent  = formatador(espacoRestante) + sufixo;
 
         if(total <= 0){
             resultado.className = "resultado neutro";
@@ -852,10 +976,14 @@ function calcular(){
    RESUMO
    ========================================== */
 function atualizarResumo(meta, total, meuEspaco, espacoRestante, share, diferenca, situacao){
+    const ehFrentes = unidadeAtual === "frentes";
+    const sufixo = ehFrentes ? " frentes" : " cm";
+    const formatador = ehFrentes ? formatarFrentes : formatarNumero;
+
     $("resumoMeta").textContent      = formatarPercentual(meta);
-    $("resumoTotal").textContent     = formatarNumero(total) + " cm";
-    $("resumoMeuEspaco").textContent = formatarNumero(meuEspaco) + " cm";
-    $("resumoRestante").textContent  = formatarNumero(espacoRestante) + " cm";
+    $("resumoTotal").textContent     = formatador(total) + sufixo;
+    $("resumoMeuEspaco").textContent = formatador(meuEspaco) + sufixo;
+    $("resumoRestante").textContent  = formatador(espacoRestante) + sufixo;
     $("resumoShare").textContent     = formatarPercentual(share);
     $("resumoDiferenca").textContent =
         (diferenca >= 0 ? "+" : "") + formatarPercentual(diferenca);
