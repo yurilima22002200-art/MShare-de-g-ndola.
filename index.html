@@ -4,452 +4,737 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#07111f">
-
 <title>MShare Space</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
 
 body{
+    margin:0;
     font-family:Arial,Helvetica,sans-serif;
     background:
-        radial-gradient(circle at top left,#102d4a 0%,transparent 35%),
-        radial-gradient(circle at bottom right,#301331 0%,transparent 35%),
-        #050b13;
+        radial-gradient(circle at top left,#102b4d 0%,transparent 35%),
+        radial-gradient(circle at bottom right,#29113d 0%,transparent 35%),
+        #05060a;
     color:#fff;
     min-height:100vh;
-    padding:18px;
-    overflow-x:hidden;
 }
 
-/* ==========================================
-   SPLASH SCREEN (efeito de abertura)
-   ========================================== */
-.splash{
+button,input{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.container{
+    width:100%;
+    max-width:650px;
+    margin:auto;
+    padding:15px;
+}
+
+/* ================= SPLASH ================= */
+
+#splash{
     position:fixed;
     inset:0;
-    background:
-        radial-gradient(circle at center,#102d4a 0%,transparent 60%),
-        #050b13;
+    background:#05060a;
+    z-index:9999;
     display:flex;
     align-items:center;
     justify-content:center;
-    flex-direction:column;
-    z-index:9999;
-    transition:opacity .6s ease, visibility .6s ease;
-    padding:20px;
     text-align:center;
 }
 
-.splash.esconder{
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
+.splash-box{
+    width:90%;
 }
 
-.splash-emoji{
-    font-size:70px;
-    margin-bottom:20px;
-    animation:splashPulo 1.2s ease-in-out infinite alternate;
-    filter:drop-shadow(0 0 20px rgba(0,217,255,.4));
+.splash-icon{
+    font-size:65px;
+    animation:flutuar 1.5s infinite ease-in-out;
 }
 
-@keyframes splashPulo{
-    0%{transform:translateY(0) rotate(-6deg) scale(1);}
-    100%{transform:translateY(-12px) rotate(6deg) scale(1.08);}
-}
-
-.splash-frase{
-    font-size:26px;
+.splash-title{
+    font-size:28px;
     font-weight:900;
-    letter-spacing:1px;
-    background:linear-gradient(90deg,#00e5ff,#9d4edd,#ff3cac);
-    -webkit-background-clip:text;
-    background-clip:text;
-    -webkit-text-fill-color:transparent;
-    animation:splashFade 1s ease-out;
-    margin-bottom:10px;
+    margin-top:12px;
 }
 
-.splash-sub{
-    color:#aebdce;
-    font-size:14px;
-    animation:splashFade 1.4s ease-out;
+.splash-subtitle{
+    color:#9fb5d0;
+    margin-top:8px;
 }
 
-.splash-barra{
-    position:absolute;
-    bottom:0;
-    left:0;
-    height:4px;
+.loading{
+    width:100%;
+    height:7px;
+    background:#18202b;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:25px;
+}
+
+.loading-bar{
     width:0;
-    background:linear-gradient(90deg,#00e5ff,#9d4edd,#ff3cac);
-    animation:barraCarregar 2s linear forwards;
-    box-shadow:0 0 15px rgba(0,217,255,.6);
+    height:100%;
+    background:linear-gradient(90deg,#00eaff,#9b5cff,#ff1493);
+    animation:carregar 1.8s forwards;
 }
 
-@keyframes barraCarregar{
-    0%{width:0;}
-    100%{width:100%;}
+@keyframes carregar{
+    to{width:100%}
 }
 
-@keyframes splashFade{
-    0%{opacity:0;transform:translateY(15px);}
-    100%{opacity:1;transform:translateY(0);}
+@keyframes flutuar{
+    50%{transform:translateY(-10px)}
 }
 
-/* ==========================================
-   RESTO DO APP
-   ========================================== */
-.container{width:100%;max-width:700px;margin:auto;}
-.header{text-align:center;margin-bottom:20px;}
+/* ================= HEADER ================= */
+
+.header{
+    text-align:center;
+    padding:15px 5px 10px;
+}
 
 .logo{
-    font-size:34px;font-weight:900;letter-spacing:1px;
-    background:linear-gradient(90deg,#00e5ff,#9d4edd,#ff3cac);
-    -webkit-background-clip:text;background-clip:text;
-    -webkit-text-fill-color:transparent;
+    font-size:30px;
+    font-weight:900;
+    background:linear-gradient(90deg,#00eaff,#a66cff,#ff3cac);
+    -webkit-background-clip:text;
+    color:transparent;
 }
 
-.subtitle{color:#aebdce;font-size:14px;margin-top:5px;}
-.frase{color:#00d9ff;font-size:13px;margin-top:12px;font-weight:bold;}
-
-.status-conexao{
-    display:flex;align-items:center;justify-content:center;
-    gap:8px;margin:14px auto 0;
-    padding:8px 16px;
-    border-radius:30px;
-    font-size:12px;font-weight:700;
-    letter-spacing:1px;
-    width:fit-content;
-    border:1px solid;
-    transition:all .3s ease;
-    text-transform:uppercase;
+.subtitle{
+    color:#aab8ca;
+    font-size:14px;
+    margin-top:5px;
 }
 
-.status-conexao.online{
-    background:rgba(0,208,132,.12);
-    border-color:rgba(0,208,132,.4);
-    color:#00e58a;
+.date-time{
+    margin-top:12px;
+    color:#8da2ba;
+    font-size:12px;
 }
 
-.status-conexao.offline{
-    background:rgba(255,64,84,.12);
-    border-color:rgba(255,64,84,.4);
-    color:#ff4054;
+.connection{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    margin-top:10px;
+    padding:7px 12px;
+    border-radius:20px;
+    background:#101822;
+    font-size:12px;
 }
 
-.status-conexao.aviso{
-    background:rgba(245,158,11,.12);
-    border-color:rgba(245,158,11,.4);
-    color:#f59e0b;
+.connection-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#00ff88;
 }
 
-.status-conexao .bolinha{
-    width:8px;height:8px;border-radius:50%;
-    flex-shrink:0;
-    animation:pulsoConexao 1.6s ease-in-out infinite;
-}
-
-.status-conexao.online .bolinha{background:#00e58a;box-shadow:0 0 8px #00e58a;}
-.status-conexao.offline .bolinha{background:#ff4054;box-shadow:0 0 8px #ff4054;}
-.status-conexao.aviso .bolinha{background:#f59e0b;box-shadow:0 0 8px #f59e0b;}
-
-@keyframes pulsoConexao{
-    0%,100%{opacity:1;transform:scale(1);}
-    50%{opacity:.5;transform:scale(.85);}
-}
-
-.aviso-offline{
-    position:fixed;
-    top:0;left:0;right:0;
-    background:linear-gradient(90deg,#7c2632,#a83048);
-    color:#fff;
-    text-align:center;
-    padding:10px 15px;
-    font-size:13px;
-    font-weight:700;
-    z-index:999;
-    transform:translateY(-100%);
-    transition:transform .35s ease;
-    box-shadow:0 4px 20px rgba(0,0,0,.4);
-}
-
-.aviso-offline.mostrar{transform:translateY(0);}
-
-.data-hora{
-    margin:15px 0 20px;padding:12px;
-    border:1px solid #193652;background:rgba(5,20,35,.8);
-    border-radius:14px;text-align:center;
-}
-
-.data{color:#9eb1c5;font-size:12px;}
-.hora{font-size:23px;font-weight:bold;color:#00e5ff;margin-top:3px;}
+/* ================= CARD ================= */
 
 .card{
-    background:rgba(8,19,32,.92);
-    border:1px solid #1a3a55;border-radius:18px;
-    padding:18px;margin-bottom:15px;
-    box-shadow:0 10px 35px rgba(0,0,0,.25);
+    background:rgba(10,17,28,.88);
+    border:1px solid rgba(75,150,255,.18);
+    border-radius:22px;
+    padding:18px;
+    margin-top:15px;
+    box-shadow:0 10px 35px rgba(0,0,0,.3);
 }
 
-.card h2{font-size:17px;margin-bottom:15px;color:#00d9ff;}
-
-.grid{display:grid;grid-template-columns:1fr;gap:12px;}
-
-label{display:block;color:#aabbd0;font-size:13px;margin-bottom:6px;}
-
-input{
-    width:100%;padding:14px;border-radius:12px;
-    border:1px solid #244866;background:#071522;
-    color:white;outline:none;font-size:16px;
-    -moz-appearance:textfield;
+.card-title{
+    font-size:18px;
+    font-weight:900;
+    margin-bottom:15px;
 }
 
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button{
-    -webkit-appearance:none;margin:0;
+/* ================= UNIT ================= */
+
+.unidades{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:16px;
 }
 
-input:focus{border-color:#00d9ff;box-shadow:0 0 0 2px rgba(0,217,255,.12);}
-
-.input-prefix{position:relative;}
-.input-prefix input{padding-right:55px;}
-.input-prefix span{
-    position:absolute;right:14px;top:50%;transform:translateY(-50%);
-    color:#7d91a7;font-weight:bold;pointer-events:none;
+.btn-unidade{
+    border:1px solid #29384b;
+    background:#0d1520;
+    color:#9db0c7;
+    padding:13px;
+    border-radius:13px;
+    font-weight:800;
 }
 
-/* ==========================================
-   SELETOR DE UNIDADE (FRENTES / CENTÍMETROS)
-   ========================================== */
-.seletor-unidade{
-    display:flex;
-    gap:8px;
-    margin-bottom:14px;
-    background:#071522;
-    border:1px solid #1a3a55;
-    border-radius:14px;
-    padding:6px;
-}
-
-.seletor-unidade button{
-    flex:1;
-    border:none;
-    background:transparent;
-    color:#8da2b7;
-    padding:12px 8px;
-    border-radius:10px;
-    font-size:14px;
-    font-weight:700;
-    cursor:pointer;
-    transition:all .25s ease;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-}
-
-.seletor-unidade button.ativo{
-    background:linear-gradient(90deg,#6a11cb,#2575fc);
+.btn-unidade.ativo{
     color:#fff;
-    box-shadow:0 4px 15px rgba(37,117,252,.3);
+    border-color:#00d9ff;
+    background:linear-gradient(135deg,#07384a,#151b39);
+    box-shadow:0 0 18px rgba(0,217,255,.15);
 }
 
-.seletor-unidade button:active{
-    transform:scale(.97);
+/* ================= INPUT ================= */
+
+.label{
+    display:block;
+    color:#9db0c7;
+    font-size:13px;
+    margin-bottom:7px;
+    margin-top:13px;
 }
 
-.botao{
-    width:100%;border:none;border-radius:13px;
-    padding:15px;font-size:15px;font-weight:bold;
-    cursor:pointer;margin-top:10px;transition:.2s;
+.input{
+    width:100%;
+    border:1px solid #26364a;
+    outline:none;
+    background:#080e16;
     color:#fff;
-    display:flex;align-items:center;justify-content:center;gap:8px;
+    border-radius:13px;
+    padding:14px;
+    font-size:17px;
 }
 
-.botao:active{transform:scale(.98);}
-.botao:disabled{opacity:.6;cursor:not-allowed;}
-
-.calculadora-btn{background:linear-gradient(90deg,#6a11cb,#2575fc);}
-
-.resultado{
-    text-align:center;padding:24px 15px;
-    border-radius:18px;border:1px solid #244866;
-    background:#071522;transition:.3s;
+.input:focus{
+    border-color:#00d9ff;
+    box-shadow:0 0 15px rgba(0,217,255,.1);
 }
 
-.resultado.bom{border-color:#00d084;box-shadow:0 0 25px rgba(0,208,132,.12);}
-.resultado.ruim{border-color:#ff3b4f;box-shadow:0 0 25px rgba(255,59,79,.12);}
-.resultado.neutro{border-color:#244866;}
+/* ================= CALCULATOR ================= */
 
-.emoji-resultado{
-    display:none;font-size:50px;line-height:1;
-    margin-bottom:10px;transform-origin:center;
-}
-
-.emoji-resultado.mostrar{display:block;}
-
-.emoji-resultado.bom{animation:puloJoinha .8s ease-in-out infinite alternate;}
-
-@keyframes puloJoinha{
-    0%{transform:translateY(0) rotate(-8deg) scale(1);}
-    50%{transform:translateY(-9px) rotate(8deg) scale(1.12);}
-    100%{transform:translateY(0) rotate(-4deg) scale(1);}
-}
-
-.emoji-resultado.ruim{animation:tristeAnimacao 1s ease-in-out infinite;}
-
-@keyframes tristeAnimacao{
-    0%{transform:translateY(0) rotate(0deg);}
-    25%{transform:translateY(2px) rotate(-7deg);}
-    50%{transform:translateY(4px) rotate(7deg);}
-    75%{transform:translateY(2px) rotate(-5deg);}
-    100%{transform:translateY(0) rotate(0deg);}
-}
-
-.resultado .numero{font-size:52px;font-weight:900;color:#fff;}
-.resultado .titulo{color:#8da2b7;font-size:13px;margin-bottom:5px;}
-.status{margin-top:12px;font-size:17px;font-weight:900;}
-.resultado.bom .status{color:#00e58a;}
-.resultado.ruim .status{color:#ff4054;}
-.resultado.neutro .status{color:#8da2b7;}
-
-.grafico-container{margin-top:18px;}
-.grafico-titulo{font-size:14px;color:#aebed0;margin-bottom:10px;text-align:center;}
-
-svg{
-    width:100%;height:auto;display:block;
-    background:#06111d;border-radius:15px;
-    border:1px solid #193b56;
-}
-
-svg rect{cursor:pointer;transition:width .4s ease;}
-
-.tooltip-grafico{
-    text-align:center;color:#dce8f3;
-    font-size:12px;min-height:18px;margin-top:8px;
-}
-
-.resumo{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-
-.resumo-item{
-    background:#071522;border:1px solid #193650;
-    border-radius:13px;padding:13px;
-}
-
-.resumo-item .rotulo{color:#7f95aa;font-size:11px;margin-bottom:5px;}
-.resumo-item .valor{font-weight:bold;font-size:16px;word-break:break-word;}
-
-.resumo-mensagem{
-    grid-column:1/-1;margin-top:2px;padding:14px;
-    border-radius:13px;background:#0a1826;
-    border:1px solid #1c405b;color:#b9c8d7;
-    font-size:13px;line-height:1.5;
+.btn-calculadora{
+    width:100%;
+    margin-top:14px;
+    border:1px solid #4e3b7d;
+    background:linear-gradient(135deg,#191333,#25143b);
+    color:#fff;
+    padding:13px;
+    border-radius:13px;
+    font-weight:900;
 }
 
 .modal{
-    position:fixed;inset:0;background:rgba(0,0,0,.75);
-    display:none;align-items:center;justify-content:center;
-    padding:15px;z-index:1000;
+    position:fixed;
+    inset:0;
+    z-index:5000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(7px);
 }
 
-.modal.ativo{display:flex;}
+.modal.aberto{
+    display:flex;
+}
 
 .calculadora{
-    width:100%;max-width:370px;background:#081522;
-    border:1px solid #214763;border-radius:20px;padding:18px;
-    box-shadow:0 20px 60px rgba(0,0,0,.5);
+    width:100%;
+    max-width:360px;
+    background:#0a1019;
+    border:1px solid #30425a;
+    border-radius:24px;
+    padding:18px;
 }
 
-.calculadora-topo{
-    display:flex;align-items:center;
-    justify-content:space-between;margin-bottom:15px;
+.modal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
 }
 
-.calculadora-topo h3{color:#00e5ff;}
+.modal-title{
+    font-weight:900;
+}
 
 .fechar{
-    background:#172838;color:#fff;border:none;
-    width:35px;height:35px;border-radius:10px;
-    cursor:pointer;font-size:18px;
+    width:38px;
+    height:38px;
+    border:0;
+    border-radius:50%;
+    background:#1a2533;
+    color:#fff;
+    font-size:20px;
 }
 
 .calc-display{
-    width:100%;background:#02080d;border:1px solid #23435b;
-    color:#00ffcc;padding:15px;border-radius:12px;
-    font-size:22px;text-align:right;margin-bottom:12px;
-    outline:none;overflow:hidden;text-overflow:ellipsis;
+    background:#05080d;
+    border:1px solid #25364a;
+    border-radius:14px;
+    padding:15px;
+    min-height:70px;
+    margin-bottom:12px;
 }
 
-.calc-botoes{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;}
-
-.calc-botoes button{
-    border:none;background:#102638;color:#fff;
-    border-radius:10px;padding:16px 5px;
-    font-size:17px;cursor:pointer;
-    transition:background .15s;
+.calc-expression{
+    color:#70839b;
+    font-size:12px;
+    min-height:18px;
 }
 
-.calc-botoes button:active{background:#1a3a52;}
-
-.calc-botoes button.operador{background:#193d5a;color:#00e5ff;}
-.calc-botoes button.igual{background:#00a878;}
-.calc-botoes button.limpar{background:#7c2632;}
-
-.footer{
-    text-align:center;color:#65798e;font-size:11px;
-    padding:20px 5px 8px;line-height:1.7;
+.calc-result{
+    font-size:25px;
+    font-weight:900;
+    text-align:right;
 }
+
+.calc-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+}
+
+.calc-grid button{
+    border:0;
+    min-height:54px;
+    border-radius:12px;
+    background:#141e2b;
+    color:#fff;
+    font-size:18px;
+    font-weight:800;
+}
+
+.calc-grid .operador{
+    background:#22203c;
+}
+
+.calc-grid .igual{
+    background:linear-gradient(135deg,#006b82,#7543aa);
+}
+
+/* ================= RESULTADO ================= */
+
+.resultado{
+    margin-top:18px;
+    padding:20px;
+    border-radius:20px;
+    text-align:center;
+    border:1px solid #29384b;
+    background:#0b121c;
+}
+
+.resultado.verde{
+    border-color:#00ff88;
+    animation:pulsoVerde 1.4s infinite;
+}
+
+.resultado.vermelho{
+    border-color:#ff0055;
+    animation:pulsoVermelho 1.4s infinite;
+}
+
+@keyframes pulsoVerde{
+    50%{box-shadow:0 0 30px rgba(0,255,136,.3)}
+}
+
+@keyframes pulsoVermelho{
+    50%{box-shadow:0 0 30px rgba(255,0,85,.3)}
+}
+
+.emoji-resultado{
+    font-size:42px;
+}
+
+.share-resultado{
+    font-size:40px;
+    font-weight:900;
+    margin:5px 0;
+}
+
+.status-resultado{
+    color:#9fb0c3;
+    font-weight:700;
+}
+
+/* ================= GRÁFICO ================= */
+
+.grafico{
+    margin-top:15px;
+    padding:15px;
+    background:#070b11;
+    border-radius:16px;
+    border:1px solid #172536;
+}
+
+.grafico svg{
+    width:100%;
+    height:auto;
+}
+
+.grafico-label{
+    fill:#9eb0c3;
+    font-size:11px;
+}
+
+/* ================= RESUMO ================= */
+
+.resumo{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:9px;
+    margin-top:15px;
+}
+
+.resumo-item{
+    background:#080e16;
+    border:1px solid #1b2a3b;
+    border-radius:13px;
+    padding:12px;
+}
+
+.resumo-label{
+    font-size:10px;
+    color:#778ca4;
+    text-transform:uppercase;
+}
+
+.resumo-valor{
+    font-weight:900;
+    font-size:15px;
+    margin-top:5px;
+}
+
+.resumo-mensagem{
+    grid-column:1/-1;
+    text-align:center;
+    color:#9db0c4;
+    padding:10px;
+}
+
+/* ================= BOTÃO RUPTURAS ================= */
+
+.btn-rupturas-principal{
+    width:100%;
+    border:1px solid #36577d;
+    border-radius:17px;
+    padding:17px;
+    background:
+        linear-gradient(135deg,#101d2d,#17102b);
+    color:#fff;
+    font-weight:900;
+    font-size:16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    box-shadow:0 8px 25px rgba(0,0,0,.25);
+}
+
+.btn-rupturas-principal:active{
+    transform:scale(.98);
+}
+
+.badge-rupturas{
+    min-width:30px;
+    height:30px;
+    padding:0 9px;
+    border-radius:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#ff0055;
+    color:#fff;
+    font-size:13px;
+}
+
+/* =====================================================
+   FERRAMENTA DE RUPTURAS
+===================================================== */
+
+.ruptura-ferramenta{
+    width:100%;
+    max-width:650px;
+    max-height:94vh;
+    overflow-y:auto;
+    background:#080e16;
+    border:1px solid #2b405a;
+    border-radius:24px;
+    padding:17px;
+    box-shadow:0 20px 70px rgba(0,0,0,.6);
+}
+
+.ruptura-cabecalho{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    position:sticky;
+    top:0;
+    z-index:5;
+    background:#080e16;
+    padding-bottom:12px;
+}
+
+.ruptura-titulo{
+    font-size:20px;
+    font-weight:900;
+}
+
+.ruptura-subtitulo{
+    color:#8295aa;
+    font-size:12px;
+    margin-top:4px;
+}
+
+.ruptura-contadores{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:7px;
+    margin:10px 0 13px;
+}
+
+.ruptura-contador{
+    background:#0e1722;
+    border:1px solid #1c3045;
+    border-radius:13px;
+    text-align:center;
+    padding:10px 5px;
+}
+
+.ruptura-contador-numero{
+    font-size:20px;
+    font-weight:900;
+}
+
+.ruptura-contador-label{
+    color:#74879b;
+    font-size:9px;
+    text-transform:uppercase;
+    margin-top:3px;
+}
+
+.ruptura-categorias{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+}
+
+.ruptura-categoria{
+    border:1px solid #293b51;
+    background:#0d1520;
+    color:#9eafc3;
+    border-radius:13px;
+    padding:13px 8px;
+    font-weight:900;
+}
+
+.ruptura-categoria.ativo{
+    color:#fff;
+    border-color:#00d9ff;
+    background:linear-gradient(135deg,#073344,#211539);
+}
+
+.ruptura-pesquisa{
+    width:100%;
+    margin:12px 0;
+    border:1px solid #27394d;
+    background:#050a10;
+    color:#fff;
+    outline:none;
+    border-radius:13px;
+    padding:13px;
+}
+
+.ruptura-secao{
+    margin-top:15px;
+}
+
+.ruptura-secao-titulo{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:11px 12px;
+    background:#101a26;
+    border-radius:12px;
+    margin-bottom:7px;
+    font-weight:900;
+}
+
+.ruptura-lista{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.ruptura-produto{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#0b131e;
+    border:1px solid #17283a;
+    border-radius:12px;
+    padding:11px;
+    cursor:pointer;
+}
+
+.ruptura-produto:has(input:checked){
+    border-color:#ff0055;
+    background:#21101a;
+}
+
+.ruptura-checkbox{
+    width:21px;
+    height:21px;
+    accent-color:#ff0055;
+    flex-shrink:0;
+}
+
+.ruptura-produto-info{
+    flex:1;
+}
+
+.ruptura-produto-nome{
+    font-size:13px;
+    font-weight:800;
+}
+
+.ruptura-produto-descricao{
+    color:#71869d;
+    font-size:11px;
+    margin-top:3px;
+}
+
+.ruptura-verificar{
+    width:100%;
+    margin-top:17px;
+    border:0;
+    border-radius:15px;
+    padding:15px;
+    background:linear-gradient(90deg,#006f86,#693ca1);
+    color:#fff;
+    font-weight:900;
+    box-shadow:0 8px 25px rgba(0,0,0,.3);
+}
+
+/* ================= NOTAS ================= */
+
+.ruptura-notas-modal{
+    width:100%;
+    max-width:650px;
+    max-height:92vh;
+    overflow-y:auto;
+    background:#080e16;
+    border:1px solid #33465d;
+    border-radius:23px;
+    padding:17px;
+}
+
+.bloco-notas{
+    background:#03070b;
+    border:1px solid #1e3043;
+    border-radius:15px;
+    padding:15px;
+    white-space:pre-wrap;
+    font-family:monospace;
+    font-size:13px;
+    line-height:1.6;
+    min-height:220px;
+    max-height:55vh;
+    overflow-y:auto;
+}
+
+.notas-acoes{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+    margin-top:12px;
+}
+
+.btn-copiar{
+    border:0;
+    background:#075e54;
+    color:#fff;
+    border-radius:13px;
+    padding:14px;
+    font-weight:900;
+}
+
+.btn-limpar{
+    border:0;
+    background:#a50038;
+    color:#fff;
+    border-radius:13px;
+    padding:14px;
+    font-weight:900;
+}
+
+/* ================= TOAST ================= */
 
 .toast{
     position:fixed;
-    top:20px;left:50%;
-    transform:translateX(-50%) translateY(-100px);
-    background:#1e293b;
-    border:1px solid rgba(255,255,255,.1);
-    padding:12px 20px;
-    border-radius:12px;
-    font-size:14px;
-    box-shadow:0 10px 30px rgba(0,0,0,.5);
-    transition:transform .3s ease;
-    z-index:2000;
-    display:flex;align-items:center;gap:10px;
-    max-width:90vw;
+    left:50%;
+    bottom:20px;
+    transform:translateX(-50%) translateY(100px);
+    z-index:9000;
+    background:#111c29;
+    border:1px solid #32465c;
+    border-radius:14px;
+    padding:12px 17px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    opacity:0;
+    transition:.3s;
+    max-width:90%;
 }
 
-.toast.mostrar{transform:translateX(-50%) translateY(0);}
-.toast.ok{border-left:4px solid #00d084;}
-.toast.erro{border-left:4px solid #ff4054;}
-.toast.info{border-left:4px solid #00d9ff;}
+.toast.mostrar{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
 
-@media(max-width:500px){
-    body{padding:12px;}
-    .logo{font-size:29px;}
-    .card{padding:15px;}
-    .resultado .numero{font-size:45px;}
-    .resumo{grid-template-columns:1fr 1fr;}
-    .splash-frase{font-size:22px;}
-    .splash-emoji{font-size:60px;}
-    .seletor-unidade button{font-size:13px;padding:10px 5px;}
+footer{
+    text-align:center;
+    color:#52657a;
+    font-size:11px;
+    padding:25px 0 15px;
+}
+
+/* ================= RESPONSIVO ================= */
+
+@media(max-width:400px){
+    .container{
+        padding:11px;
+    }
+
+    .card{
+        padding:14px;
+    }
+
+    .resumo{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .ruptura-ferramenta{
+        padding:13px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ==========================================
-     SPLASH SCREEN — EFEITO DE ABERTURA
-     ========================================== -->
-<div id="splash" class="splash">
-    <div class="splash-emoji">🛒</div>
-    <div class="splash-frase">Bem-vindo ao MShare Space</div>
-    <div class="splash-sub">Vamos medir seu share? 📏</div>
-    <div class="splash-barra"></div>
-</div>
+<!-- ================= SPLASH ================= -->
 
-<div id="avisoOffline" class="aviso-offline">
-    📡 Sem conexão com a internet — os cálculos continuam funcionando normalmente
+<div id="splash">
+    <div class="splash-box">
+        <div class="splash-icon">🛒</div>
+        <div class="splash-title">Bem-vindo ao MShare Space</div>
+        <div class="splash-subtitle">Vamos medir seu share? 📏</div>
+        <div class="loading">
+            <div class="loading-bar"></div>
+        </div>
+    </div>
 </div>
 
 <div class="container">
@@ -457,812 +742,1613 @@ svg rect{cursor:pointer;transition:width .4s ease;}
 <header class="header">
     <div class="logo">MShare Space</div>
     <div class="subtitle">Calculadora de Share de Gôndola</div>
-    <div class="frase">Para facilitar ainda mais seus dias</div>
+    <div class="subtitle">Para facilitar ainda mais seus dias</div>
 
-    <div id="statusConexao" class="status-conexao online">
-        <span class="bolinha"></span>
-        <span id="textoConexao">Verificando...</span>
+    <div class="date-time">
+        <span id="dataAtual"></span> •
+        <span id="horaAtual"></span>
+    </div>
+
+    <div class="connection">
+        <span class="connection-dot" id="statusConexao"></span>
+        <span id="textoConexao">Verificando conexão...</span>
     </div>
 </header>
 
-<div class="data-hora">
-    <div class="data" id="dataAtual">--/--/----</div>
-    <div class="hora" id="horaAtual">--:--:--</div>
-</div>
+<!-- ================= SHARE ================= -->
 
 <section class="card">
-    <h2>📏 Medição da gôndola</h2>
 
-    <!-- SELETOR DE UNIDADE -->
-    <div class="seletor-unidade" id="seletorUnidade">
-        <button id="btnFrentes" class="ativo" onclick="mudarUnidade('frentes')">📦 FRENTES</button>
-        <button id="btnCentimetros" onclick="mudarUnidade('centimetros')">📐 CENTÍMETROS</button>
+    <div class="card-title">📏 Medir Share de Gôndola</div>
+
+    <div class="unidades">
+        <button class="btn-unidade ativo"
+                id="btnFrentes"
+                onclick="mudarUnidade('frentes')">
+            📦 FRENTES
+        </button>
+
+        <button class="btn-unidade"
+                id="btnCentimetros"
+                onclick="mudarUnidade('cm')">
+            📐 CENTÍMETROS
+        </button>
     </div>
 
-    <div class="grid">
-        <div>
-            <label for="meta">Meta desejada</label>
-            <div class="input-prefix">
-                <input type="number" id="meta" min="0" max="100" step="0.01"
-                       inputmode="decimal" placeholder="Ex.: 25">
-                <span>%</span>
-            </div>
+    <label class="label">Meta desejada (%)</label>
+    <input
+        class="input"
+        id="meta"
+        type="number"
+        min="0"
+        max="100"
+        step="0.01"
+        placeholder="Ex.: 30"
+        oninput="calcular()"
+    >
+
+    <label class="label">Espaço total</label>
+    <input
+        class="input"
+        id="total"
+        type="number"
+        min="0"
+        step="0.01"
+        placeholder="Ex.: 100"
+        oninput="calcular()"
+    >
+
+    <label class="label">Meu espaço</label>
+    <input
+        class="input"
+        id="meuEspaco"
+        type="number"
+        min="0"
+        step="0.01"
+        placeholder="Ex.: 35"
+        oninput="calcular()"
+    >
+
+    <button class="btn-calculadora" onclick="abrirCalculadora()">
+        🧮 CALCULADORA
+    </button>
+
+    <!-- RESULTADO -->
+
+    <div class="resultado neutro" id="resultado">
+
+        <div class="emoji-resultado" id="emojiResultado">📊</div>
+
+        <div class="share-resultado" id="shareResultado">
+            0,00%
         </div>
-        <div>
-            <label for="total" id="labelTotal">Espaço total (frentes)</label>
-            <div class="input-prefix">
-                <input type="number" id="total" min="0" step="1"
-                       inputmode="numeric" placeholder="Ex.: 20">
-                <span id="unidadeTotal">frentes</span>
-            </div>
+
+        <div class="status-resultado" id="statusResultado">
+            Preencha os campos
         </div>
-        <div>
-            <label for="meuEspaco" id="labelMeuEspaco">Meu espaço (frentes)</label>
-            <div class="input-prefix">
-                <input type="number" id="meuEspaco" min="0" step="1"
-                       inputmode="numeric" placeholder="Ex.: 5">
-                <span id="unidadeMeuEspaco">frentes</span>
-            </div>
+
+        <div class="grafico">
+            <svg viewBox="0 0 500 180">
+
+                <text x="20" y="25"
+                      class="grafico-label">
+                    Meta
+                </text>
+
+                <rect x="20" y="35"
+                      width="460"
+                      height="22"
+                      rx="10"
+                      fill="#182330"/>
+
+                <rect id="barraMeta"
+                      x="20" y="35"
+                      width="0"
+                      height="22"
+                      rx="10"
+                      fill="#00d9ff"/>
+
+                <line id="linhaMeta"
+                      x1="20"
+                      y1="25"
+                      x2="20"
+                      y2="70"
+                      stroke="#fff"
+                      stroke-width="2"/>
+
+                <text x="20" y="95"
+                      class="grafico-label">
+                    Share atual
+                </text>
+
+                <rect x="20" y="105"
+                      width="460"
+                      height="22"
+                      rx="10"
+                      fill="#182330"/>
+
+                <rect id="barraShare"
+                      x="20"
+                      y="105"
+                      width="0"
+                      height="22"
+                      rx="10"
+                      fill="#00ff88"/>
+
+                <text x="20" y="160"
+                      class="grafico-label">
+                    Diferença para a meta
+                </text>
+
+                <rect x="20" y="165"
+                      width="460"
+                      height="8"
+                      rx="5"
+                      fill="#182330"/>
+
+                <rect id="barraDiferenca"
+                      x="20"
+                      y="165"
+                      width="0"
+                      height="8"
+                      rx="5"
+                      fill="#ff0055"/>
+
+            </svg>
         </div>
     </div>
-    <button class="botao calculadora-btn" onclick="abrirCalculadora()">🧮 ABRIR CALCULADORA</button>
-</section>
 
-<section class="card">
-    <div id="resultado" class="resultado neutro">
-        <div id="emojiResultado" class="emoji-resultado"></div>
-        <div class="titulo">SHARE APURADO</div>
-        <div id="shareResultado" class="numero">0,00%</div>
-        <div id="statusResultado" class="status">Preencha os dados</div>
-    </div>
+    <!-- RESUMO -->
 
-    <div class="grafico-container">
-        <div class="grafico-titulo">Comparação entre Meta e Share</div>
-        <svg id="graficoSVG" viewBox="0 0 700 300" preserveAspectRatio="xMidYMid meet">
-            <rect x="0" y="0" width="700" height="300" rx="15" fill="#06111d"/>
-            <line x1="100" y1="70" x2="650" y2="70" stroke="#193650" stroke-width="1"/>
-            <line x1="100" y1="140" x2="650" y2="140" stroke="#193650" stroke-width="1"/>
-            <line x1="100" y1="210" x2="650" y2="210" stroke="#193650" stroke-width="1"/>
-            <text x="100" y="270" fill="#668096" font-size="11">0%</text>
-            <text x="365" y="270" fill="#668096" font-size="11" text-anchor="middle">50%</text>
-            <text x="650" y="270" fill="#668096" font-size="11" text-anchor="end">100%</text>
-
-            <text x="35" y="82" fill="#9eb1c5" font-size="13" font-weight="bold">META</text>
-            <rect id="barraMeta" x="100" y="55" width="0" height="30" rx="8" fill="#8d6bff"/>
-
-            <text x="35" y="152" fill="#9eb1c5" font-size="13" font-weight="bold">SHARE</text>
-            <rect id="barraShare" x="100" y="125" width="0" height="30" rx="8" fill="#00d9ff"/>
-
-            <text x="35" y="222" fill="#9eb1c5" font-size="13" font-weight="bold">DIF.</text>
-            <rect id="barraDiferenca" x="100" y="195" width="0" height="30" rx="8" fill="#00d084"/>
-
-            <text id="textoMetaGrafico" x="110" y="76" fill="#fff" font-size="12" font-weight="bold">0%</text>
-            <text id="textoShareGrafico" x="110" y="146" fill="#fff" font-size="12" font-weight="bold">0%</text>
-            <text id="textoDiferencaGrafico" x="110" y="216" fill="#fff" font-size="12" font-weight="bold">0%</text>
-
-            <line id="linhaMeta" x1="100" y1="35" x2="100" y2="235" stroke="#ff4fd8" stroke-width="3" stroke-dasharray="6 5"/>
-        </svg>
-
-        <div id="tooltipGrafico" class="tooltip-grafico">Toque nas barras para visualizar os valores.</div>
-    </div>
-</section>
-
-<section class="card">
-    <h2>📋 Resumo da medição</h2>
     <div class="resumo">
+
         <div class="resumo-item">
-            <div class="rotulo">META DESEJADA</div>
-            <div class="valor" id="resumoMeta">0,00%</div>
+            <div class="resumo-label">Meta desejada</div>
+            <div class="resumo-valor" id="resumoMeta">--</div>
         </div>
+
         <div class="resumo-item">
-            <div class="rotulo" id="rotuloResumoTotal">ESPAÇO TOTAL</div>
-            <div class="valor" id="resumoTotal">0 frentes</div>
+            <div class="resumo-label">Espaço total</div>
+            <div class="resumo-valor" id="resumoTotal">--</div>
         </div>
+
         <div class="resumo-item">
-            <div class="rotulo" id="rotuloResumoMeuEspaco">MEU ESPAÇO</div>
-            <div class="valor" id="resumoMeuEspaco">0 frentes</div>
+            <div class="resumo-label">Meu espaço</div>
+            <div class="resumo-valor" id="resumoMeuEspaco">--</div>
         </div>
+
         <div class="resumo-item">
-            <div class="rotulo">ESPAÇO RESTANTE</div>
-            <div class="valor" id="resumoRestante">0 frentes</div>
+            <div class="resumo-label">Espaço restante</div>
+            <div class="resumo-valor" id="resumoRestante">--</div>
         </div>
+
         <div class="resumo-item">
-            <div class="rotulo">SHARE APURADO</div>
-            <div class="valor" id="resumoShare">0,00%</div>
+            <div class="resumo-label">Share apurado</div>
+            <div class="resumo-valor" id="resumoShare">--</div>
         </div>
+
         <div class="resumo-item">
-            <div class="rotulo">DIFERENÇA</div>
-            <div class="valor" id="resumoDiferenca">0,00%</div>
+            <div class="resumo-label">Diferença</div>
+            <div class="resumo-valor" id="resumoDiferenca">--</div>
         </div>
+
         <div class="resumo-item">
-            <div class="rotulo">SITUAÇÃO</div>
-            <div class="valor" id="resumoSituacao">—</div>
+            <div class="resumo-label">Situação</div>
+            <div class="resumo-valor" id="resumoSituacao">--</div>
         </div>
+
         <div class="resumo-mensagem" id="resumoMensagem">
-            Preencha os dados para realizar a apuração.
+            Preencha os campos para realizar o cálculo.
         </div>
+
     </div>
+
 </section>
 
-<footer class="footer">
-    MShare Space • Share de Gôndola<br>
+<!-- =====================================================
+     SOMENTE O BOTÃO DE RUPTURAS FICA NA TELA PRINCIPAL
+===================================================== -->
+
+<section class="card">
+
+    <button
+        class="btn-rupturas-principal"
+        onclick="abrirFerramentaRupturas()"
+        id="btnAbrirRupturas">
+
+        <span>📋 LISTA DE RUPTURAS</span>
+
+        <span class="badge-rupturas"
+              id="badgeRupturas">
+            0
+        </span>
+
+    </button>
+
+</section>
+
+<footer>
     Desenvolvido por Yuri Lima
 </footer>
 
 </div>
 
-<div class="modal" id="modalCalculadora">
-    <div class="calculadora">
-        <div class="calculadora-topo">
-            <h3>🧮 CALCULADORA</h3>
-            <button class="fechar" onclick="fecharCalculadora()" aria-label="Fechar">×</button>
+
+<!-- =====================================================
+     MODAL DA FERRAMENTA COMPLETA DE RUPTURAS
+===================================================== -->
+
+<div class="modal" id="modalFerramentaRupturas">
+
+    <div class="ruptura-ferramenta">
+
+        <div class="ruptura-cabecalho">
+
+            <div>
+                <div class="ruptura-titulo">
+                    📋 Lista de Rupturas
+                </div>
+
+                <div class="ruptura-subtitulo">
+                    Selecione os produtos em ruptura
+                </div>
+            </div>
+
+            <button class="fechar"
+                    onclick="fecharFerramentaRupturas()">
+                ×
+            </button>
+
         </div>
-        <input id="calcDisplay" class="calc-display" type="text" value="" readonly>
-        <div class="calc-botoes">
-            <button class="limpar" onclick="calcLimpar()">C</button>
+
+        <!-- CONTADORES -->
+
+        <div class="ruptura-contadores">
+
+            <div class="ruptura-contador">
+                <div class="ruptura-contador-numero"
+                     id="contadorTotal">
+                    0
+                </div>
+
+                <div class="ruptura-contador-label">
+                    Total
+                </div>
+            </div>
+
+            <div class="ruptura-contador">
+                <div class="ruptura-contador-numero"
+                     id="contadorAlcoolicos">
+                    0
+                </div>
+
+                <div class="ruptura-contador-label">
+                    Alcoólicos
+                </div>
+            </div>
+
+            <div class="ruptura-contador">
+                <div class="ruptura-contador-numero"
+                     id="contadorNaoAlcoolicos">
+                    0
+                </div>
+
+                <div class="ruptura-contador-label">
+                    Não alcoólicos
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CATEGORIAS -->
+
+        <div class="ruptura-categorias">
+
+            <button
+                class="ruptura-categoria ativo"
+                id="categoriaAlcoolicos"
+                onclick="mostrarCategoriaRuptura('alcoolicos')">
+                🍺 Alcoólicos
+            </button>
+
+            <button
+                class="ruptura-categoria"
+                id="categoriaNaoAlcoolicos"
+                onclick="mostrarCategoriaRuptura('naoAlcoolicos')">
+                🥤 Não alcoólicos
+            </button>
+
+        </div>
+
+        <!-- PESQUISA -->
+
+        <input
+            class="ruptura-pesquisa"
+            id="pesquisaRupturas"
+            type="search"
+            placeholder="🔎 Pesquisar produto..."
+            oninput="pesquisarRupturas()"
+        >
+
+        <!-- LISTA ALCOÓLICOS -->
+
+        <div id="painelAlcoolicos">
+
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">
+                    🍺 Cervejas — 330 ml
+                </div>
+                <div class="ruptura-lista" id="listaCervejas330"></div>
+            </div>
+
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">
+                    🍺 Cervejas — 350 ml
+                </div>
+                <div class="ruptura-lista" id="listaCervejas350"></div>
+            </div>
+
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">
+                    🍺 Cervejas — 355 ml
+                </div>
+                <div class="ruptura-lista" id="listaCervejas355"></div>
+            </div>
+
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">
+                    🍺 Cervejas — 473 ml
+                </div>
+                <div class="ruptura-lista" id="listaCervejas473"></div>
+            </div>
+
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">
+                    🍺 Cervejas — 600 ml
+                </div>
+                <div class="ruptura-lista" id="listaCervejas600"></div>
+            </div>
+
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">
+                    🚫 Cervejas Zero
+                </div>
+                <div class="ruptura-lista" id="listaCervejasZero"></div>
+            </div>
+
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">
+                    🍹 Bebidas Mistas
+                </div>
+                <div class="ruptura-lista" id="listaMistas"></div>
+            </div>
+
+        </div>
+
+        <!-- LISTA NÃO ALCOÓLICOS -->
+
+        <div id="painelNaoAlcoolicos" style="display:none;">
+
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">
+                    🥤 Refrigerantes
+                </div>
+                <div class="ruptura-lista" id="listaRefrigerantes"></div>
+            </div>
+
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">
+                    🍋 Água Tônica
+                </div>
+                <div class="ruptura-lista" id="listaTonicas"></div>
+            </div>
+
+        </div>
+
+        <!-- BOTÃO PARA ABRIR BLOCO DE NOTAS -->
+
+        <button
+            class="ruptura-verificar"
+            onclick="abrirListaRupturas()">
+            📋 VERIFICAR LISTA DE RUPTURAS
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL BLOCO DE NOTAS
+===================================================== -->
+
+<div class="modal" id="modalListaRupturas">
+
+    <div class="ruptura-notas-modal">
+
+        <div class="modal-header">
+
+            <div>
+                <div class="modal-title">
+                    📋 BLOCO DE NOTAS
+                </div>
+
+                <div class="ruptura-subtitulo">
+                    Produtos selecionados em ruptura
+                </div>
+            </div>
+
+            <button class="fechar"
+                    onclick="fecharListaRupturas()">
+                ×
+            </button>
+
+        </div>
+
+        <div
+            class="bloco-notas"
+            id="blocoNotasRupturas">
+        </div>
+
+        <div class="notas-acoes">
+
+            <button
+                class="btn-copiar"
+                onclick="copiarRupturas()">
+                📋 COPIAR
+            </button>
+
+            <button
+                class="btn-limpar"
+                onclick="limparRupturas()">
+                🗑️ LIMPAR
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     CALCULADORA
+===================================================== -->
+
+<div class="modal" id="modalCalculadora">
+
+    <div class="calculadora">
+
+        <div class="modal-header">
+
+            <div class="modal-title">
+                🧮 CALCULADORA
+            </div>
+
+            <button
+                class="fechar"
+                onclick="fecharCalculadora()">
+                ×
+            </button>
+
+        </div>
+
+        <div class="calc-display">
+
+            <div class="calc-expression"
+                 id="calcExpression">
+            </div>
+
+            <div class="calc-result"
+                 id="calcResult">
+                0
+            </div>
+
+        </div>
+
+        <div class="calc-grid">
+
+            <button onclick="calcLimpar()">C</button>
             <button onclick="calcAdicionar('(')">(</button>
             <button onclick="calcAdicionar(')')">)</button>
-            <button class="operador" onclick="calcAdicionar('/')">÷</button>
+            <button class="operador"
+                    onclick="calcAdicionar('/')">÷</button>
 
             <button onclick="calcAdicionar('7')">7</button>
             <button onclick="calcAdicionar('8')">8</button>
             <button onclick="calcAdicionar('9')">9</button>
-            <button class="operador" onclick="calcAdicionar('*')">×</button>
+            <button class="operador"
+                    onclick="calcAdicionar('*')">×</button>
 
             <button onclick="calcAdicionar('4')">4</button>
             <button onclick="calcAdicionar('5')">5</button>
             <button onclick="calcAdicionar('6')">6</button>
-            <button class="operador" onclick="calcAdicionar('-')">−</button>
+            <button class="operador"
+                    onclick="calcAdicionar('-')">−</button>
 
             <button onclick="calcAdicionar('1')">1</button>
             <button onclick="calcAdicionar('2')">2</button>
             <button onclick="calcAdicionar('3')">3</button>
-            <button class="operador" onclick="calcAdicionar('+')">+</button>
+            <button class="operador"
+                    onclick="calcAdicionar('+')">+</button>
 
             <button onclick="calcAdicionar('0')">0</button>
             <button onclick="calcAdicionar('.')">.</button>
-            <button class="igual" style="grid-column:span 2" onclick="calcResultado()">=</button>
+            <button class="igual"
+                    style="grid-column:span 2"
+                    onclick="calcResultado()">
+                =
+            </button>
+
         </div>
+
     </div>
+
 </div>
 
-<div id="toast" class="toast">
+
+<!-- TOAST -->
+
+<div class="toast" id="toast">
     <span id="toastIcone">✓</span>
-    <span id="toastTexto">Mensagem</span>
+    <span id="toastTexto"></span>
 </div>
+
 
 <script>
-"use strict";
 
-/* ==========================================
-   SPLASH SCREEN — EFEITO DE ABERTURA
-   ========================================== */
-window.addEventListener("load", function(){
-    const splash = document.getElementById("splash");
+/* =====================================================
+   UTILITÁRIOS
+===================================================== */
 
-    setTimeout(function(){
-        splash.classList.add("esconder");
+const $ = id => document.getElementById(id);
 
-        setTimeout(function(){
-            if(splash.parentNode){
-                splash.parentNode.removeChild(splash);
-            }
-        }, 700);
-    }, 2000);
+let unidadeAtual = "frentes";
+let expressaoCalc = "";
+
+
+/* =====================================================
+   SPLASH
+===================================================== */
+
+window.addEventListener("load",()=>{
+
+    setTimeout(()=>{
+        $("splash").style.display="none";
+    },1900);
+
 });
 
-/* ==========================================
-   REFERÊNCIAS DOM
-   ========================================== */
-const $ = (id) => document.getElementById(id);
 
-const metaInput       = $("meta");
-const totalInput      = $("total");
-const meuEspacoInput  = $("meuEspaco");
-const resultado       = $("resultado");
-const shareResultado  = $("shareResultado");
-const statusResultado = $("statusResultado");
-const emoji           = $("emojiResultado");
-const tooltipGrafico  = $("tooltipGrafico");
+/* =====================================================
+   DATA E HORA
+===================================================== */
 
-const statusConexaoEl = $("statusConexao");
-const textoConexaoEl  = $("textoConexao");
-const avisoOfflineEl  = $("avisoOffline");
+function atualizarDataHora(){
 
-/* ==========================================
-   ESTADO DA UNIDADE
-   ========================================== */
-let unidadeAtual = "frentes"; // "frentes" ou "centimetros"
+    const agora = new Date();
 
-/* ==========================================
-   TOAST
-   ========================================== */
-let toastTimeout = null;
-function mostrarToast(icone, texto, tipo = "info"){
-    const toast = $("toast");
-    $("toastIcone").textContent = icone;
-    $("toastTexto").textContent = texto;
-    toast.className = "toast mostrar " + tipo;
-    clearTimeout(toastTimeout);
-    toastTimeout = setTimeout(() => {
-        toast.classList.remove("mostrar");
-    }, 3500);
+    const opcoesData = {
+        timeZone:"America/Fortaleza",
+        day:"2-digit",
+        month:"2-digit",
+        year:"numeric"
+    };
+
+    const opcoesHora = {
+        timeZone:"America/Fortaleza",
+        hour:"2-digit",
+        minute:"2-digit",
+        second:"2-digit"
+    };
+
+    $("dataAtual").textContent =
+        new Intl.DateTimeFormat("pt-BR",opcoesData).format(agora);
+
+    $("horaAtual").textContent =
+        new Intl.DateTimeFormat("pt-BR",opcoesHora).format(agora);
 }
 
-/* ==========================================
-   UTILITÁRIOS SEGUROS
-   ========================================== */
+atualizarDataHora();
+setInterval(atualizarDataHora,1000);
+
+
+/* =====================================================
+   CONEXÃO
+===================================================== */
+
+function atualizarConexao(){
+
+    const online = navigator.onLine;
+
+    $("statusConexao").style.background =
+        online ? "#00ff88" : "#ff0055";
+
+    $("textoConexao").textContent =
+        online ? "Online" : "Modo offline";
+}
+
+window.addEventListener("online",atualizarConexao);
+window.addEventListener("offline",atualizarConexao);
+atualizarConexao();
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer;
+
+function mostrarToast(texto,icone="✓"){
+
+    $("toastTexto").textContent = texto;
+    $("toastIcone").textContent = icone;
+
+    $("toast").classList.add("mostrar");
+
+    clearTimeout(toastTimer);
+
+    toastTimer=setTimeout(()=>{
+        $("toast").classList.remove("mostrar");
+    },2500);
+}
+
+
+/* =====================================================
+   SHARE
+===================================================== */
+
 function numero(valor){
-    if(valor === null || valor === undefined) return 0;
-    let texto = String(valor).trim().replace(",", ".");
-    if(texto === "") return 0;
-    const n = parseFloat(texto);
-    if(!Number.isFinite(n) || n < 0) return 0;
-    return n;
+
+    if(valor === null || valor === undefined || valor === "")
+        return 0;
+
+    return Number(String(valor).replace(",","."));
 }
 
 function formatarNumero(valor){
-    const n = Number(valor);
-    if(!Number.isFinite(n)) return "0,00";
-    return n.toLocaleString("pt-BR", {
+
+    return Number(valor).toLocaleString("pt-BR",{
         minimumFractionDigits:2,
         maximumFractionDigits:2
     });
 }
 
-/* Formata sem decimais para frentes (unidades inteiras) */
-function formatarFrentes(valor){
-    const n = Number(valor);
-    if(!Number.isFinite(n)) return "0";
-    // Se for inteiro, sem decimais; senão, até 1 casa
-    if(Number.isInteger(n)) return n.toLocaleString("pt-BR");
-    return n.toLocaleString("pt-BR", {
-        minimumFractionDigits:1,
-        maximumFractionDigits:1
-    });
-}
+function formatarUnidade(valor){
 
-function formatarPercentual(valor){
-    return formatarNumero(valor) + "%";
-}
-
-function limitar(valor, min, max){
-    if(!Number.isFinite(valor)) return min;
-    return Math.max(min, Math.min(max, valor));
-}
-
-/* ==========================================
-   DATA E HORA
-   ========================================== */
-function atualizarDataHora(){
-    try{
-        const agora = new Date();
-        const data = new Intl.DateTimeFormat("pt-BR",{
-            timeZone:"America/Fortaleza",
-            day:"2-digit",month:"2-digit",year:"numeric"
-        }).format(agora);
-        const hora = new Intl.DateTimeFormat("pt-BR",{
-            timeZone:"America/Fortaleza",
-            hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false
-        }).format(agora);
-        $("dataAtual").textContent = data;
-        $("horaAtual").textContent = hora;
-    }catch(e){
-        const agora = new Date();
-        $("dataAtual").textContent = agora.toLocaleDateString("pt-BR");
-        $("horaAtual").textContent = agora.toLocaleTimeString("pt-BR");
+    if(unidadeAtual==="cm"){
+        return formatarNumero(valor)+" cm";
     }
+
+    return formatarNumero(valor)+" frentes";
 }
 
-atualizarDataHora();
-setInterval(atualizarDataHora, 1000);
+function mudarUnidade(unidade){
 
-/* ==========================================
-   STATUS ONLINE / OFFLINE
-   ========================================== */
-let estadoConexao = "verificando";
+    unidadeAtual=unidade;
 
-function aplicarStatus(tipo, texto){
-    estadoConexao = tipo;
-    statusConexaoEl.className = "status-conexao " + tipo;
-    textoConexaoEl.textContent = texto;
+    $("btnFrentes").classList.toggle(
+        "ativo",
+        unidade==="frentes"
+    );
 
-    if(tipo === "offline"){
-        avisoOfflineEl.textContent =
-            "📡 Sem conexão com a internet — os cálculos continuam funcionando normalmente";
-        avisoOfflineEl.classList.add("mostrar");
-    } else if(tipo === "aviso"){
-        avisoOfflineEl.textContent =
-            "⚠️ Wi-Fi conectado, mas sem acesso à internet";
-        avisoOfflineEl.classList.add("mostrar");
-    } else {
-        avisoOfflineEl.classList.remove("mostrar");
-    }
+    $("btnCentimetros").classList.toggle(
+        "ativo",
+        unidade==="cm"
+    );
+
+    calcular();
 }
 
-function statusBasico(){
-    if(!navigator.onLine){
-        aplicarStatus("offline", "Offline");
-        return false;
-    }
-    return true;
-}
+function calcular(){
 
-async function verificarInternetReal(){
-    if(!navigator.onLine){
-        aplicarStatus("offline", "Offline");
+    const meta=numero($("meta").value);
+    const total=numero($("total").value);
+    const meu=numero($("meuEspaco").value);
+
+    if(meta<=0 || total<=0 || meu<0){
+
+        $("shareResultado").textContent="0,00%";
+        $("statusResultado").textContent="Preencha os campos";
+
+        $("resultado").className="resultado neutro";
+
+        $("emojiResultado").textContent="📊";
+
+        atualizarResumoVazio();
+
         return;
     }
 
-    aplicarStatus("aviso", "Verificando...");
+    const share=(meu/total)*100;
 
-    try{
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 5000);
+    const espacoMeta=(meta/100)*total;
+    const diferenca=meu-espacoMeta;
+    const restante=Math.max(0,espacoMeta-meu);
 
-        await fetch("https://www.gstatic.com/generate_204", {
-            method: "HEAD",
-            cache: "no-store",
-            mode: "no-cors",
-            signal: controller.signal
-        });
+    const atingiu=share>=meta;
 
-        clearTimeout(timeout);
-        aplicarStatus("online", "Online");
-    }catch(e){
-        if(navigator.onLine){
-            aplicarStatus("aviso", "Sem Internet");
-        } else {
-            aplicarStatus("offline", "Offline");
-        }
-    }
-}
+    $("shareResultado").textContent =
+        formatarNumero(share)+"%";
 
-async function atualizarConexao(){
-    if(!statusBasico()) return;
-    await verificarInternetReal();
-}
+    $("resultado").className =
+        "resultado "+(atingiu?"verde":"vermelho");
 
-window.addEventListener("online", function(){
-    setTimeout(atualizarConexao, 500);
-});
+    $("emojiResultado").textContent =
+        atingiu ? "👍" : "😔";
 
-window.addEventListener("offline", function(){
-    aplicarStatus("offline", "Offline");
-});
+    $("statusResultado").textContent =
+        atingiu
+        ? "META ATINGIDA!"
+        : "META NÃO ATINGIDA";
 
-setInterval(atualizarConexao, 30000);
+    $("resumoMeta").textContent =
+        formatarNumero(meta)+"%";
 
-document.addEventListener("visibilitychange", function(){
-    if(!document.hidden){
-        atualizarConexao();
-    }
-});
+    $("resumoTotal").textContent =
+        formatarUnidade(total);
 
-atualizarConexao();
+    $("resumoMeuEspaco").textContent =
+        formatarUnidade(meu);
 
-/* ==========================================
-   TROCA DE UNIDADE (FRENTES / CENTÍMETROS)
-   ========================================== */
-function mudarUnidade(novaUnidade){
-    if(novaUnidade === unidadeAtual) return;
+    $("resumoRestante").textContent =
+        formatarUnidade(restante);
 
-    unidadeAtual = novaUnidade;
+    $("resumoShare").textContent =
+        formatarNumero(share)+"%";
 
-    // Atualiza botões ativos
-    $("btnFrentes").classList.toggle("ativo", novaUnidade === "frentes");
-    $("btnCentimetros").classList.toggle("ativo", novaUnidade === "centimetros");
-
-    const ehFrentes = novaUnidade === "frentes";
-    const rotulo = ehFrentes ? "frentes" : "cm";
-
-    // Atualiza labels e unidades dos inputs
-    $("labelTotal").textContent = ehFrentes
-        ? "Espaço total (frentes)"
-        : "Espaço total (centímetros)";
-    $("labelMeuEspaco").textContent = ehFrentes
-        ? "Meu espaço (frentes)"
-        : "Meu espaço (centímetros)";
-    $("unidadeTotal").textContent = rotulo;
-    $("unidadeMeuEspaco").textContent = rotulo;
-
-    // Atualiza rótulos do resumo
-    $("rotuloResumoTotal").textContent = ehFrentes
-        ? "ESPAÇO TOTAL (FRENTES)"
-        : "ESPAÇO TOTAL (CM)";
-    $("rotuloResumoMeuEspaco").textContent = ehFrentes
-        ? "MEU ESPAÇO (FRENTES)"
-        : "MEU ESPAÇO (CM)";
-
-    // Ajusta step e placeholders
-    if(ehFrentes){
-        totalInput.setAttribute("step", "1");
-        totalInput.setAttribute("placeholder", "Ex.: 20");
-        meuEspacoInput.setAttribute("step", "1");
-        meuEspacoInput.setAttribute("placeholder", "Ex.: 5");
-    } else {
-        totalInput.setAttribute("step", "0.01");
-        totalInput.setAttribute("placeholder", "Ex.: 300");
-        meuEspacoInput.setAttribute("step", "0.01");
-        meuEspacoInput.setAttribute("placeholder", "Ex.: 80");
-    }
-
-    // Limpa os campos de espaço ao trocar de unidade (evita confusão)
-    totalInput.value = "";
-    meuEspacoInput.value = "";
-
-    // Recalcula com os novos valores vazios
-    calcular();
-
-    mostrarToast("📏", "Medição em " + (ehFrentes ? "frentes" : "centímetros"), "info");
-}
-
-/* ==========================================
-   CÁLCULO PRINCIPAL
-   ========================================== */
-function calcular(){
-    try{
-        const meta      = limitar(numero(metaInput.value), 0, 100);
-        const total     = numero(totalInput.value);
-        const meuEspaco = total > 0
-            ? Math.min(numero(meuEspacoInput.value), total)
-            : numero(meuEspacoInput.value);
-        const espacoRestante = Math.max(0, total - meuEspaco);
-
-        const ehFrentes = unidadeAtual === "frentes";
-        const sufixo = ehFrentes ? " frentes" : " cm";
-        const formatador = ehFrentes ? formatarFrentes : formatarNumero;
-
-        $("resumoMeta").textContent      = formatarPercentual(meta);
-        $("resumoTotal").textContent     = formatador(total) + sufixo;
-        $("resumoMeuEspaco").textContent = formatador(meuEspaco) + sufixo;
-        $("resumoRestante").textContent  = formatador(espacoRestante) + sufixo;
-
-        if(total <= 0){
-            resultado.className = "resultado neutro";
-            shareResultado.textContent = "0,00%";
-            statusResultado.textContent = "Preencha o espaço total";
-            emoji.textContent = "";
-            emoji.className = "emoji-resultado";
-            atualizarResumo(meta, total, meuEspaco, espacoRestante, 0, 0, "—");
-            atualizarGrafico(meta, 0, 0);
-            return;
-        }
-
-        let share = (meuEspaco / total) * 100;
-        if(!Number.isFinite(share)) share = 0;
-        share = limitar(share, 0, 100);
-
-        const diferenca = share - meta;
-
-        shareResultado.textContent = formatarPercentual(share);
-        $("resumoShare").textContent = formatarPercentual(share);
-        $("resumoDiferenca").textContent =
-            (diferenca >= 0 ? "+" : "") + formatarPercentual(diferenca);
-
-        if(meta <= 0){
-            resultado.className = "resultado neutro";
-            statusResultado.textContent = "Informe uma meta para avaliar";
-            emoji.textContent = "";
-            emoji.className = "emoji-resultado";
-            atualizarResumo(meta, total, meuEspaco, espacoRestante, share, diferenca, "—");
-            atualizarGrafico(meta, share, diferenca);
-            return;
-        }
-
-        if(share >= meta){
-            resultado.className = "resultado bom";
-            statusResultado.textContent = "✓ META ATINGIDA";
-            emoji.textContent = "👍";
-            emoji.className = "emoji-resultado mostrar bom";
-            atualizarResumo(meta, total, meuEspaco, espacoRestante, share, diferenca, "Atingida");
-            atualizarGrafico(meta, share, diferenca);
-        } else {
-            resultado.className = "resultado ruim";
-            statusResultado.textContent = "✕ META NÃO ATINGIDA";
-            emoji.textContent = "😔";
-            emoji.className = "emoji-resultado mostrar ruim";
-            atualizarResumo(meta, total, meuEspaco, espacoRestante, share, diferenca, "Não atingida");
-            atualizarGrafico(meta, share, diferenca);
-        }
-    }catch(erro){
-        console.error("Erro no cálculo:", erro);
-        resultado.className = "resultado neutro";
-        statusResultado.textContent = "Verifique os valores informados";
-    }
-}
-
-/* ==========================================
-   RESUMO
-   ========================================== */
-function atualizarResumo(meta, total, meuEspaco, espacoRestante, share, diferenca, situacao){
-    const ehFrentes = unidadeAtual === "frentes";
-    const sufixo = ehFrentes ? " frentes" : " cm";
-    const formatador = ehFrentes ? formatarFrentes : formatarNumero;
-
-    $("resumoMeta").textContent      = formatarPercentual(meta);
-    $("resumoTotal").textContent     = formatador(total) + sufixo;
-    $("resumoMeuEspaco").textContent = formatador(meuEspaco) + sufixo;
-    $("resumoRestante").textContent  = formatador(espacoRestante) + sufixo;
-    $("resumoShare").textContent     = formatarPercentual(share);
     $("resumoDiferenca").textContent =
-        (diferenca >= 0 ? "+" : "") + formatarPercentual(diferenca);
-    $("resumoSituacao").textContent  = situacao;
+        (diferenca>=0?"+":"-")+
+        formatarUnidade(Math.abs(diferenca));
 
-    const mensagem = $("resumoMensagem");
+    $("resumoSituacao").textContent =
+        atingiu ? "ATINGIDA" : "NÃO ATINGIDA";
 
-    if(situacao === "Atingida"){
-        mensagem.innerHTML =
-            "🎯 Sua participação é de <strong>" +
-            formatarPercentual(share) +
-            "</strong>, atingindo a meta de <strong>" +
-            formatarPercentual(meta) + "</strong>.";
-    } else if(situacao === "Não atingida"){
-        mensagem.innerHTML =
-            "⚠️ Seu share é de <strong>" +
-            formatarPercentual(share) +
-            "</strong>. Faltam <strong>" +
-            formatarPercentual(Math.abs(diferenca)) +
-            "</strong> para atingir a meta.";
-    } else {
-        mensagem.textContent =
-            "Preencha a meta e os espaços para realizar a apuração.";
-    }
+    $("resumoMensagem").textContent =
+        atingiu
+        ? "🎉 Você atingiu ou ultrapassou a meta desejada."
+        : "⚠️ Ainda faltam "+formatarUnidade(restante)+" para atingir a meta.";
+
+    atualizarGrafico(meta,share);
 }
 
-/* ==========================================
-   GRÁFICO
-   ========================================== */
-function atualizarGrafico(meta, share, diferenca){
-    try{
-        const ESCALA = 550;
-        const INICIO_X = 100;
+function atualizarResumoVazio(){
 
-        meta      = limitar(numero(meta), 0, 100);
-        share     = limitar(numero(share), 0, 100);
+    [
+        "resumoMeta",
+        "resumoTotal",
+        "resumoMeuEspaco",
+        "resumoRestante",
+        "resumoShare",
+        "resumoDiferenca",
+        "resumoSituacao"
+    ].forEach(id=>{
+        $(id).textContent="--";
+    });
 
-        const diferencaOriginal = numero(diferenca);
-        const diferencaAbs      = limitar(Math.abs(diferencaOriginal), 0, 100);
-
-        const larguraMeta      = (meta / 100) * ESCALA;
-        const larguraShare     = (share / 100) * ESCALA;
-        const larguraDiferenca = (diferencaAbs / 100) * ESCALA;
-
-        $("barraMeta").setAttribute("width", larguraMeta);
-        $("barraShare").setAttribute("width", larguraShare);
-        $("barraDiferenca").setAttribute("width", larguraDiferenca);
-
-        $("textoMetaGrafico").textContent      = formatarPercentual(meta);
-        $("textoShareGrafico").textContent     = formatarPercentual(share);
-        $("textoDiferencaGrafico").textContent =
-            (diferencaOriginal >= 0 ? "+" : "-") + formatarPercentual(diferencaAbs);
-
-        ajustarTexto($("textoMetaGrafico"),      INICIO_X + larguraMeta);
-        ajustarTexto($("textoShareGrafico"),     INICIO_X + larguraShare);
-        ajustarTexto($("textoDiferencaGrafico"), INICIO_X + larguraDiferenca);
-
-        const posicaoMeta = INICIO_X + (meta / 100) * ESCALA;
-        $("linhaMeta").setAttribute("x1", posicaoMeta);
-        $("linhaMeta").setAttribute("x2", posicaoMeta);
-
-        const barraDiferenca = $("barraDiferenca");
-        barraDiferenca.setAttribute("fill", diferencaOriginal >= 0 ? "#00d084" : "#ff4054");
-    }catch(erro){
-        console.error("Erro no gráfico:", erro);
-    }
+    $("resumoMensagem").textContent =
+        "Preencha os campos para realizar o cálculo.";
 }
 
-function ajustarTexto(elemento, xFim){
-    if(xFim > 600){
-        elemento.setAttribute("x", xFim - 60);
-    } else {
-        elemento.setAttribute("x", xFim + 10);
-    }
+function atualizarGrafico(meta,share){
+
+    const largura=460;
+
+    const metaWidth=Math.min(meta,100)/100*largura;
+    const shareWidth=Math.min(share,100)/100*largura;
+
+    $("barraMeta").setAttribute(
+        "width",
+        metaWidth
+    );
+
+    $("barraShare").setAttribute(
+        "width",
+        shareWidth
+    );
+
+    const diferenca=Math.abs(share-meta);
+
+    $("barraDiferenca").setAttribute(
+        "width",
+        Math.min(diferenca,100)/100*largura
+    );
+
+    const linhaX=
+        20+(Math.min(meta,100)/100*largura);
+
+    $("linhaMeta").setAttribute("x1",linhaX);
+    $("linhaMeta").setAttribute("x2",linhaX);
 }
 
-/* ==========================================
-   INTERAÇÃO COM AS BARRAS
-   ========================================== */
-$("barraMeta").addEventListener("click", function(){
-    tooltipGrafico.textContent =
-        "Meta desejada: " + formatarPercentual(limitar(numero(metaInput.value), 0, 100));
-});
 
-$("barraShare").addEventListener("click", function(){
-    const total     = numero(totalInput.value);
-    const meuEspaco = numero(meuEspacoInput.value);
-    let share = total > 0 ? (meuEspaco / total) * 100 : 0;
-    if(!Number.isFinite(share)) share = 0;
-    share = limitar(share, 0, 100);
-    tooltipGrafico.textContent = "Share apurado: " + formatarPercentual(share);
-});
+/* =====================================================
+   CALCULADORA
+===================================================== */
 
-$("barraDiferenca").addEventListener("click", function(){
-    const meta      = limitar(numero(metaInput.value), 0, 100);
-    const total     = numero(totalInput.value);
-    const meuEspaco = numero(meuEspacoInput.value);
-    let share = total > 0 ? (meuEspaco / total) * 100 : 0;
-    if(!Number.isFinite(share)) share = 0;
-    share = limitar(share, 0, 100);
-    const diferenca = share - meta;
-    tooltipGrafico.textContent =
-        "Diferença: " + (diferenca >= 0 ? "+" : "") + formatarPercentual(diferenca);
-});
-
-/* ==========================================
-   MODAL CALCULADORA
-   ========================================== */
 function abrirCalculadora(){
-    $("modalCalculadora").classList.add("ativo");
+
+    $("modalCalculadora").classList.add("aberto");
 }
 
 function fecharCalculadora(){
-    $("modalCalculadora").classList.remove("ativo");
+
+    $("modalCalculadora").classList.remove("aberto");
 }
 
-/* ==========================================
-   CALCULADORA SEGURA
-   ========================================== */
-let expressaoCalc = "";
-
 function calcAdicionar(valor){
-    const display = $("calcDisplay");
-    if(display.value === "Erro"){ expressaoCalc = ""; }
-    if(expressaoCalc.length > 30) return;
-    expressaoCalc += valor;
-    display.value = expressaoCalc;
+
+    expressaoCalc+=valor;
+
+    $("calcExpression").textContent=expressaoCalc;
+    $("calcResult").textContent=expressaoCalc || "0";
 }
 
 function calcLimpar(){
-    expressaoCalc = "";
-    $("calcDisplay").value = "";
+
+    expressaoCalc="";
+    $("calcExpression").textContent="";
+    $("calcResult").textContent="0";
 }
 
 function calcResultado(){
-    const display = $("calcDisplay");
-    if(!expressaoCalc) return;
 
-    if(!/^[0-9+\-*/().\s]+$/.test(expressaoCalc)){
-        display.value = "Erro";
-        expressaoCalc = "";
+    try{
+
+        if(!expressaoCalc)return;
+
+        const permitido=/^[0-9+\-*/().\s]+$/;
+
+        if(!permitido.test(expressaoCalc))
+            throw new Error();
+
+        const resultado=Function(
+            '"use strict";return ('+expressaoCalc+')'
+        )();
+
+        if(!Number.isFinite(resultado))
+            throw new Error();
+
+        $("calcResult").textContent =
+            Number(resultado).toLocaleString("pt-BR",{
+                maximumFractionDigits:8
+            });
+
+    }catch(e){
+
+        $("calcResult").textContent="Erro";
+
+    }
+}
+
+
+/* =====================================================
+   LISTA DE RUPTURAS
+===================================================== */
+
+const STORAGE_RUPTURAS =
+    "mshare_space_rupturas_v2";
+
+
+/* ================= ALCOÓLICOS ================= */
+
+const cervejas330 = [
+    ["Beck's","330 ml"],
+    ["Budweiser","330 ml"],
+    ["Corona Extra","330 ml"],
+    ["Hoegaarden","330 ml"],
+    ["Leffe","330 ml"],
+    ["Quilmes","330 ml"],
+    ["Stella Artois","330 ml"],
+    ["Stella Artois Pure Gold","330 ml"]
+];
+
+const cervejas350 = [
+    ["Antarctica Original","350 ml"],
+    ["Antarctica Pilsen","350 ml"],
+    ["Antarctica Sub-Zero","350 ml"],
+    ["Beck's","350 ml"],
+    ["Bohemia Escura","350 ml"],
+    ["Bohemia Pilsen","350 ml"],
+    ["Brahma Chopp","350 ml"],
+    ["Brahma Duplo Malte","350 ml"],
+    ["Brahma Extra Dark","350 ml"],
+    ["Brahma Malzbier","350 ml"],
+    ["Brahma Red Lager","350 ml"],
+    ["Brahma Weiss","350 ml"],
+    ["Budweiser","350 ml"],
+    ["Líber","350 ml"],
+    ["Skol Pilsen","350 ml"],
+    ["Stella Artois Pure Gold","350 ml"]
+];
+
+const cervejas355 = [
+    ["Antarctica Pilsen","355 ml"],
+    ["Brahma Extra Dark","355 ml"],
+    ["Corona Extra","355 ml"],
+    ["Goose Island IPA","355 ml"],
+    ["Goose Island Midway","355 ml"],
+    ["Kona Big Wave","355 ml"],
+    ["Kona Longboard","355 ml"],
+    ["Patagonia Amber","355 ml"],
+    ["Patagonia Bohemian","355 ml"],
+    ["Patagonia Weiss","355 ml"],
+    ["Skol Pilsen","355 ml"]
+];
+
+const cervejas473 = [
+    ["Antarctica Original","473 ml"],
+    ["Antarctica Pilsen","473 ml"],
+    ["Bohemia Pilsen","473 ml"],
+    ["Brahma Chopp","473 ml"],
+    ["Brahma Extra Lager","473 ml"],
+    ["Budweiser","473 ml"],
+    ["Corona","473 ml"],
+    ["Patagonia Amber","473 ml"],
+    ["Patagonia Bohemian","473 ml"],
+    ["Patagonia Weiss","473 ml"],
+    ["Skol Pilsen","473 ml"],
+    ["Stella Artois","473 ml"],
+    ["Stella Artois Pure Gold","473 ml"]
+];
+
+const cervejas600 = [
+    ["Antarctica Original","600 ml"],
+    ["Antarctica Pilsen","600 ml"],
+    ["Antarctica Sub-Zero","600 ml"],
+    ["Bohemia Pilsen","600 ml"],
+    ["Brahma Chopp","600 ml"],
+    ["Brahma Duplo Malte","600 ml"],
+    ["Brahma Malzbier","600 ml"],
+    ["Budweiser","600 ml"],
+    ["Colorado Lager","600 ml"],
+    ["Serramalte","600 ml"],
+    ["Skol Pilsen","600 ml"],
+    ["Spaten Puro Malte","600 ml"],
+    ["Stella Artois","600 ml"]
+];
+
+const cervejasZero = [
+    ["Budweiser Zero","330 ml"],
+    ["Corona Cero","330 ml"],
+    ["Budweiser Zero","350 ml"],
+    ["Corona Cero","350 ml"],
+    ["Skol Zero Zero","350 ml"]
+];
+
+const bebidasMistas = [
+    ["Brutal Fruit Spritzer","275 ml"],
+    ["Mike's Hard Lemonade","Conforme disponibilidade"],
+    ["Skol Beats Caipi — Lata","269 ml"],
+    ["Skol Beats Caipi — Long Neck","269 ml"],
+    ["Skol Beats GT — Lata","269 ml"],
+    ["Skol Beats GT — Long Neck","269 ml"],
+    ["Skol Beats Mint — Lata","269 ml"],
+    ["Skol Beats Mint — Long Neck","269 ml"],
+    ["Skol Beats Secret — Lata","269 ml"],
+    ["Skol Beats Secret — Long Neck","269 ml"],
+    ["Skol Beats Senses — Lata","269 ml"],
+    ["Skol Beats Senses — Long Neck","269 ml"],
+    ["Skol Beats Tropical — Lata","269 ml"],
+    ["Skol Beats Tropical — Long Neck","269 ml"]
+];
+
+
+/* ================= NÃO ALCOÓLICOS ================= */
+
+const refrigerantes = [
+
+    ["Guaraná Antarctica","200 ml"],
+    ["Pepsi","200 ml"],
+    ["Pepsi Black","200 ml"],
+
+    ["Guaraná Antarctica","350 ml"],
+    ["Guaraná Antarctica Zero","350 ml"],
+    ["Pepsi","350 ml"],
+    ["Pepsi Black","350 ml"],
+    ["Soda Antarctica","350 ml"],
+
+    ["Guaraná Antarctica","1 L"],
+    ["Guaraná Antarctica Zero","1 L"],
+    ["Pepsi","1 L"],
+    ["Pepsi Black","1 L"],
+
+    ["Guaraná Antarctica","2 L"],
+    ["Guaraná Antarctica Zero","2 L"],
+    ["Pepsi","2 L"],
+    ["Pepsi Black","2 L"],
+    ["Sukita Laranja","2 L"],
+    ["Sukita Uva","2 L"],
+
+    ["Guaraná Antarctica","2,5 L"],
+    ["Guaraná Antarctica Zero","2,5 L"]
+];
+
+const tonicas = [
+
+    ["Tônica Antarctica","269 ml"],
+    ["Tônica Antarctica Gengibre","269 ml"],
+    ["Tônica Antarctica","350 ml"],
+    ["Tônica Antarctica Diet","350 ml"],
+    ["Tônica Antarctica Zero Açúcar","350 ml"],
+    ["Tônica Antarctica","1 L"],
+    ["Tônica Antarctica Zero Açúcar","1 L"]
+];
+
+
+/* =====================================================
+   CATEGORIA EMOJI
+===================================================== */
+
+function emojiProduto(nome){
+
+    const n=nome.toLowerCase();
+
+    if(
+        n.includes("beats") ||
+        n.includes("mike") ||
+        n.includes("brutal")
+    ){
+        return "🍹";
+    }
+
+    if(
+        n.includes("tônica")
+    ){
+        return "🍋";
+    }
+
+    if(
+        n.includes("guaraná") ||
+        n.includes("pepsi") ||
+        n.includes("sukita") ||
+        n.includes("soda")
+    ){
+        return "🥤";
+    }
+
+    if(
+        n.includes("spaten") ||
+        n.includes("budweiser") ||
+        n.includes("corona") ||
+        n.includes("skol") ||
+        n.includes("brahma") ||
+        n.includes("stella") ||
+        n.includes("antarctica") ||
+        n.includes("bohemia") ||
+        n.includes("beck") ||
+        n.includes("patagonia") ||
+        n.includes("goose") ||
+        n.includes("kona") ||
+        n.includes("hoegaarden") ||
+        n.includes("leffe") ||
+        n.includes("quilmes") ||
+        n.includes("serramalte") ||
+        n.includes("colorado")
+    ){
+        return "🍺";
+    }
+
+    return "📦";
+}
+
+
+/* =====================================================
+   STORAGE
+===================================================== */
+
+function carregarRupturas(){
+
+    try{
+
+        const dados=
+            JSON.parse(
+                localStorage.getItem(STORAGE_RUPTURAS)
+            );
+
+        return dados || {};
+
+    }catch(e){
+
+        return {};
+    }
+}
+
+function salvarRupturas(dados){
+
+    localStorage.setItem(
+        STORAGE_RUPTURAS,
+        JSON.stringify(dados)
+    );
+}
+
+
+/* =====================================================
+   CRIAR PRODUTO
+===================================================== */
+
+function criarProdutoRuptura(
+    nome,
+    descricao,
+    categoria
+){
+
+    const chave =
+        categoria+"|"+nome+"|"+descricao;
+
+    const dados=carregarRupturas();
+
+    const div=document.createElement("label");
+
+    div.className="ruptura-produto";
+
+    div.dataset.busca=
+        (nome+" "+descricao).toLowerCase();
+
+    const checkbox=document.createElement("input");
+
+    checkbox.type="checkbox";
+    checkbox.className="ruptura-checkbox";
+
+    checkbox.checked=!!dados[chave];
+
+    checkbox.addEventListener(
+        "change",
+        function(){
+
+            const atual=carregarRupturas();
+
+            if(this.checked){
+                atual[chave]={
+                    nome:nome,
+                    descricao:descricao,
+                    categoria:categoria
+                };
+            }else{
+                delete atual[chave];
+            }
+
+            salvarRupturas(atual);
+
+            atualizarContadoresRuptura();
+            atualizarBadgeRupturas();
+
+        }
+    );
+
+    const info=document.createElement("div");
+
+    info.className="ruptura-produto-info";
+
+    info.innerHTML=`
+        <div class="ruptura-produto-nome">
+            ${emojiProduto(nome)} ${nome}
+        </div>
+
+        <div class="ruptura-produto-descricao">
+            ${descricao}
+        </div>
+    `;
+
+    div.appendChild(checkbox);
+    div.appendChild(info);
+
+    return div;
+}
+
+
+/* =====================================================
+   MONTAR LISTAS
+===================================================== */
+
+function montarListaRupturas(){
+
+    montarGrupo(
+        "listaCervejas330",
+        cervejas330,
+        "cerveja"
+    );
+
+    montarGrupo(
+        "listaCervejas350",
+        cervejas350,
+        "cerveja"
+    );
+
+    montarGrupo(
+        "listaCervejas355",
+        cervejas355,
+        "cerveja"
+    );
+
+    montarGrupo(
+        "listaCervejas473",
+        cervejas473,
+        "cerveja"
+    );
+
+    montarGrupo(
+        "listaCervejas600",
+        cervejas600,
+        "cerveja"
+    );
+
+    montarGrupo(
+        "listaCervejasZero",
+        cervejasZero,
+        "cerveja_zero"
+    );
+
+    montarGrupo(
+        "listaMistas",
+        bebidasMistas,
+        "mistas"
+    );
+
+    montarGrupo(
+        "listaRefrigerantes",
+        refrigerantes,
+        "refrigerante"
+    );
+
+    montarGrupo(
+        "listaTonicas",
+        tonicas,
+        "tonica"
+    );
+
+    atualizarContadoresRuptura();
+    atualizarBadgeRupturas();
+}
+
+function montarGrupo(
+    id,
+    lista,
+    categoria
+){
+
+    const container=$(id);
+
+    if(!container)return;
+
+    container.innerHTML="";
+
+    const ordenada=[...lista].sort((a,b)=>{
+
+        const nomeA=a[0].toLowerCase();
+        const nomeB=b[0].toLowerCase();
+
+        if(nomeA===nomeB){
+            return a[1].localeCompare(
+                b[1],
+                "pt-BR",
+                {numeric:true}
+            );
+        }
+
+        return nomeA.localeCompare(nomeB,"pt-BR");
+    });
+
+    ordenada.forEach(item=>{
+
+        container.appendChild(
+            criarProdutoRuptura(
+                item[0],
+                item[1],
+                categoria
+            )
+        );
+
+    });
+}
+
+
+/* =====================================================
+   CONTADORES
+===================================================== */
+
+function atualizarContadoresRuptura(){
+
+    const dados=carregarRupturas();
+
+    let total=0;
+    let alcoolicos=0;
+    let naoAlcoolicos=0;
+
+    Object.values(dados).forEach(item=>{
+
+        total++;
+
+        if(
+            item.categoria==="cerveja" ||
+            item.categoria==="cerveja_zero" ||
+            item.categoria==="mistas"
+        ){
+            alcoolicos++;
+        }else{
+            naoAlcoolicos++;
+        }
+
+    });
+
+    $("contadorTotal").textContent=total;
+    $("contadorAlcoolicos").textContent=alcoolicos;
+    $("contadorNaoAlcoolicos").textContent=naoAlcoolicos;
+}
+
+function atualizarBadgeRupturas(){
+
+    const dados=carregarRupturas();
+
+    $("badgeRupturas").textContent =
+        Object.keys(dados).length;
+}
+
+
+/* =====================================================
+   CATEGORIAS
+===================================================== */
+
+function mostrarCategoriaRuptura(categoria){
+
+    const alcoolicos=
+        categoria==="alcoolicos";
+
+    $("painelAlcoolicos").style.display =
+        alcoolicos ? "block" : "none";
+
+    $("painelNaoAlcoolicos").style.display =
+        alcoolicos ? "none" : "block";
+
+    $("categoriaAlcoolicos").classList.toggle(
+        "ativo",
+        alcoolicos
+    );
+
+    $("categoriaNaoAlcoolicos").classList.toggle(
+        "ativo",
+        !alcoolicos
+    );
+
+    $("pesquisaRupturas").value="";
+
+    pesquisarRupturas();
+}
+
+
+/* =====================================================
+   PESQUISA
+===================================================== */
+
+function pesquisarRupturas(){
+
+    const termo=
+        $("pesquisaRupturas").value
+        .toLowerCase()
+        .trim();
+
+    const painelVisivel =
+        $("painelAlcoolicos").style.display !== "none"
+        ? $("painelAlcoolicos")
+        : $("painelNaoAlcoolicos");
+
+    painelVisivel
+        .querySelectorAll(".ruptura-produto")
+        .forEach(produto=>{
+
+            const texto=
+                produto.dataset.busca || "";
+
+            produto.style.display =
+                texto.includes(termo)
+                ? "flex"
+                : "none";
+        });
+}
+
+
+/* =====================================================
+   ABRIR / FECHAR FERRAMENTA
+===================================================== */
+
+function abrirFerramentaRupturas(){
+
+    $("modalFerramentaRupturas")
+        .classList.add("aberto");
+
+    montarListaRupturas();
+}
+
+function fecharFerramentaRupturas(){
+
+    $("modalFerramentaRupturas")
+        .classList.remove("aberto");
+
+    atualizarBadgeRupturas();
+}
+
+
+/* =====================================================
+   BLOCO DE NOTAS
+===================================================== */
+
+function atualizarNotasRuptura(){
+
+    const dados=carregarRupturas();
+
+    const itens=Object.values(dados);
+
+    if(!itens.length){
+
+        $("blocoNotasRupturas").textContent =
+            "📋 LISTA DE RUPTURAS\n\n" +
+            "Nenhum produto selecionado.";
+
         return;
     }
 
+    const alcoolicos=itens.filter(item=>
+        item.categoria==="cerveja" ||
+        item.categoria==="cerveja_zero" ||
+        item.categoria==="mistas"
+    );
+
+    const naoAlcoolicos=itens.filter(item=>
+        item.categoria!=="cerveja" &&
+        item.categoria!=="cerveja_zero" &&
+        item.categoria!=="mistas"
+    );
+
+    let texto="";
+
+    texto+="📋 LISTA DE RUPTURAS\n";
+    texto+="━━━━━━━━━━━━━━━━━━━━\n\n";
+
+    if(alcoolicos.length){
+
+        texto+="🍺 ALCOÓLICOS\n\n";
+
+        alcoolicos
+            .sort((a,b)=>
+                a.nome.localeCompare(
+                    b.nome,
+                    "pt-BR",
+                    {numeric:true}
+                )
+            )
+            .forEach(item=>{
+
+                texto+=
+                    emojiProduto(item.nome)+
+                    " "+item.nome+
+                    " — "+item.descricao+
+                    "\n";
+            });
+
+        texto+="\n";
+    }
+
+    if(naoAlcoolicos.length){
+
+        texto+="🥤 NÃO ALCOÓLICOS\n\n";
+
+        naoAlcoolicos
+            .sort((a,b)=>
+                a.nome.localeCompare(
+                    b.nome,
+                    "pt-BR",
+                    {numeric:true}
+                )
+            )
+            .forEach(item=>{
+
+                texto+=
+                    emojiProduto(item.nome)+
+                    " "+item.nome+
+                    " — "+item.descricao+
+                    "\n";
+            });
+    }
+
+    texto+="\n━━━━━━━━━━━━━━━━━━━━";
+    texto+="\nTotal de rupturas: "+itens.length;
+
+    $("blocoNotasRupturas").textContent=texto;
+}
+
+function abrirListaRupturas(){
+
+    atualizarNotasRuptura();
+
+    $("modalFerramentaRupturas")
+        .classList.remove("aberto");
+
+    $("modalListaRupturas")
+        .classList.add("aberto");
+}
+
+function fecharListaRupturas(){
+
+    $("modalListaRupturas")
+        .classList.remove("aberto");
+}
+
+
+/* =====================================================
+   COPIAR
+===================================================== */
+
+async function copiarRupturas(){
+
+    const texto=
+        $("blocoNotasRupturas").textContent;
+
     try{
-        const resultado = avaliarExpressao(expressaoCalc);
-        if(!Number.isFinite(resultado)){
-            display.value = "Erro";
-            expressaoCalc = "";
-            return;
-        }
-        const arredondado = Math.round(resultado * 1e10) / 1e10;
-        expressaoCalc = String(arredondado);
-        display.value = expressaoCalc;
+
+        await navigator.clipboard.writeText(texto);
+
+        mostrarToast(
+            "Lista copiada com sucesso!",
+            "📋"
+        );
+
     }catch(e){
-        display.value = "Erro";
-        expressaoCalc = "";
+
+        const area=
+            document.createElement("textarea");
+
+        area.value=texto;
+
+        document.body.appendChild(area);
+
+        area.select();
+
+        document.execCommand("copy");
+
+        area.remove();
+
+        mostrarToast(
+            "Lista copiada!",
+            "📋"
+        );
     }
 }
 
-function avaliarExpressao(expr){
-    expr = expr.replace(/\s+/g, "");
 
-    const tokens = expr.match(/(\d+\.?\d*|\.\d+|[+\-*/()])/g);
-    if(!tokens) throw new Error("Expressão inválida");
+/* =====================================================
+   LIMPAR
+===================================================== */
 
-    let pos = 0;
+function limparRupturas(){
 
-    function parseExpressao(){
-        let valor = parseTermo();
-        while(pos < tokens.length && (tokens[pos] === "+" || tokens[pos] === "-")){
-            const op = tokens[pos++];
-            const direita = parseTermo();
-            valor = op === "+" ? valor + direita : valor - direita;
-        }
-        return valor;
-    }
+    const confirmar=
+        confirm(
+            "Deseja realmente limpar todas as rupturas selecionadas?"
+        );
 
-    function parseTermo(){
-        let valor = parseFator();
-        while(pos < tokens.length && (tokens[pos] === "*" || tokens[pos] === "/")){
-            const op = tokens[pos++];
-            const direita = parseFator();
-            if(op === "*") valor *= direita;
-            else {
-                if(direita === 0) throw new Error("Divisão por zero");
-                valor /= direita;
-            }
-        }
-        return valor;
-    }
+    if(!confirmar)return;
 
-    function parseFator(){
-        if(pos >= tokens.length) throw new Error("Fim inesperado");
-        const token = tokens[pos];
+    localStorage.removeItem(
+        STORAGE_RUPTURAS
+    );
 
-        if(token === "("){
-            pos++;
-            const valor = parseExpressao();
-            if(tokens[pos] !== ")") throw new Error("Parêntese não fechado");
-            pos++;
-            return valor;
-        }
+    montarListaRupturas();
+    atualizarNotasRuptura();
+    atualizarBadgeRupturas();
 
-        if(token === "-"){
-            pos++;
-            return -parseFator();
-        }
-
-        if(/^\d/.test(token) || token.startsWith(".")){
-            pos++;
-            return parseFloat(token);
-        }
-
-        throw new Error("Token inesperado: " + token);
-    }
-
-    const resultado = parseExpressao();
-    if(pos < tokens.length) throw new Error("Expressão malformada");
-    return resultado;
+    mostrarToast(
+        "Lista de rupturas limpa.",
+        "🗑️"
+    );
 }
 
-/* ==========================================
-   EVENTOS DE INPUT
-   ========================================== */
-let timeoutCalculo = null;
-function calcularComDebounce(){
-    if(timeoutCalculo) clearTimeout(timeoutCalculo);
-    timeoutCalculo = setTimeout(calcular, 80);
-}
 
-metaInput.addEventListener("input", calcularComDebounce);
-totalInput.addEventListener("input", calcularComDebounce);
-meuEspacoInput.addEventListener("input", calcularComDebounce);
-
-[metaInput, totalInput, meuEspacoInput].forEach(input => {
-    input.addEventListener("keydown", (e) => {
-        if(["e","E","+","-"].includes(e.key)){
-            e.preventDefault();
-        }
-    });
-    input.addEventListener("blur", () => {
-        const n = numero(input.value);
-        if(input.value !== "" && !isNaN(parseFloat(input.value)) && parseFloat(input.value) !== n){
-            input.value = n;
-        }
-        if(n > 100 && input === metaInput){
-            input.value = 100;
-        }
-    });
-});
-
-/* ==========================================
-   MODAL — FECHAR AO CLICAR FORA / ESC
-   ========================================== */
-$("modalCalculadora").addEventListener("click", function(event){
-    if(event.target === this){
-        fecharCalculadora();
-    }
-});
-
-document.addEventListener("keydown", function(e){
-    if(e.key === "Escape"){
-        fecharCalculadora();
-    }
-});
-
-/* ==========================================
+/* =====================================================
    INICIALIZAÇÃO
-   ========================================== */
-calcular();
+===================================================== */
 
-window.addEventListener("error", function(e){
-    console.error("Erro global capturado:", e.message);
-});
+montarListaRupturas();
 
-window.addEventListener("unhandledrejection", function(e){
-    console.error("Promise rejeitada:", e.reason);
-});
 </script>
 
 </body>
