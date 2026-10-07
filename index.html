@@ -22,6 +22,85 @@ body{
     overflow-x:hidden;
 }
 
+/* ==========================================
+   SPLASH SCREEN (efeito de abertura)
+   ========================================== */
+.splash{
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at center,#102d4a 0%,transparent 60%),
+        #050b13;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    z-index:9999;
+    transition:opacity .6s ease, visibility .6s ease;
+    padding:20px;
+    text-align:center;
+}
+
+.splash.esconder{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+}
+
+.splash-emoji{
+    font-size:70px;
+    margin-bottom:20px;
+    animation:splashPulo 1.2s ease-in-out infinite alternate;
+    filter:drop-shadow(0 0 20px rgba(0,217,255,.4));
+}
+
+@keyframes splashPulo{
+    0%{transform:translateY(0) rotate(-6deg) scale(1);}
+    100%{transform:translateY(-12px) rotate(6deg) scale(1.08);}
+}
+
+.splash-frase{
+    font-size:26px;
+    font-weight:900;
+    letter-spacing:1px;
+    background:linear-gradient(90deg,#00e5ff,#9d4edd,#ff3cac);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:splashFade 1s ease-out;
+    margin-bottom:10px;
+}
+
+.splash-sub{
+    color:#aebdce;
+    font-size:14px;
+    animation:splashFade 1.4s ease-out;
+}
+
+.splash-barra{
+    position:absolute;
+    bottom:0;
+    left:0;
+    height:4px;
+    width:0;
+    background:linear-gradient(90deg,#00e5ff,#9d4edd,#ff3cac);
+    animation:barraCarregar 2s linear forwards;
+    box-shadow:0 0 15px rgba(0,217,255,.6);
+}
+
+@keyframes barraCarregar{
+    0%{width:0;}
+    100%{width:100%;}
+}
+
+@keyframes splashFade{
+    0%{opacity:0;transform:translateY(15px);}
+    100%{opacity:1;transform:translateY(0);}
+}
+
+/* ==========================================
+   RESTO DO APP
+   ========================================== */
 .container{width:100%;max-width:700px;margin:auto;}
 .header{text-align:center;margin-bottom:20px;}
 
@@ -35,9 +114,6 @@ body{
 .subtitle{color:#aebdce;font-size:14px;margin-top:5px;}
 .frase{color:#00d9ff;font-size:13px;margin-top:12px;font-weight:bold;}
 
-/* ==========================================
-   INDICADOR ONLINE / OFFLINE
-   ========================================== */
 .status-conexao{
     display:flex;align-items:center;justify-content:center;
     gap:8px;margin:14px auto 0;
@@ -101,9 +177,6 @@ body{
 
 .aviso-offline.mostrar{transform:translateY(0);}
 
-/* ==========================================
-   DATA E HORA
-   ========================================== */
 .data-hora{
     margin:15px 0 20px;padding:12px;
     border:1px solid #193652;background:rgba(5,20,35,.8);
@@ -289,9 +362,6 @@ svg rect{cursor:pointer;transition:width .4s ease;}
     padding:20px 5px 8px;line-height:1.7;
 }
 
-/* ==========================================
-   TOAST (notificação flutuante)
-   ========================================== */
 .toast{
     position:fixed;
     top:20px;left:50%;
@@ -319,11 +389,23 @@ svg rect{cursor:pointer;transition:width .4s ease;}
     .card{padding:15px;}
     .resultado .numero{font-size:45px;}
     .resumo{grid-template-columns:1fr 1fr;}
+    .splash-frase{font-size:22px;}
+    .splash-emoji{font-size:60px;}
 }
 </style>
 </head>
 
 <body>
+
+<!-- ==========================================
+     SPLASH SCREEN — EFEITO DE ABERTURA
+     ========================================== -->
+<div id="splash" class="splash">
+    <div class="splash-emoji">🛒</div>
+    <div class="splash-frase">Bem-vindo ao MShare Space</div>
+    <div class="splash-sub">Vamos medir seu share? 📏</div>
+    <div class="splash-barra"></div>
+</div>
 
 <div id="avisoOffline" class="aviso-offline">
     📡 Sem conexão com a internet — os cálculos continuam funcionando normalmente
@@ -346,24 +428,6 @@ svg rect{cursor:pointer;transition:width .4s ease;}
     <div class="data" id="dataAtual">--/--/----</div>
     <div class="hora" id="horaAtual">--:--:--</div>
 </div>
-
-<section class="card">
-    <h2>🏪 Informações da loja</h2>
-    <div class="grid">
-        <div>
-            <label for="nomeLoja">Nome da loja</label>
-            <input type="text" id="nomeLoja" placeholder="Ex.: Supermercado Central" autocomplete="off">
-        </div>
-        <div>
-            <label for="enderecoLoja">Endereço da loja</label>
-            <input type="text" id="enderecoLoja" placeholder="Ex.: Av. Brasil, 1000" autocomplete="off">
-        </div>
-        <div>
-            <label for="nomeUsuario">Meu nome</label>
-            <input type="text" id="nomeUsuario" placeholder="Digite seu nome" autocomplete="off">
-        </div>
-    </div>
-</section>
 
 <section class="card">
     <h2>📏 Medição da gôndola</h2>
@@ -521,6 +585,24 @@ svg rect{cursor:pointer;transition:width .4s ease;}
 
 <script>
 "use strict";
+
+/* ==========================================
+   SPLASH SCREEN — EFEITO DE ABERTURA
+   ========================================== */
+window.addEventListener("load", function(){
+    const splash = document.getElementById("splash");
+
+    setTimeout(function(){
+        splash.classList.add("esconder");
+
+        // Remove o splash do DOM após a animação pra liberar memória
+        setTimeout(function(){
+            if(splash.parentNode){
+                splash.parentNode.removeChild(splash);
+            }
+        }, 700);
+    }, 2000); // 2 segundos
+});
 
 /* ==========================================
    REFERÊNCIAS DOM
