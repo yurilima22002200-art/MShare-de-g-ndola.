@@ -457,6 +457,22 @@ button{
    SELEÇÃO DE LOJAS
 ===================================================== */
 
+.contador-lojas{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#0a1420;
+    border:1px solid #1b2d42;
+    border-radius:13px;
+    padding:11px 13px;
+    margin-bottom:12px;
+    font-size:12px;
+    font-weight:800;
+}
+
+.contador-lojas-txt{ color:#8ba1b8; }
+.contador-lojas-num{ color:#00ff88; font-size:14px; font-weight:900; }
+
 .lojas-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -481,16 +497,55 @@ button{
 
 .loja-card:active{ transform:scale(.97); }
 
-.loja-card.preenchida{
-    border-color:#00d9ff;
-    background:linear-gradient(135deg,#073344,#0f1a2e);
-    box-shadow:0 0 18px rgba(0,217,255,.15);
+/* ---- LOJA CADASTRADA (LIBERADA) ---- */
+.loja-card.cadastrada{
+    border-color:#00ff88;
+    background:linear-gradient(135deg,#05281b,#0f2a1e);
+    box-shadow:0 0 20px rgba(0,255,136,.18);
 }
 
-.loja-card.com-rupturas{
-    border-color:#ff0055;
-    background:linear-gradient(135deg,#2a0a18,#1a0d20);
-    box-shadow:0 0 18px rgba(255,0,85,.15);
+.loja-card.cadastrada::before{
+    content:"✅";
+    position:absolute;
+    top:6px;
+    right:6px;
+    font-size:14px;
+}
+
+.loja-card.cadastrada-com-rupturas{
+    border-color:#00d9ff;
+    background:linear-gradient(135deg,#073344,#0f1a2e);
+    box-shadow:0 0 20px rgba(0,217,255,.18);
+}
+
+.loja-card.cadastrada-com-rupturas::before{
+    content:"📋";
+    position:absolute;
+    top:6px;
+    right:6px;
+    font-size:14px;
+}
+
+/* ---- LOJA PENDENTE ---- */
+.loja-card.pendente{
+    border-color:#ffaa00;
+    background:linear-gradient(135deg,#2a1e05,#1a1405);
+    box-shadow:0 0 18px rgba(255,170,0,.18);
+    animation:pulsarPendente 2s infinite;
+}
+
+@keyframes pulsarPendente{
+    0%,100%{ box-shadow:0 0 18px rgba(255,170,0,.18); }
+    50%{ box-shadow:0 0 28px rgba(255,170,0,.45); }
+}
+
+.loja-card.pendente::before{
+    content:"⚠️";
+    position:absolute;
+    top:6px;
+    right:6px;
+    font-size:16px;
+    animation:flutuar 1.5s infinite ease-in-out;
 }
 
 .loja-card-topo{
@@ -500,9 +555,7 @@ button{
     gap:6px;
 }
 
-.loja-card-icone{
-    font-size:22px;
-}
+.loja-card-icone{ font-size:22px; }
 
 .loja-card-badge{
     min-width:26px;
@@ -551,9 +604,9 @@ button{
     text-transform:uppercase;
 }
 
-.loja-card-status.vazio{
-    color:#5f7d9a;
-}
+.loja-card-status.vazio{ color:#5f7d9a; }
+.loja-card-status.pendente{ color:#ffaa00; }
+.loja-card-status.cadastrada{ color:#00ff88; }
 
 /* =====================================================
    FERRAMENTA DE RUPTURAS (por loja)
@@ -855,9 +908,69 @@ footer{
     </div>
 </header>
 
+<!-- ================= SELEÇÃO DE LOJAS ================= -->
+
+<section class="card" id="cardLojas">
+
+    <div class="card-title">🏪 Minhas Lojas</div>
+    <div class="subtitle" style="margin-bottom:5px;text-align:left;" id="subtituloLojas">
+        Selecione uma loja para preencher as informações e marcar rupturas
+    </div>
+
+    <div class="contador-lojas">
+        <span class="contador-lojas-txt">📊 Lojas cadastradas</span>
+        <span class="contador-lojas-num" id="contadorLojasNum">0 / 4</span>
+    </div>
+
+    <div class="lojas-grid" id="lojasGrid">
+
+        <button class="loja-card" data-loja="0" onclick="clicarLoja(0)">
+            <div class="loja-card-topo">
+                <span class="loja-card-icone">🏬</span>
+                <span class="loja-card-badge zero" data-badge="0">0</span>
+            </div>
+            <div class="loja-card-nome vazio" data-nome="0">Loja 1 — vazia</div>
+            <div class="loja-card-info" data-info="0">Toque para preencher</div>
+            <div class="loja-card-status vazio" data-status="0">Sem dados</div>
+        </button>
+
+        <button class="loja-card" data-loja="1" onclick="clicarLoja(1)">
+            <div class="loja-card-topo">
+                <span class="loja-card-icone">🏬</span>
+                <span class="loja-card-badge zero" data-badge="1">0</span>
+            </div>
+            <div class="loja-card-nome vazio" data-nome="1">Loja 2 — vazia</div>
+            <div class="loja-card-info" data-info="1">Toque para preencher</div>
+            <div class="loja-card-status vazio" data-status="1">Sem dados</div>
+        </button>
+
+        <button class="loja-card" data-loja="2" onclick="clicarLoja(2)">
+            <div class="loja-card-topo">
+                <span class="loja-card-icone">🏬</span>
+                <span class="loja-card-badge zero" data-badge="2">0</span>
+            </div>
+            <div class="loja-card-nome vazio" data-nome="2">Loja 3 — vazia</div>
+            <div class="loja-card-info" data-info="2">Toque para preencher</div>
+            <div class="loja-card-status vazio" data-status="2">Sem dados</div>
+        </button>
+
+        <button class="loja-card" data-loja="3" onclick="clicarLoja(3)">
+            <div class="loja-card-topo">
+                <span class="loja-card-icone">🏬</span>
+                <span class="loja-card-badge zero" data-badge="3">0</span>
+            </div>
+            <div class="loja-card-nome vazio" data-nome="3">Loja 4 — vazia</div>
+            <div class="loja-card-info" data-info="3">Toque para preencher</div>
+            <div class="loja-card-status vazio" data-status="3">Sem dados</div>
+        </button>
+
+    </div>
+
+</section>
+
 <!-- ================= SHARE ================= -->
 
-<section class="card">
+<section class="card" id="cardShareMedir">
 
     <div class="card-title">📏 Medir Share de Gôndola</div>
 
@@ -998,61 +1111,6 @@ footer{
 
 </section>
 
-<!-- ================= SELEÇÃO DE LOJAS ================= -->
-
-<section class="card">
-
-    <div class="card-title">🏪 Minhas Lojas</div>
-    <div class="subtitle" style="margin-bottom:5px;text-align:left;">
-        Selecione uma loja para preencher as informações e marcar rupturas
-    </div>
-
-    <div class="lojas-grid" id="lojasGrid">
-
-        <button class="loja-card" data-loja="0" onclick="abrirFerramentaRupturas(0)">
-            <div class="loja-card-topo">
-                <span class="loja-card-icone">🏬</span>
-                <span class="loja-card-badge zero" data-badge="0">0</span>
-            </div>
-            <div class="loja-card-nome vazio" data-nome="0">Loja 1 — vazia</div>
-            <div class="loja-card-info" data-info="0">Toque para preencher</div>
-            <div class="loja-card-status vazio" data-status="0">Sem dados</div>
-        </button>
-
-        <button class="loja-card" data-loja="1" onclick="abrirFerramentaRupturas(1)">
-            <div class="loja-card-topo">
-                <span class="loja-card-icone">🏬</span>
-                <span class="loja-card-badge zero" data-badge="1">0</span>
-            </div>
-            <div class="loja-card-nome vazio" data-nome="1">Loja 2 — vazia</div>
-            <div class="loja-card-info" data-info="1">Toque para preencher</div>
-            <div class="loja-card-status vazio" data-status="1">Sem dados</div>
-        </button>
-
-        <button class="loja-card" data-loja="2" onclick="abrirFerramentaRupturas(2)">
-            <div class="loja-card-topo">
-                <span class="loja-card-icone">🏬</span>
-                <span class="loja-card-badge zero" data-badge="2">0</span>
-            </div>
-            <div class="loja-card-nome vazio" data-nome="2">Loja 3 — vazia</div>
-            <div class="loja-card-info" data-info="2">Toque para preencher</div>
-            <div class="loja-card-status vazio" data-status="2">Sem dados</div>
-        </button>
-
-        <button class="loja-card" data-loja="3" onclick="abrirFerramentaRupturas(3)">
-            <div class="loja-card-topo">
-                <span class="loja-card-icone">🏬</span>
-                <span class="loja-card-badge zero" data-badge="3">0</span>
-            </div>
-            <div class="loja-card-nome vazio" data-nome="3">Loja 4 — vazia</div>
-            <div class="loja-card-info" data-info="3">Toque para preencher</div>
-            <div class="loja-card-status vazio" data-status="3">Sem dados</div>
-        </button>
-
-    </div>
-
-</section>
-
 <footer>
     Desenvolvido por Yuri Lima
 </footer>
@@ -1140,6 +1198,10 @@ footer{
                placeholder="🔎 Pesquisar produto..." oninput="pesquisarRupturas()">
 
         <div id="painelAlcoolicos">
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🍺 Cervejas — 210 ml</div>
+                <div class="ruptura-lista" id="listaCervejas210"></div>
+            </div>
             <div class="ruptura-secao">
                 <div class="ruptura-secao-titulo">🍺 Cervejas — 330 ml</div>
                 <div class="ruptura-lista" id="listaCervejas330"></div>
@@ -1567,114 +1629,131 @@ function calcResultado(){
    LISTAS DE PRODUTOS
 ===================================================== */
 
+const cervejas210 = [
+    ["Coronita Extra","210 ml • Long Neck"]
+];
+
 const cervejas330 = [
-    ["Beck's","330 ml"],["Budweiser","330 ml"],["Corona Extra","330 ml"],
-    ["Michelob Ultra","330 ml"],["Stella Artois","330 ml"],
-    ["Stella Artois Pure Gold","330 ml"]
+    ["Beck's","330 ml • Long Neck"],["Budweiser","330 ml • Long Neck"],
+    ["Corona Extra","330 ml • Long Neck"],["Michelob Ultra","330 ml • Long Neck"],
+    ["Stella Artois","330 ml • Long Neck"],
+    ["Stella Artois Pure Gold","330 ml • Long Neck"]
 ];
 
 const cervejas350 = [
-    ["Antarctica Original","350 ml"],["Antarctica Pilsen","350 ml"],
-    ["Antarctica Sub-Zero","350 ml"],["Beck's","350 ml"],
-    ["Bohemia Escura","350 ml"],["Bohemia Pilsen","350 ml"],
-    ["Brahma Chopp","350 ml"],["Brahma Duplo Malte","350 ml"],
-    ["Brahma Malzbier","350 ml"],["Budweiser","350 ml"],
-    ["Michelob Ultra","350 ml"],["Skol Pilsen","350 ml"],
-    ["Spaten","350 ml"],["Stella Artois Pure Gold","350 ml"]
+    ["Antarctica Original","350 ml • Lata"],["Antarctica Pilsen","350 ml • Lata"],
+    ["Antarctica Sub-Zero","350 ml • Lata"],["Beck's","350 ml • Lata"],
+    ["Bohemia Escura","350 ml • Lata"],["Bohemia Puro Malte","350 ml • Lata"],
+    ["Brahma Chopp","350 ml • Lata"],["Brahma Duplo Malte","350 ml • Lata"],
+    ["Brahma Malzbier","350 ml • Lata"],["Budweiser","350 ml • Lata"],
+    ["Michelob Ultra","350 ml • Lata"],["Skol Pilsen","350 ml • Lata"],
+    ["Spaten","350 ml • Lata"],["Stella Artois","350 ml • Lata"],
+    ["Stella Artois Pure Gold","350 ml • Lata"]
 ];
 
 const cervejas355 = [
-    ["Antarctica Pilsen","355 ml"],["Corona Extra","355 ml"],
-    ["Patagonia Amber","355 ml"],["Patagonia Bohemian","355 ml"],
-    ["Patagonia Weiss","355 ml"],["Skol Pilsen","355 ml"],["Spaten","355 ml"]
+    ["Antarctica Pilsen","355 ml • Long Neck"],["Corona Extra","355 ml • Long Neck"],
+    ["Patagonia Amber","355 ml • Long Neck"],["Patagonia Bohemian","355 ml • Long Neck"],
+    ["Patagonia Weiss","355 ml • Long Neck"],["Skol Pilsen","355 ml • Long Neck"],
+    ["Spaten","355 ml • Long Neck"]
 ];
 
 const cervejas473 = [
-    ["Antarctica Original","473 ml"],["Antarctica Pilsen","473 ml"],
-    ["Bohemia Pilsen","473 ml"],["Brahma Chopp","473 ml"],
-    ["Brahma Extra Lager","473 ml"],["Budweiser","473 ml"],
-    ["Corona","473 ml"],["Patagonia Amber","473 ml"],
-    ["Patagonia Bohemian","473 ml"],["Patagonia Weiss","473 ml"],
-    ["Skol Pilsen","473 ml"],["Stella Artois","473 ml"],
-    ["Stella Artois Pure Gold","473 ml"]
+    ["Antarctica Original","473 ml • Lata"],["Antarctica Pilsen","473 ml • Lata"],
+    ["Bohemia Pilsen","473 ml • Lata"],["Brahma Chopp","473 ml • Lata"],
+    ["Brahma Extra Lager","473 ml • Lata"],["Budweiser","473 ml • Lata"],
+    ["Corona","473 ml • Lata"],["Patagonia Amber","473 ml • Lata"],
+    ["Patagonia Bohemian","473 ml • Lata"],["Patagonia Weiss","473 ml • Lata"],
+    ["Skol Pilsen","473 ml • Lata"],["Stella Artois","473 ml • Lata"],
+    ["Stella Artois Pure Gold","473 ml • Lata"]
 ];
 
 const cervejas600 = [
-    ["Antarctica Original","600 ml"],["Antarctica Pilsen","600 ml"],
-    ["Antarctica Sub-Zero","600 ml"],["Bohemia Pilsen","600 ml"],
-    ["Brahma Chopp","600 ml"],["Brahma Duplo Malte","600 ml"],
-    ["Brahma Malzbier","600 ml"],["Budweiser","600 ml"],
-    ["Colorado Lager","600 ml"],["Skol Pilsen","600 ml"],
-    ["Spaten Puro Malte","600 ml"],["Stella Artois","600 ml"]
+    ["Antarctica Original","600 ml • Long Neck"],["Antarctica Pilsen","600 ml • Long Neck"],
+    ["Antarctica Sub-Zero","600 ml • Long Neck"],["Bohemia Pilsen","600 ml • Long Neck"],
+    ["Brahma Chopp","600 ml • Long Neck"],["Brahma Duplo Malte","600 ml • Long Neck"],
+    ["Brahma Malzbier","600 ml • Long Neck"],["Budweiser","600 ml • Long Neck"],
+    ["Colorado Lager","600 ml • Long Neck"],["Skol Pilsen","600 ml • Long Neck"],
+    ["Spaten","600 ml • Long Neck"],["Spaten Puro Malte","600 ml • Long Neck"],
+    ["Stella Artois","600 ml • Long Neck"]
 ];
 
 const cervejasZero = [
-    ["Brahma Zero","330 ml"],["Brahma Zero","350 ml"],
-    ["Budweiser Zero","330 ml"],["Corona Cero","330 ml"],
-    ["Budweiser Zero","350 ml"],["Corona Cero","350 ml"],
-    ["Skol Zero Zero","350 ml"]
+    ["Brahma Zero","330 ml • Long Neck"],["Brahma Zero","350 ml • Lata"],
+    ["Budweiser Zero","330 ml • Long Neck"],["Corona Cero","330 ml • Long Neck"],
+    ["Budweiser Zero","350 ml • Lata"],["Corona Cero","350 ml • Lata"],
+    ["Skol Zero Zero","350 ml • Lata"]
 ];
 
 const bebidasMistas = [
-    ["Brutal Fruit Spritzer","275 ml"],
+    ["Brutal Fruit Spritzer","275 ml • Lata"],
     ["Mike's Hard Lemonade","Conforme disponibilidade"],
-    ["Skol Beats Caipi — Lata","269 ml"],
-    ["Skol Beats Caipi — Long Neck","269 ml"],
-    ["Skol Beats GT — Lata","269 ml"],
-    ["Skol Beats GT — Long Neck","269 ml"],
-    ["Skol Beats Mint — Lata","269 ml"],
-    ["Skol Beats Mint — Long Neck","269 ml"],
-    ["Skol Beats Secret — Lata","269 ml"],
-    ["Skol Beats Secret — Long Neck","269 ml"],
-    ["Skol Beats Senses — Lata","269 ml"],
-    ["Skol Beats Senses — Long Neck","269 ml"],
-    ["Skol Beats Tropical — Lata","269 ml"],
-    ["Skol Beats Tropical — Long Neck","269 ml"]
+    ["Skol Beats Caipi — Lata","269 ml • Lata"],
+    ["Skol Beats Caipi — Long Neck","269 ml • Long Neck"],
+    ["Skol Beats GT — Lata","269 ml • Lata"],
+    ["Skol Beats GT — Long Neck","269 ml • Long Neck"],
+    ["Skol Beats Mint — Lata","269 ml • Lata"],
+    ["Skol Beats Mint — Long Neck","269 ml • Long Neck"],
+    ["Skol Beats Secret — Lata","269 ml • Lata"],
+    ["Skol Beats Secret — Long Neck","269 ml • Long Neck"],
+    ["Skol Beats Senses — Lata","269 ml • Lata"],
+    ["Skol Beats Senses — Long Neck","269 ml • Long Neck"],
+    ["Skol Beats Tropical — Lata","269 ml • Lata"],
+    ["Skol Beats Tropical — Long Neck","269 ml • Long Neck"]
 ];
 
 const refrigerantes200 = [
-    ["Guaraná Antarctica","200 ml"],["Pepsi","200 ml"],
-    ["Pepsi Black","200 ml"],["Soda Antarctica","200 ml"],
-    ["Sukita Laranja","200 ml"]
+    ["Guaraná Antarctica","200 ml • PET"],
+    ["Guaraná Antarctica Zero","200 ml • PET"],
+    ["Pepsi","200 ml • PET"],
+    ["Pepsi Black","200 ml • PET"],
+    ["Soda Antarctica","200 ml • PET"],
+    ["Sukita Laranja","200 ml • PET"]
 ];
 
 const refrigerantes350 = [
-    ["Guaraná Antarctica","350 ml"],["Guaraná Antarctica Zero","350 ml"],
-    ["Pepsi","350 ml"],["Pepsi Black","350 ml"],
-    ["Soda Antarctica","350 ml"],["Sukita Laranja","350 ml"],
-    ["Sukita Uva","350 ml"]
+    ["Guaraná Antarctica","350 ml • Lata"],["Guaraná Antarctica Zero","350 ml • Lata"],
+    ["H2O Limão","350 ml • Lata"],
+    ["Pepsi","350 ml • Lata"],["Pepsi Black","350 ml • Lata"],
+    ["Soda Antarctica","350 ml • Lata"],["Sukita Laranja","350 ml • Lata"],
+    ["Sukita Uva","350 ml • Lata"]
 ];
 
 const refrigerantes1L = [
-    ["Guaraná Antarctica","1 L"],["Guaraná Antarctica Zero","1 L"],
-    ["Pepsi","1 L"],["Pepsi Black","1 L"],["Soda Antarctica","1 L"],
-    ["Sukita Laranja","1 L"],["Sukita Uva","1 L"]
+    ["Guaraná Antarctica","1 L • PET"],["Guaraná Antarctica Zero","1 L • PET"],
+    ["Pepsi","1 L • PET"],["Pepsi Black","1 L • PET"],
+    ["Soda Antarctica","1 L • PET"],
+    ["Sukita Laranja","1 L • PET"],["Sukita Uva","1 L • PET"]
 ];
 
 const refrigerantes2L = [
-    ["Guaraná Antarctica","2 L"],["Guaraná Antarctica Zero","2 L"],
-    ["Pepsi","2 L"],["Pepsi Black","2 L"],["Soda Antarctica","2 L"],
-    ["Sukita Laranja","2 L"],["Sukita Uva","2 L"]
+    ["Guaraná Antarctica","2 L • PET"],["Guaraná Antarctica Zero","2 L • PET"],
+    ["Pepsi","2 L • PET"],["Pepsi Black","2 L • PET"],
+    ["Soda Antarctica","2 L • PET"],
+    ["Sukita Laranja","2 L • PET"],["Sukita Uva","2 L • PET"]
 ];
 
 const refrigerantes25L = [
-    ["Guaraná Antarctica","2,5 L"],["Guaraná Antarctica Zero","2,5 L"]
+    ["Guaraná Antarctica","2,5 L • PET"],
+    ["Guaraná Antarctica Zero","2,5 L • PET"],
+    ["Pepsi","2,5 L • PET"]
 ];
 
 const tonicas = [
-    ["Tônica Antarctica","269 ml"],["Tônica Antarctica Gengibre","269 ml"],
-    ["Tônica Antarctica","350 ml"],["Tônica Antarctica Diet","350 ml"],
-    ["Tônica Antarctica Zero Açúcar","350 ml"],
-    ["Tônica Antarctica","1 L"],["Tônica Antarctica Zero Açúcar","1 L"]
+    ["Tônica Antarctica","269 ml • Lata"],["Tônica Antarctica Gengibre","269 ml • Lata"],
+    ["Tônica Antarctica","350 ml • Lata"],["Tônica Antarctica Diet","350 ml • Lata"],
+    ["Tônica Antarctica Zero Açúcar","350 ml • Lata"],
+    ["Tônica Antarctica","1 L • PET"],["Tônica Antarctica Zero Açúcar","1 L • PET"]
 ];
 
 const isotonicos = [
-    ["Gatorade Laranja","500 ml"],["Gatorade Limão","500 ml"],
-    ["Gatorade Uva","500 ml"],["Gatorade Tangerina","500 ml"],
-    ["Gatorade Maracujá","500 ml"],["Gatorade Morango e Maracujá","500 ml"],
-    ["Gatorade Frutas Silvestres","500 ml"],
-    ["Gatorade Melancia com Morango","500 ml"],
-    ["Gatorade Frutas Cítricas","500 ml"],["Gatorade Blueberry","500 ml"]
+    ["Gatorade Laranja","500 ml • PET"],["Gatorade Limão","500 ml • PET"],
+    ["Gatorade Uva","500 ml • PET"],["Gatorade Tangerina","500 ml • PET"],
+    ["Gatorade Maracujá","500 ml • PET"],["Gatorade Morango e Maracujá","500 ml • PET"],
+    ["Gatorade Frutas Silvestres","500 ml • PET"],
+    ["Gatorade Melancia com Morango","500 ml • PET"],
+    ["Gatorade Frutas Cítricas","500 ml • PET"],["Gatorade Blueberry","500 ml • PET"],
+    ["H2O Limão","500 ml • PET"],["H2O Limoneto","500 ml • PET"]
 ];
 
 
@@ -1686,14 +1765,15 @@ function emojiProduto(nome){
     const n=nome.toLowerCase();
     if(n.includes("beats")||n.includes("mike")||n.includes("brutal")) return "🍹";
     if(n.includes("tônica")) return "🍋";
-    if(n.includes("gatorade")) return "🧃";
+    if(n.includes("gatorade")||n.includes("h2o")) return "🧃";
     if(n.includes("guaraná")||n.includes("pepsi")||n.includes("sukita")||n.includes("soda"))
         return "🥤";
     if(
         n.includes("spaten")||n.includes("budweiser")||n.includes("corona")||
-        n.includes("skol")||n.includes("brahma")||n.includes("stella")||
-        n.includes("antarctica")||n.includes("bohemia")||n.includes("beck")||
-        n.includes("patagonia")||n.includes("colorado")||n.includes("michelob")
+        n.includes("coronita")||n.includes("skol")||n.includes("brahma")||
+        n.includes("stella")||n.includes("antarctica")||n.includes("bohemia")||
+        n.includes("beck")||n.includes("patagonia")||n.includes("colorado")||
+        n.includes("michelob")
     ) return "🍺";
     return "📦";
 }
@@ -1735,12 +1815,27 @@ function setLoja(index, valor){
 
 
 /* =====================================================
+   VERIFICAÇÃO DE LOJA COMPLETA
+===================================================== */
+
+function lojaEstaCompleta(loja){
+    const info = loja.info || {};
+    return (
+        info.loja && info.loja.trim() !== "" &&
+        info.nome && info.nome.trim() !== "" &&
+        info.supervisor && info.supervisor.trim() !== ""
+    );
+}
+
+
+/* =====================================================
    CARDS DAS LOJAS
 ===================================================== */
 
 function atualizarCardsLojas(){
 
     const lojas = carregarLojas();
+    let totalCadastradas = 0;
 
     lojas.forEach((loja, i) => {
 
@@ -1751,15 +1846,23 @@ function atualizarCardsLojas(){
         const statusEl = document.querySelector(`[data-status="${i}"]`);
 
         const totalRupturas = Object.keys(loja.rupturas || {}).length;
-        const temInfo = loja.info.loja || loja.info.nome ||
-                        loja.info.endereco || loja.info.supervisor;
+        const completa = lojaEstaCompleta(loja);
 
-        card.classList.remove("preenchida","com-rupturas");
+        if(completa) totalCadastradas++;
 
-        if(totalRupturas > 0){
-            card.classList.add("com-rupturas");
-        }else if(temInfo){
-            card.classList.add("preenchida");
+        card.classList.remove(
+            "preenchida","com-rupturas","pendente",
+            "cadastrada","cadastrada-com-rupturas"
+        );
+
+        if(completa){
+            if(totalRupturas > 0){
+                card.classList.add("cadastrada-com-rupturas");
+            }else{
+                card.classList.add("cadastrada");
+            }
+        }else{
+            card.classList.add("pendente");
         }
 
         badge.textContent = totalRupturas;
@@ -1784,18 +1887,23 @@ function atualizarCardsLojas(){
             infoEl.textContent = "Toque para preencher";
         }
 
-        if(totalRupturas > 0){
-            statusEl.textContent = `✅ ${totalRupturas} ruptura(s) marcada(s)`;
-            statusEl.classList.remove("vazio");
-        }else if(temInfo){
-            statusEl.textContent = "📝 Sem rupturas marcadas";
-            statusEl.classList.remove("vazio");
+        statusEl.classList.remove("vazio","pendente","cadastrada");
+
+        if(!completa){
+            statusEl.textContent = "📝 Faltam dados";
+            statusEl.classList.add("pendente");
+        }else if(totalRupturas > 0){
+            statusEl.textContent = `📋 ${totalRupturas} ruptura(s) • Cadastrada`;
+            statusEl.classList.add("cadastrada");
         }else{
-            statusEl.textContent = "Sem dados";
-            statusEl.classList.add("vazio");
+            statusEl.textContent = "✅ Cadastrada";
+            statusEl.classList.add("cadastrada");
         }
 
     });
+
+    const contador = $("contadorLojasNum");
+    if(contador) contador.textContent = `${totalCadastradas} / ${TOTAL_LOJAS}`;
 
     let totalGeral = 0;
     lojas.forEach(l=>{ totalGeral += Object.keys(l.rupturas||{}).length; });
@@ -1805,10 +1913,20 @@ function atualizarCardsLojas(){
 
 
 /* =====================================================
+   CLICAR NUMA LOJA
+===================================================== */
+
+function clicarLoja(index){
+    abrirFerramentaRupturas(index);
+}
+
+
+/* =====================================================
    ABRIR / FECHAR FERRAMENTA
 ===================================================== */
 
 function abrirFerramentaRupturas(index){
+
     lojaAtiva = index;
 
     const lojas = carregarLojas();
@@ -1927,6 +2045,7 @@ function criarProdutoRuptura(nome, descricao, categoria){
 
 function montarListaRupturas(){
 
+    montarGrupo("listaCervejas210",cervejas210,"cerveja");
     montarGrupo("listaCervejas330",cervejas330,"cerveja");
     montarGrupo("listaCervejas350",cervejas350,"cerveja");
     montarGrupo("listaCervejas355",cervejas355,"cerveja");
@@ -2109,6 +2228,7 @@ function abrirListaRupturas(){
 
 function fecharListaRupturas(){
     $("modalListaRupturas").classList.remove("aberto");
+    $("modalFerramentaRupturas").classList.add("aberto");
 }
 
 
