@@ -321,59 +321,285 @@ button{
     text-align:center;
     border:1px solid #29384b;
     background:#0b121c;
+    transition:.4s;
 }
 
 .resultado.verde{
     border-color:#00ff88;
-    animation:pulsoVerde 1.4s infinite;
+    box-shadow:0 0 25px rgba(0,255,136,.15);
 }
 
 .resultado.vermelho{
     border-color:#ff0055;
-    animation:pulsoVermelho 1.4s infinite;
-}
-
-@keyframes pulsoVerde{
-    50%{box-shadow:0 0 30px rgba(0,255,136,.3)}
-}
-
-@keyframes pulsoVermelho{
-    50%{box-shadow:0 0 30px rgba(255,0,85,.3)}
+    box-shadow:0 0 25px rgba(255,0,85,.15);
 }
 
 .emoji-resultado{
-    font-size:42px;
+    font-size:52px;
+    display:inline-block;
+    transition:.3s;
+}
+
+.emoji-resultado.animar-verde{
+    animation:bounceEmoji 1s infinite ease-in-out;
+}
+
+.emoji-resultado.animar-vermelho{
+    animation:shakeEmoji 1.2s infinite ease-in-out;
+}
+
+@keyframes bounceEmoji{
+    0%,100%{transform:translateY(0) scale(1) rotate(0deg);}
+    25%{transform:translateY(-18px) scale(1.15) rotate(-8deg);}
+    50%{transform:translateY(0) scale(1.05) rotate(0deg);}
+    75%{transform:translateY(-10px) scale(1.12) rotate(8deg);}
+}
+
+@keyframes shakeEmoji{
+    0%,100%{transform:translateX(0) rotate(0deg);}
+    15%{transform:translateX(-8px) rotate(-6deg);}
+    30%{transform:translateX(8px) rotate(6deg);}
+    45%{transform:translateX(-6px) rotate(-4deg);}
+    60%{transform:translateX(6px) rotate(4deg);}
+    75%{transform:translateX(-3px) rotate(-2deg);}
 }
 
 .share-resultado{
-    font-size:40px;
+    font-size:42px;
     font-weight:900;
-    margin:5px 0;
+    margin:8px 0;
 }
 
 .status-resultado{
     color:#9fb0c3;
     font-weight:700;
+    letter-spacing:.5px;
+    font-size:14px;
 }
 
-/* ================= GRÁFICO ================= */
+/* =====================================================
+   PAINEL DO GRÁFICO PROFISSIONAL
+===================================================== */
 
-.grafico{
-    margin-top:15px;
-    padding:15px;
-    background:#070b11;
-    border-radius:16px;
+.painel-grafico{
+    margin-top:20px;
+    padding:18px 15px;
+    background:linear-gradient(180deg,#070b11 0%,#050910 100%);
+    border-radius:18px;
     border:1px solid #172536;
 }
 
-.grafico svg{
-    width:100%;
-    height:auto;
+.painel-grafico-titulo{
+    font-size:11px;
+    letter-spacing:1.5px;
+    color:#5f7d9a;
+    text-transform:uppercase;
+    font-weight:800;
+    text-align:center;
+    margin-bottom:14px;
 }
 
-.grafico-label{
-    fill:#9eb0c3;
-    font-size:11px;
+.donut-wrapper{
+    position:relative;
+    width:180px;
+    height:180px;
+    margin:0 auto 18px;
+}
+
+.donut-svg{
+    width:100%;
+    height:100%;
+    transform:rotate(-90deg);
+}
+
+.donut-track{
+    fill:none;
+    stroke:#151f2d;
+    stroke-width:14;
+}
+
+.donut-meta{
+    fill:none;
+    stroke:#00d9ff;
+    stroke-width:14;
+    stroke-linecap:round;
+    stroke-dasharray:0 999;
+    transition:stroke-dasharray 1s ease;
+    opacity:.35;
+}
+
+.donut-share{
+    fill:none;
+    stroke:#00ff88;
+    stroke-width:14;
+    stroke-linecap:round;
+    stroke-dasharray:0 999;
+    transition:stroke-dasharray 1.2s cubic-bezier(.4,0,.2,1), stroke .5s;
+    filter:drop-shadow(0 0 6px rgba(0,255,136,.4));
+}
+
+.donut-share.vermelho{
+    stroke:#ff0055;
+    filter:drop-shadow(0 0 6px rgba(255,0,85,.5));
+}
+
+.donut-centro{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    pointer-events:none;
+}
+
+.donut-centro-valor{
+    font-size:30px;
+    font-weight:900;
+    line-height:1;
+    color:#fff;
+}
+
+.donut-centro-label{
+    font-size:10px;
+    letter-spacing:1.5px;
+    color:#6d8299;
+    text-transform:uppercase;
+    margin-top:5px;
+    font-weight:800;
+}
+
+.barras-grafico{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-top:6px;
+}
+
+.barra-item{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.barra-topo{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:11.5px;
+}
+
+.barra-topo-label{
+    color:#8ba1b8;
+    font-weight:800;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+}
+
+.barra-topo-valor{
+    font-weight:900;
+    font-size:12.5px;
+}
+
+.barra-trilho{
+    width:100%;
+    height:12px;
+    background:#101a26;
+    border-radius:8px;
+    overflow:hidden;
+    position:relative;
+}
+
+.barra-preenchimento{
+    height:100%;
+    border-radius:8px;
+    width:0;
+    transition:width 1s cubic-bezier(.4,0,.2,1);
+    position:relative;
+}
+
+.barra-preenchimento::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        90deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,.25) 50%,
+        rgba(255,255,255,0) 100%
+    );
+    animation:brilhoBarra 2s infinite linear;
+}
+
+@keyframes brilhoBarra{
+    0%{transform:translateX(-100%)}
+    100%{transform:translateX(100%)}
+}
+
+.barra-meta{
+    background:linear-gradient(90deg,#0085b3,#00d9ff);
+    box-shadow:0 0 12px rgba(0,217,255,.35);
+}
+
+.barra-atual-verde{
+    background:linear-gradient(90deg,#009d5a,#00ff88);
+    box-shadow:0 0 12px rgba(0,255,136,.4);
+}
+
+.barra-atual-vermelho{
+    background:linear-gradient(90deg,#a8003a,#ff0055);
+    box-shadow:0 0 12px rgba(255,0,85,.4);
+}
+
+.barra-restante{
+    background:linear-gradient(90deg,#5a2b8a,#a66cff);
+    box-shadow:0 0 12px rgba(166,108,255,.35);
+}
+
+.barra-info-extra{
+    display:flex;
+    justify-content:space-between;
+    font-size:10.5px;
+    color:#5f7d9a;
+    margin-top:2px;
+    font-weight:700;
+    letter-spacing:.3px;
+}
+
+.painel-cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-top:18px;
+}
+
+.painel-card{
+    background:#0a1420;
+    border:1px solid #1b2d42;
+    border-radius:12px;
+    padding:10px 6px;
+    text-align:center;
+}
+
+.painel-card-icon{
+    font-size:16px;
+    margin-bottom:4px;
+}
+
+.painel-card-label{
+    font-size:8.5px;
+    letter-spacing:.8px;
+    color:#5f7d9a;
+    text-transform:uppercase;
+    font-weight:800;
+    margin-bottom:4px;
+}
+
+.painel-card-valor{
+    font-size:13px;
+    font-weight:900;
+    color:#fff;
 }
 
 /* ================= RESUMO ================= */
@@ -418,8 +644,7 @@ button{
     border:1px solid #36577d;
     border-radius:17px;
     padding:17px;
-    background:
-        linear-gradient(135deg,#101d2d,#17102b);
+    background:linear-gradient(135deg,#101d2d,#17102b);
     color:#fff;
     font-weight:900;
     font-size:16px;
@@ -582,6 +807,11 @@ button{
     background:#21101a;
 }
 
+.ruptura-produto.selecionado{
+    border-color:#ff0055;
+    background:#21101a;
+}
+
 .ruptura-checkbox{
     width:21px;
     height:21px;
@@ -718,6 +948,19 @@ footer{
     .ruptura-ferramenta{
         padding:13px;
     }
+
+    .donut-wrapper{
+        width:160px;
+        height:160px;
+    }
+
+    .donut-centro-valor{
+        font-size:26px;
+    }
+
+    .painel-cards{
+        grid-template-columns:1fr 1fr;
+    }
 }
 </style>
 </head>
@@ -730,7 +973,7 @@ footer{
     <div class="splash-box">
         <div class="splash-icon">🛒</div>
         <div class="splash-title">Bem-vindo ao MShare Space</div>
-        <div class="splash-subtitle">Vamos medir seu share? 📏</div>
+        <div class="splash-subtitle">Divirta-se com nossas ferramentas 🚀</div>
         <div class="loading">
             <div class="loading-bar"></div>
         </div>
@@ -741,7 +984,7 @@ footer{
 
 <header class="header">
     <div class="logo">MShare Space</div>
-    <div class="subtitle">Calculadora de Share de Gôndola</div>
+    <div class="subtitle">MShare Space Ferramentas</div>
     <div class="subtitle">Para facilitar ainda mais seus dias</div>
 
     <div class="date-time">
@@ -827,75 +1070,117 @@ footer{
             Preencha os campos
         </div>
 
-        <div class="grafico">
-            <svg viewBox="0 0 500 180">
+        <div class="painel-grafico">
 
-                <text x="20" y="25"
-                      class="grafico-label">
-                    Meta
-                </text>
+            <div class="painel-grafico-titulo">
+                Análise de Share
+            </div>
 
-                <rect x="20" y="35"
-                      width="460"
-                      height="22"
-                      rx="10"
-                      fill="#182330"/>
+            <div class="donut-wrapper">
 
-                <rect id="barraMeta"
-                      x="20" y="35"
-                      width="0"
-                      height="22"
-                      rx="10"
-                      fill="#00d9ff"/>
+                <svg class="donut-svg" viewBox="0 0 120 120">
+                    <circle class="donut-track"
+                            cx="60" cy="60" r="52"/>
+                    <circle class="donut-meta"
+                            id="donutMeta"
+                            cx="60" cy="60" r="52"/>
+                    <circle class="donut-share"
+                            id="donutShare"
+                            cx="60" cy="60" r="52"/>
+                </svg>
 
-                <line id="linhaMeta"
-                      x1="20"
-                      y1="25"
-                      x2="20"
-                      y2="70"
-                      stroke="#fff"
-                      stroke-width="2"/>
+                <div class="donut-centro">
+                    <div class="donut-centro-valor"
+                         id="donutValor">
+                        0%
+                    </div>
+                    <div class="donut-centro-label">
+                        Share Atual
+                    </div>
+                </div>
 
-                <text x="20" y="95"
-                      class="grafico-label">
-                    Share atual
-                </text>
+            </div>
 
-                <rect x="20" y="105"
-                      width="460"
-                      height="22"
-                      rx="10"
-                      fill="#182330"/>
+            <div class="barras-grafico">
 
-                <rect id="barraShare"
-                      x="20"
-                      y="105"
-                      width="0"
-                      height="22"
-                      rx="10"
-                      fill="#00ff88"/>
+                <div class="barra-item">
+                    <div class="barra-topo">
+                        <span class="barra-topo-label">🎯 Meta</span>
+                        <span class="barra-topo-valor"
+                              id="barraMetaValor">
+                            0%
+                        </span>
+                    </div>
+                    <div class="barra-trilho">
+                        <div class="barra-preenchimento barra-meta"
+                             id="barraMetaFill">
+                        </div>
+                    </div>
+                </div>
 
-                <text x="20" y="160"
-                      class="grafico-label">
-                    Diferença para a meta
-                </text>
+                <div class="barra-item">
+                    <div class="barra-topo">
+                        <span class="barra-topo-label">📊 Share Atual</span>
+                        <span class="barra-topo-valor"
+                              id="barraAtualValor">
+                            0%
+                        </span>
+                    </div>
+                    <div class="barra-trilho">
+                        <div class="barra-preenchimento barra-atual-verde"
+                             id="barraAtualFill">
+                        </div>
+                    </div>
+                </div>
 
-                <rect x="20" y="165"
-                      width="460"
-                      height="8"
-                      rx="5"
-                      fill="#182330"/>
+                <div class="barra-item">
+                    <div class="barra-topo">
+                        <span class="barra-topo-label">📦 Espaço Restante</span>
+                        <span class="barra-topo-valor"
+                              id="barraRestanteValor">
+                            0%
+                        </span>
+                    </div>
+                    <div class="barra-trilho">
+                        <div class="barra-preenchimento barra-restante"
+                             id="barraRestanteFill">
+                        </div>
+                    </div>
+                    <div class="barra-info-extra">
+                        <span id="barraRestanteUnidade">--</span>
+                        <span id="barraRestantePercentual">--</span>
+                    </div>
+                </div>
 
-                <rect id="barraDiferenca"
-                      x="20"
-                      y="165"
-                      width="0"
-                      height="8"
-                      rx="5"
-                      fill="#ff0055"/>
+            </div>
 
-            </svg>
+            <div class="painel-cards">
+
+                <div class="painel-card">
+                    <div class="painel-card-icon">🎯</div>
+                    <div class="painel-card-label">Meta</div>
+                    <div class="painel-card-valor"
+                         id="cardMeta">--</div>
+                </div>
+
+                <div class="painel-card">
+                    <div class="painel-card-icon">📊</div>
+                    <div class="painel-card-label">Share</div>
+                    <div class="painel-card-valor"
+                         id="cardShare">--</div>
+                </div>
+
+                <div class="painel-card">
+                    <div class="painel-card-icon">⚖️</div>
+                    <div class="painel-card-label">Diferença</div>
+                    <div class="painel-card-valor"
+                         id="cardDiferenca">--</div>
+                </div>
+
+            </div>
+
         </div>
+
     </div>
 
     <!-- RESUMO -->
@@ -945,10 +1230,6 @@ footer{
 
 </section>
 
-<!-- =====================================================
-     SOMENTE O BOTÃO DE RUPTURAS FICA NA TELA PRINCIPAL
-===================================================== -->
-
 <section class="card">
 
     <button
@@ -985,171 +1266,135 @@ footer{
         <div class="ruptura-cabecalho">
 
             <div>
-                <div class="ruptura-titulo">
-                    📋 Lista de Rupturas
-                </div>
-
-                <div class="ruptura-subtitulo">
-                    Selecione os produtos em ruptura
-                </div>
+                <div class="ruptura-titulo">📋 Lista de Rupturas</div>
+                <div class="ruptura-subtitulo">Selecione os produtos em ruptura</div>
             </div>
 
-            <button class="fechar"
-                    onclick="fecharFerramentaRupturas()">
-                ×
-            </button>
+            <button class="fechar" onclick="fecharFerramentaRupturas()">×</button>
 
         </div>
-
-        <!-- CONTADORES -->
 
         <div class="ruptura-contadores">
 
             <div class="ruptura-contador">
-                <div class="ruptura-contador-numero"
-                     id="contadorTotal">
-                    0
-                </div>
-
-                <div class="ruptura-contador-label">
-                    Total
-                </div>
+                <div class="ruptura-contador-numero" id="contadorTotal">0</div>
+                <div class="ruptura-contador-label">Total</div>
             </div>
 
             <div class="ruptura-contador">
-                <div class="ruptura-contador-numero"
-                     id="contadorAlcoolicos">
-                    0
-                </div>
-
-                <div class="ruptura-contador-label">
-                    Alcoólicos
-                </div>
+                <div class="ruptura-contador-numero" id="contadorAlcoolicos">0</div>
+                <div class="ruptura-contador-label">Alcoólicos</div>
             </div>
 
             <div class="ruptura-contador">
-                <div class="ruptura-contador-numero"
-                     id="contadorNaoAlcoolicos">
-                    0
-                </div>
-
-                <div class="ruptura-contador-label">
-                    Não alcoólicos
-                </div>
+                <div class="ruptura-contador-numero" id="contadorNaoAlcoolicos">0</div>
+                <div class="ruptura-contador-label">Não alcoólicos</div>
             </div>
 
         </div>
 
-        <!-- CATEGORIAS -->
-
         <div class="ruptura-categorias">
 
-            <button
-                class="ruptura-categoria ativo"
-                id="categoriaAlcoolicos"
-                onclick="mostrarCategoriaRuptura('alcoolicos')">
+            <button class="ruptura-categoria ativo"
+                    id="categoriaAlcoolicos"
+                    onclick="mostrarCategoriaRuptura('alcoolicos')">
                 🍺 Alcoólicos
             </button>
 
-            <button
-                class="ruptura-categoria"
-                id="categoriaNaoAlcoolicos"
-                onclick="mostrarCategoriaRuptura('naoAlcoolicos')">
+            <button class="ruptura-categoria"
+                    id="categoriaNaoAlcoolicos"
+                    onclick="mostrarCategoriaRuptura('naoAlcoolicos')">
                 🥤 Não alcoólicos
             </button>
 
         </div>
 
-        <!-- PESQUISA -->
-
-        <input
-            class="ruptura-pesquisa"
-            id="pesquisaRupturas"
-            type="search"
-            placeholder="🔎 Pesquisar produto..."
-            oninput="pesquisarRupturas()"
-        >
-
-        <!-- LISTA ALCOÓLICOS -->
+        <input class="ruptura-pesquisa"
+               id="pesquisaRupturas"
+               type="search"
+               placeholder="🔎 Pesquisar produto..."
+               oninput="pesquisarRupturas()">
 
         <div id="painelAlcoolicos">
 
             <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">
-                    🍺 Cervejas — 330 ml
-                </div>
+                <div class="ruptura-secao-titulo">🍺 Cervejas — 330 ml</div>
                 <div class="ruptura-lista" id="listaCervejas330"></div>
             </div>
 
             <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">
-                    🍺 Cervejas — 350 ml
-                </div>
+                <div class="ruptura-secao-titulo">🍺 Cervejas — 350 ml</div>
                 <div class="ruptura-lista" id="listaCervejas350"></div>
             </div>
 
             <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">
-                    🍺 Cervejas — 355 ml
-                </div>
+                <div class="ruptura-secao-titulo">🍺 Cervejas — 355 ml</div>
                 <div class="ruptura-lista" id="listaCervejas355"></div>
             </div>
 
             <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">
-                    🍺 Cervejas — 473 ml
-                </div>
+                <div class="ruptura-secao-titulo">🍺 Cervejas — 473 ml</div>
                 <div class="ruptura-lista" id="listaCervejas473"></div>
             </div>
 
             <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">
-                    🍺 Cervejas — 600 ml
-                </div>
+                <div class="ruptura-secao-titulo">🍺 Cervejas — 600 ml</div>
                 <div class="ruptura-lista" id="listaCervejas600"></div>
             </div>
 
             <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">
-                    🚫 Cervejas Zero
-                </div>
+                <div class="ruptura-secao-titulo">🚫 Cervejas Zero</div>
                 <div class="ruptura-lista" id="listaCervejasZero"></div>
             </div>
 
             <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">
-                    🍹 Bebidas Mistas
-                </div>
+                <div class="ruptura-secao-titulo">🍹 Bebidas Mistas</div>
                 <div class="ruptura-lista" id="listaMistas"></div>
             </div>
 
         </div>
 
-        <!-- LISTA NÃO ALCOÓLICOS -->
-
         <div id="painelNaoAlcoolicos" style="display:none;">
 
             <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">
-                    🥤 Refrigerantes
-                </div>
-                <div class="ruptura-lista" id="listaRefrigerantes"></div>
+                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 200 ml</div>
+                <div class="ruptura-lista" id="listaRefrigerantes200"></div>
             </div>
 
             <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">
-                    🍋 Água Tônica
-                </div>
+                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 350 ml</div>
+                <div class="ruptura-lista" id="listaRefrigerantes350"></div>
+            </div>
+
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 1 L</div>
+                <div class="ruptura-lista" id="listaRefrigerantes1L"></div>
+            </div>
+
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 2 L</div>
+                <div class="ruptura-lista" id="listaRefrigerantes2L"></div>
+            </div>
+
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 2,5 L</div>
+                <div class="ruptura-lista" id="listaRefrigerantes25L"></div>
+            </div>
+
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🍋 Água Tônica</div>
                 <div class="ruptura-lista" id="listaTonicas"></div>
+            </div>
+
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🧃 Isotônicos</div>
+                <div class="ruptura-lista" id="listaIsotonicos"></div>
             </div>
 
         </div>
 
-        <!-- BOTÃO PARA ABRIR BLOCO DE NOTAS -->
-
-        <button
-            class="ruptura-verificar"
-            onclick="abrirListaRupturas()">
+        <button class="ruptura-verificar"
+                onclick="abrirListaRupturas()">
             📋 VERIFICAR LISTA DE RUPTURAS
         </button>
 
@@ -1169,38 +1414,23 @@ footer{
         <div class="modal-header">
 
             <div>
-                <div class="modal-title">
-                    📋 BLOCO DE NOTAS
-                </div>
-
-                <div class="ruptura-subtitulo">
-                    Produtos selecionados em ruptura
-                </div>
+                <div class="modal-title">📋 BLOCO DE NOTAS</div>
+                <div class="ruptura-subtitulo">Produtos selecionados em ruptura</div>
             </div>
 
-            <button class="fechar"
-                    onclick="fecharListaRupturas()">
-                ×
-            </button>
+            <button class="fechar" onclick="fecharListaRupturas()">×</button>
 
         </div>
 
-        <div
-            class="bloco-notas"
-            id="blocoNotasRupturas">
-        </div>
+        <div class="bloco-notas" id="blocoNotasRupturas"></div>
 
         <div class="notas-acoes">
 
-            <button
-                class="btn-copiar"
-                onclick="copiarRupturas()">
+            <button class="btn-copiar" onclick="copiarRupturas()">
                 📋 COPIAR
             </button>
 
-            <button
-                class="btn-limpar"
-                onclick="limparRupturas()">
+            <button class="btn-limpar" onclick="limparRupturas()">
                 🗑️ LIMPAR
             </button>
 
@@ -1221,28 +1451,16 @@ footer{
 
         <div class="modal-header">
 
-            <div class="modal-title">
-                🧮 CALCULADORA
-            </div>
+            <div class="modal-title">🧮 CALCULADORA</div>
 
-            <button
-                class="fechar"
-                onclick="fecharCalculadora()">
-                ×
-            </button>
+            <button class="fechar" onclick="fecharCalculadora()">×</button>
 
         </div>
 
         <div class="calc-display">
 
-            <div class="calc-expression"
-                 id="calcExpression">
-            </div>
-
-            <div class="calc-result"
-                 id="calcResult">
-                0
-            </div>
+            <div class="calc-expression" id="calcExpression"></div>
+            <div class="calc-result" id="calcResult">0</div>
 
         </div>
 
@@ -1251,34 +1469,26 @@ footer{
             <button onclick="calcLimpar()">C</button>
             <button onclick="calcAdicionar('(')">(</button>
             <button onclick="calcAdicionar(')')">)</button>
-            <button class="operador"
-                    onclick="calcAdicionar('/')">÷</button>
+            <button class="operador" onclick="calcAdicionar('/')">÷</button>
 
             <button onclick="calcAdicionar('7')">7</button>
             <button onclick="calcAdicionar('8')">8</button>
             <button onclick="calcAdicionar('9')">9</button>
-            <button class="operador"
-                    onclick="calcAdicionar('*')">×</button>
+            <button class="operador" onclick="calcAdicionar('*')">×</button>
 
             <button onclick="calcAdicionar('4')">4</button>
             <button onclick="calcAdicionar('5')">5</button>
             <button onclick="calcAdicionar('6')">6</button>
-            <button class="operador"
-                    onclick="calcAdicionar('-')">−</button>
+            <button class="operador" onclick="calcAdicionar('-')">−</button>
 
             <button onclick="calcAdicionar('1')">1</button>
             <button onclick="calcAdicionar('2')">2</button>
             <button onclick="calcAdicionar('3')">3</button>
-            <button class="operador"
-                    onclick="calcAdicionar('+')">+</button>
+            <button class="operador" onclick="calcAdicionar('+')">+</button>
 
             <button onclick="calcAdicionar('0')">0</button>
             <button onclick="calcAdicionar('.')">.</button>
-            <button class="igual"
-                    style="grid-column:span 2"
-                    onclick="calcResultado()">
-                =
-            </button>
+            <button class="igual" style="grid-column:span 2" onclick="calcResultado()">=</button>
 
         </div>
 
@@ -1427,15 +1637,8 @@ function mudarUnidade(unidade){
 
     unidadeAtual=unidade;
 
-    $("btnFrentes").classList.toggle(
-        "ativo",
-        unidade==="frentes"
-    );
-
-    $("btnCentimetros").classList.toggle(
-        "ativo",
-        unidade==="cm"
-    );
+    $("btnFrentes").classList.toggle("ativo", unidade==="frentes");
+    $("btnCentimetros").classList.toggle("ativo", unidade==="cm");
 
     calcular();
 }
@@ -1450,57 +1653,38 @@ function calcular(){
 
         $("shareResultado").textContent="0,00%";
         $("statusResultado").textContent="Preencha os campos";
-
         $("resultado").className="resultado neutro";
-
         $("emojiResultado").textContent="📊";
+        $("emojiResultado").className="emoji-resultado";
 
         atualizarResumoVazio();
+        atualizarPainelGrafico(0,0,0,0,false);
 
         return;
     }
 
     const share=(meu/total)*100;
-
     const espacoMeta=(meta/100)*total;
     const diferenca=meu-espacoMeta;
     const restante=Math.max(0,espacoMeta-meu);
-
     const atingiu=share>=meta;
 
-    $("shareResultado").textContent =
-        formatarNumero(share)+"%";
-
-    $("resultado").className =
-        "resultado "+(atingiu?"verde":"vermelho");
-
-    $("emojiResultado").textContent =
-        atingiu ? "👍" : "😔";
+    $("shareResultado").textContent = formatarNumero(share)+"%";
+    $("resultado").className = "resultado "+(atingiu?"verde":"vermelho");
+    $("emojiResultado").textContent = atingiu ? "👍" : "😔";
+    $("emojiResultado").className =
+        "emoji-resultado " + (atingiu ? "animar-verde" : "animar-vermelho");
 
     $("statusResultado").textContent =
-        atingiu
-        ? "META ATINGIDA!"
-        : "META NÃO ATINGIDA";
+        atingiu ? "META ATINGIDA!" : "META NÃO ATINGIDA";
 
-    $("resumoMeta").textContent =
-        formatarNumero(meta)+"%";
-
-    $("resumoTotal").textContent =
-        formatarUnidade(total);
-
-    $("resumoMeuEspaco").textContent =
-        formatarUnidade(meu);
-
-    $("resumoRestante").textContent =
-        formatarUnidade(restante);
-
-    $("resumoShare").textContent =
-        formatarNumero(share)+"%";
-
+    $("resumoMeta").textContent = formatarNumero(meta)+"%";
+    $("resumoTotal").textContent = formatarUnidade(total);
+    $("resumoMeuEspaco").textContent = formatarUnidade(meu);
+    $("resumoRestante").textContent = formatarUnidade(restante);
+    $("resumoShare").textContent = formatarNumero(share)+"%";
     $("resumoDiferenca").textContent =
-        (diferenca>=0?"+":"-")+
-        formatarUnidade(Math.abs(diferenca));
-
+        (diferenca>=0?"+":"-")+formatarUnidade(Math.abs(diferenca));
     $("resumoSituacao").textContent =
         atingiu ? "ATINGIDA" : "NÃO ATINGIDA";
 
@@ -1509,56 +1693,74 @@ function calcular(){
         ? "🎉 Você atingiu ou ultrapassou a meta desejada."
         : "⚠️ Ainda faltam "+formatarUnidade(restante)+" para atingir a meta.";
 
-    atualizarGrafico(meta,share);
+    atualizarPainelGrafico(meta,share,restante,total,atingiu);
 }
 
 function atualizarResumoVazio(){
 
     [
-        "resumoMeta",
-        "resumoTotal",
-        "resumoMeuEspaco",
-        "resumoRestante",
-        "resumoShare",
-        "resumoDiferenca",
+        "resumoMeta","resumoTotal","resumoMeuEspaco",
+        "resumoRestante","resumoShare","resumoDiferenca",
         "resumoSituacao"
-    ].forEach(id=>{
-        $(id).textContent="--";
-    });
+    ].forEach(id=>{ $(id).textContent="--"; });
 
     $("resumoMensagem").textContent =
         "Preencha os campos para realizar o cálculo.";
 }
 
-function atualizarGrafico(meta,share){
 
-    const largura=460;
+/* =====================================================
+   PAINEL GRÁFICO
+===================================================== */
 
-    const metaWidth=Math.min(meta,100)/100*largura;
-    const shareWidth=Math.min(share,100)/100*largura;
+function atualizarPainelGrafico(meta,share,restante,total,atingiu){
 
-    $("barraMeta").setAttribute(
-        "width",
-        metaWidth
+    const raio = 52;
+    const circunferencia = 2 * Math.PI * raio;
+
+    const shareNormalizado = Math.min(Math.max(share,0),100);
+    const shareDash = (shareNormalizado/100) * circunferencia;
+
+    const metaNormalizada = Math.min(Math.max(meta,0),100);
+    const metaDash = (metaNormalizada/100) * circunferencia;
+
+    $("donutShare").setAttribute(
+        "stroke-dasharray",
+        shareDash + " " + (circunferencia - shareDash)
     );
 
-    $("barraShare").setAttribute(
-        "width",
-        shareWidth
+    $("donutMeta").setAttribute(
+        "stroke-dasharray",
+        metaDash + " " + (circunferencia - metaDash)
     );
 
-    const diferenca=Math.abs(share-meta);
+    $("donutShare").classList.toggle("vermelho", !atingiu);
+    $("donutValor").textContent = formatarNumero(share)+"%";
 
-    $("barraDiferenca").setAttribute(
-        "width",
-        Math.min(diferenca,100)/100*largura
-    );
+    $("barraMetaValor").textContent = formatarNumero(meta)+"%";
+    $("barraMetaFill").style.width = Math.min(meta,100)+"%";
 
-    const linhaX=
-        20+(Math.min(meta,100)/100*largura);
+    $("barraAtualValor").textContent = formatarNumero(share)+"%";
+    $("barraAtualFill").style.width = Math.min(share,100)+"%";
+    $("barraAtualFill").className =
+        "barra-preenchimento " +
+        (atingiu ? "barra-atual-verde" : "barra-atual-vermelho");
 
-    $("linhaMeta").setAttribute("x1",linhaX);
-    $("linhaMeta").setAttribute("x2",linhaX);
+    const percentualRestante = total > 0 ? (restante/total)*100 : 0;
+
+    $("barraRestanteValor").textContent = formatarNumero(percentualRestante)+"%";
+    $("barraRestanteFill").style.width = Math.min(percentualRestante,100)+"%";
+    $("barraRestanteUnidade").textContent = formatarUnidade(restante);
+    $("barraRestantePercentual").textContent =
+        formatarNumero(percentualRestante)+"% do total";
+
+    $("cardMeta").textContent = formatarNumero(meta)+"%";
+    $("cardShare").textContent = formatarNumero(share)+"%";
+
+    const diferenca = share - meta;
+    const sinal = diferenca >= 0 ? "+" : "";
+    $("cardDiferenca").textContent = sinal + formatarNumero(diferenca)+"%";
+    $("cardDiferenca").style.color = atingiu ? "#00ff88" : "#ff0055";
 }
 
 
@@ -1566,26 +1768,16 @@ function atualizarGrafico(meta,share){
    CALCULADORA
 ===================================================== */
 
-function abrirCalculadora(){
-
-    $("modalCalculadora").classList.add("aberto");
-}
-
-function fecharCalculadora(){
-
-    $("modalCalculadora").classList.remove("aberto");
-}
+function abrirCalculadora(){ $("modalCalculadora").classList.add("aberto"); }
+function fecharCalculadora(){ $("modalCalculadora").classList.remove("aberto"); }
 
 function calcAdicionar(valor){
-
     expressaoCalc+=valor;
-
     $("calcExpression").textContent=expressaoCalc;
     $("calcResult").textContent=expressaoCalc || "0";
 }
 
 function calcLimpar(){
-
     expressaoCalc="";
     $("calcExpression").textContent="";
     $("calcResult").textContent="0";
@@ -1615,9 +1807,7 @@ function calcResultado(){
             });
 
     }catch(e){
-
         $("calcResult").textContent="Erro";
-
     }
 }
 
@@ -1626,19 +1816,13 @@ function calcResultado(){
    LISTA DE RUPTURAS
 ===================================================== */
 
-const STORAGE_RUPTURAS =
-    "mshare_space_rupturas_v2";
-
-
-/* ================= ALCOÓLICOS ================= */
+const STORAGE_RUPTURAS = "mshare_space_rupturas_v3";
 
 const cervejas330 = [
     ["Beck's","330 ml"],
     ["Budweiser","330 ml"],
     ["Corona Extra","330 ml"],
-    ["Hoegaarden","330 ml"],
-    ["Leffe","330 ml"],
-    ["Quilmes","330 ml"],
+    ["Michelob Ultra","330 ml"],
     ["Stella Artois","330 ml"],
     ["Stella Artois Pure Gold","330 ml"]
 ];
@@ -1652,28 +1836,22 @@ const cervejas350 = [
     ["Bohemia Pilsen","350 ml"],
     ["Brahma Chopp","350 ml"],
     ["Brahma Duplo Malte","350 ml"],
-    ["Brahma Extra Dark","350 ml"],
     ["Brahma Malzbier","350 ml"],
-    ["Brahma Red Lager","350 ml"],
-    ["Brahma Weiss","350 ml"],
     ["Budweiser","350 ml"],
-    ["Líber","350 ml"],
+    ["Michelob Ultra","350 ml"],
     ["Skol Pilsen","350 ml"],
+    ["Spaten","350 ml"],
     ["Stella Artois Pure Gold","350 ml"]
 ];
 
 const cervejas355 = [
     ["Antarctica Pilsen","355 ml"],
-    ["Brahma Extra Dark","355 ml"],
     ["Corona Extra","355 ml"],
-    ["Goose Island IPA","355 ml"],
-    ["Goose Island Midway","355 ml"],
-    ["Kona Big Wave","355 ml"],
-    ["Kona Longboard","355 ml"],
     ["Patagonia Amber","355 ml"],
     ["Patagonia Bohemian","355 ml"],
     ["Patagonia Weiss","355 ml"],
-    ["Skol Pilsen","355 ml"]
+    ["Skol Pilsen","355 ml"],
+    ["Spaten","355 ml"]
 ];
 
 const cervejas473 = [
@@ -1702,13 +1880,14 @@ const cervejas600 = [
     ["Brahma Malzbier","600 ml"],
     ["Budweiser","600 ml"],
     ["Colorado Lager","600 ml"],
-    ["Serramalte","600 ml"],
     ["Skol Pilsen","600 ml"],
     ["Spaten Puro Malte","600 ml"],
     ["Stella Artois","600 ml"]
 ];
 
 const cervejasZero = [
+    ["Brahma Zero","330 ml"],
+    ["Brahma Zero","350 ml"],
     ["Budweiser Zero","330 ml"],
     ["Corona Cero","330 ml"],
     ["Budweiser Zero","350 ml"],
@@ -1736,36 +1915,51 @@ const bebidasMistas = [
 
 /* ================= NÃO ALCOÓLICOS ================= */
 
-const refrigerantes = [
-
+/* --- Refrigerantes 200 ml --- */
+const refrigerantes200 = [
     ["Guaraná Antarctica","200 ml"],
     ["Pepsi","200 ml"],
     ["Pepsi Black","200 ml"],
+    ["Soda Antarctica","200 ml"],
+    ["Sukita Laranja","200 ml"]
+];
 
+/* --- Refrigerantes 350 ml --- */
+const refrigerantes350 = [
     ["Guaraná Antarctica","350 ml"],
     ["Guaraná Antarctica Zero","350 ml"],
     ["Pepsi","350 ml"],
     ["Pepsi Black","350 ml"],
-    ["Soda Antarctica","350 ml"],
+    ["Soda Antarctica","350 ml"]
+];
 
+/* --- Refrigerantes 1 L --- */
+const refrigerantes1L = [
     ["Guaraná Antarctica","1 L"],
     ["Guaraná Antarctica Zero","1 L"],
     ["Pepsi","1 L"],
     ["Pepsi Black","1 L"],
+    ["Soda Antarctica","1 L"]
+];
 
+/* --- Refrigerantes 2 L --- */
+const refrigerantes2L = [
     ["Guaraná Antarctica","2 L"],
     ["Guaraná Antarctica Zero","2 L"],
     ["Pepsi","2 L"],
     ["Pepsi Black","2 L"],
+    ["Soda Antarctica","2 L"],
     ["Sukita Laranja","2 L"],
-    ["Sukita Uva","2 L"],
+    ["Sukita Uva","2 L"]
+];
 
+/* --- Refrigerantes 2,5 L --- */
+const refrigerantes25L = [
     ["Guaraná Antarctica","2,5 L"],
     ["Guaraná Antarctica Zero","2,5 L"]
 ];
 
 const tonicas = [
-
     ["Tônica Antarctica","269 ml"],
     ["Tônica Antarctica Gengibre","269 ml"],
     ["Tônica Antarctica","350 ml"],
@@ -1775,59 +1969,46 @@ const tonicas = [
     ["Tônica Antarctica Zero Açúcar","1 L"]
 ];
 
+const isotonicos = [
+    ["Gatorade Laranja","500 ml"],
+    ["Gatorade Limão","500 ml"],
+    ["Gatorade Uva","500 ml"],
+    ["Gatorade Tangerina","500 ml"],
+    ["Gatorade Maracujá","500 ml"],
+    ["Gatorade Morango e Maracujá","500 ml"],
+    ["Gatorade Frutas Silvestres","500 ml"],
+    ["Gatorade Melancia com Morango","500 ml"],
+    ["Gatorade Frutas Cítricas","500 ml"],
+    ["Gatorade Blueberry","500 ml"]
+];
+
 
 /* =====================================================
-   CATEGORIA EMOJI
+   EMOJI
 ===================================================== */
 
 function emojiProduto(nome){
 
     const n=nome.toLowerCase();
 
-    if(
-        n.includes("beats") ||
-        n.includes("mike") ||
-        n.includes("brutal")
-    ){
+    if(n.includes("beats")||n.includes("mike")||n.includes("brutal"))
         return "🍹";
-    }
 
-    if(
-        n.includes("tônica")
-    ){
+    if(n.includes("tônica"))
         return "🍋";
-    }
 
-    if(
-        n.includes("guaraná") ||
-        n.includes("pepsi") ||
-        n.includes("sukita") ||
-        n.includes("soda")
-    ){
+    if(n.includes("gatorade"))
+        return "🧃";
+
+    if(n.includes("guaraná")||n.includes("pepsi")||n.includes("sukita")||n.includes("soda"))
         return "🥤";
-    }
 
     if(
-        n.includes("spaten") ||
-        n.includes("budweiser") ||
-        n.includes("corona") ||
-        n.includes("skol") ||
-        n.includes("brahma") ||
-        n.includes("stella") ||
-        n.includes("antarctica") ||
-        n.includes("bohemia") ||
-        n.includes("beck") ||
-        n.includes("patagonia") ||
-        n.includes("goose") ||
-        n.includes("kona") ||
-        n.includes("hoegaarden") ||
-        n.includes("leffe") ||
-        n.includes("quilmes") ||
-        n.includes("serramalte") ||
-        n.includes("colorado")
-    ){
-        return "🍺";
-    }
+        n.includes("spaten")||n.includes("budweiser")||n.includes("corona")||
+        n.includes("skol")||n.includes("brahma")||n.includes("stella")||
+        n.includes("antarctica")||n.includes("bohemia")||n.includes("beck")||
+        n.includes("patagonia")||n.includes("colorado")||n.includes("michelob")
+    ) return "🍺";
 
     return "📦";
 }
@@ -1838,28 +2019,16 @@ function emojiProduto(nome){
 ===================================================== */
 
 function carregarRupturas(){
-
     try{
-
-        const dados=
-            JSON.parse(
-                localStorage.getItem(STORAGE_RUPTURAS)
-            );
-
+        const dados = JSON.parse(localStorage.getItem(STORAGE_RUPTURAS));
         return dados || {};
-
     }catch(e){
-
         return {};
     }
 }
 
 function salvarRupturas(dados){
-
-    localStorage.setItem(
-        STORAGE_RUPTURAS,
-        JSON.stringify(dados)
-    );
+    localStorage.setItem(STORAGE_RUPTURAS, JSON.stringify(dados));
 }
 
 
@@ -1867,64 +2036,46 @@ function salvarRupturas(dados){
    CRIAR PRODUTO
 ===================================================== */
 
-function criarProdutoRuptura(
-    nome,
-    descricao,
-    categoria
-){
+function criarProdutoRuptura(nome, descricao, categoria){
 
-    const chave =
-        categoria+"|"+nome+"|"+descricao;
+    const chave = categoria+"|"+nome+"|"+descricao;
+    const dados = carregarRupturas();
 
-    const dados=carregarRupturas();
+    const div = document.createElement("label");
+    div.className = "ruptura-produto";
+    div.dataset.busca = (nome+" "+descricao).toLowerCase();
 
-    const div=document.createElement("label");
-
-    div.className="ruptura-produto";
-
-    div.dataset.busca=
-        (nome+" "+descricao).toLowerCase();
-
-    const checkbox=document.createElement("input");
-
+    const checkbox = document.createElement("input");
     checkbox.type="checkbox";
     checkbox.className="ruptura-checkbox";
+    checkbox.checked = !!dados[chave];
 
-    checkbox.checked=!!dados[chave];
+    if(checkbox.checked) div.classList.add("selecionado");
 
-    checkbox.addEventListener(
-        "change",
-        function(){
+    checkbox.addEventListener("change", function(){
 
-            const atual=carregarRupturas();
+        const atual = carregarRupturas();
 
-            if(this.checked){
-                atual[chave]={
-                    nome:nome,
-                    descricao:descricao,
-                    categoria:categoria
-                };
-            }else{
-                delete atual[chave];
-            }
-
-            salvarRupturas(atual);
-
-            atualizarContadoresRuptura();
-            atualizarBadgeRupturas();
-
+        if(this.checked){
+            atual[chave] = {nome,descricao,categoria};
+            div.classList.add("selecionado");
+        }else{
+            delete atual[chave];
+            div.classList.remove("selecionado");
         }
-    );
 
-    const info=document.createElement("div");
+        salvarRupturas(atual);
+        atualizarContadoresRuptura();
+        atualizarBadgeRupturas();
+        atualizarNotasRuptura();
+    });
 
-    info.className="ruptura-produto-info";
-
-    info.innerHTML=`
+    const info = document.createElement("div");
+    info.className = "ruptura-produto-info";
+    info.innerHTML = `
         <div class="ruptura-produto-nome">
             ${emojiProduto(nome)} ${nome}
         </div>
-
         <div class="ruptura-produto-descricao">
             ${descricao}
         </div>
@@ -1943,102 +2094,47 @@ function criarProdutoRuptura(
 
 function montarListaRupturas(){
 
-    montarGrupo(
-        "listaCervejas330",
-        cervejas330,
-        "cerveja"
-    );
-
-    montarGrupo(
-        "listaCervejas350",
-        cervejas350,
-        "cerveja"
-    );
-
-    montarGrupo(
-        "listaCervejas355",
-        cervejas355,
-        "cerveja"
-    );
-
-    montarGrupo(
-        "listaCervejas473",
-        cervejas473,
-        "cerveja"
-    );
-
-    montarGrupo(
-        "listaCervejas600",
-        cervejas600,
-        "cerveja"
-    );
-
-    montarGrupo(
-        "listaCervejasZero",
-        cervejasZero,
-        "cerveja_zero"
-    );
-
-    montarGrupo(
-        "listaMistas",
-        bebidasMistas,
-        "mistas"
-    );
-
-    montarGrupo(
-        "listaRefrigerantes",
-        refrigerantes,
-        "refrigerante"
-    );
-
-    montarGrupo(
-        "listaTonicas",
-        tonicas,
-        "tonica"
-    );
+    montarGrupo("listaCervejas330",cervejas330,"cerveja");
+    montarGrupo("listaCervejas350",cervejas350,"cerveja");
+    montarGrupo("listaCervejas355",cervejas355,"cerveja");
+    montarGrupo("listaCervejas473",cervejas473,"cerveja");
+    montarGrupo("listaCervejas600",cervejas600,"cerveja");
+    montarGrupo("listaCervejasZero",cervejasZero,"cerveja_zero");
+    montarGrupo("listaMistas",bebidasMistas,"mistas");
+    montarGrupo("listaRefrigerantes200",refrigerantes200,"refrigerante");
+    montarGrupo("listaRefrigerantes350",refrigerantes350,"refrigerante");
+    montarGrupo("listaRefrigerantes1L",refrigerantes1L,"refrigerante");
+    montarGrupo("listaRefrigerantes2L",refrigerantes2L,"refrigerante");
+    montarGrupo("listaRefrigerantes25L",refrigerantes25L,"refrigerante");
+    montarGrupo("listaTonicas",tonicas,"tonica");
+    montarGrupo("listaIsotonicos",isotonicos,"isotonico");
 
     atualizarContadoresRuptura();
     atualizarBadgeRupturas();
 }
 
-function montarGrupo(
-    id,
-    lista,
-    categoria
-){
+function montarGrupo(id, lista, categoria){
 
-    const container=$(id);
+    const container = $(id);
+    if(!container) return;
 
-    if(!container)return;
+    container.innerHTML = "";
 
-    container.innerHTML="";
-
-    const ordenada=[...lista].sort((a,b)=>{
-
+    const ordenada = [...lista].sort((a,b)=>{
         const nomeA=a[0].toLowerCase();
         const nomeB=b[0].toLowerCase();
 
         if(nomeA===nomeB){
-            return a[1].localeCompare(
-                b[1],
-                "pt-BR",
-                {numeric:true}
-            );
+            return a[1].localeCompare(b[1],"pt-BR",{numeric:true});
         }
 
         return nomeA.localeCompare(nomeB,"pt-BR");
     });
 
     ordenada.forEach(item=>{
-
         container.appendChild(
-            criarProdutoRuptura(
-                item[0],
-                item[1],
-                categoria
-            )
+            criarProdutoRuptura(item[0],item[1],categoria)
         );
-
     });
 }
 
@@ -2049,16 +2145,12 @@ function montarGrupo(
 
 function atualizarContadoresRuptura(){
 
-    const dados=carregarRupturas();
+    const dados = carregarRupturas();
 
-    let total=0;
-    let alcoolicos=0;
-    let naoAlcoolicos=0;
+    let total=0, alcoolicos=0, naoAlcoolicos=0;
 
     Object.values(dados).forEach(item=>{
-
         total++;
-
         if(
             item.categoria==="cerveja" ||
             item.categoria==="cerveja_zero" ||
@@ -2068,7 +2160,6 @@ function atualizarContadoresRuptura(){
         }else{
             naoAlcoolicos++;
         }
-
     });
 
     $("contadorTotal").textContent=total;
@@ -2077,93 +2168,56 @@ function atualizarContadoresRuptura(){
 }
 
 function atualizarBadgeRupturas(){
-
-    const dados=carregarRupturas();
-
-    $("badgeRupturas").textContent =
-        Object.keys(dados).length;
+    const dados = carregarRupturas();
+    $("badgeRupturas").textContent = Object.keys(dados).length;
 }
 
 
 /* =====================================================
-   CATEGORIAS
+   CATEGORIAS / PESQUISA
 ===================================================== */
 
 function mostrarCategoriaRuptura(categoria){
 
-    const alcoolicos=
-        categoria==="alcoolicos";
+    const alcoolicos = categoria==="alcoolicos";
 
-    $("painelAlcoolicos").style.display =
-        alcoolicos ? "block" : "none";
+    $("painelAlcoolicos").style.display = alcoolicos ? "block" : "none";
+    $("painelNaoAlcoolicos").style.display = alcoolicos ? "none" : "block";
 
-    $("painelNaoAlcoolicos").style.display =
-        alcoolicos ? "none" : "block";
-
-    $("categoriaAlcoolicos").classList.toggle(
-        "ativo",
-        alcoolicos
-    );
-
-    $("categoriaNaoAlcoolicos").classList.toggle(
-        "ativo",
-        !alcoolicos
-    );
+    $("categoriaAlcoolicos").classList.toggle("ativo", alcoolicos);
+    $("categoriaNaoAlcoolicos").classList.toggle("ativo", !alcoolicos);
 
     $("pesquisaRupturas").value="";
-
     pesquisarRupturas();
 }
 
-
-/* =====================================================
-   PESQUISA
-===================================================== */
-
 function pesquisarRupturas(){
 
-    const termo=
-        $("pesquisaRupturas").value
-        .toLowerCase()
-        .trim();
+    const termo = $("pesquisaRupturas").value.toLowerCase().trim();
 
     const painelVisivel =
         $("painelAlcoolicos").style.display !== "none"
         ? $("painelAlcoolicos")
         : $("painelNaoAlcoolicos");
 
-    painelVisivel
-        .querySelectorAll(".ruptura-produto")
-        .forEach(produto=>{
-
-            const texto=
-                produto.dataset.busca || "";
-
-            produto.style.display =
-                texto.includes(termo)
-                ? "flex"
-                : "none";
-        });
+    painelVisivel.querySelectorAll(".ruptura-produto").forEach(produto=>{
+        const texto = produto.dataset.busca || "";
+        produto.style.display = texto.includes(termo) ? "flex" : "none";
+    });
 }
 
 
 /* =====================================================
-   ABRIR / FECHAR FERRAMENTA
+   ABRIR / FECHAR
 ===================================================== */
 
 function abrirFerramentaRupturas(){
-
-    $("modalFerramentaRupturas")
-        .classList.add("aberto");
-
+    $("modalFerramentaRupturas").classList.add("aberto");
     montarListaRupturas();
 }
 
 function fecharFerramentaRupturas(){
-
-    $("modalFerramentaRupturas")
-        .classList.remove("aberto");
-
+    $("modalFerramentaRupturas").classList.remove("aberto");
     atualizarBadgeRupturas();
 }
 
@@ -2174,172 +2228,102 @@ function fecharFerramentaRupturas(){
 
 function atualizarNotasRuptura(){
 
-    const dados=carregarRupturas();
-
-    const itens=Object.values(dados);
+    const dados = carregarRupturas();
+    const itens = Object.values(dados);
 
     if(!itens.length){
-
         $("blocoNotasRupturas").textContent =
             "📋 LISTA DE RUPTURAS\n\n" +
             "Nenhum produto selecionado.";
-
         return;
     }
 
-    const alcoolicos=itens.filter(item=>
+    const alcoolicos = itens.filter(item=>
         item.categoria==="cerveja" ||
         item.categoria==="cerveja_zero" ||
         item.categoria==="mistas"
     );
 
-    const naoAlcoolicos=itens.filter(item=>
+    const naoAlcoolicos = itens.filter(item=>
         item.categoria!=="cerveja" &&
         item.categoria!=="cerveja_zero" &&
         item.categoria!=="mistas"
     );
 
-    let texto="";
-
-    texto+="📋 LISTA DE RUPTURAS\n";
-    texto+="━━━━━━━━━━━━━━━━━━━━\n\n";
+    let texto = "";
+    texto += "📋 LISTA DE RUPTURAS\n";
+    texto += "━━━━━━━━━━━━━━━━━━━━\n\n";
 
     if(alcoolicos.length){
-
-        texto+="🍺 ALCOÓLICOS\n\n";
-
+        texto += "🍺 ALCOÓLICOS\n\n";
         alcoolicos
-            .sort((a,b)=>
-                a.nome.localeCompare(
-                    b.nome,
-                    "pt-BR",
-                    {numeric:true}
-                )
-            )
+            .sort((a,b)=>a.nome.localeCompare(b.nome,"pt-BR",{numeric:true}))
             .forEach(item=>{
-
-                texto+=
-                    emojiProduto(item.nome)+
-                    " "+item.nome+
-                    " — "+item.descricao+
-                    "\n";
+                texto += emojiProduto(item.nome)+" "+item.nome+" — "+item.descricao+"\n";
             });
-
-        texto+="\n";
+        texto += "\n";
     }
 
     if(naoAlcoolicos.length){
-
-        texto+="🥤 NÃO ALCOÓLICOS\n\n";
-
+        texto += "🥤 NÃO ALCOÓLICOS\n\n";
         naoAlcoolicos
-            .sort((a,b)=>
-                a.nome.localeCompare(
-                    b.nome,
-                    "pt-BR",
-                    {numeric:true}
-                )
-            )
+            .sort((a,b)=>a.nome.localeCompare(b.nome,"pt-BR",{numeric:true}))
             .forEach(item=>{
-
-                texto+=
-                    emojiProduto(item.nome)+
-                    " "+item.nome+
-                    " — "+item.descricao+
-                    "\n";
+                texto += emojiProduto(item.nome)+" "+item.nome+" — "+item.descricao+"\n";
             });
     }
 
-    texto+="\n━━━━━━━━━━━━━━━━━━━━";
-    texto+="\nTotal de rupturas: "+itens.length;
+    texto += "\n━━━━━━━━━━━━━━━━━━━━";
+    texto += "\nTotal de rupturas: "+itens.length;
 
-    $("blocoNotasRupturas").textContent=texto;
+    $("blocoNotasRupturas").textContent = texto;
 }
 
 function abrirListaRupturas(){
-
     atualizarNotasRuptura();
-
-    $("modalFerramentaRupturas")
-        .classList.remove("aberto");
-
-    $("modalListaRupturas")
-        .classList.add("aberto");
+    $("modalFerramentaRupturas").classList.remove("aberto");
+    $("modalListaRupturas").classList.add("aberto");
 }
 
 function fecharListaRupturas(){
-
-    $("modalListaRupturas")
-        .classList.remove("aberto");
+    $("modalListaRupturas").classList.remove("aberto");
 }
 
 
 /* =====================================================
-   COPIAR
+   COPIAR / LIMPAR
 ===================================================== */
 
 async function copiarRupturas(){
 
-    const texto=
-        $("blocoNotasRupturas").textContent;
+    const texto = $("blocoNotasRupturas").textContent;
 
     try{
-
         await navigator.clipboard.writeText(texto);
-
-        mostrarToast(
-            "Lista copiada com sucesso!",
-            "📋"
-        );
-
+        mostrarToast("Lista copiada com sucesso!","📋");
     }catch(e){
-
-        const area=
-            document.createElement("textarea");
-
+        const area = document.createElement("textarea");
         area.value=texto;
-
         document.body.appendChild(area);
-
         area.select();
-
         document.execCommand("copy");
-
         area.remove();
-
-        mostrarToast(
-            "Lista copiada!",
-            "📋"
-        );
+        mostrarToast("Lista copiada!","📋");
     }
 }
 
-
-/* =====================================================
-   LIMPAR
-===================================================== */
-
 function limparRupturas(){
 
-    const confirmar=
-        confirm(
-            "Deseja realmente limpar todas as rupturas selecionadas?"
-        );
+    const confirmar = confirm("Deseja realmente limpar todas as rupturas selecionadas?");
+    if(!confirmar) return;
 
-    if(!confirmar)return;
-
-    localStorage.removeItem(
-        STORAGE_RUPTURAS
-    );
+    localStorage.removeItem(STORAGE_RUPTURAS);
 
     montarListaRupturas();
     atualizarNotasRuptura();
     atualizarBadgeRupturas();
 
-    mostrarToast(
-        "Lista de rupturas limpa.",
-        "🗑️"
-    );
+    mostrarToast("Lista de rupturas limpa.","🗑️");
 }
 
 
