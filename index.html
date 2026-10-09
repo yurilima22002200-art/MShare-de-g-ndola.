@@ -608,6 +608,27 @@ button{
 .loja-card-status.pendente{ color:#ffaa00; }
 .loja-card-status.cadastrada{ color:#00ff88; }
 
+.btn-validade-card{
+    display:block;
+    margin-top:6px;
+    padding:7px 8px;
+    border-radius:9px;
+    background:linear-gradient(135deg,#073344,#211539);
+    border:1px solid #00d9ff;
+    color:#fff;
+    font-size:11px;
+    font-weight:900;
+    text-align:center;
+    letter-spacing:.5px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.btn-validade-card:active{
+    transform:scale(.95);
+    background:linear-gradient(135deg,#0a4a63,#2d1d4f);
+}
+
 /* =====================================================
    FERRAMENTA DE RUPTURAS (por loja)
 ===================================================== */
@@ -860,6 +881,171 @@ footer{
     padding:25px 0 15px;
 }
 
+/* =====================================================
+   VALIDADES
+===================================================== */
+
+.validade-produto-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#0b131e;
+    border:1px solid #17283a;
+    border-radius:12px;
+    padding:11px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.validade-produto-item:active{ transform:scale(.98); }
+
+.validade-produto-item.adicionado{
+    border-color:#00ff88;
+    background:linear-gradient(135deg,#05281b,#0b1a13);
+}
+
+.validade-controles{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:10px;
+}
+
+.validade-input-qtd{
+    width:80px;
+    border:1px solid #26364a;
+    outline:none;
+    background:#050a10;
+    color:#fff;
+    border-radius:10px;
+    padding:9px 10px;
+    font-size:14px;
+    text-align:center;
+}
+
+.validade-input-qtd:focus{
+    border-color:#00d9ff;
+}
+
+.validade-input-data{
+    flex:1;
+    border:1px solid #26364a;
+    outline:none;
+    background:#050a10;
+    color:#fff;
+    border-radius:10px;
+    padding:9px 10px;
+    font-size:14px;
+}
+
+.validade-input-data:focus{
+    border-color:#00d9ff;
+}
+
+.btn-validade-add{
+    border:0;
+    background:linear-gradient(135deg,#0085b3,#693ca1);
+    color:#fff;
+    border-radius:10px;
+    padding:10px 14px;
+    font-weight:900;
+    font-size:14px;
+    white-space:nowrap;
+}
+
+.btn-validade-add:active{ transform:scale(.96); }
+
+.validade-item-adicionado{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    background:#071a12;
+    border:1px solid #0f5c38;
+    border-radius:12px;
+    padding:11px 12px;
+    margin-top:8px;
+}
+
+.validade-item-info{
+    flex:1;
+    min-width:0;
+}
+
+.validade-item-nome{
+    font-size:13px;
+    font-weight:900;
+    color:#fff;
+    word-break:break-word;
+}
+
+.validade-item-detalhe{
+    font-size:11px;
+    color:#7d92a8;
+    margin-top:3px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.validade-item-detalhe span{
+    display:inline-flex;
+    align-items:center;
+    gap:3px;
+}
+
+.validade-item-remover{
+    border:0;
+    background:#a50038;
+    color:#fff;
+    border-radius:9px;
+    width:32px;
+    height:32px;
+    font-weight:900;
+    font-size:15px;
+    flex-shrink:0;
+}
+
+.validade-cat{
+    border:1px solid #293b51;
+    background:#0d1520;
+    color:#9eafc3;
+    border-radius:13px;
+    padding:11px 8px;
+    font-weight:900;
+    font-size:12px;
+}
+
+.validade-cat.ativo{
+    color:#fff;
+    border-color:#00d9ff;
+    background:linear-gradient(135deg,#073344,#211539);
+}
+
+.validade-total-bar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#0a1420;
+    border:1px solid #1b2d42;
+    border-radius:13px;
+    padding:11px 13px;
+    margin-bottom:12px;
+    font-size:12px;
+    font-weight:800;
+}
+
+.validade-total-txt{ color:#8ba1b8; }
+.validade-total-num{ color:#00ff88; font-size:14px; font-weight:900; }
+
+.validade-vazio{
+    text-align:center;
+    color:#4a5f75;
+    font-size:13px;
+    padding:20px 10px;
+    font-style:italic;
+}
+
 /* ================= RESPONSIVO ================= */
 
 @media(max-width:400px){
@@ -914,7 +1100,7 @@ footer{
 
     <div class="card-title">🏪 Minhas Lojas</div>
     <div class="subtitle" style="margin-bottom:5px;text-align:left;" id="subtituloLojas">
-        Selecione uma loja para preencher as informações e marcar rupturas
+        Toque no card para rupturas • Toque em 📅 para validades
     </div>
 
     <div class="contador-lojas">
@@ -932,6 +1118,7 @@ footer{
             <div class="loja-card-nome vazio" data-nome="0">Loja 1 — vazia</div>
             <div class="loja-card-info" data-info="0">Toque para preencher</div>
             <div class="loja-card-status vazio" data-status="0">Sem dados</div>
+            <span class="btn-validade-card" onclick="event.stopPropagation(); abrirValidades(0)">📅 Validades</span>
         </button>
 
         <button class="loja-card" data-loja="1" onclick="clicarLoja(1)">
@@ -942,6 +1129,7 @@ footer{
             <div class="loja-card-nome vazio" data-nome="1">Loja 2 — vazia</div>
             <div class="loja-card-info" data-info="1">Toque para preencher</div>
             <div class="loja-card-status vazio" data-status="1">Sem dados</div>
+            <span class="btn-validade-card" onclick="event.stopPropagation(); abrirValidades(1)">📅 Validades</span>
         </button>
 
         <button class="loja-card" data-loja="2" onclick="clicarLoja(2)">
@@ -952,6 +1140,7 @@ footer{
             <div class="loja-card-nome vazio" data-nome="2">Loja 3 — vazia</div>
             <div class="loja-card-info" data-info="2">Toque para preencher</div>
             <div class="loja-card-status vazio" data-status="2">Sem dados</div>
+            <span class="btn-validade-card" onclick="event.stopPropagation(); abrirValidades(2)">📅 Validades</span>
         </button>
 
         <button class="loja-card" data-loja="3" onclick="clicarLoja(3)">
@@ -962,6 +1151,7 @@ footer{
             <div class="loja-card-nome vazio" data-nome="3">Loja 4 — vazia</div>
             <div class="loja-card-info" data-info="3">Toque para preencher</div>
             <div class="loja-card-status vazio" data-status="3">Sem dados</div>
+            <span class="btn-validade-card" onclick="event.stopPropagation(); abrirValidades(3)">📅 Validades</span>
         </button>
 
     </div>
@@ -1267,13 +1457,17 @@ footer{
             📋 VERIFICAR LISTA DE RUPTURAS
         </button>
 
+        <button class="ruptura-verificar" style="background:linear-gradient(90deg,#0a4a63,#693ca1);margin-top:10px;" onclick="fecharFerramentaRupturas(); abrirValidades(lojaAtiva);">
+            📅 ABRIR VALIDADES DESTA LOJA
+        </button>
+
     </div>
 
 </div>
 
 
 <!-- =====================================================
-     MODAL BLOCO DE NOTAS
+     MODAL BLOCO DE NOTAS DE RUPTURAS
 ===================================================== -->
 
 <div class="modal" id="modalListaRupturas">
@@ -1282,7 +1476,7 @@ footer{
 
         <div class="modal-header">
             <div>
-                <div class="modal-title">📋 BLOCO DE NOTAS</div>
+                <div class="modal-title">📋 BLOCO DE NOTAS — RUPTURAS</div>
                 <div class="ruptura-subtitulo" id="subtituloNotas">Produtos em ruptura</div>
             </div>
             <button class="fechar" onclick="fecharListaRupturas()">×</button>
@@ -1295,6 +1489,161 @@ footer{
                 📋 COPIAR
             </button>
             <button class="btn-limpar" onclick="limparRupturas()">
+                🗑️ LIMPAR
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL DE VALIDADES (por loja)
+===================================================== -->
+
+<div class="modal" id="modalValidades">
+
+    <div class="ruptura-ferramenta">
+
+        <div class="ruptura-cabecalho">
+            <div>
+                <div class="ruptura-titulo" id="tituloLojaValidade">📅 Validades — Loja</div>
+                <div class="ruptura-subtitulo">Selecione produtos, quantidade e data de validade</div>
+            </div>
+            <button class="fechar" onclick="fecharValidades()">×</button>
+        </div>
+
+        <!-- INFORMAÇÕES DA LOJA (somente leitura, vindas do cadastro) -->
+
+        <div class="loja-info" id="infoLojaValidadeBox">
+            <div class="loja-info-titulo">🏪 INFORMAÇÕES DA LOJA</div>
+            <div id="infoLojaValidadeTexto" style="font-size:12px;color:#9db0c7;line-height:1.8;"></div>
+        </div>
+
+        <div class="validade-total-bar">
+            <span class="validade-total-txt">📦 Produtos registrados</span>
+            <span class="validade-total-num" id="validadeTotalNum">0</span>
+        </div>
+
+        <div class="ruptura-categorias" style="margin-bottom:12px;">
+            <button class="validade-cat ativo" id="validadeCatAlcoolicos"
+                    onclick="mostrarCategoriaValidade('alcoolicos')">
+                🍺 Alcoólicos
+            </button>
+            <button class="validade-cat" id="validadeCatNaoAlcoolicos"
+                    onclick="mostrarCategoriaValidade('naoAlcoolicos')">
+                🥤 Não alcoólicos
+            </button>
+        </div>
+
+        <input class="ruptura-pesquisa" id="pesquisaValidades" type="search"
+               placeholder="🔎 Pesquisar produto..." oninput="pesquisarValidades()">
+
+        <div id="painelValidadeAlcoolicos">
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🍺 Cervejas — 210 ml</div>
+                <div class="ruptura-lista" id="validadeListaCervejas210"></div>
+            </div>
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🍺 Cervejas — 330 ml</div>
+                <div class="ruptura-lista" id="validadeListaCervejas330"></div>
+            </div>
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🍺 Cervejas — 350 ml</div>
+                <div class="ruptura-lista" id="validadeListaCervejas350"></div>
+            </div>
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🍺 Cervejas — 355 ml</div>
+                <div class="ruptura-lista" id="validadeListaCervejas355"></div>
+            </div>
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🍺 Cervejas — 473 ml</div>
+                <div class="ruptura-lista" id="validadeListaCervejas473"></div>
+            </div>
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🍺 Cervejas — 600 ml</div>
+                <div class="ruptura-lista" id="validadeListaCervejas600"></div>
+            </div>
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🚫 Cervejas Zero</div>
+                <div class="ruptura-lista" id="validadeListaCervejasZero"></div>
+            </div>
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🍹 Bebidas Mistas</div>
+                <div class="ruptura-lista" id="validadeListaMistas"></div>
+            </div>
+        </div>
+
+        <div id="painelValidadeNaoAlcoolicos" style="display:none;">
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 200 ml</div>
+                <div class="ruptura-lista" id="validadeListaRefrigerantes200"></div>
+            </div>
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 350 ml</div>
+                <div class="ruptura-lista" id="validadeListaRefrigerantes350"></div>
+            </div>
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 1 L</div>
+                <div class="ruptura-lista" id="validadeListaRefrigerantes1L"></div>
+            </div>
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 2 L</div>
+                <div class="ruptura-lista" id="validadeListaRefrigerantes2L"></div>
+            </div>
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 2,5 L</div>
+                <div class="ruptura-lista" id="validadeListaRefrigerantes25L"></div>
+            </div>
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🍋 Água Tônica</div>
+                <div class="ruptura-lista" id="validadeListaTonicas"></div>
+            </div>
+            <div class="ruptura-secao">
+                <div class="ruptura-secao-titulo">🧃 Isotônicos</div>
+                <div class="ruptura-lista" id="validadeListaIsotonicos"></div>
+            </div>
+        </div>
+
+        <div class="ruptura-secao" style="margin-top:20px;">
+            <div class="ruptura-secao-titulo">📋 PRODUTOS REGISTRADOS</div>
+            <div id="listaValidadesAdicionadas"></div>
+        </div>
+
+        <button class="ruptura-verificar" style="background:linear-gradient(90deg,#006f86,#693ca1);"
+                onclick="abrirNotasValidades()">
+            📋 VER BLOCO DE NOTAS DE VALIDADES
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL BLOCO DE NOTAS DE VALIDADES
+===================================================== -->
+
+<div class="modal" id="modalNotasValidades">
+
+    <div class="ruptura-notas-modal">
+
+        <div class="modal-header">
+            <div>
+                <div class="modal-title">📅 BLOCO DE NOTAS — VALIDADES</div>
+                <div class="ruptura-subtitulo" id="subtituloNotasValidades">Produtos com validade</div>
+            </div>
+            <button class="fechar" onclick="fecharNotasValidades()">×</button>
+        </div>
+
+        <div class="bloco-notas" id="blocoNotasValidades"></div>
+
+        <div class="notas-acoes">
+            <button class="btn-copiar" onclick="copiarValidades()">
+                📋 COPIAR
+            </button>
+            <button class="btn-limpar" onclick="limparValidades()">
                 🗑️ LIMPAR
             </button>
         </div>
@@ -1374,6 +1723,7 @@ let expressaoCalc = "";
 
 const TOTAL_LOJAS = 4;
 let lojaAtiva = 0;
+let lojaAtivaValidade = 0;
 
 
 /* =====================================================
@@ -1794,7 +2144,8 @@ function carregarLojas(){
 
     return Array.from({length:TOTAL_LOJAS},()=>({
         info:{loja:"",nome:"",endereco:"",supervisor:""},
-        rupturas:{}
+        rupturas:{},
+        validades:{}
     }));
 }
 
@@ -1846,6 +2197,7 @@ function atualizarCardsLojas(){
         const statusEl = document.querySelector(`[data-status="${i}"]`);
 
         const totalRupturas = Object.keys(loja.rupturas || {}).length;
+        const totalValidades = Object.keys(loja.validades || {}).length;
         const completa = lojaEstaCompleta(loja);
 
         if(completa) totalCadastradas++;
@@ -1856,7 +2208,7 @@ function atualizarCardsLojas(){
         );
 
         if(completa){
-            if(totalRupturas > 0){
+            if(totalRupturas > 0 || totalValidades > 0){
                 card.classList.add("cadastrada-com-rupturas");
             }else{
                 card.classList.add("cadastrada");
@@ -1892,8 +2244,11 @@ function atualizarCardsLojas(){
         if(!completa){
             statusEl.textContent = "📝 Faltam dados";
             statusEl.classList.add("pendente");
-        }else if(totalRupturas > 0){
-            statusEl.textContent = `📋 ${totalRupturas} ruptura(s) • Cadastrada`;
+        }else if(totalRupturas > 0 || totalValidades > 0){
+            const partesStatus = [];
+            if(totalRupturas > 0) partesStatus.push(`📋 ${totalRupturas} ruptura(s)`);
+            if(totalValidades > 0) partesStatus.push(`📅 ${totalValidades} validade(s)`);
+            statusEl.textContent = partesStatus.join(" • ") + " • Cadastrada";
             statusEl.classList.add("cadastrada");
         }else{
             statusEl.textContent = "✅ Cadastrada";
@@ -1922,7 +2277,7 @@ function clicarLoja(index){
 
 
 /* =====================================================
-   ABRIR / FECHAR FERRAMENTA
+   ABRIR / FECHAR FERRAMENTA DE RUPTURAS
 ===================================================== */
 
 function abrirFerramentaRupturas(index){
@@ -1983,7 +2338,7 @@ function preencherInfoLoja(){
 
 
 /* =====================================================
-   CRIAR PRODUTO (por loja)
+   CRIAR PRODUTO (rupturas)
 ===================================================== */
 
 function criarProdutoRuptura(nome, descricao, categoria){
@@ -2040,7 +2395,7 @@ function criarProdutoRuptura(nome, descricao, categoria){
 
 
 /* =====================================================
-   MONTAR LISTAS
+   MONTAR LISTAS DE RUPTURAS
 ===================================================== */
 
 function montarListaRupturas(){
@@ -2085,7 +2440,7 @@ function montarGrupo(id, lista, categoria){
 
 
 /* =====================================================
-   CONTADORES
+   CONTADORES DE RUPTURA
 ===================================================== */
 
 function atualizarContadoresRuptura(){
@@ -2115,7 +2470,7 @@ function atualizarContadoresRuptura(){
 
 
 /* =====================================================
-   CATEGORIAS / PESQUISA
+   CATEGORIAS / PESQUISA (rupturas)
 ===================================================== */
 
 function mostrarCategoriaRuptura(categoria){
@@ -2149,7 +2504,7 @@ function pesquisarRupturas(){
 
 
 /* =====================================================
-   BLOCO DE NOTAS
+   BLOCO DE NOTAS — RUPTURAS
 ===================================================== */
 
 function atualizarNotasRuptura(){
@@ -2233,7 +2588,7 @@ function fecharListaRupturas(){
 
 
 /* =====================================================
-   COPIAR / LIMPAR
+   COPIAR / LIMPAR — RUPTURAS
 ===================================================== */
 
 async function copiarRupturas(){
@@ -2273,6 +2628,474 @@ function limparRupturas(){
     atualizarCardsLojas();
 
     mostrarToast("Lista de rupturas limpa.","🗑️");
+}
+
+
+/* =====================================================
+   VALIDADES — ABRIR / FECHAR
+===================================================== */
+
+function abrirValidades(index){
+
+    lojaAtivaValidade = index;
+
+    const loja = getLoja(index);
+    const nomeLoja = loja.info.loja || `Loja ${index+1}`;
+    $("tituloLojaValidade").textContent = `📅 Validades — ${nomeLoja}`;
+
+    const info = loja.info;
+    $("infoLojaValidadeTexto").innerHTML =
+        "🏬 <b>" + (info.loja || "Não informado") + "</b><br>" +
+        "👤 " + (info.nome || "Não informado") + "<br>" +
+        "📍 " + (info.endereco || "Não informado") + "<br>" +
+        "👨‍💼 " + (info.supervisor || "Não informado");
+
+    montarListaValidades();
+    atualizarTotalValidades();
+
+    $("modalValidades").classList.add("aberto");
+}
+
+function fecharValidades(){
+    $("modalValidades").classList.remove("aberto");
+    atualizarCardsLojas();
+}
+
+
+/* =====================================================
+   VALIDADES — MONTAR LISTAS
+===================================================== */
+
+function montarListaValidades(){
+
+    montarGrupoValidade("validadeListaCervejas210",cervejas210,"cerveja");
+    montarGrupoValidade("validadeListaCervejas330",cervejas330,"cerveja");
+    montarGrupoValidade("validadeListaCervejas350",cervejas350,"cerveja");
+    montarGrupoValidade("validadeListaCervejas355",cervejas355,"cerveja");
+    montarGrupoValidade("validadeListaCervejas473",cervejas473,"cerveja");
+    montarGrupoValidade("validadeListaCervejas600",cervejas600,"cerveja");
+    montarGrupoValidade("validadeListaCervejasZero",cervejasZero,"cerveja_zero");
+    montarGrupoValidade("validadeListaMistas",bebidasMistas,"mistas");
+    montarGrupoValidade("validadeListaRefrigerantes200",refrigerantes200,"refrigerante");
+    montarGrupoValidade("validadeListaRefrigerantes350",refrigerantes350,"refrigerante");
+    montarGrupoValidade("validadeListaRefrigerantes1L",refrigerantes1L,"refrigerante");
+    montarGrupoValidade("validadeListaRefrigerantes2L",refrigerantes2L,"refrigerante");
+    montarGrupoValidade("validadeListaRefrigerantes25L",refrigerantes25L,"refrigerante");
+    montarGrupoValidade("validadeListaTonicas",tonicas,"tonica");
+    montarGrupoValidade("validadeListaIsotonicos",isotonicos,"isotonico");
+
+    atualizarListaValidadesAdicionadas();
+}
+
+function montarGrupoValidade(id, lista, categoria){
+
+    const container = $(id);
+    if(!container) return;
+
+    container.innerHTML = "";
+
+    const ordenada = [...lista].sort((a,b)=>{
+        const nomeA=a[0].toLowerCase();
+        const nomeB=b[0].toLowerCase();
+        if(nomeA===nomeB){
+            return a[1].localeCompare(b[1],"pt-BR",{numeric:true});
+        }
+        return nomeA.localeCompare(nomeB,"pt-BR");
+    });
+
+    ordenada.forEach(item=>{
+        container.appendChild(criarItemValidade(item[0],item[1],categoria));
+    });
+}
+
+
+/* =====================================================
+   VALIDADES — CRIAR ITEM INTERATIVO
+===================================================== */
+
+function criarItemValidade(nome, descricao, categoria){
+
+    const chave = categoria+"|"+nome+"|"+descricao;
+    const loja = getLoja(lojaAtivaValidade);
+    const validades = loja.validades || {};
+    const jaAdicionado = !!validades[chave];
+
+    const wrapper = document.createElement("div");
+    wrapper.style.marginBottom = "8px";
+    wrapper.dataset.busca = (nome+" "+descricao).toLowerCase();
+    wrapper.className = "validade-wrapper";
+
+    const itemDiv = document.createElement("div");
+    itemDiv.className = "validade-produto-item";
+    if(jaAdicionado){
+        itemDiv.style.borderColor = "#00ff88";
+        itemDiv.style.background = "linear-gradient(135deg,#05281b,#0b1a13)";
+    }
+    itemDiv.innerHTML = `
+        <div style="flex:1;">
+            <div style="font-size:13px;font-weight:800;">
+                ${emojiProduto(nome)} ${nome}
+            </div>
+            <div style="color:#71869d;font-size:11px;margin-top:3px;">
+                ${descricao}${jaAdicionado ? ' • <span style="color:#00ff88;font-weight:900;">JÁ REGISTRADO</span>' : ''}
+            </div>
+        </div>
+        <span style="color:#00d9ff;font-size:18px;">+</span>
+    `;
+
+    const controles = document.createElement("div");
+    controles.className = "validade-controles";
+    controles.style.display = "none";
+
+    const inputQtd = document.createElement("input");
+    inputQtd.type = "number";
+    inputQtd.min = "1";
+    inputQtd.placeholder = "Qtd";
+    inputQtd.className = "validade-input-qtd";
+    if(jaAdicionado) inputQtd.value = validades[chave].quantidade;
+
+    const inputData = document.createElement("input");
+    inputData.type = "date";
+    inputData.className = "validade-input-data";
+    if(jaAdicionado) inputData.value = validades[chave].data;
+
+    const btnAdd = document.createElement("button");
+    btnAdd.className = "btn-validade-add";
+    btnAdd.textContent = jaAdicionado ? "ATUALIZAR" : "ADICIONAR";
+
+    controles.appendChild(inputQtd);
+    controles.appendChild(inputData);
+    controles.appendChild(btnAdd);
+
+    itemDiv.addEventListener("click", function(){
+        const aberto = controles.style.display !== "none";
+        document.querySelectorAll("#modalValidades .validade-controles").forEach(el=>{
+            el.style.display = "none";
+        });
+        controles.style.display = aberto ? "none" : "flex";
+    });
+
+    btnAdd.addEventListener("click", function(e){
+        e.stopPropagation();
+
+        const qtd = parseInt(inputQtd.value) || 0;
+        const data = inputData.value;
+
+        if(qtd <= 0){
+            mostrarToast("Informe uma quantidade válida.","⚠️");
+            return;
+        }
+        if(!data){
+            mostrarToast("Informe a data de validade.","⚠️");
+            return;
+        }
+
+        const l = getLoja(lojaAtivaValidade);
+        l.validades = l.validades || {};
+
+        l.validades[chave] = {
+            nome: nome,
+            descricao: descricao,
+            categoria: categoria,
+            quantidade: qtd,
+            data: data
+        };
+
+        setLoja(lojaAtivaValidade, l);
+
+        itemDiv.style.borderColor = "#00ff88";
+        itemDiv.style.background = "linear-gradient(135deg,#05281b,#0b1a13)";
+
+        inputQtd.value = "";
+        inputData.value = "";
+        controles.style.display = "none";
+
+        atualizarListaValidadesAdicionadas();
+        atualizarTotalValidades();
+        atualizarCardsLojas();
+        montarListaValidades();
+
+        mostrarToast(nome + " registrado!","✅");
+    });
+
+    wrapper.appendChild(itemDiv);
+    wrapper.appendChild(controles);
+
+    return wrapper;
+}
+
+
+/* =====================================================
+   VALIDADES — LISTA DE ADICIONADOS
+===================================================== */
+
+function atualizarListaValidadesAdicionadas(){
+
+    const loja = getLoja(lojaAtivaValidade);
+    const validades = loja.validades || {};
+    const container = $("listaValidadesAdicionadas");
+
+    const itens = Object.entries(validades);
+
+    if(!itens.length){
+        container.innerHTML = '<div class="validade-vazio">Nenhum produto registrado ainda.</div>';
+        return;
+    }
+
+    itens.sort((a,b)=>{
+        return new Date(a[1].data) - new Date(b[1].data);
+    });
+
+    container.innerHTML = "";
+
+    itens.forEach(([chave, item])=>{
+
+        const div = document.createElement("div");
+        div.className = "validade-item-adicionado";
+
+        const dataObj = new Date(item.data + "T12:00:00");
+        const dataFormatada = dataObj.toLocaleDateString("pt-BR");
+
+        const hoje = new Date();
+        hoje.setHours(0,0,0,0);
+        const dataVal = new Date(item.data + "T12:00:00");
+        dataVal.setHours(0,0,0,0);
+        const diffDias = Math.ceil((dataVal - hoje) / (1000*60*60*24));
+
+        let corDias = "#00ff88";
+        let textoDias = "";
+        if(diffDias < 0){
+            corDias = "#ff0055";
+            textoDias = "VENCIDO há " + Math.abs(diffDias) + " dia(s)";
+        }else if(diffDias === 0){
+            corDias = "#ffaa00";
+            textoDias = "VENCE HOJE";
+        }else if(diffDias <= 7){
+            corDias = "#ffaa00";
+            textoDias = "Vence em " + diffDias + " dia(s)";
+        }else{
+            textoDias = "Vence em " + diffDias + " dia(s)";
+        }
+
+        div.innerHTML = `
+            <div class="validade-item-info">
+                <div class="validade-item-nome">${emojiProduto(item.nome)} ${item.nome}</div>
+                <div class="validade-item-detalhe">
+                    <span>📦 Qtd: <b>${item.quantidade}</b></span>
+                    <span>📅 <b>${dataFormatada}</b></span>
+                    <span style="color:${corDias};font-weight:900;">⏳ ${textoDias}</span>
+                </div>
+            </div>
+        `;
+
+        const btnRemover = document.createElement("button");
+        btnRemover.className = "validade-item-remover";
+        btnRemover.textContent = "×";
+        btnRemover.addEventListener("click", function(){
+            const l = getLoja(lojaAtivaValidade);
+            delete l.validades[chave];
+            setLoja(lojaAtivaValidade, l);
+
+            atualizarListaValidadesAdicionadas();
+            atualizarTotalValidades();
+            atualizarCardsLojas();
+            montarListaValidades();
+
+            mostrarToast("Produto removido.","🗑️");
+        });
+
+        div.appendChild(btnRemover);
+        container.appendChild(div);
+    });
+}
+
+
+/* =====================================================
+   VALIDADES — CONTADOR
+===================================================== */
+
+function atualizarTotalValidades(){
+    const loja = getLoja(lojaAtivaValidade);
+    const total = Object.keys(loja.validades || {}).length;
+    $("validadeTotalNum").textContent = total;
+}
+
+
+/* =====================================================
+   VALIDADES — CATEGORIAS / PESQUISA
+===================================================== */
+
+function mostrarCategoriaValidade(categoria){
+
+    const alcoolicos = categoria==="alcoolicos";
+
+    $("painelValidadeAlcoolicos").style.display = alcoolicos ? "block" : "none";
+    $("painelValidadeNaoAlcoolicos").style.display = alcoolicos ? "none" : "block";
+
+    $("validadeCatAlcoolicos").classList.toggle("ativo", alcoolicos);
+    $("validadeCatNaoAlcoolicos").classList.toggle("ativo", !alcoolicos);
+
+    $("pesquisaValidades").value = "";
+    pesquisarValidades();
+}
+
+function pesquisarValidades(){
+
+    const termo = $("pesquisaValidades").value.toLowerCase().trim();
+
+    const painelVisivel =
+        $("painelValidadeAlcoolicos").style.display !== "none"
+        ? $("painelValidadeAlcoolicos")
+        : $("painelValidadeNaoAlcoolicos");
+
+    painelVisivel.querySelectorAll(".validade-wrapper").forEach(wrapper=>{
+        const texto = wrapper.dataset.busca || "";
+        wrapper.style.display = texto.includes(termo) ? "block" : "none";
+    });
+}
+
+
+/* =====================================================
+   VALIDADES — BLOCO DE NOTAS
+===================================================== */
+
+function atualizarNotasValidades(){
+
+    const loja = getLoja(lojaAtivaValidade);
+    const validades = loja.validades || {};
+    const info = loja.info;
+
+    let texto = "";
+
+    texto += "🏪 INFORMAÇÕES DA LOJA\n";
+    texto += "━━━━━━━━━━━━━━━━━━━━\n\n";
+    texto += "🏬 Loja: " + (info.loja || "Não informado") + "\n";
+    texto += "👤 Nome: " + (info.nome || "Não informado") + "\n";
+    texto += "📍 Endereço: " + (info.endereco || "Não informado") + "\n";
+    texto += "👨‍💼 Supervisor: " + (info.supervisor || "Não informado") + "\n\n";
+    texto += "━━━━━━━━━━━━━━━━━━━━\n";
+
+    const itens = Object.values(validades);
+
+    if(!itens.length){
+        texto += "\n📅 LISTA DE VALIDADES\n\n";
+        texto += "Nenhum produto registrado.";
+        $("blocoNotasValidades").textContent = texto;
+        return;
+    }
+
+    itens.sort((a,b)=> new Date(a.data) - new Date(b.data));
+
+    const alcoolicos = itens.filter(item=>
+        item.categoria==="cerveja" ||
+        item.categoria==="cerveja_zero" ||
+        item.categoria==="mistas"
+    );
+
+    const naoAlcoolicos = itens.filter(item=>
+        item.categoria!=="cerveja" &&
+        item.categoria!=="cerveja_zero" &&
+        item.categoria!=="mistas"
+    );
+
+    texto += "\n📅 LISTA DE VALIDADES\n";
+    texto += "━━━━━━━━━━━━━━━━━━━━\n\n";
+
+    function formatarItem(item){
+        const dataObj = new Date(item.data + "T12:00:00");
+        const dataFormatada = dataObj.toLocaleDateString("pt-BR");
+
+        const hoje = new Date();
+        hoje.setHours(0,0,0,0);
+        const dataVal = new Date(item.data + "T12:00:00");
+        dataVal.setHours(0,0,0,0);
+        const diffDias = Math.ceil((dataVal - hoje) / (1000*60*60*24));
+
+        let status = "";
+        if(diffDias < 0) status = " ⚠️ VENCIDO (" + Math.abs(diffDias) + "d)";
+        else if(diffDias === 0) status = " ⚠️ VENCE HOJE";
+        else if(diffDias <= 7) status = " ⏳ " + diffDias + "d restantes";
+        else status = " ⏳ " + diffDias + "d restantes";
+
+        return emojiProduto(item.nome)+" "+item.nome+" — "+item.descricao+
+               "\n   📦 Quantidade: "+item.quantidade+
+               " | 📅 Validade: "+dataFormatada+status+"\n";
+    }
+
+    if(alcoolicos.length){
+        texto += "🍺 ALCOÓLICOS\n\n";
+        alcoolicos.forEach(item=>{ texto += formatarItem(item) + "\n"; });
+    }
+
+    if(naoAlcoolicos.length){
+        texto += "🥤 NÃO ALCOÓLICOS\n\n";
+        naoAlcoolicos.forEach(item=>{ texto += formatarItem(item) + "\n"; });
+    }
+
+    texto += "━━━━━━━━━━━━━━━━━━━━";
+    texto += "\nTotal de produtos: " + itens.length;
+
+    $("blocoNotasValidades").textContent = texto;
+}
+
+function abrirNotasValidades(){
+    atualizarNotasValidades();
+
+    const loja = getLoja(lojaAtivaValidade);
+    $("subtituloNotasValidades").textContent =
+        (loja.info.loja || `Loja ${lojaAtivaValidade+1}`) + " — produtos com validade";
+
+    $("modalValidades").classList.remove("aberto");
+    $("modalNotasValidades").classList.add("aberto");
+}
+
+function fecharNotasValidades(){
+    $("modalNotasValidades").classList.remove("aberto");
+    $("modalValidades").classList.add("aberto");
+}
+
+
+/* =====================================================
+   VALIDADES — COPIAR / LIMPAR
+===================================================== */
+
+async function copiarValidades(){
+
+    const texto = $("blocoNotasValidades").textContent;
+
+    try{
+        await navigator.clipboard.writeText(texto);
+        mostrarToast("Lista de validades copiada!","📋");
+    }catch(e){
+        const area = document.createElement("textarea");
+        area.value = texto;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+        mostrarToast("Lista copiada!","📋");
+    }
+}
+
+function limparValidades(){
+
+    const confirmar = confirm(
+        "Deseja realmente limpar todas as validades desta loja?\n\n" +
+        "(Os dados da loja permanecem salvos)"
+    );
+
+    if(!confirmar) return;
+
+    const loja = getLoja(lojaAtivaValidade);
+    loja.validades = {};
+    setLoja(lojaAtivaValidade, loja);
+
+    montarListaValidades();
+    atualizarNotasValidades();
+    atualizarTotalValidades();
+    atualizarCardsLojas();
+
+    mostrarToast("Lista de validades limpa.","🗑️");
 }
 
 
