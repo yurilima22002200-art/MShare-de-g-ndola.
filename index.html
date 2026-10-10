@@ -7,10 +7,7 @@
 <title>MShare Space</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
-}
+*{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 
 body{
     margin:0;
@@ -23,20 +20,8 @@ body{
     min-height:100vh;
 }
 
-button,input{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-.container{
-    width:100%;
-    max-width:650px;
-    margin:auto;
-    padding:15px;
-}
+button,input,select{ font:inherit; }
+button{ cursor:pointer; }
 
 /* ================= SPLASH ================= */
 
@@ -77,431 +62,120 @@ button{
 
 /* ================= HEADER ================= */
 
-.header{ text-align:center; padding:15px 5px 10px; }
+.app-header{
+    padding:14px 15px 8px;
+    text-align:center;
+}
 
 .logo{
-    font-size:30px;
+    font-size:24px;
     font-weight:900;
     background:linear-gradient(90deg,#00eaff,#a66cff,#ff3cac);
     -webkit-background-clip:text;
+    background-clip:text;
     color:transparent;
 }
 
-.subtitle{ color:#aab8ca; font-size:14px; margin-top:5px; }
-.date-time{ margin-top:12px; color:#8da2ba; font-size:12px; }
-
-.connection{
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-    margin-top:10px;
-    padding:7px 12px;
-    border-radius:20px;
-    background:#101822;
-    font-size:12px;
+.app-header .sub{
+    color:#8da2ba;
+    font-size:11px;
+    margin-top:3px;
 }
 
-.connection-dot{ width:8px; height:8px; border-radius:50%; background:#00ff88; }
+.header-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
 
-/* ================= CARD ================= */
+.header-top .left,
+.header-top .right{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:11px;
+    color:#8da2ba;
+}
+
+.dot-online{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#00ff88;
+    display:inline-block;
+}
+
+/* ================= CONTEÚDO ================= */
+
+.container{
+    width:100%;
+    max-width:650px;
+    margin:auto;
+    padding:0 15px;
+}
 
 .card{
     background:rgba(10,17,28,.88);
     border:1px solid rgba(75,150,255,.18);
-    border-radius:22px;
-    padding:18px;
-    margin-top:15px;
+    border-radius:20px;
+    padding:16px;
+    margin-top:12px;
     box-shadow:0 10px 35px rgba(0,0,0,.3);
 }
 
-.card-title{ font-size:18px; font-weight:900; margin-bottom:15px; }
-
-/* ================= UNIT ================= */
-
-.unidades{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-bottom:16px;
-}
-
-.btn-unidade{
-    border:1px solid #29384b;
-    background:#0d1520;
-    color:#9db0c7;
-    padding:13px;
-    border-radius:13px;
-    font-weight:800;
-}
-
-.btn-unidade.ativo{
-    color:#fff;
-    border-color:#00d9ff;
-    background:linear-gradient(135deg,#07384a,#151b39);
-    box-shadow:0 0 18px rgba(0,217,255,.15);
-}
-
-/* ================= INPUT ================= */
-
-.label{
-    display:block;
-    color:#9db0c7;
-    font-size:13px;
-    margin-bottom:7px;
-    margin-top:13px;
-}
-
-.input{
-    width:100%;
-    border:1px solid #26364a;
-    outline:none;
-    background:#080e16;
-    color:#fff;
-    border-radius:13px;
-    padding:14px;
-    font-size:17px;
-}
-
-.input:focus{
-    border-color:#00d9ff;
-    box-shadow:0 0 15px rgba(0,217,255,.1);
-}
-
-/* ================= CALCULATOR ================= */
-
-.btn-calculadora{
-    width:100%;
-    margin-top:14px;
-    border:1px solid #4e3b7d;
-    background:linear-gradient(135deg,#191333,#25143b);
-    color:#fff;
-    padding:13px;
-    border-radius:13px;
+.card-title{
+    font-size:15px;
     font-weight:900;
-}
-
-.modal{
-    position:fixed;
-    inset:0;
-    z-index:5000;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:15px;
-    background:rgba(0,0,0,.78);
-    backdrop-filter:blur(7px);
-}
-
-.modal.aberto{ display:flex; }
-
-.calculadora{
-    width:100%;
-    max-width:360px;
-    background:#0a1019;
-    border:1px solid #30425a;
-    border-radius:24px;
-    padding:18px;
-}
-
-.modal-header{
+    margin-bottom:12px;
     display:flex;
     align-items:center;
-    justify-content:space-between;
-    margin-bottom:14px;
+    gap:8px;
 }
 
-.modal-title{ font-weight:900; }
-
-.fechar{
-    width:38px;
-    height:38px;
-    border:0;
-    border-radius:50%;
+.card-title .badge{
+    margin-left:auto;
+    font-size:10px;
     background:#1a2533;
-    color:#fff;
-    font-size:20px;
-}
-
-.calc-display{
-    background:#05080d;
-    border:1px solid #25364a;
-    border-radius:14px;
-    padding:15px;
-    min-height:70px;
-    margin-bottom:12px;
-}
-
-.calc-expression{ color:#70839b; font-size:12px; min-height:18px; }
-.calc-result{ font-size:25px; font-weight:900; text-align:right; }
-
-.calc-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
-
-.calc-grid button{
-    border:0;
-    min-height:54px;
-    border-radius:12px;
-    background:#141e2b;
-    color:#fff;
-    font-size:18px;
-    font-weight:800;
-}
-
-.calc-grid .operador{ background:#22203c; }
-.calc-grid .igual{ background:linear-gradient(135deg,#006b82,#7543aa); }
-
-/* ================= RESULTADO ================= */
-
-.resultado{
-    margin-top:18px;
-    padding:20px;
+    color:#8ba1b8;
+    padding:3px 9px;
     border-radius:20px;
-    text-align:center;
-    border:1px solid #29384b;
-    background:#0b121c;
-    transition:.4s;
-}
-
-.resultado.verde{ border-color:#00ff88; box-shadow:0 0 25px rgba(0,255,136,.15); }
-.resultado.vermelho{ border-color:#ff0055; box-shadow:0 0 25px rgba(255,0,85,.15); }
-
-.emoji-resultado{ font-size:52px; display:inline-block; transition:.3s; }
-.emoji-resultado.animar-verde{ animation:bounceEmoji 1s infinite ease-in-out; }
-.emoji-resultado.animar-vermelho{ animation:shakeEmoji 1.2s infinite ease-in-out; }
-
-@keyframes bounceEmoji{
-    0%,100%{transform:translateY(0) scale(1) rotate(0deg);}
-    25%{transform:translateY(-18px) scale(1.15) rotate(-8deg);}
-    50%{transform:translateY(0) scale(1.05) rotate(0deg);}
-    75%{transform:translateY(-10px) scale(1.12) rotate(8deg);}
-}
-
-@keyframes shakeEmoji{
-    0%,100%{transform:translateX(0) rotate(0deg);}
-    15%{transform:translateX(-8px) rotate(-6deg);}
-    30%{transform:translateX(8px) rotate(6deg);}
-    45%{transform:translateX(-6px) rotate(-4deg);}
-    60%{transform:translateX(6px) rotate(4deg);}
-    75%{transform:translateX(-3px) rotate(-2deg);}
-}
-
-.share-resultado{ font-size:42px; font-weight:900; margin:8px 0; }
-.status-resultado{ color:#9fb0c3; font-weight:700; letter-spacing:.5px; font-size:14px; }
-
-/* ================= GRÁFICO ================= */
-
-.painel-grafico{
-    margin-top:20px;
-    padding:18px 15px;
-    background:linear-gradient(180deg,#070b11 0%,#050910 100%);
-    border-radius:18px;
-    border:1px solid #172536;
-}
-
-.painel-grafico-titulo{
-    font-size:11px;
-    letter-spacing:1.5px;
-    color:#5f7d9a;
-    text-transform:uppercase;
-    font-weight:800;
-    text-align:center;
-    margin-bottom:14px;
-}
-
-.donut-wrapper{ position:relative; width:180px; height:180px; margin:0 auto 18px; }
-.donut-svg{ width:100%; height:100%; transform:rotate(-90deg); }
-.donut-track{ fill:none; stroke:#151f2d; stroke-width:14; }
-
-.donut-meta{
-    fill:none; stroke:#00d9ff; stroke-width:14;
-    stroke-linecap:round; stroke-dasharray:0 999;
-    transition:stroke-dasharray 1s ease; opacity:.35;
-}
-
-.donut-share{
-    fill:none; stroke:#00ff88; stroke-width:14;
-    stroke-linecap:round; stroke-dasharray:0 999;
-    transition:stroke-dasharray 1.2s cubic-bezier(.4,0,.2,1), stroke .5s;
-    filter:drop-shadow(0 0 6px rgba(0,255,136,.4));
-}
-
-.donut-share.vermelho{
-    stroke:#ff0055;
-    filter:drop-shadow(0 0 6px rgba(255,0,85,.5));
-}
-
-.donut-centro{
-    position:absolute; inset:0;
-    display:flex; flex-direction:column;
-    align-items:center; justify-content:center;
-    text-align:center; pointer-events:none;
-}
-
-.donut-centro-valor{ font-size:30px; font-weight:900; line-height:1; color:#fff; }
-
-.donut-centro-label{
-    font-size:10px; letter-spacing:1.5px;
-    color:#6d8299; text-transform:uppercase;
-    margin-top:5px; font-weight:800;
-}
-
-.barras-grafico{ display:flex; flex-direction:column; gap:14px; margin-top:6px; }
-.barra-item{ display:flex; flex-direction:column; gap:6px; }
-
-.barra-topo{
-    display:flex; justify-content:space-between;
-    align-items:center; font-size:11.5px;
-}
-
-.barra-topo-label{
-    color:#8ba1b8; font-weight:800;
-    letter-spacing:.5px; text-transform:uppercase;
-}
-
-.barra-topo-valor{ font-weight:900; font-size:12.5px; }
-
-.barra-trilho{
-    width:100%; height:12px; background:#101a26;
-    border-radius:8px; overflow:hidden; position:relative;
-}
-
-.barra-preenchimento{
-    height:100%; border-radius:8px; width:0;
-    transition:width 1s cubic-bezier(.4,0,.2,1);
-    position:relative;
-}
-
-.barra-preenchimento::after{
-    content:"";
-    position:absolute; inset:0;
-    background:linear-gradient(90deg,
-        rgba(255,255,255,0) 0%,
-        rgba(255,255,255,.25) 50%,
-        rgba(255,255,255,0) 100%);
-    animation:brilhoBarra 2s infinite linear;
-}
-
-@keyframes brilhoBarra{
-    0%{transform:translateX(-100%)}
-    100%{transform:translateX(100%)}
-}
-
-.barra-meta{ background:linear-gradient(90deg,#0085b3,#00d9ff); box-shadow:0 0 12px rgba(0,217,255,.35); }
-.barra-atual-verde{ background:linear-gradient(90deg,#009d5a,#00ff88); box-shadow:0 0 12px rgba(0,255,136,.4); }
-.barra-atual-vermelho{ background:linear-gradient(90deg,#a8003a,#ff0055); box-shadow:0 0 12px rgba(255,0,85,.4); }
-.barra-restante{ background:linear-gradient(90deg,#5a2b8a,#a66cff); box-shadow:0 0 12px rgba(166,108,255,.35); }
-
-.barra-info-extra{
-    display:flex; justify-content:space-between;
-    font-size:10.5px; color:#5f7d9a;
-    margin-top:2px; font-weight:700; letter-spacing:.3px;
-}
-
-.painel-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:18px; }
-
-.painel-card{
-    background:#0a1420; border:1px solid #1b2d42;
-    border-radius:12px; padding:10px 6px; text-align:center;
-}
-
-.painel-card-icon{ font-size:16px; margin-bottom:4px; }
-
-.painel-card-label{
-    font-size:8.5px; letter-spacing:.8px;
-    color:#5f7d9a; text-transform:uppercase;
-    font-weight:800; margin-bottom:4px;
-}
-
-.painel-card-valor{ font-size:13px; font-weight:900; color:#fff; }
-
-/* ================= RESUMO ================= */
-
-.resumo{ display:grid; grid-template-columns:repeat(2,1fr); gap:9px; margin-top:15px; }
-
-.resumo-item{
-    background:#080e16; border:1px solid #1b2a3b;
-    border-radius:13px; padding:12px;
-}
-
-.resumo-label{ font-size:10px; color:#778ca4; text-transform:uppercase; }
-.resumo-valor{ font-weight:900; font-size:15px; margin-top:5px; }
-.resumo-mensagem{ grid-column:1/-1; text-align:center; color:#9db0c4; padding:10px; }
-
-/* ================= BOTÃO RUPTURAS ================= */
-
-.btn-rupturas-principal{
-    width:100%;
-    border:1px solid #36577d;
-    border-radius:17px;
-    padding:17px;
-    background:linear-gradient(135deg,#101d2d,#17102b);
-    color:#fff;
-    font-weight:900;
-    font-size:16px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    box-shadow:0 8px 25px rgba(0,0,0,.25);
-}
-
-.btn-rupturas-principal:active{ transform:scale(.98); }
-
-.badge-rupturas{
-    min-width:30px; height:30px; padding:0 9px;
-    border-radius:20px; display:flex;
-    align-items:center; justify-content:center;
-    background:#ff0055; color:#fff; font-size:13px;
-}
-
-/* =====================================================
-   SELEÇÃO DE LOJAS
-===================================================== */
-
-.contador-lojas{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    background:#0a1420;
-    border:1px solid #1b2d42;
-    border-radius:13px;
-    padding:11px 13px;
-    margin-bottom:12px;
-    font-size:12px;
     font-weight:800;
 }
 
-.contador-lojas-txt{ color:#8ba1b8; }
-.contador-lojas-num{ color:#00ff88; font-size:14px; font-weight:900; }
+/* ================= LOJAS ================= */
 
 .lojas-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:10px;
-    margin-top:12px;
+    margin-top:8px;
 }
 
 .loja-card{
     background:linear-gradient(135deg,#0d1520,#0a1019);
     border:1px solid #29384b;
     border-radius:16px;
-    padding:14px 12px;
+    padding:13px 12px;
     text-align:left;
     color:#fff;
     display:flex;
     flex-direction:column;
-    gap:8px;
+    gap:7px;
     transition:.25s;
     position:relative;
     overflow:hidden;
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-touch-callout:none;
 }
 
 .loja-card:active{ transform:scale(.97); }
 
-/* ---- LOJA CADASTRADA (LIBERADA) ---- */
 .loja-card.cadastrada{
     border-color:#00ff88;
     background:linear-gradient(135deg,#05281b,#0f2a1e);
-    box-shadow:0 0 20px rgba(0,255,136,.18);
+    box-shadow:0 0 20px rgba(0,255,136,.15);
 }
 
 .loja-card.cadastrada::before{
@@ -509,13 +183,13 @@ button{
     position:absolute;
     top:6px;
     right:6px;
-    font-size:14px;
+    font-size:13px;
 }
 
 .loja-card.cadastrada-com-rupturas{
     border-color:#00d9ff;
     background:linear-gradient(135deg,#073344,#0f1a2e);
-    box-shadow:0 0 20px rgba(0,217,255,.18);
+    box-shadow:0 0 20px rgba(0,217,255,.15);
 }
 
 .loja-card.cadastrada-com-rupturas::before{
@@ -523,20 +197,19 @@ button{
     position:absolute;
     top:6px;
     right:6px;
-    font-size:14px;
+    font-size:13px;
 }
 
-/* ---- LOJA PENDENTE ---- */
 .loja-card.pendente{
     border-color:#ffaa00;
     background:linear-gradient(135deg,#2a1e05,#1a1405);
-    box-shadow:0 0 18px rgba(255,170,0,.18);
+    box-shadow:0 0 18px rgba(255,170,0,.15);
     animation:pulsarPendente 2s infinite;
 }
 
 @keyframes pulsarPendente{
-    0%,100%{ box-shadow:0 0 18px rgba(255,170,0,.18); }
-    50%{ box-shadow:0 0 28px rgba(255,170,0,.45); }
+    0%,100%{ box-shadow:0 0 18px rgba(255,170,0,.15); }
+    50%{ box-shadow:0 0 28px rgba(255,170,0,.4); }
 }
 
 .loja-card.pendente::before{
@@ -544,8 +217,7 @@ button{
     position:absolute;
     top:6px;
     right:6px;
-    font-size:16px;
-    animation:flutuar 1.5s infinite ease-in-out;
+    font-size:14px;
 }
 
 .loja-card-topo{
@@ -555,16 +227,16 @@ button{
     gap:6px;
 }
 
-.loja-card-icone{ font-size:22px; }
+.loja-card-icone{ font-size:20px; }
 
 .loja-card-badge{
-    min-width:26px;
-    height:26px;
-    padding:0 8px;
+    min-width:24px;
+    height:24px;
+    padding:0 7px;
     border-radius:15px;
     background:#ff0055;
     color:#fff;
-    font-size:12px;
+    font-size:11px;
     font-weight:900;
     display:flex;
     align-items:center;
@@ -577,7 +249,7 @@ button{
 }
 
 .loja-card-nome{
-    font-size:13px;
+    font-size:12.5px;
     font-weight:900;
     line-height:1.2;
     word-break:break-word;
@@ -597,55 +269,129 @@ button{
 }
 
 .loja-card-status{
-    font-size:10px;
+    font-size:9.5px;
     color:#00ff88;
     font-weight:900;
-    letter-spacing:.5px;
+    letter-spacing:.4px;
     text-transform:uppercase;
 }
 
-.loja-card-status.vazio{ color:#5f7d9a; }
 .loja-card-status.pendente{ color:#ffaa00; }
 .loja-card-status.cadastrada{ color:#00ff88; }
 
-.btn-validade-card{
-    display:block;
-    margin-top:6px;
-    padding:7px 8px;
-    border-radius:9px;
-    background:linear-gradient(135deg,#073344,#211539);
-    border:1px solid #00d9ff;
+.btn-add-loja{
+    grid-column:1/-1;
+    width:100%;
+    border:1px dashed #00d9ff;
+    background:linear-gradient(135deg,#071a24,#101326);
+    color:#00d9ff;
+    border-radius:16px;
+    padding:13px;
+    font-weight:900;
+    font-size:13px;
+    letter-spacing:.4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition:.25s;
+    margin-top:4px;
+}
+
+.btn-add-loja:active{ transform:scale(.97); }
+
+.btn-add-loja .mais{
+    font-size:20px;
+    font-weight:900;
+    line-height:1;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#00d9ff,#693ca1);
     color:#fff;
+}
+
+/* ---- AÇÕES RÁPIDAS ---- */
+
+.acoes-rapidas{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+    margin-top:12px;
+}
+
+.btn-acao{
+    border:1px solid #36577d;
+    border-radius:14px;
+    padding:13px 10px;
+    background:linear-gradient(135deg,#101d2d,#17102b);
+    color:#fff;
+    font-weight:900;
+    font-size:11.5px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    letter-spacing:.3px;
+    text-align:left;
+    box-shadow:0 6px 18px rgba(0,0,0,.25);
+    transition:.2s;
+    line-height:1.3;
+}
+
+.btn-acao:active{ transform:scale(.97); }
+.btn-acao .icone{ font-size:20px; flex-shrink:0; }
+.btn-acao .txt{ flex:1; }
+
+.btn-acao .pill{
+    min-width:26px;
+    height:22px;
+    padding:0 8px;
+    border-radius:14px;
+    background:#00d9ff;
+    color:#000;
     font-size:11px;
     font-weight:900;
-    text-align:center;
-    letter-spacing:.5px;
-    cursor:pointer;
-    transition:.2s;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-.btn-validade-card:active{
-    transform:scale(.95);
-    background:linear-gradient(135deg,#0a4a63,#2d1d4f);
+.btn-acao .pill.rosa{ background:#ff0055; color:#fff; }
+
+/* ================= MODAIS ================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:5000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:12px;
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(7px);
 }
 
-/* =====================================================
-   FERRAMENTA DE RUPTURAS (por loja)
-===================================================== */
+.modal.aberto{ display:flex; }
 
-.ruptura-ferramenta{
+.modal-box{
     width:100%;
     max-width:650px;
     max-height:94vh;
     overflow-y:auto;
     background:#080e16;
     border:1px solid #2b405a;
-    border-radius:24px;
-    padding:17px;
+    border-radius:22px;
+    padding:15px;
     box-shadow:0 20px 70px rgba(0,0,0,.6);
 }
 
-.ruptura-cabecalho{
+.modal-box.pequeno{ max-width:420px; }
+
+.modal-header{
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -655,39 +401,504 @@ button{
     z-index:5;
     background:#080e16;
     padding-bottom:12px;
+    margin-bottom:6px;
 }
 
-.ruptura-titulo{ font-size:20px; font-weight:900; }
-.ruptura-subtitulo{ color:#8295aa; font-size:12px; margin-top:4px; }
+.modal-title{ font-size:17px; font-weight:900; }
+.modal-sub{ color:#8295aa; font-size:11px; margin-top:3px; }
+
+.fechar{
+    width:34px;
+    height:34px;
+    border:0;
+    border-radius:50%;
+    background:#1a2533;
+    color:#fff;
+    font-size:18px;
+    flex-shrink:0;
+}
+
+/* ================= SUB-ABAS ================= */
+
+.subtabs{
+    display:flex;
+    gap:5px;
+    background:#0a1420;
+    padding:5px;
+    border-radius:13px;
+    border:1px solid #1b2d42;
+    margin-bottom:12px;
+    overflow-x:auto;
+}
+
+.subtab{
+    flex:1;
+    min-width:72px;
+    border:0;
+    background:transparent;
+    color:#8ba1b8;
+    padding:9px 6px;
+    border-radius:9px;
+    font-weight:900;
+    font-size:10.5px;
+    transition:.2s;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    white-space:nowrap;
+}
+
+.subtab .ic{ font-size:15px; }
+.subtab.ativo{
+    color:#fff;
+    background:linear-gradient(135deg,#073344,#211539);
+    box-shadow:0 0 12px rgba(0,217,255,.2);
+}
+
+.subtab-painel{ display:none; }
+.subtab-painel.ativo{ display:block; }
+
+/* ================= INFORMAÇÕES ================= */
+
+.loja-info{
+    margin-top:10px;
+    padding:13px;
+    background:#0a1420;
+    border:1px solid #1b2d42;
+    border-radius:14px;
+}
+
+.loja-info-titulo{
+    font-size:12px;
+    font-weight:900;
+    color:#00d9ff;
+    margin-bottom:11px;
+    letter-spacing:.4px;
+}
+
+.loja-info-campo{ margin-bottom:11px; }
+.loja-info-campo:last-child{ margin-bottom:0; }
+
+.loja-info-label{
+    display:block;
+    font-size:10.5px;
+    color:#8ba1b8;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.4px;
+    margin-bottom:5px;
+}
+
+.loja-info-input{
+    width:100%;
+    border:1px solid #26364a;
+    outline:none;
+    background:#050a10;
+    color:#fff;
+    border-radius:10px;
+    padding:10px 12px;
+    font-size:13.5px;
+}
+
+.loja-info-input:focus{
+    border-color:#00d9ff;
+    box-shadow:0 0 12px rgba(0,217,255,.15);
+}
+
+.loja-info-input::placeholder{ color:#4a5f75; }
+
+/* ================= SHARE ================= */
+
+.unidades{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-bottom:12px;
+}
+
+.btn-unidade{
+    border:1px solid #29384b;
+    background:#0d1520;
+    color:#9db0c7;
+    padding:10px;
+    border-radius:11px;
+    font-weight:800;
+    font-size:12px;
+}
+
+.btn-unidade.ativo{
+    color:#fff;
+    border-color:#00d9ff;
+    background:linear-gradient(135deg,#07384a,#151b39);
+    box-shadow:0 0 18px rgba(0,217,255,.15);
+}
+
+.label{
+    display:block;
+    color:#8ba1b8;
+    font-size:10.5px;
+    margin-bottom:4px;
+    margin-top:9px;
+    text-transform:uppercase;
+    letter-spacing:.4px;
+    font-weight:800;
+}
+
+.input{
+    width:100%;
+    border:1px solid #26364a;
+    outline:none;
+    background:#050a10;
+    color:#fff;
+    border-radius:10px;
+    padding:10px 12px;
+    font-size:13.5px;
+}
+
+.input:focus{
+    border-color:#00d9ff;
+    box-shadow:0 0 15px rgba(0,217,255,.1);
+}
+
+.btn-calculadora{
+    width:100%;
+    margin-top:10px;
+    border:1px solid #4e3b7d;
+    background:linear-gradient(135deg,#191333,#25143b);
+    color:#fff;
+    padding:11px;
+    border-radius:11px;
+    font-weight:900;
+    font-size:12px;
+    letter-spacing:.4px;
+}
+
+.share-resultado-box{
+    margin-top:10px;
+    padding:12px;
+    border-radius:13px;
+    text-align:center;
+    border:1px solid #29384b;
+    background:#0b121c;
+    transition:.4s;
+}
+
+.share-resultado-box.verde{
+    border-color:#00ff88;
+    box-shadow:0 0 15px rgba(0,255,136,.15);
+}
+
+.share-resultado-box.vermelho{
+    border-color:#ff0055;
+    box-shadow:0 0 15px rgba(255,0,85,.15);
+}
+
+.emoji-resultado{
+    font-size:28px;
+    display:block;
+    margin:0 auto 3px;
+    line-height:1;
+}
+
+.share-resultado{
+    font-size:24px;
+    font-weight:900;
+    margin:2px 0;
+    line-height:1.1;
+}
+
+.status-resultado{
+    font-size:10px;
+    letter-spacing:.4px;
+    color:#9fb0c3;
+    font-weight:800;
+    display:block;
+}
+
+.painel-grafico{
+    margin-top:11px;
+    padding:11px 9px;
+    border-radius:12px;
+    background:linear-gradient(180deg,#070b11 0%,#050910 100%);
+    border:1px solid #172536;
+    display:block;
+    width:100%;
+}
+
+.painel-grafico-titulo{
+    display:block;
+    text-align:center;
+    font-size:9px;
+    letter-spacing:1px;
+    margin-bottom:9px;
+    color:#5f7d9a;
+    text-transform:uppercase;
+    font-weight:800;
+}
+
+.donut-wrapper{
+    width:120px;
+    height:120px;
+    margin:0 auto 10px;
+    position:relative;
+    display:block;
+}
+
+.donut-svg{
+    width:100%;
+    height:100%;
+    transform:rotate(-90deg);
+    display:block;
+}
+
+.donut-track,
+.donut-meta,
+.donut-share{
+    fill:none;
+    stroke-width:12;
+}
+
+.donut-track{ stroke:#151f2d; }
+
+.donut-meta{
+    stroke:#00d9ff;
+    stroke-linecap:round;
+    stroke-dasharray:0 999;
+    transition:stroke-dasharray 1s ease;
+    opacity:.35;
+}
+
+.donut-share{
+    stroke:#00ff88;
+    stroke-linecap:round;
+    stroke-dasharray:0 999;
+    transition:stroke-dasharray 1.2s cubic-bezier(.4,0,.2,1), stroke .5s;
+    filter:drop-shadow(0 0 6px rgba(0,255,136,.4));
+}
+
+.donut-share.vermelho{
+    stroke:#ff0055;
+    filter:drop-shadow(0 0 6px rgba(255,0,85,.5));
+}
+
+.donut-centro{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    pointer-events:none;
+}
+
+.donut-centro-valor{
+    font-size:20px;
+    font-weight:900;
+    line-height:1;
+    color:#fff;
+}
+
+.donut-centro-label{
+    font-size:7px;
+    margin-top:2px;
+    letter-spacing:.8px;
+    color:#6d8299;
+    text-transform:uppercase;
+    font-weight:800;
+}
+
+.barras-grafico{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-top:6px;
+    width:100%;
+}
+
+.barra-item{
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+    width:100%;
+}
+
+.barra-topo{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:10px;
+    line-height:1.2;
+    gap:6px;
+}
+
+.barra-topo-label{
+    font-size:10px;
+    letter-spacing:.3px;
+    color:#8ba1b8;
+    font-weight:800;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.barra-topo-valor{
+    font-size:10.5px;
+    font-weight:900;
+    white-space:nowrap;
+    flex-shrink:0;
+}
+
+.barra-trilho{
+    height:7px;
+    border-radius:5px;
+    width:100%;
+    background:#101a26;
+    overflow:hidden;
+    position:relative;
+}
+
+.barra-preenchimento{
+    height:100%;
+    border-radius:5px;
+    width:0;
+    transition:width 1s cubic-bezier(.4,0,.2,1);
+}
+
+.barra-meta{ background:linear-gradient(90deg,#0085b3,#00d9ff); }
+.barra-atual-verde{ background:linear-gradient(90deg,#009d5a,#00ff88); }
+.barra-atual-vermelho{ background:linear-gradient(90deg,#a8003a,#ff0055); }
+.barra-restante{ background:linear-gradient(90deg,#5a2b8a,#a66cff); }
+
+.barra-info-extra{
+    display:flex;
+    justify-content:space-between;
+    font-size:9.5px;
+    margin-top:1px;
+    color:#5f7d9a;
+    font-weight:700;
+    gap:6px;
+}
+
+.painel-cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:5px;
+    margin-top:10px;
+}
+
+.painel-card{
+    padding:7px 4px;
+    border-radius:9px;
+    text-align:center;
+    background:#0a1420;
+    border:1px solid #1b2d42;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    min-width:0;
+}
+
+.painel-card-icon{ font-size:12px; line-height:1; }
+.painel-card-label{
+    font-size:7px;
+    letter-spacing:.4px;
+    color:#5f7d9a;
+    text-transform:uppercase;
+    font-weight:800;
+    margin:3px 0 2px;
+}
+.painel-card-valor{
+    font-size:11px;
+    font-weight:900;
+    color:#fff;
+    white-space:nowrap;
+}
+
+.resumo{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:5px;
+    margin-top:10px;
+}
+
+.resumo-item{
+    padding:8px 9px;
+    border-radius:9px;
+    background:#080e16;
+    border:1px solid #1b2a3b;
+    min-width:0;
+}
+
+.resumo-label{
+    font-size:8.5px;
+    letter-spacing:.3px;
+    color:#778ca4;
+    text-transform:uppercase;
+    display:block;
+    line-height:1.1;
+}
+
+.resumo-valor{
+    font-size:12px;
+    margin-top:2px;
+    font-weight:900;
+    display:block;
+    line-height:1.2;
+    word-break:break-word;
+}
+
+.resumo-mensagem{
+    grid-column:1/-1;
+    font-size:10px;
+    padding:7px;
+    text-align:center;
+    color:#9db0c4;
+    line-height:1.3;
+}
+
+/* ================= RUPTURAS ================= */
 
 .ruptura-contadores{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:7px;
-    margin:10px 0 13px;
+    margin:10px 0 12px;
 }
 
 .ruptura-contador{
-    background:#0e1722; border:1px solid #1c3045;
-    border-radius:13px; text-align:center; padding:10px 5px;
+    background:#0e1722;
+    border:1px solid #1c3045;
+    border-radius:12px;
+    text-align:center;
+    padding:9px 5px;
 }
 
-.ruptura-contador-numero{ font-size:20px; font-weight:900; }
+.ruptura-contador-numero{ font-size:19px; font-weight:900; }
 
 .ruptura-contador-label{
-    color:#74879b; font-size:9px;
-    text-transform:uppercase; margin-top:3px;
+    color:#74879b;
+    font-size:8.5px;
+    text-transform:uppercase;
+    margin-top:2px;
 }
 
-.ruptura-categorias{ display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+.ruptura-categorias{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-bottom:10px;
+}
 
 .ruptura-categoria{
     border:1px solid #293b51;
     background:#0d1520;
     color:#9eafc3;
-    border-radius:13px;
-    padding:13px 8px;
+    border-radius:12px;
+    padding:11px 8px;
     font-weight:900;
+    font-size:12px;
 }
 
 .ruptura-categoria.ativo{
@@ -698,29 +909,28 @@ button{
 
 .ruptura-pesquisa{
     width:100%;
-    margin:12px 0;
+    margin:10px 0;
     border:1px solid #27394d;
     background:#050a10;
     color:#fff;
     outline:none;
-    border-radius:13px;
-    padding:13px;
+    border-radius:12px;
+    padding:11px 12px;
+    font-size:13px;
 }
 
-.ruptura-secao{ margin-top:15px; }
+.ruptura-secao{ margin-top:12px; }
 
 .ruptura-secao-titulo{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:11px 12px;
+    padding:10px 12px;
     background:#101a26;
-    border-radius:12px;
-    margin-bottom:7px;
+    border-radius:11px;
+    margin-bottom:6px;
     font-weight:900;
+    font-size:12.5px;
 }
 
-.ruptura-lista{ display:flex; flex-direction:column; gap:6px; }
+.ruptura-lista{ display:flex; flex-direction:column; gap:5px; }
 
 .ruptura-produto{
     display:flex;
@@ -728,14 +938,10 @@ button{
     gap:10px;
     background:#0b131e;
     border:1px solid #17283a;
-    border-radius:12px;
-    padding:11px;
+    border-radius:11px;
+    padding:10px;
     cursor:pointer;
-}
-
-.ruptura-produto:has(input:checked){
-    border-color:#ff0055;
-    background:#21101a;
+    transition:.2s;
 }
 
 .ruptura-produto.selecionado{
@@ -744,113 +950,285 @@ button{
 }
 
 .ruptura-checkbox{
-    width:21px; height:21px;
-    accent-color:#ff0055; flex-shrink:0;
+    width:20px;
+    height:20px;
+    accent-color:#ff0055;
+    flex-shrink:0;
 }
 
 .ruptura-produto-info{ flex:1; }
-.ruptura-produto-nome{ font-size:13px; font-weight:800; }
-.ruptura-produto-descricao{ color:#71869d; font-size:11px; margin-top:3px; }
+.ruptura-produto-nome{ font-size:12.5px; font-weight:800; }
+.ruptura-produto-descricao{ color:#71869d; font-size:10.5px; margin-top:2px; }
 
-.ruptura-verificar{
+.btn-principal{
     width:100%;
-    margin-top:17px;
+    margin-top:14px;
     border:0;
-    border-radius:15px;
-    padding:15px;
+    border-radius:14px;
+    padding:14px;
     background:linear-gradient(90deg,#006f86,#693ca1);
     color:#fff;
     font-weight:900;
+    font-size:13.5px;
+    letter-spacing:.4px;
     box-shadow:0 8px 25px rgba(0,0,0,.3);
+    transition:.2s;
 }
 
-/* ================= INFORMAÇÕES DA LOJA ================= */
+.btn-principal:active{ transform:scale(.98); }
 
-.loja-info{
-    margin-top:16px;
-    padding:14px;
+.btn-principal.secundario{
+    background:linear-gradient(90deg,#0a4a63,#693ca1);
+    margin-top:8px;
+}
+
+/* ================= VALIDADES ================= */
+
+.validade-top-bar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
     background:#0a1420;
     border:1px solid #1b2d42;
-    border-radius:15px;
-}
-
-.loja-info-titulo{
-    font-size:13px;
-    font-weight:900;
-    color:#00d9ff;
-    margin-bottom:12px;
-    letter-spacing:.5px;
-}
-
-.loja-info-campo{ margin-bottom:12px; }
-.loja-info-campo:last-child{ margin-bottom:0; }
-
-.loja-info-label{
-    display:block;
-    font-size:11px;
-    color:#8ba1b8;
+    border-radius:12px;
+    padding:10px 12px;
+    margin:10px 0;
+    font-size:11.5px;
     font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:.5px;
-    margin-bottom:6px;
 }
 
-.loja-info-input{
-    width:100%;
+.validade-top-bar .num{ color:#00ff88; font-size:13px; }
+
+.validade-produto-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#0b131e;
+    border:1px solid #17283a;
+    border-radius:11px;
+    padding:10px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.validade-produto-item.ja-registrado{
+    border-color:#00ff88;
+    background:linear-gradient(135deg,#05281b,#0b1a13);
+}
+
+.validade-controles{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    margin-top:8px;
+}
+
+.validade-input-qtd{
+    width:75px;
     border:1px solid #26364a;
     outline:none;
     background:#050a10;
     color:#fff;
+    border-radius:9px;
+    padding:9px 10px;
+    font-size:13px;
+    text-align:center;
+}
+
+.validade-input-data{
+    flex:1;
+    border:1px solid #26364a;
+    outline:none;
+    background:#050a10;
+    color:#fff;
+    border-radius:9px;
+    padding:9px 10px;
+    font-size:13px;
+}
+
+.validade-input-qtd:focus,
+.validade-input-data:focus{ border-color:#00d9ff; }
+
+.btn-validade-add{
+    border:0;
+    background:linear-gradient(135deg,#0085b3,#693ca1);
+    color:#fff;
+    border-radius:9px;
+    padding:9px 12px;
+    font-weight:900;
+    font-size:12px;
+    white-space:nowrap;
+}
+
+.btn-validade-add:active{ transform:scale(.96); }
+
+.validade-item-adicionado{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:9px;
+    background:#071a12;
+    border:1px solid #0f5c38;
     border-radius:11px;
-    padding:11px 13px;
-    font-size:14px;
+    padding:10px 11px;
+    margin-top:7px;
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-touch-callout:none;
 }
 
-.loja-info-input:focus{
+.validade-item-info{ flex:1; min-width:0; }
+
+.validade-item-nome{
+    font-size:12.5px;
+    font-weight:900;
+    color:#fff;
+    word-break:break-word;
+}
+
+.validade-item-detalhe{
+    font-size:10.5px;
+    color:#7d92a8;
+    margin-top:3px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+}
+
+.validade-item-editar{
+    border:0;
+    background:linear-gradient(135deg,#0085b3,#693ca1);
+    color:#fff;
+    border-radius:8px;
+    width:30px;
+    height:30px;
+    font-weight:900;
+    font-size:13px;
+    flex-shrink:0;
+}
+
+.validade-cat{
+    border:1px solid #293b51;
+    background:#0d1520;
+    color:#9eafc3;
+    border-radius:12px;
+    padding:10px 8px;
+    font-weight:900;
+    font-size:12px;
+}
+
+.validade-cat.ativo{
+    color:#fff;
     border-color:#00d9ff;
-    box-shadow:0 0 12px rgba(0,217,255,.15);
+    background:linear-gradient(135deg,#073344,#211539);
 }
 
-.loja-info-input::placeholder{ color:#4a5f75; }
-
-/* ================= NOTAS ================= */
-
-.ruptura-notas-modal{
-    width:100%;
-    max-width:650px;
-    max-height:92vh;
-    overflow-y:auto;
-    background:#080e16;
-    border:1px solid #33465d;
-    border-radius:23px;
-    padding:17px;
+.validade-vazio{
+    text-align:center;
+    color:#4a5f75;
+    font-size:12.5px;
+    padding:18px 10px;
+    font-style:italic;
 }
+
+/* ================= BLOCO DE NOTAS ================= */
 
 .bloco-notas{
     background:#03070b;
     border:1px solid #1e3043;
-    border-radius:15px;
-    padding:15px;
+    border-radius:14px;
+    padding:13px;
     white-space:pre-wrap;
     font-family:monospace;
-    font-size:13px;
+    font-size:12px;
     line-height:1.6;
     min-height:220px;
     max-height:55vh;
     overflow-y:auto;
 }
 
-.notas-acoes{ display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:12px; }
+.notas-acoes{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:10px;
+}
 
 .btn-copiar{
-    border:0; background:#075e54; color:#fff;
-    border-radius:13px; padding:14px; font-weight:900;
+    border:0;
+    background:#075e54;
+    color:#fff;
+    border-radius:12px;
+    padding:13px;
+    font-weight:900;
+    font-size:12.5px;
 }
 
 .btn-limpar{
-    border:0; background:#a50038; color:#fff;
-    border-radius:13px; padding:14px; font-weight:900;
+    border:0;
+    background:#a50038;
+    color:#fff;
+    border-radius:12px;
+    padding:13px;
+    font-weight:900;
+    font-size:12.5px;
 }
+
+.btn-cancelar{
+    border:0;
+    background:#1a2533;
+    color:#fff;
+    border-radius:12px;
+    padding:13px;
+    font-weight:900;
+    font-size:12.5px;
+}
+
+/* ================= SELEÇÃO DE LOJA ================= */
+
+.lista-selecao-loja{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+    margin-top:6px;
+}
+
+.btn-selecao-loja{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    border:1px solid #29384b;
+    background:linear-gradient(135deg,#0d1520,#0a1019);
+    color:#fff;
+    border-radius:13px;
+    padding:12px 13px;
+    text-align:left;
+    transition:.2s;
+}
+
+.btn-selecao-loja:active{ transform:scale(.98); }
+
+.btn-selecao-loja .ic{ font-size:20px; flex-shrink:0; }
+.btn-selecao-loja .info{ flex:1; min-width:0; }
+.btn-selecao-loja .nome{ font-size:12.5px; font-weight:900; word-break:break-word; }
+.btn-selecao-loja .sub{ font-size:10.5px; color:#7d92a8; margin-top:2px; }
+
+.btn-selecao-loja .cont{
+    min-width:28px;
+    height:28px;
+    padding:0 8px;
+    border-radius:20px;
+    background:#00d9ff;
+    color:#000;
+    font-size:11.5px;
+    font-weight:900;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.btn-selecao-loja .cont.rosa{ background:#ff0055; color:#fff; }
 
 /* ================= TOAST ================= */
 
@@ -862,14 +1240,16 @@ button{
     z-index:9000;
     background:#111c29;
     border:1px solid #32465c;
-    border-radius:14px;
-    padding:12px 17px;
+    border-radius:13px;
+    padding:11px 16px;
     display:flex;
     align-items:center;
     gap:8px;
     opacity:0;
     transition:.3s;
     max-width:90%;
+    font-size:12.5px;
+    font-weight:700;
 }
 
 .toast.mostrar{ opacity:1; transform:translateX(-50%) translateY(0); }
@@ -878,829 +1258,473 @@ footer{
     text-align:center;
     color:#52657a;
     font-size:11px;
-    padding:25px 0 15px;
+    padding:20px 0 15px;
 }
-
-/* =====================================================
-   VALIDADES
-===================================================== */
-
-.validade-produto-item{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    background:#0b131e;
-    border:1px solid #17283a;
-    border-radius:12px;
-    padding:11px;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.validade-produto-item:active{ transform:scale(.98); }
-
-.validade-produto-item.adicionado{
-    border-color:#00ff88;
-    background:linear-gradient(135deg,#05281b,#0b1a13);
-}
-
-.validade-controles{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    margin-top:10px;
-}
-
-.validade-input-qtd{
-    width:80px;
-    border:1px solid #26364a;
-    outline:none;
-    background:#050a10;
-    color:#fff;
-    border-radius:10px;
-    padding:9px 10px;
-    font-size:14px;
-    text-align:center;
-}
-
-.validade-input-qtd:focus{
-    border-color:#00d9ff;
-}
-
-.validade-input-data{
-    flex:1;
-    border:1px solid #26364a;
-    outline:none;
-    background:#050a10;
-    color:#fff;
-    border-radius:10px;
-    padding:9px 10px;
-    font-size:14px;
-}
-
-.validade-input-data:focus{
-    border-color:#00d9ff;
-}
-
-.btn-validade-add{
-    border:0;
-    background:linear-gradient(135deg,#0085b3,#693ca1);
-    color:#fff;
-    border-radius:10px;
-    padding:10px 14px;
-    font-weight:900;
-    font-size:14px;
-    white-space:nowrap;
-}
-
-.btn-validade-add:active{ transform:scale(.96); }
-
-.validade-item-adicionado{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    background:#071a12;
-    border:1px solid #0f5c38;
-    border-radius:12px;
-    padding:11px 12px;
-    margin-top:8px;
-}
-
-.validade-item-info{
-    flex:1;
-    min-width:0;
-}
-
-.validade-item-nome{
-    font-size:13px;
-    font-weight:900;
-    color:#fff;
-    word-break:break-word;
-}
-
-.validade-item-detalhe{
-    font-size:11px;
-    color:#7d92a8;
-    margin-top:3px;
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-}
-
-.validade-item-detalhe span{
-    display:inline-flex;
-    align-items:center;
-    gap:3px;
-}
-
-.validade-item-remover{
-    border:0;
-    background:#a50038;
-    color:#fff;
-    border-radius:9px;
-    width:32px;
-    height:32px;
-    font-weight:900;
-    font-size:15px;
-    flex-shrink:0;
-}
-
-.validade-cat{
-    border:1px solid #293b51;
-    background:#0d1520;
-    color:#9eafc3;
-    border-radius:13px;
-    padding:11px 8px;
-    font-weight:900;
-    font-size:12px;
-}
-
-.validade-cat.ativo{
-    color:#fff;
-    border-color:#00d9ff;
-    background:linear-gradient(135deg,#073344,#211539);
-}
-
-.validade-total-bar{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    background:#0a1420;
-    border:1px solid #1b2d42;
-    border-radius:13px;
-    padding:11px 13px;
-    margin-bottom:12px;
-    font-size:12px;
-    font-weight:800;
-}
-
-.validade-total-txt{ color:#8ba1b8; }
-.validade-total-num{ color:#00ff88; font-size:14px; font-weight:900; }
-
-.validade-vazio{
-    text-align:center;
-    color:#4a5f75;
-    font-size:13px;
-    padding:20px 10px;
-    font-style:italic;
-}
-
-/* ================= RESPONSIVO ================= */
 
 @media(max-width:400px){
-    .container{ padding:11px; }
-    .card{ padding:14px; }
-    .resumo{ grid-template-columns:1fr 1fr; }
-    .ruptura-ferramenta{ padding:13px; }
-    .donut-wrapper{ width:160px; height:160px; }
-    .donut-centro-valor{ font-size:26px; }
-    .painel-cards{ grid-template-columns:1fr 1fr; }
-    .lojas-grid{ grid-template-columns:1fr 1fr; }
+    .acoes-rapidas{ grid-template-columns:1fr; }
+    .subtab{ font-size:10px; min-width:64px; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ================= SPLASH ================= -->
+<!-- SPLASH -->
 
 <div id="splash">
     <div class="splash-box">
         <div class="splash-icon">🛒</div>
         <div class="splash-title">Bem-vindo ao MShare Space</div>
         <div class="splash-subtitle">Divirta-se com nossas ferramentas 🚀</div>
-        <div class="loading">
-            <div class="loading-bar"></div>
-        </div>
+        <div class="loading"><div class="loading-bar"></div></div>
     </div>
 </div>
+
+<!-- HEADER -->
+
+<header class="app-header">
+    <div class="header-top">
+        <div class="left">
+            <span class="dot-online" id="statusConexao"></span>
+            <span id="textoConexao">Online</span>
+        </div>
+        <div class="logo">MShare Space</div>
+        <div class="right">
+            <span id="horaAtual">--:--</span>
+        </div>
+    </div>
+    <div class="sub" id="dataAtual">--/--/----</div>
+</header>
 
 <div class="container">
 
-<header class="header">
-    <div class="logo">MShare Space</div>
-    <div class="subtitle">MShare Space Ferramentas</div>
-    <div class="subtitle">Para facilitar ainda mais seus dias</div>
+    <div class="card">
+        <div class="card-title">
+            🏪 Minhas Lojas
+            <span class="badge" id="contadorLojasNum">0 / 4</span>
+        </div>
 
-    <div class="date-time">
-        <span id="dataAtual"></span> •
-        <span id="horaAtual"></span>
-    </div>
+        <div style="font-size:11px;color:#8da2ba;text-align:left;margin-bottom:6px;">
+            Toque para abrir • Segure 3s para excluir
+        </div>
 
-    <div class="connection">
-        <span class="connection-dot" id="statusConexao"></span>
-        <span id="textoConexao">Verificando conexão...</span>
-    </div>
-</header>
+        <div class="lojas-grid" id="lojasGrid"></div>
 
-<!-- ================= SELEÇÃO DE LOJAS ================= -->
-
-<section class="card" id="cardLojas">
-
-    <div class="card-title">🏪 Minhas Lojas</div>
-    <div class="subtitle" style="margin-bottom:5px;text-align:left;" id="subtituloLojas">
-        Toque no card para rupturas • Toque em 📅 para validades
-    </div>
-
-    <div class="contador-lojas">
-        <span class="contador-lojas-txt">📊 Lojas cadastradas</span>
-        <span class="contador-lojas-num" id="contadorLojasNum">0 / 4</span>
-    </div>
-
-    <div class="lojas-grid" id="lojasGrid">
-
-        <button class="loja-card" data-loja="0" onclick="clicarLoja(0)">
-            <div class="loja-card-topo">
-                <span class="loja-card-icone">🏬</span>
-                <span class="loja-card-badge zero" data-badge="0">0</span>
-            </div>
-            <div class="loja-card-nome vazio" data-nome="0">Loja 1 — vazia</div>
-            <div class="loja-card-info" data-info="0">Toque para preencher</div>
-            <div class="loja-card-status vazio" data-status="0">Sem dados</div>
-            <span class="btn-validade-card" onclick="event.stopPropagation(); abrirValidades(0)">📅 Validades</span>
-        </button>
-
-        <button class="loja-card" data-loja="1" onclick="clicarLoja(1)">
-            <div class="loja-card-topo">
-                <span class="loja-card-icone">🏬</span>
-                <span class="loja-card-badge zero" data-badge="1">0</span>
-            </div>
-            <div class="loja-card-nome vazio" data-nome="1">Loja 2 — vazia</div>
-            <div class="loja-card-info" data-info="1">Toque para preencher</div>
-            <div class="loja-card-status vazio" data-status="1">Sem dados</div>
-            <span class="btn-validade-card" onclick="event.stopPropagation(); abrirValidades(1)">📅 Validades</span>
-        </button>
-
-        <button class="loja-card" data-loja="2" onclick="clicarLoja(2)">
-            <div class="loja-card-topo">
-                <span class="loja-card-icone">🏬</span>
-                <span class="loja-card-badge zero" data-badge="2">0</span>
-            </div>
-            <div class="loja-card-nome vazio" data-nome="2">Loja 3 — vazia</div>
-            <div class="loja-card-info" data-info="2">Toque para preencher</div>
-            <div class="loja-card-status vazio" data-status="2">Sem dados</div>
-            <span class="btn-validade-card" onclick="event.stopPropagation(); abrirValidades(2)">📅 Validades</span>
-        </button>
-
-        <button class="loja-card" data-loja="3" onclick="clicarLoja(3)">
-            <div class="loja-card-topo">
-                <span class="loja-card-icone">🏬</span>
-                <span class="loja-card-badge zero" data-badge="3">0</span>
-            </div>
-            <div class="loja-card-nome vazio" data-nome="3">Loja 4 — vazia</div>
-            <div class="loja-card-info" data-info="3">Toque para preencher</div>
-            <div class="loja-card-status vazio" data-status="3">Sem dados</div>
-            <span class="btn-validade-card" onclick="event.stopPropagation(); abrirValidades(3)">📅 Validades</span>
-        </button>
-
-    </div>
-
-</section>
-
-<!-- ================= SHARE ================= -->
-
-<section class="card" id="cardShareMedir">
-
-    <div class="card-title">📏 Medir Share de Gôndola</div>
-
-    <div class="unidades">
-        <button class="btn-unidade ativo" id="btnFrentes" onclick="mudarUnidade('frentes')">
-            📦 FRENTES
-        </button>
-        <button class="btn-unidade" id="btnCentimetros" onclick="mudarUnidade('cm')">
-            📐 CENTÍMETROS
-        </button>
-    </div>
-
-    <label class="label">Meta desejada (%)</label>
-    <input class="input" id="meta" type="number" min="0" max="100" step="0.01"
-           placeholder="Ex.: 30" oninput="calcular()">
-
-    <label class="label">Espaço total</label>
-    <input class="input" id="total" type="number" min="0" step="0.01"
-           placeholder="Ex.: 100" oninput="calcular()">
-
-    <label class="label">Meu espaço</label>
-    <input class="input" id="meuEspaco" type="number" min="0" step="0.01"
-           placeholder="Ex.: 35" oninput="calcular()">
-
-    <button class="btn-calculadora" onclick="abrirCalculadora()">
-        🧮 CALCULADORA
-    </button>
-
-    <div class="resultado neutro" id="resultado">
-        <div class="emoji-resultado" id="emojiResultado">📊</div>
-        <div class="share-resultado" id="shareResultado">0,00%</div>
-        <div class="status-resultado" id="statusResultado">Preencha os campos</div>
-
-        <div class="painel-grafico">
-            <div class="painel-grafico-titulo">Análise de Share</div>
-
-            <div class="donut-wrapper">
-                <svg class="donut-svg" viewBox="0 0 120 120">
-                    <circle class="donut-track" cx="60" cy="60" r="52"/>
-                    <circle class="donut-meta" id="donutMeta" cx="60" cy="60" r="52"/>
-                    <circle class="donut-share" id="donutShare" cx="60" cy="60" r="52"/>
-                </svg>
-                <div class="donut-centro">
-                    <div class="donut-centro-valor" id="donutValor">0%</div>
-                    <div class="donut-centro-label">Share Atual</div>
-                </div>
-            </div>
-
-            <div class="barras-grafico">
-                <div class="barra-item">
-                    <div class="barra-topo">
-                        <span class="barra-topo-label">🎯 Meta</span>
-                        <span class="barra-topo-valor" id="barraMetaValor">0%</span>
-                    </div>
-                    <div class="barra-trilho">
-                        <div class="barra-preenchimento barra-meta" id="barraMetaFill"></div>
-                    </div>
-                </div>
-
-                <div class="barra-item">
-                    <div class="barra-topo">
-                        <span class="barra-topo-label">📊 Share Atual</span>
-                        <span class="barra-topo-valor" id="barraAtualValor">0%</span>
-                    </div>
-                    <div class="barra-trilho">
-                        <div class="barra-preenchimento barra-atual-verde" id="barraAtualFill"></div>
-                    </div>
-                </div>
-
-                <div class="barra-item">
-                    <div class="barra-topo">
-                        <span class="barra-topo-label">📦 Espaço Restante</span>
-                        <span class="barra-topo-valor" id="barraRestanteValor">0%</span>
-                    </div>
-                    <div class="barra-trilho">
-                        <div class="barra-preenchimento barra-restante" id="barraRestanteFill"></div>
-                    </div>
-                    <div class="barra-info-extra">
-                        <span id="barraRestanteUnidade">--</span>
-                        <span id="barraRestantePercentual">--</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="painel-cards">
-                <div class="painel-card">
-                    <div class="painel-card-icon">🎯</div>
-                    <div class="painel-card-label">Meta</div>
-                    <div class="painel-card-valor" id="cardMeta">--</div>
-                </div>
-                <div class="painel-card">
-                    <div class="painel-card-icon">📊</div>
-                    <div class="painel-card-label">Share</div>
-                    <div class="painel-card-valor" id="cardShare">--</div>
-                </div>
-                <div class="painel-card">
-                    <div class="painel-card-icon">⚖️</div>
-                    <div class="painel-card-label">Diferença</div>
-                    <div class="painel-card-valor" id="cardDiferenca">--</div>
-                </div>
-            </div>
+        <div class="acoes-rapidas" id="acoesRapidas" style="display:none;">
+            <button class="btn-acao" id="btnAcaoRupturas" onclick="abrirSelecaoLojaRupturas()">
+                <span class="icone">📋</span>
+                <span class="txt">Ver rupturas</span>
+                <span class="pill rosa" id="pillRupturas">0</span>
+            </button>
+            <button class="btn-acao" id="btnAcaoValidades" onclick="abrirSelecaoLojaValidades()">
+                <span class="icone">📅</span>
+                <span class="txt">Ver validades</span>
+                <span class="pill" id="pillValidades">0</span>
+            </button>
         </div>
     </div>
 
-    <div class="resumo">
-        <div class="resumo-item">
-            <div class="resumo-label">Meta desejada</div>
-            <div class="resumo-valor" id="resumoMeta">--</div>
-        </div>
-        <div class="resumo-item">
-            <div class="resumo-label">Espaço total</div>
-            <div class="resumo-valor" id="resumoTotal">--</div>
-        </div>
-        <div class="resumo-item">
-            <div class="resumo-label">Meu espaço</div>
-            <div class="resumo-valor" id="resumoMeuEspaco">--</div>
-        </div>
-        <div class="resumo-item">
-            <div class="resumo-label">Espaço restante</div>
-            <div class="resumo-valor" id="resumoRestante">--</div>
-        </div>
-        <div class="resumo-item">
-            <div class="resumo-label">Share apurado</div>
-            <div class="resumo-valor" id="resumoShare">--</div>
-        </div>
-        <div class="resumo-item">
-            <div class="resumo-label">Diferença</div>
-            <div class="resumo-valor" id="resumoDiferenca">--</div>
-        </div>
-        <div class="resumo-item">
-            <div class="resumo-label">Situação</div>
-            <div class="resumo-valor" id="resumoSituacao">--</div>
-        </div>
-        <div class="resumo-mensagem" id="resumoMensagem">
-            Preencha os campos para realizar o cálculo.
-        </div>
-    </div>
-
-</section>
-
-<footer>
-    Desenvolvido por Yuri Lima
-</footer>
+    <footer>Desenvolvido por Yuri Lima</footer>
 
 </div>
 
-
 <!-- =====================================================
-     MODAL DA FERRAMENTA DE RUPTURAS (por loja)
+     MODAL DA LOJA (com sub-abas)
 ===================================================== -->
 
-<div class="modal" id="modalFerramentaRupturas">
+<div class="modal" id="modalLoja">
+    <div class="modal-box">
 
-    <div class="ruptura-ferramenta">
-
-        <div class="ruptura-cabecalho">
+        <div class="modal-header">
             <div>
-                <div class="ruptura-titulo" id="tituloLojaAtiva">📋 Loja</div>
-                <div class="ruptura-subtitulo">Preencha os dados e marque os produtos</div>
+                <div class="modal-title" id="tituloLojaAtiva">🏪 Loja</div>
+                <div class="modal-sub">Gerencie tudo desta loja</div>
             </div>
             <button class="fechar" onclick="fecharFerramentaRupturas()">×</button>
         </div>
 
-        <!-- INFORMAÇÕES DA LOJA -->
+        <div class="subtabs">
+            <button class="subtab ativo" id="subDados" onclick="trocarSubAba('dados')"><span class="ic">🏪</span>Dados</button>
+            <button class="subtab" id="subShare" onclick="trocarSubAba('share')"><span class="ic">📏</span>Share</button>
+            <button class="subtab" id="subRupturas" onclick="trocarSubAba('rupturas')"><span class="ic">📋</span>Rupturas</button>
+            <button class="subtab" id="subValidades" onclick="trocarSubAba('validades')"><span class="ic">📅</span>Validades</button>
+        </div>
 
-        <div class="loja-info">
-            <div class="loja-info-titulo">🏪 INFORMAÇÕES DA LOJA</div>
+        <!-- PAINEL DADOS -->
+        <div class="subtab-painel ativo" id="painelDados">
+            <div class="loja-info">
+                <div class="loja-info-titulo">🏪 INFORMAÇÕES DA LOJA</div>
 
-            <div class="loja-info-campo">
-                <label class="loja-info-label">🏬 Nome da loja</label>
-                <input class="loja-info-input" id="infoLoja" type="text"
-                       placeholder="Ex.: Assaí Atacadista - Bezerra"
-                       oninput="salvarInfoLoja()">
-            </div>
-
-            <div class="loja-info-campo">
-                <label class="loja-info-label">👤 Seu nome</label>
-                <input class="loja-info-input" id="infoNome" type="text"
-                       placeholder="Ex.: Yuri Lima"
-                       oninput="salvarInfoLoja()">
-            </div>
-
-            <div class="loja-info-campo">
-                <label class="loja-info-label">📍 Endereço da loja</label>
-                <input class="loja-info-input" id="infoEndereco" type="text"
-                       placeholder="Ex.: Av. Bezerra de Menezes, 1234 - Fortaleza/CE"
-                       oninput="salvarInfoLoja()">
-            </div>
-
-            <div class="loja-info-campo">
-                <label class="loja-info-label">👨‍💼 Supervisor</label>
-                <input class="loja-info-input" id="infoSupervisor" type="text"
-                       placeholder="Ex.: Carlos Silva"
-                       oninput="salvarInfoLoja()">
+                <div class="loja-info-campo">
+                    <label class="loja-info-label">🏬 Nome da loja</label>
+                    <input class="loja-info-input" id="infoLoja" type="text"
+                           placeholder="Ex.: Assaí Atacadista - Bezerra" oninput="salvarInfoLoja()">
+                </div>
+                <div class="loja-info-campo">
+                    <label class="loja-info-label">👤 Seu nome</label>
+                    <input class="loja-info-input" id="infoNome" type="text"
+                           placeholder="Ex.: Yuri Lima" oninput="salvarInfoLoja()">
+                </div>
+                <div class="loja-info-campo">
+                    <label class="loja-info-label">📍 Endereço da loja</label>
+                    <input class="loja-info-input" id="infoEndereco" type="text"
+                           placeholder="Ex.: Av. Bezerra de Menezes, 1234" oninput="salvarInfoLoja()">
+                </div>
+                <div class="loja-info-campo">
+                    <label class="loja-info-label">👨‍💼 Supervisor</label>
+                    <input class="loja-info-input" id="infoSupervisor" type="text"
+                           placeholder="Ex.: Carlos Silva" oninput="salvarInfoLoja()">
+                </div>
             </div>
         </div>
 
-        <div class="ruptura-contadores">
-            <div class="ruptura-contador">
-                <div class="ruptura-contador-numero" id="contadorTotal">0</div>
-                <div class="ruptura-contador-label">Total</div>
-            </div>
-            <div class="ruptura-contador">
-                <div class="ruptura-contador-numero" id="contadorAlcoolicos">0</div>
-                <div class="ruptura-contador-label">Alcoólicos</div>
-            </div>
-            <div class="ruptura-contador">
-                <div class="ruptura-contador-numero" id="contadorNaoAlcoolicos">0</div>
-                <div class="ruptura-contador-label">Não alcoólicos</div>
+        <!-- PAINEL SHARE DA LOJA -->
+        <div class="subtab-painel" id="painelShare">
+            <div class="loja-info">
+                <div class="loja-info-titulo">📏 MEDIR SHARE DE GÔNDOLA</div>
+
+                <div class="unidades">
+                    <button class="btn-unidade ativo" id="btnFrentesLoja" onclick="mudarUnidadeLoja('frentes')">📦 FRENTES</button>
+                    <button class="btn-unidade" id="btnCentimetrosLoja" onclick="mudarUnidadeLoja('cm')">📐 CM</button>
+                </div>
+
+                <label class="label">Meta desejada (%)</label>
+                <input class="input" id="metaLoja" type="number" min="0" max="100" step="0.01"
+                       placeholder="Ex.: 30" oninput="calcularLoja()">
+
+                <label class="label">Espaço total</label>
+                <input class="input" id="totalLoja" type="number" min="0" step="0.01"
+                       placeholder="Ex.: 100" oninput="calcularLoja()">
+
+                <label class="label">Meu espaço</label>
+                <input class="input" id="meuEspacoLoja" type="number" min="0" step="0.01"
+                       placeholder="Ex.: 35" oninput="calcularLoja()">
+
+                <button class="btn-calculadora" onclick="abrirCalculadora()">🧮 CALCULADORA</button>
+
+                <div class="share-resultado-box neutro" id="resultadoLoja">
+                    <div class="emoji-resultado" id="emojiResultadoLoja">📊</div>
+                    <div class="share-resultado" id="shareResultadoLoja">0,00%</div>
+                    <div class="status-resultado" id="statusResultadoLoja">Preencha os campos</div>
+
+                    <div class="painel-grafico">
+                        <div class="painel-grafico-titulo">Análise de Share</div>
+
+                        <div class="donut-wrapper">
+                            <svg class="donut-svg" viewBox="0 0 120 120">
+                                <circle class="donut-track" cx="60" cy="60" r="52"/>
+                                <circle class="donut-meta" id="donutMetaLoja" cx="60" cy="60" r="52"/>
+                                <circle class="donut-share" id="donutShareLoja" cx="60" cy="60" r="52"/>
+                            </svg>
+                            <div class="donut-centro">
+                                <div class="donut-centro-valor" id="donutValorLoja">0%</div>
+                                <div class="donut-centro-label">Share Atual</div>
+                            </div>
+                        </div>
+
+                        <div class="barras-grafico">
+                            <div class="barra-item">
+                                <div class="barra-topo">
+                                    <span class="barra-topo-label">🎯 Meta</span>
+                                    <span class="barra-topo-valor" id="barraMetaValorLoja">0%</span>
+                                </div>
+                                <div class="barra-trilho"><div class="barra-preenchimento barra-meta" id="barraMetaFillLoja"></div></div>
+                            </div>
+                            <div class="barra-item">
+                                <div class="barra-topo">
+                                    <span class="barra-topo-label">📊 Share Atual</span>
+                                    <span class="barra-topo-valor" id="barraAtualValorLoja">0%</span>
+                                </div>
+                                <div class="barra-trilho"><div class="barra-preenchimento barra-atual-verde" id="barraAtualFillLoja"></div></div>
+                            </div>
+                            <div class="barra-item">
+                                <div class="barra-topo">
+                                    <span class="barra-topo-label">📦 Restante</span>
+                                    <span class="barra-topo-valor" id="barraRestanteValorLoja">0%</span>
+                                </div>
+                                <div class="barra-trilho"><div class="barra-preenchimento barra-restante" id="barraRestanteFillLoja"></div></div>
+                                <div class="barra-info-extra">
+                                    <span id="barraRestanteUnidadeLoja">--</span>
+                                    <span id="barraRestantePercentualLoja">--</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="painel-cards">
+                            <div class="painel-card">
+                                <div class="painel-card-icon">🎯</div>
+                                <div class="painel-card-label">Meta</div>
+                                <div class="painel-card-valor" id="cardMetaLoja">--</div>
+                            </div>
+                            <div class="painel-card">
+                                <div class="painel-card-icon">📊</div>
+                                <div class="painel-card-label">Share</div>
+                                <div class="painel-card-valor" id="cardShareLoja">--</div>
+                            </div>
+                            <div class="painel-card">
+                                <div class="painel-card-icon">⚖️</div>
+                                <div class="painel-card-label">Dif.</div>
+                                <div class="painel-card-valor" id="cardDiferencaLoja">--</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resumo">
+                    <div class="resumo-item"><div class="resumo-label">Meta</div><div class="resumo-valor" id="resumoMetaLoja">--</div></div>
+                    <div class="resumo-item"><div class="resumo-label">Total</div><div class="resumo-valor" id="resumoTotalLoja">--</div></div>
+                    <div class="resumo-item"><div class="resumo-label">Meu espaço</div><div class="resumo-valor" id="resumoMeuEspacoLoja">--</div></div>
+                    <div class="resumo-item"><div class="resumo-label">Restante</div><div class="resumo-valor" id="resumoRestanteLoja">--</div></div>
+                    <div class="resumo-item"><div class="resumo-label">Share</div><div class="resumo-valor" id="resumoShareLoja">--</div></div>
+                    <div class="resumo-item"><div class="resumo-label">Diferença</div><div class="resumo-valor" id="resumoDiferencaLoja">--</div></div>
+                    <div class="resumo-item"><div class="resumo-label">Situação</div><div class="resumo-valor" id="resumoSituacaoLoja">--</div></div>
+                    <div class="resumo-mensagem" id="resumoMensagemLoja">Preencha os campos para realizar o cálculo.</div>
+                </div>
             </div>
         </div>
 
-        <div class="ruptura-categorias">
-            <button class="ruptura-categoria ativo" id="categoriaAlcoolicos"
-                    onclick="mostrarCategoriaRuptura('alcoolicos')">
-                🍺 Alcoólicos
-            </button>
-            <button class="ruptura-categoria" id="categoriaNaoAlcoolicos"
-                    onclick="mostrarCategoriaRuptura('naoAlcoolicos')">
-                🥤 Não alcoólicos
-            </button>
+        <!-- PAINEL RUPTURAS -->
+        <div class="subtab-painel" id="painelRupturas">
+            <div class="ruptura-contadores">
+                <div class="ruptura-contador">
+                    <div class="ruptura-contador-numero" id="contadorTotal">0</div>
+                    <div class="ruptura-contador-label">Total</div>
+                </div>
+                <div class="ruptura-contador">
+                    <div class="ruptura-contador-numero" id="contadorAlcoolicos">0</div>
+                    <div class="ruptura-contador-label">Alcoólicos</div>
+                </div>
+                <div class="ruptura-contador">
+                    <div class="ruptura-contador-numero" id="contadorNaoAlcoolicos">0</div>
+                    <div class="ruptura-contador-label">Não alcoólicos</div>
+                </div>
+            </div>
+
+            <div class="ruptura-categorias">
+                <button class="ruptura-categoria ativo" id="categoriaAlcoolicos" onclick="mostrarCategoriaRuptura('alcoolicos')">🍺 Alcoólicos</button>
+                <button class="ruptura-categoria" id="categoriaNaoAlcoolicos" onclick="mostrarCategoriaRuptura('naoAlcoolicos')">🥤 Não alcoólicos</button>
+            </div>
+
+            <input class="ruptura-pesquisa" id="pesquisaRupturas" type="search"
+                   placeholder="🔎 Pesquisar produto..." oninput="pesquisarRupturas()">
+
+            <div id="painelAlcoolicos">
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 210 ml</div><div class="ruptura-lista" id="listaCervejas210"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 330 ml</div><div class="ruptura-lista" id="listaCervejas330"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 350 ml</div><div class="ruptura-lista" id="listaCervejas350"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 355 ml</div><div class="ruptura-lista" id="listaCervejas355"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 473 ml</div><div class="ruptura-lista" id="listaCervejas473"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 600 ml</div><div class="ruptura-lista" id="listaCervejas600"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🚫 Cervejas Zero</div><div class="ruptura-lista" id="listaCervejasZero"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍹 Bebidas Mistas</div><div class="ruptura-lista" id="listaMistas"></div></div>
+            </div>
+
+            <div id="painelNaoAlcoolicos" style="display:none;">
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 200 ml</div><div class="ruptura-lista" id="listaRefrigerantes200"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 350 ml</div><div class="ruptura-lista" id="listaRefrigerantes350"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 1 L</div><div class="ruptura-lista" id="listaRefrigerantes1L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 2 L</div><div class="ruptura-lista" id="listaRefrigerantes2L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 2,5 L</div><div class="ruptura-lista" id="listaRefrigerantes25L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍋 Água Tônica</div><div class="ruptura-lista" id="listaTonicas"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🧃 Isotônicos</div><div class="ruptura-lista" id="listaIsotonicos"></div></div>
+            </div>
+
+            <button class="btn-principal" onclick="abrirListaRupturas()">📋 GERAR BLOCO DE NOTAS</button>
         </div>
 
-        <input class="ruptura-pesquisa" id="pesquisaRupturas" type="search"
-               placeholder="🔎 Pesquisar produto..." oninput="pesquisarRupturas()">
+        <!-- PAINEL VALIDADES -->
+        <div class="subtab-painel" id="painelValidades">
+            <div class="loja-info" id="infoLojaValidadeBox" style="margin-top:0;">
+                <div class="loja-info-titulo">🏪 INFORMAÇÕES DA LOJA</div>
+                <div id="infoLojaValidadeTexto" style="font-size:12px;color:#9db0c7;line-height:1.8;"></div>
+            </div>
 
-        <div id="painelAlcoolicos">
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🍺 Cervejas — 210 ml</div>
-                <div class="ruptura-lista" id="listaCervejas210"></div>
+            <div class="validade-top-bar">
+                <span>📦 Produtos registrados</span>
+                <span class="num" id="validadeTotalNum">0</span>
             </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🍺 Cervejas — 330 ml</div>
-                <div class="ruptura-lista" id="listaCervejas330"></div>
+
+            <div class="ruptura-categorias" style="margin-bottom:10px;">
+                <button class="validade-cat ativo" id="validadeCatAlcoolicos" onclick="mostrarCategoriaValidade('alcoolicos')">🍺 Alcoólicos</button>
+                <button class="validade-cat" id="validadeCatNaoAlcoolicos" onclick="mostrarCategoriaValidade('naoAlcoolicos')">🥤 Não alcoólicos</button>
             </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🍺 Cervejas — 350 ml</div>
-                <div class="ruptura-lista" id="listaCervejas350"></div>
+
+            <input class="ruptura-pesquisa" id="pesquisaValidades" type="search"
+                   placeholder="🔎 Pesquisar produto..." oninput="pesquisarValidades()">
+
+            <div id="painelValidadeAlcoolicos">
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 210 ml</div><div class="ruptura-lista" id="validadeListaCervejas210"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 330 ml</div><div class="ruptura-lista" id="validadeListaCervejas330"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 350 ml</div><div class="ruptura-lista" id="validadeListaCervejas350"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 355 ml</div><div class="ruptura-lista" id="validadeListaCervejas355"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 473 ml</div><div class="ruptura-lista" id="validadeListaCervejas473"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 600 ml</div><div class="ruptura-lista" id="validadeListaCervejas600"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🚫 Cervejas Zero</div><div class="ruptura-lista" id="validadeListaCervejasZero"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍹 Bebidas Mistas</div><div class="ruptura-lista" id="validadeListaMistas"></div></div>
             </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🍺 Cervejas — 355 ml</div>
-                <div class="ruptura-lista" id="listaCervejas355"></div>
+
+            <div id="painelValidadeNaoAlcoolicos" style="display:none;">
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 200 ml</div><div class="ruptura-lista" id="validadeListaRefrigerantes200"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 350 ml</div><div class="ruptura-lista" id="validadeListaRefrigerantes350"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 1 L</div><div class="ruptura-lista" id="validadeListaRefrigerantes1L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 2 L</div><div class="ruptura-lista" id="validadeListaRefrigerantes2L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 2,5 L</div><div class="ruptura-lista" id="validadeListaRefrigerantes25L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍋 Água Tônica</div><div class="ruptura-lista" id="validadeListaTonicas"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🧃 Isotônicos</div><div class="ruptura-lista" id="validadeListaIsotonicos"></div></div>
             </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🍺 Cervejas — 473 ml</div>
-                <div class="ruptura-lista" id="listaCervejas473"></div>
+
+            <div class="ruptura-secao" style="margin-top:16px;">
+                <div class="ruptura-secao-titulo">📋 PRODUTOS REGISTRADOS</div>
+                <div id="listaValidadesAdicionadas"></div>
             </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🍺 Cervejas — 600 ml</div>
-                <div class="ruptura-lista" id="listaCervejas600"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🚫 Cervejas Zero</div>
-                <div class="ruptura-lista" id="listaCervejasZero"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🍹 Bebidas Mistas</div>
-                <div class="ruptura-lista" id="listaMistas"></div>
-            </div>
+
+            <button class="btn-principal secundario" onclick="abrirNotasValidades()">📋 BLOCO DE NOTAS DE VALIDADES</button>
         </div>
-
-        <div id="painelNaoAlcoolicos" style="display:none;">
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 200 ml</div>
-                <div class="ruptura-lista" id="listaRefrigerantes200"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 350 ml</div>
-                <div class="ruptura-lista" id="listaRefrigerantes350"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 1 L</div>
-                <div class="ruptura-lista" id="listaRefrigerantes1L"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 2 L</div>
-                <div class="ruptura-lista" id="listaRefrigerantes2L"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 2,5 L</div>
-                <div class="ruptura-lista" id="listaRefrigerantes25L"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🍋 Água Tônica</div>
-                <div class="ruptura-lista" id="listaTonicas"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🧃 Isotônicos</div>
-                <div class="ruptura-lista" id="listaIsotonicos"></div>
-            </div>
-        </div>
-
-        <button class="ruptura-verificar" onclick="abrirListaRupturas()">
-            📋 VERIFICAR LISTA DE RUPTURAS
-        </button>
-
-        <button class="ruptura-verificar" style="background:linear-gradient(90deg,#0a4a63,#693ca1);margin-top:10px;" onclick="fecharFerramentaRupturas(); abrirValidades(lojaAtiva);">
-            📅 ABRIR VALIDADES DESTA LOJA
-        </button>
 
     </div>
-
 </div>
 
-
-<!-- =====================================================
-     MODAL BLOCO DE NOTAS DE RUPTURAS
-===================================================== -->
+<!-- BLOCO DE NOTAS — RUPTURAS -->
 
 <div class="modal" id="modalListaRupturas">
-
-    <div class="ruptura-notas-modal">
-
+    <div class="modal-box">
         <div class="modal-header">
             <div>
                 <div class="modal-title">📋 BLOCO DE NOTAS — RUPTURAS</div>
-                <div class="ruptura-subtitulo" id="subtituloNotas">Produtos em ruptura</div>
+                <div class="modal-sub" id="subtituloNotas">Produtos em ruptura</div>
             </div>
             <button class="fechar" onclick="fecharListaRupturas()">×</button>
         </div>
-
         <div class="bloco-notas" id="blocoNotasRupturas"></div>
-
         <div class="notas-acoes">
-            <button class="btn-copiar" onclick="copiarRupturas()">
-                📋 COPIAR
-            </button>
-            <button class="btn-limpar" onclick="limparRupturas()">
-                🗑️ LIMPAR
-            </button>
+            <button class="btn-copiar" onclick="copiarRupturas()">📋 COPIAR</button>
+            <button class="btn-limpar" onclick="limparRupturas()">🗑️ LIMPAR</button>
         </div>
-
     </div>
-
 </div>
 
-
-<!-- =====================================================
-     MODAL DE VALIDADES (por loja)
-===================================================== -->
-
-<div class="modal" id="modalValidades">
-
-    <div class="ruptura-ferramenta">
-
-        <div class="ruptura-cabecalho">
-            <div>
-                <div class="ruptura-titulo" id="tituloLojaValidade">📅 Validades — Loja</div>
-                <div class="ruptura-subtitulo">Selecione produtos, quantidade e data de validade</div>
-            </div>
-            <button class="fechar" onclick="fecharValidades()">×</button>
-        </div>
-
-        <!-- INFORMAÇÕES DA LOJA (somente leitura, vindas do cadastro) -->
-
-        <div class="loja-info" id="infoLojaValidadeBox">
-            <div class="loja-info-titulo">🏪 INFORMAÇÕES DA LOJA</div>
-            <div id="infoLojaValidadeTexto" style="font-size:12px;color:#9db0c7;line-height:1.8;"></div>
-        </div>
-
-        <div class="validade-total-bar">
-            <span class="validade-total-txt">📦 Produtos registrados</span>
-            <span class="validade-total-num" id="validadeTotalNum">0</span>
-        </div>
-
-        <div class="ruptura-categorias" style="margin-bottom:12px;">
-            <button class="validade-cat ativo" id="validadeCatAlcoolicos"
-                    onclick="mostrarCategoriaValidade('alcoolicos')">
-                🍺 Alcoólicos
-            </button>
-            <button class="validade-cat" id="validadeCatNaoAlcoolicos"
-                    onclick="mostrarCategoriaValidade('naoAlcoolicos')">
-                🥤 Não alcoólicos
-            </button>
-        </div>
-
-        <input class="ruptura-pesquisa" id="pesquisaValidades" type="search"
-               placeholder="🔎 Pesquisar produto..." oninput="pesquisarValidades()">
-
-        <div id="painelValidadeAlcoolicos">
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🍺 Cervejas — 210 ml</div>
-                <div class="ruptura-lista" id="validadeListaCervejas210"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🍺 Cervejas — 330 ml</div>
-                <div class="ruptura-lista" id="validadeListaCervejas330"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🍺 Cervejas — 350 ml</div>
-                <div class="ruptura-lista" id="validadeListaCervejas350"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🍺 Cervejas — 355 ml</div>
-                <div class="ruptura-lista" id="validadeListaCervejas355"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🍺 Cervejas — 473 ml</div>
-                <div class="ruptura-lista" id="validadeListaCervejas473"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🍺 Cervejas — 600 ml</div>
-                <div class="ruptura-lista" id="validadeListaCervejas600"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🚫 Cervejas Zero</div>
-                <div class="ruptura-lista" id="validadeListaCervejasZero"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🍹 Bebidas Mistas</div>
-                <div class="ruptura-lista" id="validadeListaMistas"></div>
-            </div>
-        </div>
-
-        <div id="painelValidadeNaoAlcoolicos" style="display:none;">
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 200 ml</div>
-                <div class="ruptura-lista" id="validadeListaRefrigerantes200"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 350 ml</div>
-                <div class="ruptura-lista" id="validadeListaRefrigerantes350"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 1 L</div>
-                <div class="ruptura-lista" id="validadeListaRefrigerantes1L"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 2 L</div>
-                <div class="ruptura-lista" id="validadeListaRefrigerantes2L"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🥤 Refrigerantes — 2,5 L</div>
-                <div class="ruptura-lista" id="validadeListaRefrigerantes25L"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🍋 Água Tônica</div>
-                <div class="ruptura-lista" id="validadeListaTonicas"></div>
-            </div>
-            <div class="ruptura-secao">
-                <div class="ruptura-secao-titulo">🧃 Isotônicos</div>
-                <div class="ruptura-lista" id="validadeListaIsotonicos"></div>
-            </div>
-        </div>
-
-        <div class="ruptura-secao" style="margin-top:20px;">
-            <div class="ruptura-secao-titulo">📋 PRODUTOS REGISTRADOS</div>
-            <div id="listaValidadesAdicionadas"></div>
-        </div>
-
-        <button class="ruptura-verificar" style="background:linear-gradient(90deg,#006f86,#693ca1);"
-                onclick="abrirNotasValidades()">
-            📋 VER BLOCO DE NOTAS DE VALIDADES
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     MODAL BLOCO DE NOTAS DE VALIDADES
-===================================================== -->
+<!-- BLOCO DE NOTAS — VALIDADES -->
 
 <div class="modal" id="modalNotasValidades">
-
-    <div class="ruptura-notas-modal">
-
+    <div class="modal-box">
         <div class="modal-header">
             <div>
                 <div class="modal-title">📅 BLOCO DE NOTAS — VALIDADES</div>
-                <div class="ruptura-subtitulo" id="subtituloNotasValidades">Produtos com validade</div>
+                <div class="modal-sub" id="subtituloNotasValidades">Produtos com validade</div>
             </div>
             <button class="fechar" onclick="fecharNotasValidades()">×</button>
         </div>
-
         <div class="bloco-notas" id="blocoNotasValidades"></div>
-
         <div class="notas-acoes">
-            <button class="btn-copiar" onclick="copiarValidades()">
-                📋 COPIAR
-            </button>
-            <button class="btn-limpar" onclick="limparValidades()">
-                🗑️ LIMPAR
-            </button>
+            <button class="btn-copiar" onclick="copiarValidades()">📋 COPIAR</button>
+            <button class="btn-limpar" onclick="limparValidades()">🗑️ LIMPAR</button>
         </div>
-
     </div>
-
 </div>
 
+<!-- EXCLUIR LOJA -->
 
-<!-- =====================================================
-     CALCULADORA
-===================================================== -->
+<div class="modal" id="modalExcluirLoja">
+    <div class="modal-box pequeno">
+        <div class="modal-header">
+            <div>
+                <div class="modal-title">🗑️ EXCLUIR LOJA</div>
+                <div class="modal-sub" id="subtituloExcluirLoja">Confirmação</div>
+            </div>
+            <button class="fechar" onclick="fecharExcluirLoja()">×</button>
+        </div>
+        <div style="text-align:center;padding:12px 4px 18px;">
+            <div style="font-size:50px;margin-bottom:10px;">⚠️</div>
+            <div style="font-size:14px;font-weight:900;color:#fff;line-height:1.5;" id="textoExcluirLoja">
+                Tem certeza que deseja excluir esta loja?
+            </div>
+            <div style="font-size:11.5px;color:#9db0c7;margin-top:10px;line-height:1.6;">
+                Todos os dados de <b>rupturas</b> e <b>validades</b> serão apagados permanentemente.
+            </div>
+        </div>
+        <div class="notas-acoes">
+            <button class="btn-cancelar" onclick="fecharExcluirLoja()">CANCELAR</button>
+            <button class="btn-limpar" onclick="confirmarExcluirLoja()">🗑️ EXCLUIR</button>
+        </div>
+    </div>
+</div>
+
+<!-- EXCLUIR VALIDADE -->
+
+<div class="modal" id="modalExcluirValidade">
+    <div class="modal-box pequeno">
+        <div class="modal-header">
+            <div>
+                <div class="modal-title">🗑️ EXCLUIR REGISTRO</div>
+                <div class="modal-sub">Confirmação</div>
+            </div>
+            <button class="fechar" onclick="fecharExcluirValidade()">×</button>
+        </div>
+        <div style="text-align:center;padding:12px 4px 18px;">
+            <div style="font-size:46px;margin-bottom:10px;">⚠️</div>
+            <div style="font-size:14px;font-weight:900;color:#fff;line-height:1.5;">
+                Deseja realmente excluir este registro de validade?
+            </div>
+            <div style="font-size:11.5px;color:#9db0c7;margin-top:10px;line-height:1.6;" id="textoExcluirValidade"></div>
+        </div>
+        <div class="notas-acoes">
+            <button class="btn-cancelar" onclick="fecharExcluirValidade()">NÃO</button>
+            <button class="btn-limpar" onclick="confirmarExcluirValidade()">SIM, EXCLUIR</button>
+        </div>
+    </div>
+</div>
+
+<!-- SELEÇÃO DE LOJA -->
+
+<div class="modal" id="modalSelecaoLoja">
+    <div class="modal-box pequeno">
+        <div class="modal-header">
+            <div>
+                <div class="modal-title" id="tituloSelecaoLoja">Selecione uma loja</div>
+                <div class="modal-sub" id="subtituloSelecaoLoja">Escolha qual loja deseja visualizar</div>
+            </div>
+            <button class="fechar" onclick="fecharSelecaoLoja()">×</button>
+        </div>
+        <div class="lista-selecao-loja" id="listaSelecaoLoja"></div>
+    </div>
+</div>
+
+<!-- CALCULADORA -->
 
 <div class="modal" id="modalCalculadora">
-
-    <div class="calculadora">
-
+    <div class="modal-box pequeno" style="max-width:340px;">
         <div class="modal-header">
             <div class="modal-title">🧮 CALCULADORA</div>
             <button class="fechar" onclick="fecharCalculadora()">×</button>
         </div>
-
-        <div class="calc-display">
-            <div class="calc-expression" id="calcExpression"></div>
-            <div class="calc-result" id="calcResult">0</div>
+        <div style="background:#05080d;border:1px solid #25364a;border-radius:13px;padding:14px;min-height:70px;margin-bottom:11px;">
+            <div id="calcExpression" style="color:#70839b;font-size:11.5px;min-height:18px;"></div>
+            <div id="calcResult" style="font-size:23px;font-weight:900;text-align:right;">0</div>
         </div>
-
-        <div class="calc-grid">
-            <button onclick="calcLimpar()">C</button>
-            <button onclick="calcAdicionar('(')">(</button>
-            <button onclick="calcAdicionar(')')">)</button>
-            <button class="operador" onclick="calcAdicionar('/')">÷</button>
-
-            <button onclick="calcAdicionar('7')">7</button>
-            <button onclick="calcAdicionar('8')">8</button>
-            <button onclick="calcAdicionar('9')">9</button>
-            <button class="operador" onclick="calcAdicionar('*')">×</button>
-
-            <button onclick="calcAdicionar('4')">4</button>
-            <button onclick="calcAdicionar('5')">5</button>
-            <button onclick="calcAdicionar('6')">6</button>
-            <button class="operador" onclick="calcAdicionar('-')">−</button>
-
-            <button onclick="calcAdicionar('1')">1</button>
-            <button onclick="calcAdicionar('2')">2</button>
-            <button onclick="calcAdicionar('3')">3</button>
-            <button class="operador" onclick="calcAdicionar('+')">+</button>
-
-            <button onclick="calcAdicionar('0')">0</button>
-            <button onclick="calcAdicionar('.')">.</button>
-            <button class="igual" style="grid-column:span 2" onclick="calcResultado()">=</button>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px;">
+            <button onclick="calcLimpar()" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">C</button>
+            <button onclick="calcAdicionar('(')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">(</button>
+            <button onclick="calcAdicionar(')')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">)</button>
+            <button onclick="calcAdicionar('/')" style="border:0;min-height:50px;border-radius:11px;background:#22203c;color:#fff;font-size:17px;font-weight:800;">÷</button>
+            <button onclick="calcAdicionar('7')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">7</button>
+            <button onclick="calcAdicionar('8')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">8</button>
+            <button onclick="calcAdicionar('9')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">9</button>
+            <button onclick="calcAdicionar('*')" style="border:0;min-height:50px;border-radius:11px;background:#22203c;color:#fff;font-size:17px;font-weight:800;">×</button>
+            <button onclick="calcAdicionar('4')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">4</button>
+            <button onclick="calcAdicionar('5')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">5</button>
+            <button onclick="calcAdicionar('6')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">6</button>
+            <button onclick="calcAdicionar('-')" style="border:0;min-height:50px;border-radius:11px;background:#22203c;color:#fff;font-size:17px;font-weight:800;">−</button>
+            <button onclick="calcAdicionar('1')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">1</button>
+            <button onclick="calcAdicionar('2')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">2</button>
+            <button onclick="calcAdicionar('3')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">3</button>
+            <button onclick="calcAdicionar('+')" style="border:0;min-height:50px;border-radius:11px;background:#22203c;color:#fff;font-size:17px;font-weight:800;">+</button>
+            <button onclick="calcAdicionar('0')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">0</button>
+            <button onclick="calcAdicionar('.')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">.</button>
+            <button onclick="calcResultado()" style="border:0;min-height:50px;border-radius:11px;background:linear-gradient(135deg,#006b82,#7543aa);color:#fff;font-size:17px;font-weight:800;grid-column:span 2;">=</button>
         </div>
-
     </div>
-
 </div>
-
 
 <!-- TOAST -->
 
@@ -1709,288 +1733,181 @@ footer{
     <span id="toastTexto"></span>
 </div>
 
-
 <script>
-
-/* =====================================================
-   UTILITÁRIOS
-===================================================== */
 
 const $ = id => document.getElementById(id);
 
-let unidadeAtual = "frentes";
+let unidadeAtualLoja = "frentes";
 let expressaoCalc = "";
-
-const TOTAL_LOJAS = 4;
+const TOTAL_LOJAS_INICIAL = 4;
 let lojaAtiva = 0;
-let lojaAtivaValidade = 0;
+let grupoParaExcluir = null;
+let lojaParaExcluir = null;
 
-
-/* =====================================================
-   SPLASH
-===================================================== */
-
+/* SPLASH */
 window.addEventListener("load",()=>{
-    setTimeout(()=>{
-        $("splash").style.display="none";
-    },1900);
+    setTimeout(()=>{ $("splash").style.display="none"; },1900);
 });
 
-
-/* =====================================================
-   DATA E HORA
-===================================================== */
-
+/* DATA/HORA */
 function atualizarDataHora(){
     const agora = new Date();
-
-    const opcoesData = {
-        timeZone:"America/Fortaleza",
-        day:"2-digit", month:"2-digit", year:"numeric"
-    };
-
-    const opcoesHora = {
-        timeZone:"America/Fortaleza",
-        hour:"2-digit", minute:"2-digit", second:"2-digit"
-    };
-
-    $("dataAtual").textContent =
-        new Intl.DateTimeFormat("pt-BR",opcoesData).format(agora);
-
-    $("horaAtual").textContent =
-        new Intl.DateTimeFormat("pt-BR",opcoesHora).format(agora);
+    $("dataAtual").textContent = new Intl.DateTimeFormat("pt-BR",
+        {timeZone:"America/Fortaleza",day:"2-digit",month:"2-digit",year:"numeric"}).format(agora);
+    $("horaAtual").textContent = new Intl.DateTimeFormat("pt-BR",
+        {timeZone:"America/Fortaleza",hour:"2-digit",minute:"2-digit"}).format(agora);
 }
-
 atualizarDataHora();
 setInterval(atualizarDataHora,1000);
 
-
-/* =====================================================
-   CONEXÃO
-===================================================== */
-
+/* CONEXÃO */
 function atualizarConexao(){
     const online = navigator.onLine;
     $("statusConexao").style.background = online ? "#00ff88" : "#ff0055";
-    $("textoConexao").textContent = online ? "Online" : "Modo offline";
+    $("textoConexao").textContent = online ? "Online" : "Offline";
 }
-
 window.addEventListener("online",atualizarConexao);
 window.addEventListener("offline",atualizarConexao);
 atualizarConexao();
 
-
-/* =====================================================
-   TOAST
-===================================================== */
-
+/* TOAST */
 let toastTimer;
-
 function mostrarToast(texto,icone="✓"){
     $("toastTexto").textContent = texto;
     $("toastIcone").textContent = icone;
     $("toast").classList.add("mostrar");
-
     clearTimeout(toastTimer);
-    toastTimer=setTimeout(()=>{
-        $("toast").classList.remove("mostrar");
-    },2500);
+    toastTimer=setTimeout(()=>{ $("toast").classList.remove("mostrar"); },2500);
 }
 
+/* SUB-ABA */
+function trocarSubAba(nome){
+    document.querySelectorAll(".subtab").forEach(t=>t.classList.remove("ativo"));
+    document.querySelectorAll(".subtab-painel").forEach(t=>t.classList.remove("ativo"));
+    $("sub" + nome.charAt(0).toUpperCase() + nome.slice(1)).classList.add("ativo");
+    $("painel" + nome.charAt(0).toUpperCase() + nome.slice(1)).classList.add("ativo");
 
-/* =====================================================
-   SHARE
-===================================================== */
-
-function numero(valor){
-    if(valor === null || valor === undefined || valor === "")
-        return 0;
-    return Number(String(valor).replace(",","."));
+    if(nome === "validades"){
+        atualizarTotalValidades();
+        atualizarListaValidadesAdicionadas();
+    }
+    if(nome === "share"){
+        calcularLoja();
+    }
 }
 
-function formatarNumero(valor){
-    return Number(valor).toLocaleString("pt-BR",{
-        minimumFractionDigits:2,
-        maximumFractionDigits:2
-    });
+/* NÚMEROS */
+function numero(v){
+    if(v===null||v===undefined||v==="") return 0;
+    return Number(String(v).replace(",","."));
+}
+function formatarNumero(v){
+    return Number(v).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function formatarUnidade(v,unid){
+    unid = unid || unidadeAtualLoja;
+    return unid==="cm" ? formatarNumero(v)+" cm" : formatarNumero(v)+" frentes";
 }
 
-function formatarUnidade(valor){
-    if(unidadeAtual==="cm") return formatarNumero(valor)+" cm";
-    return formatarNumero(valor)+" frentes";
+/* SHARE DA LOJA */
+function mudarUnidadeLoja(u){
+    unidadeAtualLoja=u;
+    $("btnFrentesLoja").classList.toggle("ativo", u==="frentes");
+    $("btnCentimetrosLoja").classList.toggle("ativo", u==="cm");
+    calcularLoja();
 }
 
-function mudarUnidade(unidade){
-    unidadeAtual=unidade;
-    $("btnFrentes").classList.toggle("ativo", unidade==="frentes");
-    $("btnCentimetros").classList.toggle("ativo", unidade==="cm");
-    calcular();
-}
+function calcularLoja(){
+    const meta=numero($("metaLoja").value);
+    const total=numero($("totalLoja").value);
+    const meu=numero($("meuEspacoLoja").value);
 
-function calcular(){
-    const meta=numero($("meta").value);
-    const total=numero($("total").value);
-    const meu=numero($("meuEspaco").value);
+    const box = $("resultadoLoja");
 
-    if(meta<=0 || total<=0 || meu<0){
-        $("shareResultado").textContent="0,00%";
-        $("statusResultado").textContent="Preencha os campos";
-        $("resultado").className="resultado neutro";
-        $("emojiResultado").textContent="📊";
-        $("emojiResultado").className="emoji-resultado";
-
-        atualizarResumoVazio();
-        atualizarPainelGrafico(0,0,0,0,false);
+    if(meta<=0||total<=0||meu<0){
+        $("shareResultadoLoja").textContent="0,00%";
+        $("statusResultadoLoja").textContent="Preencha os campos";
+        box.className="share-resultado-box neutro";
+        $("emojiResultadoLoja").textContent="📊";
+        ["resumoMetaLoja","resumoTotalLoja","resumoMeuEspacoLoja","resumoRestanteLoja","resumoShareLoja","resumoDiferencaLoja","resumoSituacaoLoja"]
+            .forEach(id=>{ $(id).textContent="--"; });
+        $("resumoMensagemLoja").textContent = "Preencha os campos para realizar o cálculo.";
+        atualizarPainelGraficoLoja(0,0,0,0,false);
         return;
     }
-
     const share=(meu/total)*100;
     const espacoMeta=(meta/100)*total;
     const diferenca=meu-espacoMeta;
     const restante=Math.max(0,espacoMeta-meu);
     const atingiu=share>=meta;
 
-    $("shareResultado").textContent = formatarNumero(share)+"%";
-    $("resultado").className = "resultado "+(atingiu?"verde":"vermelho");
-    $("emojiResultado").textContent = atingiu ? "👍" : "😔";
-    $("emojiResultado").className =
-        "emoji-resultado " + (atingiu ? "animar-verde" : "animar-vermelho");
+    $("shareResultadoLoja").textContent = formatarNumero(share)+"%";
+    box.className = "share-resultado-box "+(atingiu?"verde":"vermelho");
+    $("emojiResultadoLoja").textContent = atingiu ? "👍" : "😔";
+    $("statusResultadoLoja").textContent = atingiu ? "META ATINGIDA!" : "META NÃO ATINGIDA";
 
-    $("statusResultado").textContent =
-        atingiu ? "META ATINGIDA!" : "META NÃO ATINGIDA";
+    $("resumoMetaLoja").textContent = formatarNumero(meta)+"%";
+    $("resumoTotalLoja").textContent = formatarUnidade(total,unidadeAtualLoja);
+    $("resumoMeuEspacoLoja").textContent = formatarUnidade(meu,unidadeAtualLoja);
+    $("resumoRestanteLoja").textContent = formatarUnidade(restante,unidadeAtualLoja);
+    $("resumoShareLoja").textContent = formatarNumero(share)+"%";
+    $("resumoDiferencaLoja").textContent = (diferenca>=0?"+":"-")+formatarUnidade(Math.abs(diferenca),unidadeAtualLoja);
+    $("resumoSituacaoLoja").textContent = atingiu ? "ATINGIDA" : "NÃO ATINGIDA";
+    $("resumoMensagemLoja").textContent = atingiu
+        ? "🎉 Você atingiu a meta."
+        : "⚠️ Faltam "+formatarUnidade(restante,unidadeAtualLoja)+" para a meta.";
 
-    $("resumoMeta").textContent = formatarNumero(meta)+"%";
-    $("resumoTotal").textContent = formatarUnidade(total);
-    $("resumoMeuEspaco").textContent = formatarUnidade(meu);
-    $("resumoRestante").textContent = formatarUnidade(restante);
-    $("resumoShare").textContent = formatarNumero(share)+"%";
-    $("resumoDiferenca").textContent =
-        (diferenca>=0?"+":"-")+formatarUnidade(Math.abs(diferenca));
-    $("resumoSituacao").textContent = atingiu ? "ATINGIDA" : "NÃO ATINGIDA";
-
-    $("resumoMensagem").textContent =
-        atingiu
-        ? "🎉 Você atingiu ou ultrapassou a meta desejada."
-        : "⚠️ Ainda faltam "+formatarUnidade(restante)+" para atingir a meta.";
-
-    atualizarPainelGrafico(meta,share,restante,total,atingiu);
+    atualizarPainelGraficoLoja(meta,share,restante,total,atingiu);
+}
+function atualizarPainelGraficoLoja(meta,share,restante,total,atingiu){
+    const raio=52, circ=2*Math.PI*raio;
+    const sN=Math.min(Math.max(share,0),100);
+    const mN=Math.min(Math.max(meta,0),100);
+    $("donutShareLoja").setAttribute("stroke-dasharray", (sN/100*circ)+" "+(circ-(sN/100*circ)));
+    $("donutMetaLoja").setAttribute("stroke-dasharray", (mN/100*circ)+" "+(circ-(mN/100*circ)));
+    $("donutShareLoja").classList.toggle("vermelho", !atingiu);
+    $("donutValorLoja").textContent = formatarNumero(share)+"%";
+    $("barraMetaValorLoja").textContent = formatarNumero(meta)+"%";
+    $("barraMetaFillLoja").style.width = Math.min(meta,100)+"%";
+    $("barraAtualValorLoja").textContent = formatarNumero(share)+"%";
+    $("barraAtualFillLoja").style.width = Math.min(share,100)+"%";
+    $("barraAtualFillLoja").className = "barra-preenchimento " + (atingiu ? "barra-atual-verde" : "barra-atual-vermelho");
+    const pR = total>0 ? (restante/total)*100 : 0;
+    $("barraRestanteValorLoja").textContent = formatarNumero(pR)+"%";
+    $("barraRestanteFillLoja").style.width = Math.min(pR,100)+"%";
+    $("barraRestanteUnidadeLoja").textContent = formatarUnidade(restante,unidadeAtualLoja);
+    $("barraRestantePercentualLoja").textContent = formatarNumero(pR)+"% do total";
+    $("cardMetaLoja").textContent = formatarNumero(meta)+"%";
+    $("cardShareLoja").textContent = formatarNumero(share)+"%";
+    const d = share-meta, s = d>=0?"+":"";
+    $("cardDiferencaLoja").textContent = s+formatarNumero(d)+"%";
+    $("cardDiferencaLoja").style.color = atingiu ? "#00ff88" : "#ff0055";
 }
 
-function atualizarResumoVazio(){
-    [
-        "resumoMeta","resumoTotal","resumoMeuEspaco",
-        "resumoRestante","resumoShare","resumoDiferenca","resumoSituacao"
-    ].forEach(id=>{ $(id).textContent="--"; });
-
-    $("resumoMensagem").textContent =
-        "Preencha os campos para realizar o cálculo.";
-}
-
-
-/* =====================================================
-   PAINEL GRÁFICO
-===================================================== */
-
-function atualizarPainelGrafico(meta,share,restante,total,atingiu){
-    const raio = 52;
-    const circunferencia = 2 * Math.PI * raio;
-
-    const shareNormalizado = Math.min(Math.max(share,0),100);
-    const shareDash = (shareNormalizado/100) * circunferencia;
-
-    const metaNormalizada = Math.min(Math.max(meta,0),100);
-    const metaDash = (metaNormalizada/100) * circunferencia;
-
-    $("donutShare").setAttribute("stroke-dasharray",
-        shareDash + " " + (circunferencia - shareDash));
-
-    $("donutMeta").setAttribute("stroke-dasharray",
-        metaDash + " " + (circunferencia - metaDash));
-
-    $("donutShare").classList.toggle("vermelho", !atingiu);
-    $("donutValor").textContent = formatarNumero(share)+"%";
-
-    $("barraMetaValor").textContent = formatarNumero(meta)+"%";
-    $("barraMetaFill").style.width = Math.min(meta,100)+"%";
-
-    $("barraAtualValor").textContent = formatarNumero(share)+"%";
-    $("barraAtualFill").style.width = Math.min(share,100)+"%";
-    $("barraAtualFill").className =
-        "barra-preenchimento " +
-        (atingiu ? "barra-atual-verde" : "barra-atual-vermelho");
-
-    const percentualRestante = total > 0 ? (restante/total)*100 : 0;
-
-    $("barraRestanteValor").textContent = formatarNumero(percentualRestante)+"%";
-    $("barraRestanteFill").style.width = Math.min(percentualRestante,100)+"%";
-    $("barraRestanteUnidade").textContent = formatarUnidade(restante);
-    $("barraRestantePercentual").textContent =
-        formatarNumero(percentualRestante)+"% do total";
-
-    $("cardMeta").textContent = formatarNumero(meta)+"%";
-    $("cardShare").textContent = formatarNumero(share)+"%";
-
-    const diferenca = share - meta;
-    const sinal = diferenca >= 0 ? "+" : "";
-    $("cardDiferenca").textContent = sinal + formatarNumero(diferenca)+"%";
-    $("cardDiferenca").style.color = atingiu ? "#00ff88" : "#ff0055";
-}
-
-
-/* =====================================================
-   CALCULADORA
-===================================================== */
-
+/* CALCULADORA */
 function abrirCalculadora(){ $("modalCalculadora").classList.add("aberto"); }
 function fecharCalculadora(){ $("modalCalculadora").classList.remove("aberto"); }
-
-function calcAdicionar(valor){
-    expressaoCalc+=valor;
-    $("calcExpression").textContent=expressaoCalc;
-    $("calcResult").textContent=expressaoCalc || "0";
-}
-
-function calcLimpar(){
-    expressaoCalc="";
-    $("calcExpression").textContent="";
-    $("calcResult").textContent="0";
-}
-
+function calcAdicionar(v){ expressaoCalc+=v; $("calcExpression").textContent=expressaoCalc; $("calcResult").textContent=expressaoCalc||"0"; }
+function calcLimpar(){ expressaoCalc=""; $("calcExpression").textContent=""; $("calcResult").textContent="0"; }
 function calcResultado(){
     try{
         if(!expressaoCalc)return;
         const permitido=/^[0-9+\-*/().\s]+$/;
         if(!permitido.test(expressaoCalc)) throw new Error();
-
-        const resultado=Function('"use strict";return ('+expressaoCalc+')')();
-        if(!Number.isFinite(resultado)) throw new Error();
-
-        $("calcResult").textContent =
-            Number(resultado).toLocaleString("pt-BR",{
-                maximumFractionDigits:8
-            });
-    }catch(e){
-        $("calcResult").textContent="Erro";
-    }
+        const r=Function('"use strict";return ('+expressaoCalc+')')();
+        if(!Number.isFinite(r)) throw new Error();
+        $("calcResult").textContent = Number(r).toLocaleString("pt-BR",{maximumFractionDigits:8});
+    }catch(e){ $("calcResult").textContent="Erro"; }
 }
 
-
-/* =====================================================
-   LISTAS DE PRODUTOS
-===================================================== */
-
-const cervejas210 = [
-    ["Coronita Extra","210 ml • Long Neck"]
-];
-
-const cervejas330 = [
+/* LISTAS */
+const cervejas210=[["Coronita Extra","210 ml • Long Neck"]];
+const cervejas330=[
     ["Beck's","330 ml • Long Neck"],["Budweiser","330 ml • Long Neck"],
     ["Corona Extra","330 ml • Long Neck"],["Michelob Ultra","330 ml • Long Neck"],
-    ["Stella Artois","330 ml • Long Neck"],
-    ["Stella Artois Pure Gold","330 ml • Long Neck"]
+    ["Stella Artois","330 ml • Long Neck"],["Stella Artois Pure Gold","330 ml • Long Neck"]
 ];
-
-const cervejas350 = [
+const cervejas350=[
     ["Antarctica Original","350 ml • Lata"],["Antarctica Pilsen","350 ml • Lata"],
     ["Antarctica Sub-Zero","350 ml • Lata"],["Beck's","350 ml • Lata"],
     ["Bohemia Escura","350 ml • Lata"],["Bohemia Puro Malte","350 ml • Lata"],
@@ -2000,15 +1917,13 @@ const cervejas350 = [
     ["Spaten","350 ml • Lata"],["Stella Artois","350 ml • Lata"],
     ["Stella Artois Pure Gold","350 ml • Lata"]
 ];
-
-const cervejas355 = [
+const cervejas355=[
     ["Antarctica Pilsen","355 ml • Long Neck"],["Corona Extra","355 ml • Long Neck"],
     ["Patagonia Amber","355 ml • Long Neck"],["Patagonia Bohemian","355 ml • Long Neck"],
     ["Patagonia Weiss","355 ml • Long Neck"],["Skol Pilsen","355 ml • Long Neck"],
     ["Spaten","355 ml • Long Neck"]
 ];
-
-const cervejas473 = [
+const cervejas473=[
     ["Antarctica Original","473 ml • Lata"],["Antarctica Pilsen","473 ml • Lata"],
     ["Bohemia Pilsen","473 ml • Lata"],["Brahma Chopp","473 ml • Lata"],
     ["Brahma Extra Lager","473 ml • Lata"],["Budweiser","473 ml • Lata"],
@@ -2017,8 +1932,7 @@ const cervejas473 = [
     ["Skol Pilsen","473 ml • Lata"],["Stella Artois","473 ml • Lata"],
     ["Stella Artois Pure Gold","473 ml • Lata"]
 ];
-
-const cervejas600 = [
+const cervejas600=[
     ["Antarctica Original","600 ml • Long Neck"],["Antarctica Pilsen","600 ml • Long Neck"],
     ["Antarctica Sub-Zero","600 ml • Long Neck"],["Bohemia Pilsen","600 ml • Long Neck"],
     ["Brahma Chopp","600 ml • Long Neck"],["Brahma Duplo Malte","600 ml • Long Neck"],
@@ -2027,322 +1941,408 @@ const cervejas600 = [
     ["Spaten","600 ml • Long Neck"],["Spaten Puro Malte","600 ml • Long Neck"],
     ["Stella Artois","600 ml • Long Neck"]
 ];
-
-const cervejasZero = [
+const cervejasZero=[
     ["Brahma Zero","330 ml • Long Neck"],["Brahma Zero","350 ml • Lata"],
     ["Budweiser Zero","330 ml • Long Neck"],["Corona Cero","330 ml • Long Neck"],
     ["Budweiser Zero","350 ml • Lata"],["Corona Cero","350 ml • Lata"],
     ["Skol Zero Zero","350 ml • Lata"]
 ];
-
-const bebidasMistas = [
-    ["Brutal Fruit Spritzer","275 ml • Lata"],
-    ["Mike's Hard Lemonade","Conforme disponibilidade"],
-    ["Skol Beats Caipi — Lata","269 ml • Lata"],
-    ["Skol Beats Caipi — Long Neck","269 ml • Long Neck"],
-    ["Skol Beats GT — Lata","269 ml • Lata"],
-    ["Skol Beats GT — Long Neck","269 ml • Long Neck"],
-    ["Skol Beats Mint — Lata","269 ml • Lata"],
-    ["Skol Beats Mint — Long Neck","269 ml • Long Neck"],
-    ["Skol Beats Secret — Lata","269 ml • Lata"],
-    ["Skol Beats Secret — Long Neck","269 ml • Long Neck"],
-    ["Skol Beats Senses — Lata","269 ml • Lata"],
-    ["Skol Beats Senses — Long Neck","269 ml • Long Neck"],
-    ["Skol Beats Tropical — Lata","269 ml • Lata"],
-    ["Skol Beats Tropical — Long Neck","269 ml • Long Neck"]
+const bebidasMistas=[
+    ["Brutal Fruit Spritzer","275 ml • Lata"],["Mike's Hard Lemonade","Conforme disponibilidade"],
+    ["Skol Beats Caipi — Lata","269 ml • Lata"],["Skol Beats Caipi — Long Neck","269 ml • Long Neck"],
+    ["Skol Beats GT — Lata","269 ml • Lata"],["Skol Beats GT — Long Neck","269 ml • Long Neck"],
+    ["Skol Beats Mint — Lata","269 ml • Lata"],["Skol Beats Mint — Long Neck","269 ml • Long Neck"],
+    ["Skol Beats Secret — Lata","269 ml • Lata"],["Skol Beats Secret — Long Neck","269 ml • Long Neck"],
+    ["Skol Beats Senses — Lata","269 ml • Lata"],["Skol Beats Senses — Long Neck","269 ml • Long Neck"],
+    ["Skol Beats Tropical — Lata","269 ml • Lata"],["Skol Beats Tropical — Long Neck","269 ml • Long Neck"]
 ];
-
-const refrigerantes200 = [
-    ["Guaraná Antarctica","200 ml • PET"],
-    ["Guaraná Antarctica Zero","200 ml • PET"],
-    ["Pepsi","200 ml • PET"],
-    ["Pepsi Black","200 ml • PET"],
-    ["Soda Antarctica","200 ml • PET"],
-    ["Sukita Laranja","200 ml • PET"]
+const refrigerantes200=[
+    ["Guaraná Antarctica","200 ml • PET"],["Guaraná Antarctica Zero","200 ml • PET"],
+    ["Pepsi","200 ml • PET"],["Pepsi Black","200 ml • PET"],
+    ["Soda Antarctica","200 ml • PET"],["Sukita Laranja","200 ml • PET"]
 ];
-
-const refrigerantes350 = [
+const refrigerantes350=[
     ["Guaraná Antarctica","350 ml • Lata"],["Guaraná Antarctica Zero","350 ml • Lata"],
-    ["H2O Limão","350 ml • Lata"],
-    ["Pepsi","350 ml • Lata"],["Pepsi Black","350 ml • Lata"],
-    ["Soda Antarctica","350 ml • Lata"],["Sukita Laranja","350 ml • Lata"],
-    ["Sukita Uva","350 ml • Lata"]
+    ["H2O Limão","350 ml • Lata"],["Pepsi","350 ml • Lata"],["Pepsi Black","350 ml • Lata"],
+    ["Soda Antarctica","350 ml • Lata"],["Sukita Laranja","350 ml • Lata"],["Sukita Uva","350 ml • Lata"]
 ];
-
-const refrigerantes1L = [
+const refrigerantes1L=[
     ["Guaraná Antarctica","1 L • PET"],["Guaraná Antarctica Zero","1 L • PET"],
-    ["Pepsi","1 L • PET"],["Pepsi Black","1 L • PET"],
-    ["Soda Antarctica","1 L • PET"],
+    ["Pepsi","1 L • PET"],["Pepsi Black","1 L • PET"],["Soda Antarctica","1 L • PET"],
     ["Sukita Laranja","1 L • PET"],["Sukita Uva","1 L • PET"]
 ];
-
-const refrigerantes2L = [
+const refrigerantes2L=[
     ["Guaraná Antarctica","2 L • PET"],["Guaraná Antarctica Zero","2 L • PET"],
-    ["Pepsi","2 L • PET"],["Pepsi Black","2 L • PET"],
-    ["Soda Antarctica","2 L • PET"],
+    ["Pepsi","2 L • PET"],["Pepsi Black","2 L • PET"],["Soda Antarctica","2 L • PET"],
     ["Sukita Laranja","2 L • PET"],["Sukita Uva","2 L • PET"]
 ];
-
-const refrigerantes25L = [
-    ["Guaraná Antarctica","2,5 L • PET"],
-    ["Guaraná Antarctica Zero","2,5 L • PET"],
-    ["Pepsi","2,5 L • PET"]
+const refrigerantes25L=[
+    ["Guaraná Antarctica","2,5 L • PET"],["Guaraná Antarctica Zero","2,5 L • PET"],["Pepsi","2,5 L • PET"]
 ];
-
-const tonicas = [
+const tonicas=[
     ["Tônica Antarctica","269 ml • Lata"],["Tônica Antarctica Gengibre","269 ml • Lata"],
     ["Tônica Antarctica","350 ml • Lata"],["Tônica Antarctica Diet","350 ml • Lata"],
     ["Tônica Antarctica Zero Açúcar","350 ml • Lata"],
     ["Tônica Antarctica","1 L • PET"],["Tônica Antarctica Zero Açúcar","1 L • PET"]
 ];
-
-const isotonicos = [
+const isotonicos=[
     ["Gatorade Laranja","500 ml • PET"],["Gatorade Limão","500 ml • PET"],
     ["Gatorade Uva","500 ml • PET"],["Gatorade Tangerina","500 ml • PET"],
     ["Gatorade Maracujá","500 ml • PET"],["Gatorade Morango e Maracujá","500 ml • PET"],
-    ["Gatorade Frutas Silvestres","500 ml • PET"],
-    ["Gatorade Melancia com Morango","500 ml • PET"],
+    ["Gatorade Frutas Silvestres","500 ml • PET"],["Gatorade Melancia com Morango","500 ml • PET"],
     ["Gatorade Frutas Cítricas","500 ml • PET"],["Gatorade Blueberry","500 ml • PET"],
     ["H2O Limão","500 ml • PET"],["H2O Limoneto","500 ml • PET"]
 ];
-
-
-/* =====================================================
-   EMOJI PRODUTO
-===================================================== */
 
 function emojiProduto(nome){
     const n=nome.toLowerCase();
     if(n.includes("beats")||n.includes("mike")||n.includes("brutal")) return "🍹";
     if(n.includes("tônica")) return "🍋";
     if(n.includes("gatorade")||n.includes("h2o")) return "🧃";
-    if(n.includes("guaraná")||n.includes("pepsi")||n.includes("sukita")||n.includes("soda"))
-        return "🥤";
-    if(
-        n.includes("spaten")||n.includes("budweiser")||n.includes("corona")||
-        n.includes("coronita")||n.includes("skol")||n.includes("brahma")||
-        n.includes("stella")||n.includes("antarctica")||n.includes("bohemia")||
-        n.includes("beck")||n.includes("patagonia")||n.includes("colorado")||
-        n.includes("michelob")
-    ) return "🍺";
+    if(n.includes("guaraná")||n.includes("pepsi")||n.includes("sukita")||n.includes("soda")) return "🥤";
+    if(n.includes("spaten")||n.includes("budweiser")||n.includes("corona")||n.includes("coronita")||
+       n.includes("skol")||n.includes("brahma")||n.includes("stella")||n.includes("antarctica")||
+       n.includes("bohemia")||n.includes("beck")||n.includes("patagonia")||n.includes("colorado")||
+       n.includes("michelob")) return "🍺";
     return "📦";
 }
 
-
-/* =====================================================
-   STORAGE - 4 LOJAS
-===================================================== */
-
-const STORAGE_LOJAS = "mshare_space_lojas_v1";
-
+/* STORAGE */
+const STORAGE_LOJAS="mshare_space_lojas_v2";
+function criarLojaVazia(){
+    return { info:{loja:"",nome:"",endereco:"",supervisor:""}, rupturas:{}, validades:{} };
+}
 function carregarLojas(){
     try{
-        const dados = JSON.parse(localStorage.getItem(STORAGE_LOJAS));
-        if(dados && Array.isArray(dados) && dados.length===TOTAL_LOJAS)
-            return dados;
+        const d = JSON.parse(localStorage.getItem(STORAGE_LOJAS));
+        if(d && Array.isArray(d) && d.length>=TOTAL_LOJAS_INICIAL) return d;
     }catch(e){}
-
-    return Array.from({length:TOTAL_LOJAS},()=>({
-        info:{loja:"",nome:"",endereco:"",supervisor:""},
-        rupturas:{},
-        validades:{}
-    }));
+    return Array.from({length:TOTAL_LOJAS_INICIAL},()=>criarLojaVazia());
 }
-
-function salvarLojas(dados){
-    localStorage.setItem(STORAGE_LOJAS, JSON.stringify(dados));
+function salvarLojas(d){ localStorage.setItem(STORAGE_LOJAS, JSON.stringify(d)); }
+function getLoja(i){ return carregarLojas()[i]; }
+function setLoja(i,v){ const l=carregarLojas(); l[i]=v; salvarLojas(l); }
+function adicionarNovaLoja(){
+    const l=carregarLojas(); l.push(criarLojaVazia()); salvarLojas(l);
+    atualizarCardsLojas();
+    mostrarToast("Nova loja adicionada!","🏬");
 }
-
-function getLoja(index){
-    const lojas = carregarLojas();
-    return lojas[index];
-}
-
-function setLoja(index, valor){
-    const lojas = carregarLojas();
-    lojas[index] = valor;
-    salvarLojas(lojas);
-}
-
-
-/* =====================================================
-   VERIFICAÇÃO DE LOJA COMPLETA
-===================================================== */
 
 function lojaEstaCompleta(loja){
-    const info = loja.info || {};
-    return (
-        info.loja && info.loja.trim() !== "" &&
-        info.nome && info.nome.trim() !== "" &&
-        info.supervisor && info.supervisor.trim() !== ""
-    );
+    const i = loja.info || {};
+    return i.loja && i.loja.trim()!=="" && i.nome && i.nome.trim()!=="" && i.supervisor && i.supervisor.trim()!=="";
 }
 
-
-/* =====================================================
-   CARDS DAS LOJAS
-===================================================== */
-
+/* CARDS */
 function atualizarCardsLojas(){
-
     const lojas = carregarLojas();
-    let totalCadastradas = 0;
+    const grid = $("lojasGrid");
+    grid.querySelectorAll(".loja-card").forEach(el=>el.remove());
+    const btnAntigo = grid.querySelector(".btn-add-loja");
+    if(btnAntigo) btnAntigo.remove();
 
-    lojas.forEach((loja, i) => {
+    let totalCadastradas=0;
+    const totalLojas=lojas.length;
+    let temRupturas=false, temValidades=false;
+    let totalRupturas=0, totalValidades=0;
 
-        const card = document.querySelector(`.loja-card[data-loja="${i}"]`);
-        const badge = document.querySelector(`[data-badge="${i}"]`);
-        const nomeEl = document.querySelector(`[data-nome="${i}"]`);
-        const infoEl = document.querySelector(`[data-info="${i}"]`);
-        const statusEl = document.querySelector(`[data-status="${i}"]`);
+    lojas.forEach((loja,i)=>{
+        const tR = Object.keys(loja.rupturas||{}).length;
+        const tV = Object.keys(loja.validades||{}).length;
+        totalRupturas += tR;
+        totalValidades += tV;
+        if(tR>0) temRupturas=true;
+        if(tV>0) temValidades=true;
 
-        const totalRupturas = Object.keys(loja.rupturas || {}).length;
-        const totalValidades = Object.keys(loja.validades || {}).length;
         const completa = lojaEstaCompleta(loja);
-
         if(completa) totalCadastradas++;
 
-        card.classList.remove(
-            "preenchida","com-rupturas","pendente",
-            "cadastrada","cadastrada-com-rupturas"
-        );
+        const card = document.createElement("button");
+        card.className = "loja-card";
+        card.dataset.loja = i;
 
         if(completa){
-            if(totalRupturas > 0 || totalValidades > 0){
-                card.classList.add("cadastrada-com-rupturas");
-            }else{
-                card.classList.add("cadastrada");
-            }
-        }else{
-            card.classList.add("pendente");
-        }
+            if(tR>0||tV>0) card.classList.add("cadastrada-com-rupturas");
+            else card.classList.add("cadastrada");
+        } else card.classList.add("pendente");
 
-        badge.textContent = totalRupturas;
-        badge.classList.toggle("zero", totalRupturas===0);
+        const badge = document.createElement("span");
+        badge.className = "loja-card-badge"+(tR===0?" zero":"");
+        badge.textContent = tR;
 
-        if(loja.info.loja){
-            nomeEl.textContent = loja.info.loja;
-            nomeEl.classList.remove("vazio");
-        }else{
-            nomeEl.textContent = `Loja ${i+1} — vazia`;
-            nomeEl.classList.add("vazio");
-        }
+        const topo = document.createElement("div");
+        topo.className = "loja-card-topo";
+        topo.innerHTML = '<span class="loja-card-icone">🏬</span>';
+        topo.appendChild(badge);
 
-        const partes = [];
-        if(loja.info.nome) partes.push("👤 " + loja.info.nome);
-        if(loja.info.endereco) partes.push("📍 " + loja.info.endereco);
-        if(loja.info.supervisor) partes.push("👨‍💼 " + loja.info.supervisor);
+        const nomeEl = document.createElement("div");
+        nomeEl.className = "loja-card-nome"+(loja.info.loja?"":" vazio");
+        nomeEl.textContent = loja.info.loja || `Loja ${i+1} — vazia`;
 
-        if(partes.length){
-            infoEl.textContent = partes.join(" • ");
-        }else{
-            infoEl.textContent = "Toque para preencher";
-        }
+        const infoEl = document.createElement("div");
+        infoEl.className = "loja-card-info";
+        const partes=[];
+        if(loja.info.nome) partes.push("👤 "+loja.info.nome);
+        if(loja.info.supervisor) partes.push("👨‍💼 "+loja.info.supervisor);
+        infoEl.textContent = partes.length ? partes.join(" • ") : "Toque para preencher";
 
-        statusEl.classList.remove("vazio","pendente","cadastrada");
-
+        const statusEl = document.createElement("div");
+        statusEl.className = "loja-card-status";
         if(!completa){
             statusEl.textContent = "📝 Faltam dados";
             statusEl.classList.add("pendente");
-        }else if(totalRupturas > 0 || totalValidades > 0){
-            const partesStatus = [];
-            if(totalRupturas > 0) partesStatus.push(`📋 ${totalRupturas} ruptura(s)`);
-            if(totalValidades > 0) partesStatus.push(`📅 ${totalValidades} validade(s)`);
-            statusEl.textContent = partesStatus.join(" • ") + " • Cadastrada";
+        } else if(tR>0||tV>0){
+            const p=[];
+            if(tR>0) p.push(`📋 ${tR}`);
+            if(tV>0) p.push(`📅 ${tV}`);
+            statusEl.textContent = p.join(" • ") + " ✅";
             statusEl.classList.add("cadastrada");
-        }else{
+        } else {
             statusEl.textContent = "✅ Cadastrada";
             statusEl.classList.add("cadastrada");
         }
 
+        card.appendChild(topo);
+        card.appendChild(nomeEl);
+        card.appendChild(infoEl);
+        card.appendChild(statusEl);
+
+        let pressTimer=null, pressAtivado=false, startX=0, startY=0;
+        const TEMPO=3000;
+
+        function iniciarPress(e){
+            pressAtivado=false;
+            if(e.touches && e.touches[0]){ startX=e.touches[0].clientX; startY=e.touches[0].clientY; }
+            else { startX=e.clientX; startY=e.clientY; }
+            clearTimeout(pressTimer);
+            pressTimer = setTimeout(function(){
+                pressAtivado=true;
+                if(navigator.vibrate) navigator.vibrate(60);
+                abrirExcluirLoja(i);
+            }, TEMPO);
+        }
+        function cancelarPress(){ clearTimeout(pressTimer); }
+        function detectarArrasto(e){
+            if(!pressTimer) return;
+            let cx,cy;
+            if(e.touches && e.touches[0]){ cx=e.touches[0].clientX; cy=e.touches[0].clientY; }
+            else { cx=e.clientX; cy=e.clientY; }
+            if(Math.abs(cx-startX)>10||Math.abs(cy-startY)>10) clearTimeout(pressTimer);
+        }
+
+        card.addEventListener("touchstart",iniciarPress,{passive:true});
+        card.addEventListener("touchend",cancelarPress);
+        card.addEventListener("touchcancel",cancelarPress);
+        card.addEventListener("touchmove",detectarArrasto,{passive:true});
+        card.addEventListener("mousedown",iniciarPress);
+        card.addEventListener("mouseup",cancelarPress);
+        card.addEventListener("mouseleave",cancelarPress);
+        card.addEventListener("mousemove",detectarArrasto);
+
+        card.addEventListener("click", function(e){
+            if(pressAtivado){ pressAtivado=false; e.preventDefault(); e.stopPropagation(); return; }
+            abrirFerramentaRupturas(i);
+        });
+
+        grid.appendChild(card);
     });
 
+    const btnAdd = document.createElement("button");
+    btnAdd.className = "btn-add-loja";
+    btnAdd.innerHTML = '<span class="mais">+</span> ADICIONAR LOJA';
+    btnAdd.addEventListener("click", adicionarNovaLoja);
+    grid.appendChild(btnAdd);
+
     const contador = $("contadorLojasNum");
-    if(contador) contador.textContent = `${totalCadastradas} / ${TOTAL_LOJAS}`;
+    if(contador) contador.textContent = `${totalCadastradas} / ${totalLojas}`;
 
-    let totalGeral = 0;
-    lojas.forEach(l=>{ totalGeral += Object.keys(l.rupturas||{}).length; });
-    const badgeGeral = $("badgeRupturas");
-    if(badgeGeral) badgeGeral.textContent = totalGeral;
+    const acoes = $("acoesRapidas");
+    if(temRupturas || temValidades){
+        acoes.style.display = "grid";
+        $("btnAcaoRupturas").style.display = temRupturas ? "flex" : "none";
+        $("btnAcaoValidades").style.display = temValidades ? "flex" : "none";
+        $("pillRupturas").textContent = totalRupturas;
+        $("pillValidades").textContent = totalValidades;
+    } else {
+        acoes.style.display = "none";
+    }
 }
 
-
-/* =====================================================
-   CLICAR NUMA LOJA
-===================================================== */
-
-function clicarLoja(index){
-    abrirFerramentaRupturas(index);
+/* EXCLUIR LOJA */
+function abrirExcluirLoja(i){
+    lojaParaExcluir = i;
+    const loja = carregarLojas()[i];
+    const nome = loja.info.loja || `Loja ${i+1}`;
+    $("subtituloExcluirLoja").textContent = nome;
+    $("textoExcluirLoja").innerHTML = 'Tem certeza que deseja excluir a loja<br><b style="color:#00d9ff;">'+nome+'</b> ?';
+    $("modalExcluirLoja").classList.add("aberto");
 }
-
-
-/* =====================================================
-   ABRIR / FECHAR FERRAMENTA DE RUPTURAS
-===================================================== */
-
-function abrirFerramentaRupturas(index){
-
-    lojaAtiva = index;
-
+function fecharExcluirLoja(){
+    $("modalExcluirLoja").classList.remove("aberto");
+    lojaParaExcluir=null;
+}
+function confirmarExcluirLoja(){
+    if(lojaParaExcluir===null){ fecharExcluirLoja(); return; }
     const lojas = carregarLojas();
-    const nomeLoja = lojas[index].info.loja || `Loja ${index+1}`;
-    $("tituloLojaAtiva").textContent = `📋 ${nomeLoja}`;
+    if(lojas.length<=1){ mostrarToast("Precisa manter pelo menos 1 loja.","⚠️"); fecharExcluirLoja(); return; }
+    lojas.splice(lojaParaExcluir,1);
+    salvarLojas(lojas);
+    fecharExcluirLoja();
+    atualizarCardsLojas();
+    mostrarToast("Loja excluída.","🗑️");
+}
 
+/* EXCLUIR VALIDADE */
+function abrirExcluirValidade(g){
+    grupoParaExcluir = g;
+    $("textoExcluirValidade").innerHTML = '<b>'+g.nome+'</b><br>Quantidade: <b>'+g.quantidade+'</b>';
+    $("modalExcluirValidade").classList.add("aberto");
+}
+function fecharExcluirValidade(){
+    $("modalExcluirValidade").classList.remove("aberto");
+    grupoParaExcluir=null;
+}
+function confirmarExcluirValidade(){
+    if(!grupoParaExcluir){ fecharExcluirValidade(); return; }
+    const l = getLoja(lojaAtiva);
+    grupoParaExcluir.chaves.forEach(k => { if(l.validades[k]) delete l.validades[k]; });
+    setLoja(lojaAtiva, l);
+    fecharExcluirValidade();
+    atualizarListaValidadesAdicionadas();
+    atualizarTotalValidades();
+    atualizarCardsLojas();
+    montarListaValidades();
+    mostrarToast("Registro excluído.","🗑️");
+}
+
+/* SELEÇÃO DE LOJA */
+function abrirSelecaoLojaRupturas(){
+    $("tituloSelecaoLoja").textContent = "📋 Verificar lista de rupturas";
+    $("subtituloSelecaoLoja").textContent = "Escolha qual loja deseja visualizar";
+    montarSelecaoLoja("rupturas");
+    $("modalSelecaoLoja").classList.add("aberto");
+}
+function abrirSelecaoLojaValidades(){
+    $("tituloSelecaoLoja").textContent = "📅 Abrir validades das lojas";
+    $("subtituloSelecaoLoja").textContent = "Escolha qual loja deseja visualizar";
+    montarSelecaoLoja("validades");
+    $("modalSelecaoLoja").classList.add("aberto");
+}
+function fecharSelecaoLoja(){ $("modalSelecaoLoja").classList.remove("aberto"); }
+
+function montarSelecaoLoja(tipo){
+    const lojas = carregarLojas();
+    const c = $("listaSelecaoLoja");
+    c.innerHTML="";
+    let encontrou=false;
+
+    lojas.forEach((loja,i)=>{
+        const tR = Object.keys(loja.rupturas||{}).length;
+        const tV = Object.keys(loja.validades||{}).length;
+        if(tipo==="rupturas" && tR===0) return;
+        if(tipo==="validades" && tV===0) return;
+        encontrou=true;
+
+        const nome = loja.info.loja || `Loja ${i+1}`;
+        const partes=[];
+        if(loja.info.nome) partes.push("👤 "+loja.info.nome);
+        if(loja.info.supervisor) partes.push("👨‍💼 "+loja.info.supervisor);
+
+        const btn = document.createElement("button");
+        btn.className = "btn-selecao-loja";
+
+        const ic = document.createElement("span");
+        ic.className = "ic";
+        ic.textContent = tipo==="rupturas" ? "📋" : "📅";
+
+        const info = document.createElement("div");
+        info.className = "info";
+        info.innerHTML = '<div class="nome">'+nome+'</div>'+
+            '<div class="sub">'+(partes.length?partes.join(" • "):"Sem dados complementares")+'</div>';
+
+        const ct = document.createElement("span");
+        ct.className = "cont" + (tipo==="rupturas"?" rosa":"");
+        ct.textContent = tipo==="rupturas" ? tR : tV;
+
+        btn.appendChild(ic); btn.appendChild(info); btn.appendChild(ct);
+
+        btn.addEventListener("click", function(){
+            fecharSelecaoLoja();
+            abrirFerramentaRupturas(i);
+            setTimeout(()=>{
+                if(tipo==="rupturas"){
+                    trocarSubAba("rupturas");
+                    setTimeout(()=>abrirListaRupturas(),250);
+                } else {
+                    trocarSubAba("validades");
+                }
+            },200);
+        });
+
+        c.appendChild(btn);
+    });
+
+    if(!encontrou){
+        const v = document.createElement("div");
+        v.className = "validade-vazio";
+        v.textContent = "Nenhuma loja com registros encontrada.";
+        c.appendChild(v);
+    }
+}
+
+/* MODAL DA LOJA */
+function abrirFerramentaRupturas(i){
+    lojaAtiva = i;
+    const lojas = carregarLojas();
+    const nome = lojas[i].info.loja || `Loja ${i+1}`;
+    $("tituloLojaAtiva").textContent = `🏪 ${nome}`;
     preencherInfoLoja();
     montarListaRupturas();
     atualizarContadoresRuptura();
-
-    $("modalFerramentaRupturas").classList.add("aberto");
+    montarListaValidades();
+    atualizarTotalValidades();
+    atualizarInfoLojaValidade();
+    trocarSubAba("dados");
+    $("modalLoja").classList.add("aberto");
 }
-
 function fecharFerramentaRupturas(){
-    $("modalFerramentaRupturas").classList.remove("aberto");
+    $("modalLoja").classList.remove("aberto");
     atualizarCardsLojas();
 }
 
-
-/* =====================================================
-   INFORMAÇÕES DA LOJA (inputs)
-===================================================== */
-
-function carregarInfoLoja(){
-    return getLoja(lojaAtiva).info;
-}
-
+/* INFO LOJA */
 function salvarInfoLoja(){
-
     const info = {
-        loja: $("infoLoja").value.trim(),
-        nome: $("infoNome").value.trim(),
-        endereco: $("infoEndereco").value.trim(),
-        supervisor: $("infoSupervisor").value.trim()
+        loja:$("infoLoja").value.trim(),
+        nome:$("infoNome").value.trim(),
+        endereco:$("infoEndereco").value.trim(),
+        supervisor:$("infoSupervisor").value.trim()
     };
-
-    const loja = getLoja(lojaAtiva);
-    loja.info = info;
-    setLoja(lojaAtiva, loja);
-
-    $("tituloLojaAtiva").textContent =
-        "📋 " + (info.loja || `Loja ${lojaAtiva+1}`);
-
+    const l = getLoja(lojaAtiva);
+    l.info = info;
+    setLoja(lojaAtiva, l);
+    $("tituloLojaAtiva").textContent = "🏪 "+(info.loja || `Loja ${lojaAtiva+1}`);
+    atualizarInfoLojaValidade();
     atualizarCardsLojas();
 }
-
 function preencherInfoLoja(){
-    const info = carregarInfoLoja();
-    $("infoLoja").value = info.loja || "";
-    $("infoNome").value = info.nome || "";
-    $("infoEndereco").value = info.endereco || "";
-    $("infoSupervisor").value = info.supervisor || "";
+    const i = getLoja(lojaAtiva).info;
+    $("infoLoja").value = i.loja || "";
+    $("infoNome").value = i.nome || "";
+    $("infoEndereco").value = i.endereco || "";
+    $("infoSupervisor").value = i.supervisor || "";
+}
+function atualizarInfoLojaValidade(){
+    const i = getLoja(lojaAtiva).info;
+    $("infoLojaValidadeTexto").innerHTML =
+        "🏬 <b>"+(i.loja||"Não informado")+"</b><br>"+
+        "👤 "+(i.nome||"Não informado")+"<br>"+
+        "📍 "+(i.endereco||"Não informado")+"<br>"+
+        "👨‍💼 "+(i.supervisor||"Não informado");
 }
 
-
-/* =====================================================
-   CRIAR PRODUTO (rupturas)
-===================================================== */
-
-function criarProdutoRuptura(nome, descricao, categoria){
-
+/* RUPTURAS */
+function criarProdutoRuptura(nome,descricao,categoria){
     const chave = categoria+"|"+nome+"|"+descricao;
     const loja = getLoja(lojaAtiva);
     const rupturas = loja.rupturas || {};
@@ -2351,26 +2351,16 @@ function criarProdutoRuptura(nome, descricao, categoria){
     div.className = "ruptura-produto";
     div.dataset.busca = (nome+" "+descricao).toLowerCase();
 
-    const checkbox = document.createElement("input");
-    checkbox.type="checkbox";
-    checkbox.className="ruptura-checkbox";
-    checkbox.checked = !!rupturas[chave];
+    const cb = document.createElement("input");
+    cb.type="checkbox"; cb.className="ruptura-checkbox";
+    cb.checked = !!rupturas[chave];
+    if(cb.checked) div.classList.add("selecionado");
 
-    if(checkbox.checked) div.classList.add("selecionado");
-
-    checkbox.addEventListener("change", function(){
-
+    cb.addEventListener("change", function(){
         const l = getLoja(lojaAtiva);
         l.rupturas = l.rupturas || {};
-
-        if(this.checked){
-            l.rupturas[chave] = {nome,descricao,categoria};
-            div.classList.add("selecionado");
-        }else{
-            delete l.rupturas[chave];
-            div.classList.remove("selecionado");
-        }
-
+        if(this.checked){ l.rupturas[chave] = {nome,descricao,categoria}; div.classList.add("selecionado"); }
+        else { delete l.rupturas[chave]; div.classList.remove("selecionado"); }
         setLoja(lojaAtiva, l);
         atualizarContadoresRuptura();
         atualizarCardsLojas();
@@ -2378,28 +2368,13 @@ function criarProdutoRuptura(nome, descricao, categoria){
 
     const info = document.createElement("div");
     info.className = "ruptura-produto-info";
-    info.innerHTML = `
-        <div class="ruptura-produto-nome">
-            ${emojiProduto(nome)} ${nome}
-        </div>
-        <div class="ruptura-produto-descricao">
-            ${descricao}
-        </div>
-    `;
+    info.innerHTML = '<div class="ruptura-produto-nome">'+emojiProduto(nome)+' '+nome+'</div>'+
+                     '<div class="ruptura-produto-descricao">'+descricao+'</div>';
 
-    div.appendChild(checkbox);
-    div.appendChild(info);
-
+    div.appendChild(cb); div.appendChild(info);
     return div;
 }
-
-
-/* =====================================================
-   MONTAR LISTAS DE RUPTURAS
-===================================================== */
-
 function montarListaRupturas(){
-
     montarGrupo("listaCervejas210",cervejas210,"cerveja");
     montarGrupo("listaCervejas330",cervejas330,"cerveja");
     montarGrupo("listaCervejas350",cervejas350,"cerveja");
@@ -2416,258 +2391,112 @@ function montarListaRupturas(){
     montarGrupo("listaTonicas",tonicas,"tonica");
     montarGrupo("listaIsotonicos",isotonicos,"isotonico");
 }
-
-function montarGrupo(id, lista, categoria){
-
-    const container = $(id);
-    if(!container) return;
-
-    container.innerHTML = "";
-
-    const ordenada = [...lista].sort((a,b)=>{
-        const nomeA=a[0].toLowerCase();
-        const nomeB=b[0].toLowerCase();
-        if(nomeA===nomeB){
-            return a[1].localeCompare(b[1],"pt-BR",{numeric:true});
-        }
-        return nomeA.localeCompare(nomeB,"pt-BR");
+function montarGrupo(id,lista,categoria){
+    const c = $(id); if(!c) return;
+    c.innerHTML="";
+    const ord = [...lista].sort((a,b)=>{
+        const na=a[0].toLowerCase(), nb=b[0].toLowerCase();
+        if(na===nb) return a[1].localeCompare(b[1],"pt-BR",{numeric:true});
+        return na.localeCompare(nb,"pt-BR");
     });
-
-    ordenada.forEach(item=>{
-        container.appendChild(criarProdutoRuptura(item[0],item[1],categoria));
-    });
+    ord.forEach(i=>{ c.appendChild(criarProdutoRuptura(i[0],i[1],categoria)); });
 }
-
-
-/* =====================================================
-   CONTADORES DE RUPTURA
-===================================================== */
-
 function atualizarContadoresRuptura(){
-
-    const loja = getLoja(lojaAtiva);
-    const dados = loja.rupturas || {};
-
-    let total=0, alcoolicos=0, naoAlcoolicos=0;
-
-    Object.values(dados).forEach(item=>{
-        total++;
-        if(
-            item.categoria==="cerveja" ||
-            item.categoria==="cerveja_zero" ||
-            item.categoria==="mistas"
-        ){
-            alcoolicos++;
-        }else{
-            naoAlcoolicos++;
-        }
+    const d = getLoja(lojaAtiva).rupturas || {};
+    let t=0,a=0,n=0;
+    Object.values(d).forEach(it=>{
+        t++;
+        if(it.categoria==="cerveja"||it.categoria==="cerveja_zero"||it.categoria==="mistas") a++;
+        else n++;
     });
-
-    $("contadorTotal").textContent=total;
-    $("contadorAlcoolicos").textContent=alcoolicos;
-    $("contadorNaoAlcoolicos").textContent=naoAlcoolicos;
+    $("contadorTotal").textContent=t;
+    $("contadorAlcoolicos").textContent=a;
+    $("contadorNaoAlcoolicos").textContent=n;
 }
-
-
-/* =====================================================
-   CATEGORIAS / PESQUISA (rupturas)
-===================================================== */
-
-function mostrarCategoriaRuptura(categoria){
-
-    const alcoolicos = categoria==="alcoolicos";
-
-    $("painelAlcoolicos").style.display = alcoolicos ? "block" : "none";
-    $("painelNaoAlcoolicos").style.display = alcoolicos ? "none" : "block";
-
-    $("categoriaAlcoolicos").classList.toggle("ativo", alcoolicos);
-    $("categoriaNaoAlcoolicos").classList.toggle("ativo", !alcoolicos);
-
+function mostrarCategoriaRuptura(cat){
+    const al = cat==="alcoolicos";
+    $("painelAlcoolicos").style.display = al?"block":"none";
+    $("painelNaoAlcoolicos").style.display = al?"none":"block";
+    $("categoriaAlcoolicos").classList.toggle("ativo", al);
+    $("categoriaNaoAlcoolicos").classList.toggle("ativo", !al);
     $("pesquisaRupturas").value="";
     pesquisarRupturas();
 }
-
 function pesquisarRupturas(){
-
-    const termo = $("pesquisaRupturas").value.toLowerCase().trim();
-
-    const painelVisivel =
-        $("painelAlcoolicos").style.display !== "none"
-        ? $("painelAlcoolicos")
-        : $("painelNaoAlcoolicos");
-
-    painelVisivel.querySelectorAll(".ruptura-produto").forEach(produto=>{
-        const texto = produto.dataset.busca || "";
-        produto.style.display = texto.includes(termo) ? "flex" : "none";
+    const t = $("pesquisaRupturas").value.toLowerCase().trim();
+    const pv = $("painelAlcoolicos").style.display!=="none" ? $("painelAlcoolicos") : $("painelNaoAlcoolicos");
+    pv.querySelectorAll(".ruptura-produto").forEach(p=>{
+        p.style.display = (p.dataset.busca||"").includes(t) ? "flex" : "none";
     });
 }
 
-
-/* =====================================================
-   BLOCO DE NOTAS — RUPTURAS
-===================================================== */
-
+/* NOTAS RUPTURAS */
 function atualizarNotasRuptura(){
-
     const loja = getLoja(lojaAtiva);
-    const itens = Object.values(loja.rupturas || {});
+    const itens = Object.values(loja.rupturas||{});
     const info = loja.info;
-
-    let texto = "";
-
-    texto += "🏪 INFORMAÇÕES DA LOJA\n";
-    texto += "━━━━━━━━━━━━━━━━━━━━\n\n";
-    texto += "🏬 Loja: " + (info.loja || "Não informado") + "\n";
-    texto += "👤 Nome: " + (info.nome || "Não informado") + "\n";
-    texto += "📍 Endereço: " + (info.endereco || "Não informado") + "\n";
-    texto += "👨‍💼 Supervisor: " + (info.supervisor || "Não informado") + "\n\n";
-    texto += "━━━━━━━━━━━━━━━━━━━━\n";
+    let t = "";
+    t += "🏪 INFORMAÇÕES DA LOJA\n━━━━━━━━━━━━━━━━━━━━\n\n";
+    t += "🏬 Loja: "+(info.loja||"Não informado")+"\n";
+    t += "👤 Nome: "+(info.nome||"Não informado")+"\n";
+    t += "📍 Endereço: "+(info.endereco||"Não informado")+"\n";
+    t += "👨‍💼 Supervisor: "+(info.supervisor||"Não informado")+"\n\n";
+    t += "━━━━━━━━━━━━━━━━━━━━\n";
 
     if(!itens.length){
-        texto += "\n📋 LISTA DE RUPTURAS\n\n";
-        texto += "Nenhum produto selecionado.";
-        $("blocoNotasRupturas").textContent = texto;
+        t += "\n📋 LISTA DE RUPTURAS\n\nNenhum produto selecionado.";
+        $("blocoNotasRupturas").textContent = t;
         return;
     }
+    const al = itens.filter(i=>i.categoria==="cerveja"||i.categoria==="cerveja_zero"||i.categoria==="mistas");
+    const na = itens.filter(i=>i.categoria!=="cerveja"&&i.categoria!=="cerveja_zero"&&i.categoria!=="mistas");
 
-    const alcoolicos = itens.filter(item=>
-        item.categoria==="cerveja" ||
-        item.categoria==="cerveja_zero" ||
-        item.categoria==="mistas"
-    );
-
-    const naoAlcoolicos = itens.filter(item=>
-        item.categoria!=="cerveja" &&
-        item.categoria!=="cerveja_zero" &&
-        item.categoria!=="mistas"
-    );
-
-    texto += "\n📋 LISTA DE RUPTURAS\n";
-    texto += "━━━━━━━━━━━━━━━━━━━━\n\n";
-
-    if(alcoolicos.length){
-        texto += "🍺 ALCOÓLICOS\n\n";
-        alcoolicos
-            .sort((a,b)=>a.nome.localeCompare(b.nome,"pt-BR",{numeric:true}))
-            .forEach(item=>{
-                texto += emojiProduto(item.nome)+" "+item.nome+" — "+item.descricao+"\n";
-            });
-        texto += "\n";
+    t += "\n📋 LISTA DE RUPTURAS\n━━━━━━━━━━━━━━━━━━━━\n\n";
+    if(al.length){
+        t += "🍺 ALCOÓLICOS\n\n";
+        al.sort((a,b)=>a.nome.localeCompare(b.nome,"pt-BR",{numeric:true})).forEach(i=>{
+            t += emojiProduto(i.nome)+" "+i.nome+" — "+i.descricao+"\n";
+        });
+        t += "\n";
     }
-
-    if(naoAlcoolicos.length){
-        texto += "🥤 NÃO ALCOÓLICOS\n\n";
-        naoAlcoolicos
-            .sort((a,b)=>a.nome.localeCompare(b.nome,"pt-BR",{numeric:true}))
-            .forEach(item=>{
-                texto += emojiProduto(item.nome)+" "+item.nome+" — "+item.descricao+"\n";
-            });
+    if(na.length){
+        t += "🥤 NÃO ALCOÓLICOS\n\n";
+        na.sort((a,b)=>a.nome.localeCompare(b.nome,"pt-BR",{numeric:true})).forEach(i=>{
+            t += emojiProduto(i.nome)+" "+i.nome+" — "+i.descricao+"\n";
+        });
     }
-
-    texto += "\n━━━━━━━━━━━━━━━━━━━━";
-    texto += "\nTotal de rupturas: "+itens.length;
-
-    $("blocoNotasRupturas").textContent = texto;
+    t += "\n━━━━━━━━━━━━━━━━━━━━\nTotal de rupturas: "+itens.length;
+    $("blocoNotasRupturas").textContent = t;
 }
-
 function abrirListaRupturas(){
     atualizarNotasRuptura();
-
     const loja = getLoja(lojaAtiva);
-    $("subtituloNotas").textContent =
-        (loja.info.loja || `Loja ${lojaAtiva+1}`) + " — produtos em ruptura";
-
-    $("modalFerramentaRupturas").classList.remove("aberto");
+    $("subtituloNotas").textContent = (loja.info.loja || `Loja ${lojaAtiva+1}`)+" — produtos em ruptura";
     $("modalListaRupturas").classList.add("aberto");
 }
-
-function fecharListaRupturas(){
-    $("modalListaRupturas").classList.remove("aberto");
-    $("modalFerramentaRupturas").classList.add("aberto");
-}
-
-
-/* =====================================================
-   COPIAR / LIMPAR — RUPTURAS
-===================================================== */
-
+function fecharListaRupturas(){ $("modalListaRupturas").classList.remove("aberto"); }
 async function copiarRupturas(){
-
-    const texto = $("blocoNotasRupturas").textContent;
-
-    try{
-        await navigator.clipboard.writeText(texto);
-        mostrarToast("Lista copiada com sucesso!","📋");
-    }catch(e){
-        const area = document.createElement("textarea");
-        area.value=texto;
-        document.body.appendChild(area);
-        area.select();
-        document.execCommand("copy");
-        area.remove();
-        mostrarToast("Lista copiada!","📋");
+    const t = $("blocoNotasRupturas").textContent;
+    try{ await navigator.clipboard.writeText(t); mostrarToast("Lista copiada!","📋"); }
+    catch(e){
+        const a=document.createElement("textarea"); a.value=t; document.body.appendChild(a); a.select();
+        document.execCommand("copy"); a.remove(); mostrarToast("Lista copiada!","📋");
     }
 }
-
 function limparRupturas(){
-
-    const confirmar = confirm(
-        "Deseja realmente limpar todas as rupturas desta loja?\n\n" +
-        "(Os dados da loja permanecem salvos)"
-    );
-
-    if(!confirmar) return;
-
-    const loja = getLoja(lojaAtiva);
-    loja.rupturas = {};
-    setLoja(lojaAtiva, loja);
-
+    if(!confirm("Limpar todas as rupturas desta loja?")) return;
+    const l = getLoja(lojaAtiva);
+    l.rupturas = {};
+    setLoja(lojaAtiva, l);
     montarListaRupturas();
     atualizarNotasRuptura();
     atualizarContadoresRuptura();
     atualizarCardsLojas();
-
-    mostrarToast("Lista de rupturas limpa.","🗑️");
+    mostrarToast("Rupturas limpas.","🗑️");
 }
 
-
-/* =====================================================
-   VALIDADES — ABRIR / FECHAR
-===================================================== */
-
-function abrirValidades(index){
-
-    lojaAtivaValidade = index;
-
-    const loja = getLoja(index);
-    const nomeLoja = loja.info.loja || `Loja ${index+1}`;
-    $("tituloLojaValidade").textContent = `📅 Validades — ${nomeLoja}`;
-
-    const info = loja.info;
-    $("infoLojaValidadeTexto").innerHTML =
-        "🏬 <b>" + (info.loja || "Não informado") + "</b><br>" +
-        "👤 " + (info.nome || "Não informado") + "<br>" +
-        "📍 " + (info.endereco || "Não informado") + "<br>" +
-        "👨‍💼 " + (info.supervisor || "Não informado");
-
-    montarListaValidades();
-    atualizarTotalValidades();
-
-    $("modalValidades").classList.add("aberto");
-}
-
-function fecharValidades(){
-    $("modalValidades").classList.remove("aberto");
-    atualizarCardsLojas();
-}
-
-
-/* =====================================================
-   VALIDADES — MONTAR LISTAS
-===================================================== */
-
+/* VALIDADES */
 function montarListaValidades(){
-
     montarGrupoValidade("validadeListaCervejas210",cervejas210,"cerveja");
     montarGrupoValidade("validadeListaCervejas330",cervejas330,"cerveja");
     montarGrupoValidade("validadeListaCervejas350",cervejas350,"cerveja");
@@ -2683,426 +2512,359 @@ function montarListaValidades(){
     montarGrupoValidade("validadeListaRefrigerantes25L",refrigerantes25L,"refrigerante");
     montarGrupoValidade("validadeListaTonicas",tonicas,"tonica");
     montarGrupoValidade("validadeListaIsotonicos",isotonicos,"isotonico");
-
     atualizarListaValidadesAdicionadas();
 }
-
-function montarGrupoValidade(id, lista, categoria){
-
-    const container = $(id);
-    if(!container) return;
-
-    container.innerHTML = "";
-
-    const ordenada = [...lista].sort((a,b)=>{
-        const nomeA=a[0].toLowerCase();
-        const nomeB=b[0].toLowerCase();
-        if(nomeA===nomeB){
-            return a[1].localeCompare(b[1],"pt-BR",{numeric:true});
-        }
-        return nomeA.localeCompare(nomeB,"pt-BR");
+function montarGrupoValidade(id,lista,categoria){
+    const c=$(id); if(!c) return;
+    c.innerHTML="";
+    const ord=[...lista].sort((a,b)=>{
+        const na=a[0].toLowerCase(), nb=b[0].toLowerCase();
+        if(na===nb) return a[1].localeCompare(b[1],"pt-BR",{numeric:true});
+        return na.localeCompare(nb,"pt-BR");
     });
-
-    ordenada.forEach(item=>{
-        container.appendChild(criarItemValidade(item[0],item[1],categoria));
-    });
+    ord.forEach(i=>{ c.appendChild(criarItemValidade(i[0],i[1],categoria)); });
 }
-
-
-/* =====================================================
-   VALIDADES — CRIAR ITEM INTERATIVO
-===================================================== */
-
-function criarItemValidade(nome, descricao, categoria){
-
-    const chave = categoria+"|"+nome+"|"+descricao;
-    const loja = getLoja(lojaAtivaValidade);
-    const validades = loja.validades || {};
-    const jaAdicionado = !!validades[chave];
+function criarItemValidade(nome,descricao,categoria){
+    const chaveBase = categoria+"|"+nome+"|"+descricao;
+    const loja = getLoja(lojaAtiva);
+    const v = loja.validades || {};
+    const existentes = Object.keys(v).filter(k=>k.startsWith(chaveBase+"||"));
+    const jaAdic = existentes.length>0;
 
     const wrapper = document.createElement("div");
-    wrapper.style.marginBottom = "8px";
+    wrapper.style.marginBottom="8px";
     wrapper.dataset.busca = (nome+" "+descricao).toLowerCase();
     wrapper.className = "validade-wrapper";
 
     const itemDiv = document.createElement("div");
     itemDiv.className = "validade-produto-item";
-    if(jaAdicionado){
-        itemDiv.style.borderColor = "#00ff88";
-        itemDiv.style.background = "linear-gradient(135deg,#05281b,#0b1a13)";
-    }
-    itemDiv.innerHTML = `
-        <div style="flex:1;">
-            <div style="font-size:13px;font-weight:800;">
-                ${emojiProduto(nome)} ${nome}
-            </div>
-            <div style="color:#71869d;font-size:11px;margin-top:3px;">
-                ${descricao}${jaAdicionado ? ' • <span style="color:#00ff88;font-weight:900;">JÁ REGISTRADO</span>' : ''}
-            </div>
-        </div>
-        <span style="color:#00d9ff;font-size:18px;">+</span>
-    `;
+    if(jaAdic) itemDiv.classList.add("ja-registrado");
+    itemDiv.innerHTML =
+        '<div style="flex:1;">'+
+        '<div style="font-size:12.5px;font-weight:800;">'+emojiProduto(nome)+' '+nome+'</div>'+
+        '<div style="color:#71869d;font-size:10.5px;margin-top:3px;">'+descricao+
+        (jaAdic?' • <span style="color:#00ff88;font-weight:900;">JÁ REGISTRADO ('+existentes.length+')</span>':'')+
+        '</div></div><span style="color:#00d9ff;font-size:18px;">+</span>';
 
     const controles = document.createElement("div");
     controles.className = "validade-controles";
     controles.style.display = "none";
 
-    const inputQtd = document.createElement("input");
-    inputQtd.type = "number";
-    inputQtd.min = "1";
-    inputQtd.placeholder = "Qtd";
-    inputQtd.className = "validade-input-qtd";
-    if(jaAdicionado) inputQtd.value = validades[chave].quantidade;
+    const inpQ = document.createElement("input");
+    inpQ.type="number"; inpQ.min="1"; inpQ.placeholder="Qtd";
+    inpQ.className="validade-input-qtd";
 
-    const inputData = document.createElement("input");
-    inputData.type = "date";
-    inputData.className = "validade-input-data";
-    if(jaAdicionado) inputData.value = validades[chave].data;
+    const inpD = document.createElement("input");
+    inpD.type="date"; inpD.className="validade-input-data";
 
-    const btnAdd = document.createElement("button");
-    btnAdd.className = "btn-validade-add";
-    btnAdd.textContent = jaAdicionado ? "ATUALIZAR" : "ADICIONAR";
+    const btnA = document.createElement("button");
+    btnA.className="btn-validade-add"; btnA.textContent="ADICIONAR";
 
-    controles.appendChild(inputQtd);
-    controles.appendChild(inputData);
-    controles.appendChild(btnAdd);
+    controles.appendChild(inpQ); controles.appendChild(inpD); controles.appendChild(btnA);
 
     itemDiv.addEventListener("click", function(){
         const aberto = controles.style.display !== "none";
-        document.querySelectorAll("#modalValidades .validade-controles").forEach(el=>{
-            el.style.display = "none";
+        document.querySelectorAll("#painelValidades .validade-controles").forEach(el=>{
+            el.style.display="none";
         });
         controles.style.display = aberto ? "none" : "flex";
+        if(!aberto){ inpQ.value=""; inpD.value=""; }
     });
 
-    btnAdd.addEventListener("click", function(e){
+    btnA.addEventListener("click", function(e){
         e.stopPropagation();
+        const q = parseInt(inpQ.value)||0;
+        const d = inpD.value;
+        if(q<=0){ mostrarToast("Informe uma quantidade válida.","⚠️"); return; }
+        if(!d){ mostrarToast("Informe a data de validade.","⚠️"); return; }
 
-        const qtd = parseInt(inputQtd.value) || 0;
-        const data = inputData.value;
-
-        if(qtd <= 0){
-            mostrarToast("Informe uma quantidade válida.","⚠️");
-            return;
-        }
-        if(!data){
-            mostrarToast("Informe a data de validade.","⚠️");
-            return;
-        }
-
-        const l = getLoja(lojaAtivaValidade);
+        const l = getLoja(lojaAtiva);
         l.validades = l.validades || {};
+        const chave = chaveBase+"||"+Date.now()+"||"+Math.floor(Math.random()*10000);
+        l.validades[chave] = {nome,descricao,categoria,quantidade:q,data:d};
+        setLoja(lojaAtiva, l);
 
-        l.validades[chave] = {
-            nome: nome,
-            descricao: descricao,
-            categoria: categoria,
-            quantidade: qtd,
-            data: data
-        };
-
-        setLoja(lojaAtivaValidade, l);
-
-        itemDiv.style.borderColor = "#00ff88";
-        itemDiv.style.background = "linear-gradient(135deg,#05281b,#0b1a13)";
-
-        inputQtd.value = "";
-        inputData.value = "";
-        controles.style.display = "none";
+        itemDiv.classList.add("ja-registrado");
+        inpQ.value=""; inpD.value="";
+        controles.style.display="none";
 
         atualizarListaValidadesAdicionadas();
         atualizarTotalValidades();
         atualizarCardsLojas();
         montarListaValidades();
-
-        mostrarToast(nome + " registrado!","✅");
+        mostrarToast(nome+" registrado!","✅");
     });
 
     wrapper.appendChild(itemDiv);
     wrapper.appendChild(controles);
-
     return wrapper;
 }
 
-
-/* =====================================================
-   VALIDADES — LISTA DE ADICIONADOS
-===================================================== */
-
+/* LISTA VALIDADES ADICIONADAS */
 function atualizarListaValidadesAdicionadas(){
-
-    const loja = getLoja(lojaAtivaValidade);
-    const validades = loja.validades || {};
-    const container = $("listaValidadesAdicionadas");
-
-    const itens = Object.entries(validades);
+    const loja = getLoja(lojaAtiva);
+    const v = loja.validades || {};
+    const c = $("listaValidadesAdicionadas");
+    const itens = Object.entries(v);
 
     if(!itens.length){
-        container.innerHTML = '<div class="validade-vazio">Nenhum produto registrado ainda.</div>';
+        c.innerHTML = '<div class="validade-vazio">Nenhum produto registrado ainda.</div>';
         return;
     }
 
-    itens.sort((a,b)=>{
-        return new Date(a[1].data) - new Date(b[1].data);
+    const grupos = {};
+    itens.forEach(([chave,item])=>{
+        const cg = item.nome+"|"+item.descricao+"|"+item.data;
+        if(!grupos[cg]){
+            grupos[cg] = {nome:item.nome,descricao:item.descricao,categoria:item.categoria,
+                          data:item.data,quantidade:0,chaves:[]};
+        }
+        grupos[cg].quantidade += Number(item.quantidade)||0;
+        grupos[cg].chaves.push(chave);
     });
 
-    container.innerHTML = "";
+    const lista = Object.values(grupos);
+    lista.sort((a,b)=> new Date(a.data)-new Date(b.data));
 
-    itens.forEach(([chave, item])=>{
+    c.innerHTML = "";
+
+    lista.forEach(g=>{
+        const wrapper = document.createElement("div");
+        wrapper.style.marginBottom = "8px";
 
         const div = document.createElement("div");
         div.className = "validade-item-adicionado";
 
-        const dataObj = new Date(item.data + "T12:00:00");
-        const dataFormatada = dataObj.toLocaleDateString("pt-BR");
+        const dObj = new Date(g.data+"T12:00:00");
+        const dFmt = dObj.toLocaleDateString("pt-BR");
 
-        const hoje = new Date();
-        hoje.setHours(0,0,0,0);
-        const dataVal = new Date(item.data + "T12:00:00");
-        dataVal.setHours(0,0,0,0);
-        const diffDias = Math.ceil((dataVal - hoje) / (1000*60*60*24));
+        const hoje = new Date(); hoje.setHours(0,0,0,0);
+        const dV = new Date(g.data+"T12:00:00"); dV.setHours(0,0,0,0);
+        const diff = Math.ceil((dV-hoje)/(1000*60*60*24));
 
-        let corDias = "#00ff88";
-        let textoDias = "";
-        if(diffDias < 0){
-            corDias = "#ff0055";
-            textoDias = "VENCIDO há " + Math.abs(diffDias) + " dia(s)";
-        }else if(diffDias === 0){
-            corDias = "#ffaa00";
-            textoDias = "VENCE HOJE";
-        }else if(diffDias <= 7){
-            corDias = "#ffaa00";
-            textoDias = "Vence em " + diffDias + " dia(s)";
-        }else{
-            textoDias = "Vence em " + diffDias + " dia(s)";
-        }
+        let cor="#00ff88", txt="";
+        if(diff<0){ cor="#ff0055"; txt="VENCIDO há "+Math.abs(diff)+"d"; }
+        else if(diff===0){ cor="#ffaa00"; txt="VENCE HOJE"; }
+        else if(diff<=7){ cor="#ffaa00"; txt="Vence em "+diff+"d"; }
+        else { txt="Vence em "+diff+"d"; }
 
-        div.innerHTML = `
-            <div class="validade-item-info">
-                <div class="validade-item-nome">${emojiProduto(item.nome)} ${item.nome}</div>
-                <div class="validade-item-detalhe">
-                    <span>📦 Qtd: <b>${item.quantidade}</b></span>
-                    <span>📅 <b>${dataFormatada}</b></span>
-                    <span style="color:${corDias};font-weight:900;">⏳ ${textoDias}</span>
-                </div>
-            </div>
-        `;
+        div.innerHTML =
+            '<div class="validade-item-info">'+
+            '<div class="validade-item-nome">'+emojiProduto(g.nome)+' '+g.nome+'</div>'+
+            '<div class="validade-item-detalhe">'+
+            '<span>📦 <b>'+g.quantidade+'</b></span>'+
+            '<span>📅 <b>'+dFmt+'</b></span>'+
+            '<span style="color:'+cor+';font-weight:900;">⏳ '+txt+'</span>'+
+            '</div></div>';
 
-        const btnRemover = document.createElement("button");
-        btnRemover.className = "validade-item-remover";
-        btnRemover.textContent = "×";
-        btnRemover.addEventListener("click", function(){
-            const l = getLoja(lojaAtivaValidade);
-            delete l.validades[chave];
-            setLoja(lojaAtivaValidade, l);
+        const acoes = document.createElement("div");
+        acoes.style.display="flex"; acoes.style.gap="6px"; acoes.style.flexShrink="0";
+
+        const btnE = document.createElement("button");
+        btnE.className = "validade-item-editar";
+        btnE.textContent = "✏️";
+        acoes.appendChild(btnE);
+        div.appendChild(acoes);
+
+        const painel = document.createElement("div");
+        painel.className = "validade-controles";
+        painel.style.display = "none";
+        painel.style.marginTop = "8px";
+
+        const iQ = document.createElement("input");
+        iQ.type="number"; iQ.min="1"; iQ.className="validade-input-qtd"; iQ.value=g.quantidade;
+
+        const iD = document.createElement("input");
+        iD.type="date"; iD.className="validade-input-data"; iD.value=g.data;
+
+        const bS = document.createElement("button");
+        bS.className="btn-validade-add"; bS.textContent="SALVAR";
+
+        const bC = document.createElement("button");
+        bC.className="btn-validade-add";
+        bC.style.background="linear-gradient(135deg,#7a1030,#a50038)";
+        bC.textContent="CANCELAR";
+
+        painel.appendChild(iQ); painel.appendChild(iD); painel.appendChild(bS); painel.appendChild(bC);
+
+        btnE.addEventListener("click", function(e){
+            e.stopPropagation();
+            const ab = painel.style.display !== "none";
+            painel.style.display = ab ? "none" : "flex";
+            if(!ab){ iQ.value=g.quantidade; iD.value=g.data; }
+        });
+
+        bC.addEventListener("click", function(){ painel.style.display="none"; });
+
+        bS.addEventListener("click", function(){
+            const q = parseInt(iQ.value)||0;
+            const d = iD.value;
+            if(q<=0){ mostrarToast("Informe uma quantidade válida.","⚠️"); return; }
+            if(!d){ mostrarToast("Informe a data de validade.","⚠️"); return; }
+
+            const l = getLoja(lojaAtiva);
+            const chaves = g.chaves.filter(k=>l.validades[k]);
+            if(!chaves.length){ mostrarToast("Item não encontrado.","⚠️"); return; }
+
+            l.validades[chaves[0]].quantidade = q;
+            l.validades[chaves[0]].data = d;
+            chaves.slice(1).forEach(k=> delete l.validades[k]);
+            setLoja(lojaAtiva, l);
 
             atualizarListaValidadesAdicionadas();
             atualizarTotalValidades();
+            atualizarNotasValidades();
             atualizarCardsLojas();
             montarListaValidades();
-
-            mostrarToast("Produto removido.","🗑️");
+            mostrarToast("Validade atualizada!","✅");
         });
 
-        div.appendChild(btnRemover);
-        container.appendChild(div);
+        /* Long press → excluir */
+        let pT=null, sx=0, sy=0;
+        const TEMPO=3000;
+
+        function iP(e){
+            if(e.target.closest(".validade-item-editar")) return;
+            if(e.target.closest(".validade-controles")) return;
+            if(e.touches && e.touches[0]){ sx=e.touches[0].clientX; sy=e.touches[0].clientY; }
+            else { sx=e.clientX; sy=e.clientY; }
+            clearTimeout(pT);
+            pT = setTimeout(function(){
+                if(navigator.vibrate) navigator.vibrate(60);
+                abrirExcluirValidade(g);
+            }, TEMPO);
+        }
+        function cP(){ clearTimeout(pT); }
+        function dA(e){
+            if(!pT) return;
+            let cx,cy;
+            if(e.touches && e.touches[0]){ cx=e.touches[0].clientX; cy=e.touches[0].clientY; }
+            else { cx=e.clientX; cy=e.clientY; }
+            if(Math.abs(cx-sx)>10||Math.abs(cy-sy)>10) clearTimeout(pT);
+        }
+
+        div.addEventListener("touchstart",iP,{passive:true});
+        div.addEventListener("touchend",cP);
+        div.addEventListener("touchcancel",cP);
+        div.addEventListener("touchmove",dA,{passive:true});
+        div.addEventListener("mousedown",iP);
+        div.addEventListener("mouseup",cP);
+        div.addEventListener("mouseleave",cP);
+        div.addEventListener("mousemove",dA);
+
+        wrapper.appendChild(div);
+        wrapper.appendChild(painel);
+        c.appendChild(wrapper);
     });
 }
-
-
-/* =====================================================
-   VALIDADES — CONTADOR
-===================================================== */
 
 function atualizarTotalValidades(){
-    const loja = getLoja(lojaAtivaValidade);
-    const total = Object.keys(loja.validades || {}).length;
-    $("validadeTotalNum").textContent = total;
+    const l = getLoja(lojaAtiva);
+    $("validadeTotalNum").textContent = Object.keys(l.validades||{}).length;
 }
-
-
-/* =====================================================
-   VALIDADES — CATEGORIAS / PESQUISA
-===================================================== */
-
-function mostrarCategoriaValidade(categoria){
-
-    const alcoolicos = categoria==="alcoolicos";
-
-    $("painelValidadeAlcoolicos").style.display = alcoolicos ? "block" : "none";
-    $("painelValidadeNaoAlcoolicos").style.display = alcoolicos ? "none" : "block";
-
-    $("validadeCatAlcoolicos").classList.toggle("ativo", alcoolicos);
-    $("validadeCatNaoAlcoolicos").classList.toggle("ativo", !alcoolicos);
-
-    $("pesquisaValidades").value = "";
+function mostrarCategoriaValidade(cat){
+    const al = cat==="alcoolicos";
+    $("painelValidadeAlcoolicos").style.display = al?"block":"none";
+    $("painelValidadeNaoAlcoolicos").style.display = al?"none":"block";
+    $("validadeCatAlcoolicos").classList.toggle("ativo", al);
+    $("validadeCatNaoAlcoolicos").classList.toggle("ativo", !al);
+    $("pesquisaValidades").value="";
     pesquisarValidades();
 }
-
 function pesquisarValidades(){
-
-    const termo = $("pesquisaValidades").value.toLowerCase().trim();
-
-    const painelVisivel =
-        $("painelValidadeAlcoolicos").style.display !== "none"
-        ? $("painelValidadeAlcoolicos")
-        : $("painelValidadeNaoAlcoolicos");
-
-    painelVisivel.querySelectorAll(".validade-wrapper").forEach(wrapper=>{
-        const texto = wrapper.dataset.busca || "";
-        wrapper.style.display = texto.includes(termo) ? "block" : "none";
+    const t = $("pesquisaValidades").value.toLowerCase().trim();
+    const pv = $("painelValidadeAlcoolicos").style.display!=="none" ? $("painelValidadeAlcoolicos") : $("painelValidadeNaoAlcoolicos");
+    pv.querySelectorAll(".validade-wrapper").forEach(w=>{
+        w.style.display = (w.dataset.busca||"").includes(t) ? "block" : "none";
     });
 }
-
-
-/* =====================================================
-   VALIDADES — BLOCO DE NOTAS
-===================================================== */
-
 function atualizarNotasValidades(){
-
-    const loja = getLoja(lojaAtivaValidade);
-    const validades = loja.validades || {};
+    const loja = getLoja(lojaAtiva);
+    const v = loja.validades || {};
     const info = loja.info;
 
-    let texto = "";
+    let t = "";
+    t += "🏪 INFORMAÇÕES DA LOJA\n━━━━━━━━━━━━━━━━━━━━\n\n";
+    t += "🏬 Loja: "+(info.loja||"Não informado")+"\n";
+    t += "👤 Nome: "+(info.nome||"Não informado")+"\n";
+    t += "📍 Endereço: "+(info.endereco||"Não informado")+"\n";
+    t += "👨‍💼 Supervisor: "+(info.supervisor||"Não informado")+"\n\n";
+    t += "━━━━━━━━━━━━━━━━━━━━\n";
 
-    texto += "🏪 INFORMAÇÕES DA LOJA\n";
-    texto += "━━━━━━━━━━━━━━━━━━━━\n\n";
-    texto += "🏬 Loja: " + (info.loja || "Não informado") + "\n";
-    texto += "👤 Nome: " + (info.nome || "Não informado") + "\n";
-    texto += "📍 Endereço: " + (info.endereco || "Não informado") + "\n";
-    texto += "👨‍💼 Supervisor: " + (info.supervisor || "Não informado") + "\n\n";
-    texto += "━━━━━━━━━━━━━━━━━━━━\n";
-
-    const itens = Object.values(validades);
-
+    const itens = Object.values(v);
     if(!itens.length){
-        texto += "\n📅 LISTA DE VALIDADES\n\n";
-        texto += "Nenhum produto registrado.";
-        $("blocoNotasValidades").textContent = texto;
+        t += "\n📅 LISTA DE VALIDADES\n\nNenhum produto registrado.";
+        $("blocoNotasValidades").textContent = t;
         return;
     }
 
-    itens.sort((a,b)=> new Date(a.data) - new Date(b.data));
+    const grupos = {};
+    itens.forEach(item=>{
+        const cg = item.nome+"|"+item.descricao+"|"+item.data;
+        if(!grupos[cg]) grupos[cg] = {nome:item.nome,descricao:item.descricao,categoria:item.categoria,data:item.data,quantidade:0};
+        grupos[cg].quantidade += Number(item.quantidade)||0;
+    });
 
-    const alcoolicos = itens.filter(item=>
-        item.categoria==="cerveja" ||
-        item.categoria==="cerveja_zero" ||
-        item.categoria==="mistas"
-    );
+    const lista = Object.values(grupos).sort((a,b)=> new Date(a.data)-new Date(b.data));
+    const al = lista.filter(i=>i.categoria==="cerveja"||i.categoria==="cerveja_zero"||i.categoria==="mistas");
+    const na = lista.filter(i=>i.categoria!=="cerveja"&&i.categoria!=="cerveja_zero"&&i.categoria!=="mistas");
 
-    const naoAlcoolicos = itens.filter(item=>
-        item.categoria!=="cerveja" &&
-        item.categoria!=="cerveja_zero" &&
-        item.categoria!=="mistas"
-    );
+    t += "\n📅 LISTA DE VALIDADES\n━━━━━━━━━━━━━━━━━━━━\n\n";
 
-    texto += "\n📅 LISTA DE VALIDADES\n";
-    texto += "━━━━━━━━━━━━━━━━━━━━\n\n";
-
-    function formatarItem(item){
-        const dataObj = new Date(item.data + "T12:00:00");
-        const dataFormatada = dataObj.toLocaleDateString("pt-BR");
-
-        const hoje = new Date();
-        hoje.setHours(0,0,0,0);
-        const dataVal = new Date(item.data + "T12:00:00");
-        dataVal.setHours(0,0,0,0);
-        const diffDias = Math.ceil((dataVal - hoje) / (1000*60*60*24));
-
-        let status = "";
-        if(diffDias < 0) status = " ⚠️ VENCIDO (" + Math.abs(diffDias) + "d)";
-        else if(diffDias === 0) status = " ⚠️ VENCE HOJE";
-        else if(diffDias <= 7) status = " ⏳ " + diffDias + "d restantes";
-        else status = " ⏳ " + diffDias + "d restantes";
-
-        return emojiProduto(item.nome)+" "+item.nome+" — "+item.descricao+
-               "\n   📦 Quantidade: "+item.quantidade+
-               " | 📅 Validade: "+dataFormatada+status+"\n";
+    function fmt(i){
+        const dObj = new Date(i.data+"T12:00:00");
+        const dFmt = dObj.toLocaleDateString("pt-BR");
+        const h = new Date(); h.setHours(0,0,0,0);
+        const dV = new Date(i.data+"T12:00:00"); dV.setHours(0,0,0,0);
+        const diff = Math.ceil((dV-h)/(1000*60*60*24));
+        let st = "";
+        if(diff<0) st = " ⚠️ VENCIDO ("+Math.abs(diff)+"d)";
+        else if(diff===0) st = " ⚠️ VENCE HOJE";
+        else st = " ⏳ "+diff+"d restantes";
+        return emojiProduto(i.nome)+" "+i.nome+" — "+i.descricao+
+               "\n   📦 Quantidade: "+i.quantidade+
+               " | 📅 Validade: "+dFmt+st+"\n";
     }
 
-    if(alcoolicos.length){
-        texto += "🍺 ALCOÓLICOS\n\n";
-        alcoolicos.forEach(item=>{ texto += formatarItem(item) + "\n"; });
+    if(al.length){
+        t += "🍺 ALCOÓLICOS\n\n";
+        al.forEach(i=>{ t += fmt(i)+"\n"; });
     }
-
-    if(naoAlcoolicos.length){
-        texto += "🥤 NÃO ALCOÓLICOS\n\n";
-        naoAlcoolicos.forEach(item=>{ texto += formatarItem(item) + "\n"; });
+    if(na.length){
+        t += "🥤 NÃO ALCOÓLICOS\n\n";
+        na.forEach(i=>{ t += fmt(i)+"\n"; });
     }
-
-    texto += "━━━━━━━━━━━━━━━━━━━━";
-    texto += "\nTotal de produtos: " + itens.length;
-
-    $("blocoNotasValidades").textContent = texto;
+    t += "━━━━━━━━━━━━━━━━━━━━\nTotal de itens (agrupados): "+lista.length;
+    $("blocoNotasValidades").textContent = t;
 }
-
 function abrirNotasValidades(){
     atualizarNotasValidades();
-
-    const loja = getLoja(lojaAtivaValidade);
-    $("subtituloNotasValidades").textContent =
-        (loja.info.loja || `Loja ${lojaAtivaValidade+1}`) + " — produtos com validade";
-
-    $("modalValidades").classList.remove("aberto");
+    const loja = getLoja(lojaAtiva);
+    $("subtituloNotasValidades").textContent = (loja.info.loja || `Loja ${lojaAtiva+1}`)+" — produtos com validade";
     $("modalNotasValidades").classList.add("aberto");
 }
-
-function fecharNotasValidades(){
-    $("modalNotasValidades").classList.remove("aberto");
-    $("modalValidades").classList.add("aberto");
-}
-
-
-/* =====================================================
-   VALIDADES — COPIAR / LIMPAR
-===================================================== */
-
+function fecharNotasValidades(){ $("modalNotasValidades").classList.remove("aberto"); }
 async function copiarValidades(){
-
-    const texto = $("blocoNotasValidades").textContent;
-
-    try{
-        await navigator.clipboard.writeText(texto);
-        mostrarToast("Lista de validades copiada!","📋");
-    }catch(e){
-        const area = document.createElement("textarea");
-        area.value = texto;
-        document.body.appendChild(area);
-        area.select();
-        document.execCommand("copy");
-        area.remove();
-        mostrarToast("Lista copiada!","📋");
+    const t = $("blocoNotasValidades").textContent;
+    try{ await navigator.clipboard.writeText(t); mostrarToast("Validades copiadas!","📋"); }
+    catch(e){
+        const a=document.createElement("textarea"); a.value=t; document.body.appendChild(a); a.select();
+        document.execCommand("copy"); a.remove(); mostrarToast("Lista copiada!","📋");
     }
 }
-
 function limparValidades(){
-
-    const confirmar = confirm(
-        "Deseja realmente limpar todas as validades desta loja?\n\n" +
-        "(Os dados da loja permanecem salvos)"
-    );
-
-    if(!confirmar) return;
-
-    const loja = getLoja(lojaAtivaValidade);
-    loja.validades = {};
-    setLoja(lojaAtivaValidade, loja);
-
+    if(!confirm("Limpar todas as validades desta loja?")) return;
+    const l = getLoja(lojaAtiva);
+    l.validades = {};
+    setLoja(lojaAtiva, l);
     montarListaValidades();
     atualizarNotasValidades();
     atualizarTotalValidades();
     atualizarCardsLojas();
-
-    mostrarToast("Lista de validades limpa.","🗑️");
+    mostrarToast("Validades limpas.","🗑️");
 }
 
-
-/* =====================================================
-   INICIALIZAÇÃO
-===================================================== */
-
+/* INICIALIZAÇÃO */
 atualizarCardsLojas();
 
 </script>
