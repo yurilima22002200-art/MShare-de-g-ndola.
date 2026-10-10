@@ -3,80 +3,415 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#07111f">
+<meta name="theme-color" content="#202020">
 <title>MShare Space</title>
 
 <style>
 *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 
+:root{
+    --win-accent:#0078d4;
+    --win-accent-light:#2b88d8;
+    --win-accent-hover:#106ebe;
+    --win-bg-dark:#202020;
+    --win-bg-mid:#272727;
+    --win-bg-tile:#2d2d2d;
+    --win-bg-tile-hover:#333;
+    --win-border:#3d3d3d;
+    --win-text:#ffffff;
+    --win-text-secondary:#c5c5c5;
+    --win-text-disabled:#7a7a7a;
+    --win-success:#107c10;
+    --win-warning:#ffb900;
+    --win-error:#e81123;
+    --ease-fluent:cubic-bezier(.16,1,.3,1);
+    --ease-smooth:cubic-bezier(.4,0,.2,1);
+}
+
 body{
     margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:
-        radial-gradient(circle at top left,#102b4d 0%,transparent 35%),
-        radial-gradient(circle at bottom right,#29113d 0%,transparent 35%),
-        #05060a;
-    color:#fff;
+    font-family:'Segoe UI',-apple-system,'Helvetica Neue',Arial,sans-serif;
+    background:var(--win-bg-dark);
+    background-image:
+        radial-gradient(circle at 20% 10%, rgba(0,120,212,.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 90%, rgba(139,0,139,.12) 0%, transparent 50%),
+        linear-gradient(135deg, #1a1a1a 0%, #202020 100%);
+    color:var(--win-text);
     min-height:100vh;
+    font-weight:400;
+    letter-spacing:.1px;
+    -webkit-font-smoothing:antialiased;
 }
 
 button,input,select{ font:inherit; }
 button{ cursor:pointer; }
 
+::-webkit-scrollbar{ width:12px; height:12px; }
+::-webkit-scrollbar-track{ background:transparent; }
+::-webkit-scrollbar-thumb{
+    background:rgba(255,255,255,.15);
+    border:3px solid transparent;
+    background-clip:padding-box;
+    border-radius:8px;
+}
+::-webkit-scrollbar-thumb:hover{ background:rgba(255,255,255,.3); background-clip:padding-box; }
+
+.ico{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    line-height:1;
+    flex-shrink:0;
+    font-style:normal;
+}
+
+/* ================= SPLASH ================= */
+
 #splash{
     position:fixed;
     inset:0;
-    background:#05060a;
+    background:#0a0a0a;
+    background-image:
+        radial-gradient(circle at 30% 20%, #0a4a7a 0%, transparent 60%),
+        radial-gradient(circle at 70% 80%, #4a0a4a 0%, transparent 60%),
+        linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
     z-index:9999;
     display:flex;
     align-items:center;
     justify-content:center;
     text-align:center;
+    transition:opacity .5s ease;
 }
 
-.splash-box{ width:90%; }
-.splash-icon{ font-size:65px; animation:flutuar 1.5s infinite ease-in-out; }
-.splash-title{ font-size:28px; font-weight:900; margin-top:12px; }
-.splash-subtitle{ color:#9fb5d0; margin-top:8px; }
+.splash-box{ width:90%; max-width:420px; }
+
+.splash-cena{
+    position:relative;
+    width:240px;
+    height:150px;
+    margin:0 auto 14px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    padding:0 10px;
+}
+
+.loja-casinha{
+    position:relative;
+    width:120px;
+    height:120px;
+    animation:lojaBalanco 2.6s ease-in-out infinite;
+    transform-origin:bottom center;
+    filter:drop-shadow(0 8px 16px rgba(0,0,0,.4));
+}
+
+.loja-telhado{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:38px;
+    background:linear-gradient(180deg,#e81123 0%,#c50f1f 100%);
+    border-radius:6px 6px 0 0;
+    clip-path:polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.loja-telhado::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:14px;
+    height:38px;
+    background:rgba(255,255,255,.15);
+}
+
+.loja-corpo{
+    position:absolute;
+    top:36px;
+    left:8px;
+    right:8px;
+    bottom:0;
+    background:linear-gradient(180deg,#ffb900 0%,#e69c00 100%);
+    border-radius:0 0 4px 4px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-end;
+    padding-bottom:6px;
+}
+
+.loja-letreiro{
+    position:absolute;
+    top:6px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#fff;
+    color:#c50f1f;
+    font-size:9px;
+    font-weight:800;
+    padding:3px 12px;
+    border-radius:20px;
+    letter-spacing:1px;
+}
+
+.loja-porta{
+    width:34px;
+    height:46px;
+    background:linear-gradient(180deg,#8b00a3 0%,#6a0572 100%);
+    border-radius:4px 4px 0 0;
+    position:relative;
+}
+
+.loja-porta::after{
+    content:"";
+    position:absolute;
+    right:5px;
+    top:50%;
+    width:3px;
+    height:3px;
+    background:#ffb900;
+    border-radius:50%;
+}
+
+.loja-janela{
+    position:absolute;
+    top:48px;
+    width:20px;
+    height:18px;
+    background:#00b7c3;
+    border-radius:2px;
+    box-shadow:inset 0 0 8px rgba(255,255,255,.4);
+}
+
+.loja-janela.esq{ left:14px; }
+.loja-janela.dir{ right:14px; }
+
+@keyframes lojaBalanco{
+    0%,100%{ transform:rotate(0deg); }
+    50%{ transform:rotate(-2deg); }
+}
+
+.carrinho{
+    position:relative;
+    width:95px;
+    height:75px;
+    animation:carrinhoAnda 2.6s ease-in-out infinite;
+    transform-origin:center bottom;
+    filter:drop-shadow(0 6px 12px rgba(0,0,0,.4));
+}
+
+@keyframes carrinhoAnda{
+    0%{ transform:translateX(-30px) rotate(-3deg); }
+    20%{ transform:translateX(0) rotate(0deg); }
+    40%{ transform:translateX(6px) rotate(2deg); }
+    60%{ transform:translateX(0) rotate(0deg); }
+    80%{ transform:translateX(-10px) rotate(-2deg); }
+    100%{ transform:translateX(-30px) rotate(-3deg); }
+}
+
+.carrinho-cesta{
+    position:absolute;
+    top:14px;
+    left:8px;
+    right:8px;
+    height:36px;
+    background:linear-gradient(180deg,#0078d4 0%,#005fa3 100%);
+    border-radius:4px 4px 10px 10px;
+    box-shadow:inset 0 -6px 10px rgba(0,0,0,.2);
+    overflow:hidden;
+}
+
+.carrinho-cesta::before{
+    content:"";
+    position:absolute;
+    inset:4px;
+    background:repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        transparent 6px,
+        rgba(255,255,255,.25) 6px,
+        rgba(255,255,255,.25) 8px
+    );
+    border-radius:2px;
+}
+
+.carrinho-itens{
+    position:absolute;
+    top:-8px;
+    left:18px;
+    right:18px;
+    height:16px;
+    display:flex;
+    justify-content:space-around;
+    align-items:flex-end;
+}
+
+.carrinho-itens span{
+    font-size:15px;
+    animation:itemBalança 1.4s ease-in-out infinite;
+}
+
+.carrinho-itens span:nth-child(1){ animation-delay:.0s; }
+.carrinho-itens span:nth-child(2){ animation-delay:.15s; }
+.carrinho-itens span:nth-child(3){ animation-delay:.3s; }
+
+@keyframes itemBalança{
+    0%,100%{ transform:translateY(0) rotate(-3deg); }
+    50%{ transform:translateY(-3px) rotate(3deg); }
+}
+
+.carrinho-alca{
+    position:absolute;
+    top:2px;
+    right:2px;
+    width:24px;
+    height:24px;
+    border:3px solid #c5c5c5;
+    border-radius:50%;
+    border-right-color:transparent;
+    border-bottom-color:transparent;
+    transform:rotate(-45deg);
+}
+
+.carrinho-roda{
+    position:absolute;
+    bottom:6px;
+    width:16px;
+    height:16px;
+    background:#c5c5c5;
+    border-radius:50%;
+    box-shadow:inset 0 0 0 4px #202020;
+}
+
+.carrinho-roda.esq{ left:14px; }
+.carrinho-roda.dir{ right:14px; }
+
+.velocidade{
+    position:absolute;
+    bottom:22px;
+    left:-6px;
+    width:16px;
+    height:3px;
+    background:rgba(255,255,255,.5);
+    border-radius:3px;
+    animation:velocidadeAnim 1.2s linear infinite;
+}
+
+.velocidade.v2{
+    left:-10px;
+    width:10px;
+    bottom:34px;
+    animation-delay:.3s;
+}
+
+.velocidade.v3{
+    left:-14px;
+    width:12px;
+    bottom:46px;
+    animation-delay:.6s;
+}
+
+@keyframes velocidadeAnim{
+    0%{ opacity:0; transform:translateX(20px); }
+    50%{ opacity:1; }
+    100%{ opacity:0; transform:translateX(-20px); }
+}
+
+.poeira{
+    position:absolute;
+    bottom:2px;
+    left:0;
+    width:100%;
+    height:6px;
+    display:flex;
+    justify-content:center;
+    gap:8px;
+}
+
+.poeira span{
+    width:8px;
+    height:8px;
+    background:rgba(255,255,255,.35);
+    border-radius:50%;
+    animation:poeiraSobe 1.6s ease-out infinite;
+}
+
+.poeira span:nth-child(1){ animation-delay:0s; }
+.poeira span:nth-child(2){ animation-delay:.3s; }
+.poeira span:nth-child(3){ animation-delay:.6s; }
+
+@keyframes poeiraSobe{
+    0%{ opacity:0; transform:translateY(0) scale(.4); }
+    30%{ opacity:.8; }
+    100%{ opacity:0; transform:translateY(-14px) scale(1.4); }
+}
+
+.splash-title{
+    font-size:32px;
+    font-weight:300;
+    margin-top:16px;
+    color:#fff;
+    letter-spacing:-.5px;
+    animation:fadeInUp .8s var(--ease-fluent) both;
+}
+.splash-subtitle{
+    color:var(--win-text-secondary);
+    margin-top:10px;
+    font-size:13.5px;
+    font-weight:300;
+    animation:fadeInUp .8s var(--ease-fluent) .15s both;
+}
 
 .loading{
     width:100%;
-    height:7px;
-    background:#18202b;
-    border-radius:20px;
+    height:3px;
+    background:rgba(255,255,255,.1);
     overflow:hidden;
-    margin-top:25px;
+    margin-top:32px;
+    border-radius:2px;
+    animation:fadeInUp .8s var(--ease-fluent) .3s both;
 }
 
 .loading-bar{
     width:0;
     height:100%;
-    background:linear-gradient(90deg,#00eaff,#9b5cff,#ff1493);
-    animation:carregar 1.8s forwards;
+    background:linear-gradient(90deg, var(--win-accent), #4fc3f7);
+    animation:carregar 1.8s var(--ease-smooth) forwards;
 }
 
 @keyframes carregar{ to{width:100%} }
-@keyframes flutuar{ 50%{transform:translateY(-10px)} }
 
 @keyframes fadeInUp{
-    from{ opacity:0; transform:translateY(14px); }
+    from{ opacity:0; transform:translateY(12px); }
     to{ opacity:1; transform:translateY(0); }
 }
 
+@keyframes fadeIn{
+    from{ opacity:0; }
+    to{ opacity:1; }
+}
+
 @keyframes popIn{
-    0%{ opacity:0; transform:scale(.85); }
-    60%{ opacity:1; transform:scale(1.04); }
-    100%{ transform:scale(1); }
+    0%{ opacity:0; transform:scale(.92); }
+    60%{ transform:scale(1.02); }
+    100%{ opacity:1; transform:scale(1); }
 }
 
-@keyframes pulseGreen{
-    0%{ box-shadow:0 0 0 0 rgba(0,255,136,.55); }
-    100%{ box-shadow:0 0 0 16px rgba(0,255,136,0); }
+@keyframes tileAppear{
+    0%{ opacity:0; transform:translateY(24px) scale(.96); }
+    100%{ opacity:1; transform:translateY(0) scale(1); }
 }
 
-@keyframes pulseRed{
-    0%{ box-shadow:0 0 0 0 rgba(255,0,85,.55); }
-    100%{ box-shadow:0 0 0 16px rgba(255,0,85,0); }
+@keyframes slideInRight{
+    from{ opacity:0; transform:translateX(40px); }
+    to{ opacity:1; transform:translateX(0); }
+}
+
+@keyframes ripple{
+    0%{ transform:scale(0); opacity:.45; }
+    100%{ transform:scale(4); opacity:0; }
 }
 
 @keyframes shake{
@@ -86,60 +421,88 @@ button{ cursor:pointer; }
     75%{ transform:translateX(-2px); }
 }
 
-@keyframes confettiSlide{
-    0%{ background-position:-200% 0; }
-    100%{ background-position:200% 0; }
-}
-
 @keyframes iconPop{
     0%{ transform:scale(1); }
-    40%{ transform:scale(1.35); }
+    40%{ transform:scale(1.2); }
     100%{ transform:scale(1); }
 }
 
-@keyframes piscarAmarelo{
-    0%,100%{ background:rgba(255,170,0,.18); border-color:#ffaa00; box-shadow:0 0 8px rgba(255,170,0,.35); }
-    50%{ background:rgba(255,170,0,.45); border-color:#ffcc33; box-shadow:0 0 22px rgba(255,170,0,.75); }
+@keyframes pulseWarning{
+    0%,100%{ box-shadow:0 0 0 0 rgba(255,185,0,.4); }
+    50%{ box-shadow:0 0 0 8px rgba(255,185,0,0); }
 }
 
-@keyframes piscarVermelho{
-    0%,100%{ background:rgba(255,0,85,.25); border-color:#ff0055; box-shadow:0 0 8px rgba(255,0,85,.45); }
-    50%{ background:rgba(255,0,85,.7); border-color:#ff3377; box-shadow:0 0 26px rgba(255,0,85,.95); }
+@keyframes pulseError{
+    0%,100%{ background:rgba(232,17,35,.15); }
+    50%{ background:rgba(232,17,35,.35); }
 }
 
-@keyframes pulsarTrava{
-    0%,100%{ box-shadow:0 0 0 0 rgba(255,170,0,.5); }
-    50%{ box-shadow:0 0 0 8px rgba(255,170,0,0); }
+@keyframes revealBorder{
+    0%{ background-position:200% 50%; }
+    100%{ background-position:-100% 50%; }
 }
 
-.animar-fadeInUp{ animation:fadeInUp .35s ease both; }
-.animar-popIn{ animation:popIn .35s cubic-bezier(.34,1.56,.64,1) both; }
+@keyframes floatIcon{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-3px); }
+}
+
+.animar-fadeInUp{ animation:fadeInUp .45s var(--ease-fluent) both; }
+.animar-popIn{ animation:popIn .35s var(--ease-fluent) both; }
+
+.btn-ripple{ position:relative; overflow:hidden; isolation:isolate; }
+.ripple-efecto{
+    position:absolute;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(255,255,255,.5) 0%, rgba(255,255,255,0) 70%);
+    transform:scale(0);
+    animation:ripple .7s var(--ease-smooth);
+    pointer-events:none;
+    z-index:0;
+}
+
+/* ================= HEADER ================= */
 
 .app-header{
-    padding:14px 15px 8px;
-    text-align:center;
+    padding:12px 20px;
+    background:rgba(32,32,32,.85);
+    border-bottom:1px solid var(--win-border);
+    backdrop-filter:blur(30px) saturate(1.4);
+    -webkit-backdrop-filter:blur(30px) saturate(1.4);
+    position:sticky;
+    top:0;
+    z-index:100;
 }
 
 .logo{
-    font-size:24px;
-    font-weight:900;
-    background:linear-gradient(90deg,#00eaff,#a66cff,#ff3cac);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
+    font-size:20px;
+    font-weight:600;
+    color:var(--win-text);
+    letter-spacing:-.3px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.logo .ico{
+    font-size:22px;
+    animation:floatIcon 3s ease-in-out infinite;
 }
 
 .app-header .sub{
-    color:#8da2ba;
-    font-size:11px;
-    margin-top:3px;
+    color:var(--win-text-secondary);
+    font-size:11.5px;
+    margin-top:2px;
+    font-weight:400;
 }
 
 .header-top{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:10px;
+    gap:12px;
+    max-width:720px;
+    margin:0 auto;
 }
 
 .header-top .left,
@@ -147,262 +510,292 @@ button{ cursor:pointer; }
     display:flex;
     align-items:center;
     gap:6px;
-    font-size:11px;
-    color:#8da2ba;
+    font-size:12px;
+    color:var(--win-text-secondary);
+    font-weight:400;
+}
+
+.header-top .right .ico{
+    font-size:16px;
+    opacity:.85;
 }
 
 .dot-online{
-    width:7px;
-    height:7px;
+    width:8px;
+    height:8px;
     border-radius:50%;
-    background:#00ff88;
+    background:#107c10;
     display:inline-block;
+    box-shadow:0 0 8px #107c10;
+    transition:all .3s var(--ease-smooth);
 }
+
+.dot-online.offline{
+    background:var(--win-error);
+    box-shadow:0 0 8px var(--win-error);
+}
+
+/* ================= CONTEÚDO ================= */
 
 .container{
     width:100%;
-    max-width:650px;
+    max-width:720px;
     margin:auto;
-    padding:0 15px;
+    padding:14px 20px 0;
 }
 
 .card{
-    background:rgba(10,17,28,.88);
-    border:1px solid rgba(75,150,255,.18);
-    border-radius:20px;
-    padding:16px;
-    margin-top:12px;
-    box-shadow:0 10px 35px rgba(0,0,0,.3);
-    animation:fadeInUp .4s ease both;
+    background:var(--win-bg-tile);
+    border:1px solid var(--win-border);
+    border-radius:8px;
+    padding:18px;
+    margin-top:14px;
+    animation:tileAppear .5s var(--ease-fluent) both;
+    box-shadow:0 2px 12px rgba(0,0,0,.25);
+    transition:box-shadow .3s var(--ease-smooth);
 }
 
 .card-title{
-    font-size:15px;
-    font-weight:900;
-    margin-bottom:12px;
+    font-size:18px;
+    font-weight:600;
+    margin-bottom:14px;
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:10px;
+    color:var(--win-text);
+    letter-spacing:-.2px;
+}
+
+.card-title .ico{
+    font-size:22px;
+    animation:floatIcon 3s ease-in-out infinite;
 }
 
 .card-title .badge{
     margin-left:auto;
-    font-size:10px;
-    background:#1a2533;
-    color:#8ba1b8;
-    padding:3px 9px;
-    border-radius:20px;
-    font-weight:800;
+    font-size:11.5px;
+    background:var(--win-accent);
+    color:#fff;
+    padding:4px 10px;
+    font-weight:600;
+    border-radius:4px;
+    animation:popIn .5s var(--ease-fluent) .2s both;
+    display:flex;
+    align-items:center;
+    gap:5px;
 }
+
+/* ================= LOJAS ================= */
 
 .lojas-grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(2,1fr);
     gap:10px;
-    margin-top:8px;
+    margin-top:10px;
 }
 
 .loja-card{
-    background:linear-gradient(135deg,#0d1520,#0a1019);
-    border:1px solid #29384b;
-    border-radius:16px;
-    padding:13px 12px;
+    background:var(--win-bg-mid);
+    border:1px solid var(--win-border);
+    border-radius:6px;
+    padding:14px 12px;
     text-align:left;
-    color:#fff;
+    color:var(--win-text);
     display:flex;
     flex-direction:column;
-    gap:7px;
-    transition:transform .2s, border-color .2s, background .2s;
+    gap:8px;
+    transition:all .3s var(--ease-fluent);
     position:relative;
     overflow:hidden;
     user-select:none;
     -webkit-user-select:none;
     -webkit-touch-callout:none;
-    animation:popIn .35s cubic-bezier(.34,1.56,.64,1) both;
+    animation:tileAppear .5s var(--ease-fluent) both;
+    min-height:130px;
 }
 
-.loja-card:active{ transform:scale(.97); }
+.loja-card:hover{
+    background:var(--win-bg-tile-hover);
+    border-color:#555;
+    transform:translateY(-2px);
+    box-shadow:0 6px 20px rgba(0,0,0,.3);
+}
+
+.loja-card:active{
+    transform:scale(.98) translateY(0);
+    background:#2a2a2a;
+}
+
+.loja-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:6px;
+    pointer-events:none;
+    background:linear-gradient(120deg,
+        transparent 30%,
+        rgba(255,255,255,.08) 45%,
+        transparent 60%) no-repeat;
+    background-size:200% 100%;
+    background-position:200% 0;
+    opacity:0;
+    transition:opacity .3s;
+}
+
+.loja-card:hover::after{
+    opacity:1;
+    animation:revealBorder 1.5s linear infinite;
+}
 
 .loja-card.cadastrada{
-    border-color:#00ff88;
-    background:linear-gradient(135deg,#05281b,#0f2a1e);
-    box-shadow:0 0 20px rgba(0,255,136,.15);
+    background:linear-gradient(135deg, rgba(0,120,212,.35) 0%, rgba(0,95,163,.35) 100%);
+    border-color:var(--win-accent);
 }
 
 .loja-card.cadastrada::before{
     content:"✅";
     position:absolute;
-    top:6px;
-    right:6px;
-    font-size:13px;
-    animation:iconPop .4s ease;
+    top:8px;
+    right:10px;
+    font-size:14px;
+    animation:iconPop .5s var(--ease-fluent);
 }
 
 .loja-card.cadastrada-com-rupturas{
-    border-color:#00d9ff;
-    background:linear-gradient(135deg,#073344,#0f1a2e);
-    box-shadow:0 0 20px rgba(0,217,255,.15);
+    background:linear-gradient(135deg, rgba(139,0,163,.35) 0%, rgba(106,5,114,.35) 100%);
+    border-color:#8b00a3;
 }
 
 .loja-card.cadastrada-com-rupturas::before{
     content:"📋";
     position:absolute;
-    top:6px;
-    right:6px;
-    font-size:13px;
-    animation:iconPop .4s ease;
+    top:8px;
+    right:10px;
+    font-size:14px;
+    animation:iconPop .5s var(--ease-fluent);
 }
 
 .loja-card.pendente{
-    border-color:#ffaa00;
-    background:linear-gradient(135deg,#2a1e05,#1a1405);
-    box-shadow:0 0 18px rgba(255,170,0,.15);
-    animation:pulsarPendente 2s infinite;
-}
-
-@keyframes pulsarPendente{
-    0%,100%{ box-shadow:0 0 18px rgba(255,170,0,.15); }
-    50%{ box-shadow:0 0 28px rgba(255,170,0,.4); }
+    background:linear-gradient(135deg, rgba(255,185,0,.25) 0%, rgba(230,156,0,.25) 100%);
+    border-color:var(--win-warning);
+    animation:pulseWarning 2s infinite;
 }
 
 .loja-card.pendente::before{
     content:"⚠️";
     position:absolute;
-    top:6px;
-    right:6px;
-    font-size:14px;
+    top:8px;
+    right:10px;
+    font-size:16px;
 }
 
 .loja-card.alerta-amarelo{
-    animation:piscarAmarelo 2.5s ease-in-out infinite;
+    background:linear-gradient(135deg, rgba(255,185,0,.3), rgba(230,156,0,.3));
+    border-color:var(--win-warning);
 }
 
 .loja-card.alerta-vermelho{
-    animation:piscarVermelho .7s ease-in-out infinite;
+    background:linear-gradient(135deg, rgba(232,17,35,.3), rgba(197,15,31,.3));
+    border-color:var(--win-error);
+    animation:pulseError 1s ease-in-out infinite;
 }
 
 .loja-alerta-faixa{
     display:flex;
     align-items:center;
     gap:6px;
-    padding:5px 8px;
-    border-radius:9px;
-    font-size:9.5px;
-    font-weight:900;
-    letter-spacing:.3px;
+    padding:5px 10px;
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:.4px;
     text-transform:uppercase;
-    margin-bottom:2px;
-    animation:popIn .35s ease;
+    margin-bottom:4px;
+    background:rgba(0,0,0,.4);
+    border-radius:3px;
+    color:#fff;
+    animation:popIn .4s var(--ease-fluent);
 }
 
-.loja-alerta-faixa.verde{
-    background:rgba(0,255,136,.15);
-    border:1px solid #00ff88;
-    color:#00ff88;
-}
-
-.loja-alerta-faixa.amarelo{
-    background:rgba(255,170,0,.2);
-    border:1px solid #ffaa00;
-    color:#ffcc33;
-}
-
+.loja-alerta-faixa.verde{ background:rgba(16,124,16,.5); }
+.loja-alerta-faixa.amarelo{ background:rgba(255,185,0,.5); color:#000; }
 .loja-alerta-faixa.vermelho{
-    background:rgba(255,0,85,.25);
-    border:1px solid #ff0055;
-    color:#ff3377;
-    animation:piscarVermelhoFaixa .7s ease-in-out infinite;
-}
-
-@keyframes piscarVermelhoFaixa{
-    0%,100%{ background:rgba(255,0,85,.25); border-color:#ff0055; }
-    50%{ background:rgba(255,0,85,.6); border-color:#ff3377; }
+    background:rgba(232,17,35,.7);
+    animation:pulseError .8s ease-in-out infinite;
 }
 
 .loja-status-linha{
     display:flex;
-    gap:4px;
+    gap:5px;
     flex-wrap:wrap;
-    margin-top:2px;
+    margin-top:4px;
 }
 
 .loja-status-mini{
-    font-size:9px;
-    font-weight:900;
-    padding:3px 7px;
-    border-radius:8px;
+    font-size:9.5px;
+    font-weight:600;
+    padding:3px 8px;
     letter-spacing:.3px;
     display:inline-flex;
     align-items:center;
     gap:3px;
-    animation:popIn .3s ease;
+    background:rgba(255,255,255,.12);
+    border-radius:3px;
+    color:#fff;
+    animation:popIn .4s var(--ease-fluent);
 }
 
-.loja-status-mini.ruptura{
-    background:rgba(255,0,85,.18);
-    color:#ff3377;
-    border:1px solid rgba(255,0,85,.4);
-}
-
-.loja-status-mini.verde{
-    background:rgba(0,255,136,.15);
-    color:#00ff88;
-    border:1px solid rgba(0,255,136,.4);
-}
-
-.loja-status-mini.amarelo{
-    background:rgba(255,170,0,.2);
-    color:#ffcc33;
-    border:1px solid rgba(255,170,0,.45);
-}
-
+.loja-status-mini.ruptura{ background:rgba(232,17,35,.5); }
+.loja-status-mini.verde{ background:rgba(16,124,16,.5); }
+.loja-status-mini.amarelo{ background:rgba(255,185,0,.6); color:#000; }
 .loja-status-mini.vermelho{
-    background:rgba(255,0,85,.25);
-    color:#ff3377;
-    border:1px solid rgba(255,0,85,.5);
-    animation:piscarVermelhoFaixa .7s ease-in-out infinite;
+    background:rgba(232,17,35,.7);
+    animation:pulseError .8s ease-in-out infinite;
 }
 
 .loja-card.modo-selecao{
-    border-style:dashed;
-    border-color:#00d9ff;
+    outline:1px dashed var(--win-accent);
+    outline-offset:-4px;
 }
 
 .loja-card.selecionada{
-    border-color:#ff0055;
-    background:linear-gradient(135deg,#2a0515,#3a081e);
-    animation:shake .35s ease;
-    box-shadow:0 0 22px rgba(255,0,85,.35);
+    background:linear-gradient(135deg, rgba(0,120,212,.6), rgba(0,95,163,.6));
+    border-color:var(--win-accent);
+    outline:2px solid var(--win-accent);
+    outline-offset:-2px;
+    animation:shake .4s var(--ease-smooth);
 }
 
 .loja-card.selecionada::before{
-    content:"☑️";
+    content:"✅";
     position:absolute;
-    top:6px;
-    right:6px;
-    font-size:16px;
-    animation:iconPop .3s ease;
+    top:8px;
+    right:10px;
+    font-size:14px;
 }
 
 .loja-check{
     position:absolute;
-    top:6px;
-    right:6px;
+    top:8px;
+    right:10px;
     width:22px;
     height:22px;
-    border-radius:50%;
-    background:#0d1520;
-    border:2px solid #00d9ff;
+    background:rgba(255,255,255,.15);
+    border:2px solid rgba(255,255,255,.6);
+    border-radius:3px;
     display:none;
     align-items:center;
     justify-content:center;
-    font-size:12px;
-    font-weight:900;
-    color:#00d9ff;
+    font-size:13px;
+    font-weight:700;
+    color:#fff;
+    transition:all .25s var(--ease-fluent);
 }
 
 .loja-card.modo-selecao .loja-check{ display:flex; }
-.loja-card.selecionada .loja-check{ background:#ff0055; border-color:#ff0055; color:#fff; }
+.loja-card.selecionada .loja-check{
+    background:var(--win-accent);
+    border-color:var(--win-accent);
+}
 .loja-card.selecionada::before{ display:none; }
 
 .loja-card-topo{
@@ -412,188 +805,232 @@ button{ cursor:pointer; }
     gap:6px;
 }
 
-.loja-card-icone{ font-size:20px; transition:transform .3s; }
-.loja-card.selecionada .loja-card-icone{ transform:scale(1.15) rotate(-6deg); }
+.loja-card-icone{
+    font-size:22px;
+    transition:transform .4s var(--ease-fluent);
+    display:flex;
+    align-items:center;
+    line-height:1;
+}
+
+.loja-card.selecionada .loja-card-icone{ transform:scale(1.15) rotate(-5deg); }
 
 .loja-card-badge{
     min-width:24px;
     height:24px;
-    padding:0 7px;
-    border-radius:15px;
-    background:#ff0055;
+    padding:0 8px;
+    background:rgba(0,0,0,.5);
     color:#fff;
-    font-size:11px;
-    font-weight:900;
+    font-size:11.5px;
+    font-weight:600;
     display:flex;
     align-items:center;
     justify-content:center;
-    animation:popIn .4s ease;
+    border-radius:12px;
+    animation:popIn .4s var(--ease-fluent);
 }
 
 .loja-card-badge.zero{
-    background:#1a2533;
-    color:#5f7d9a;
+    background:rgba(255,255,255,.15);
 }
 
 .loja-card-nome{
-    font-size:12.5px;
-    font-weight:900;
-    line-height:1.2;
+    font-size:14px;
+    font-weight:600;
+    line-height:1.25;
     word-break:break-word;
+    color:var(--win-text);
 }
 
 .loja-card-nome.vazio{
-    color:#5f7d9a;
+    color:var(--win-text-disabled);
     font-style:italic;
-    font-weight:700;
+    font-weight:400;
 }
 
 .loja-card-info{
-    font-size:10px;
-    color:#7d92a8;
+    font-size:11px;
+    color:var(--win-text-secondary);
     line-height:1.4;
     word-break:break-word;
+    font-weight:400;
 }
 
 .loja-card-status{
-    font-size:9.5px;
-    color:#00ff88;
-    font-weight:900;
-    letter-spacing:.4px;
+    font-size:10px;
+    color:var(--win-text-secondary);
+    font-weight:600;
+    letter-spacing:.5px;
     text-transform:uppercase;
+    display:flex;
+    align-items:center;
+    gap:5px;
 }
 
-.loja-card-status.pendente{ color:#ffaa00; }
-.loja-card-status.cadastrada{ color:#00ff88; }
+/* ================= BOTÃO ADD LOJA ================= */
 
 .btn-add-loja{
     grid-column:1/-1;
     width:100%;
-    border:1px dashed #00d9ff;
-    background:linear-gradient(135deg,#071a24,#101326);
-    color:#00d9ff;
-    border-radius:16px;
-    padding:13px;
-    font-weight:900;
+    border:1px dashed var(--win-accent);
+    background:rgba(0,120,212,.08);
+    color:var(--win-accent);
+    padding:14px;
+    font-weight:600;
     font-size:13px;
-    letter-spacing:.4px;
+    letter-spacing:.3px;
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:8px;
-    transition:transform .2s;
+    gap:10px;
+    transition:all .3s var(--ease-fluent);
     margin-top:4px;
+    border-radius:6px;
 }
 
-.btn-add-loja:active{ transform:scale(.97); }
-
-.btn-add-loja .mais{
-    font-size:20px;
-    font-weight:900;
-    line-height:1;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    width:26px;
-    height:26px;
-    border-radius:50%;
-    background:linear-gradient(135deg,#00d9ff,#693ca1);
-    color:#fff;
-    transition:transform .3s;
+.btn-add-loja:hover{
+    background:rgba(0,120,212,.15);
+    transform:translateY(-1px);
 }
 
-.btn-add-loja:hover .mais{ transform:rotate(90deg); }
+.btn-add-loja:active{
+    background:rgba(0,120,212,.25);
+    transform:scale(.98);
+}
+
+.btn-add-loja .ico{
+    font-size:18px;
+    transition:transform .4s var(--ease-fluent);
+}
+
+.btn-add-loja:hover .ico{ transform:rotate(90deg); }
+
+/* ================= AÇÕES RÁPIDAS ================= */
 
 .acoes-rapidas{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:9px;
-    margin-top:12px;
+    gap:10px;
+    margin-top:14px;
 }
 
 .btn-acao{
-    border:1px solid #36577d;
-    border-radius:14px;
-    padding:13px 10px;
-    background:linear-gradient(135deg,#101d2d,#17102b);
-    color:#fff;
-    font-weight:900;
-    font-size:11.5px;
+    border:1px solid var(--win-border);
+    background:var(--win-bg-mid);
+    color:var(--win-text);
+    font-weight:500;
+    font-size:12px;
+    padding:14px 12px;
     display:flex;
     align-items:center;
-    gap:8px;
-    letter-spacing:.3px;
+    gap:10px;
+    letter-spacing:.2px;
     text-align:left;
-    box-shadow:0 6px 18px rgba(0,0,0,.25);
-    transition:.2s;
+    transition:all .3s var(--ease-fluent);
     line-height:1.3;
-    animation:fadeInUp .4s ease both;
+    animation:fadeInUp .5s var(--ease-fluent) both;
+    border-radius:6px;
+    position:relative;
+    overflow:hidden;
 }
 
-.btn-acao:active{ transform:scale(.97); }
-.btn-acao .icone{ font-size:20px; flex-shrink:0; transition:transform .3s; }
-.btn-acao:active .icone{ transform:scale(1.2) rotate(-8deg); }
+.btn-acao:hover{
+    background:var(--win-bg-tile-hover);
+    border-color:var(--win-accent);
+    transform:translateY(-2px);
+    box-shadow:0 6px 16px rgba(0,0,0,.3);
+}
+
+.btn-acao:active{
+    transform:scale(.98) translateY(0);
+    background:#252525;
+}
+
+.btn-acao .icone{
+    font-size:22px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    line-height:1;
+    transition:transform .4s var(--ease-fluent);
+}
+
+.btn-acao:hover .icone{ transform:scale(1.15); }
+.btn-acao:active .icone{ transform:scale(1.05); }
 .btn-acao .txt{ flex:1; }
 
 .btn-acao .pill{
     min-width:26px;
     height:22px;
     padding:0 8px;
-    border-radius:14px;
-    background:#00d9ff;
-    color:#000;
+    background:var(--win-accent);
+    color:#fff;
     font-size:11px;
-    font-weight:900;
+    font-weight:600;
     display:flex;
     align-items:center;
     justify-content:center;
-    animation:popIn .4s ease;
+    border-radius:11px;
+    animation:popIn .4s var(--ease-fluent);
 }
 
-.btn-acao .pill.rosa{ background:#ff0055; color:#fff; }
+/* ================= BARRA SELEÇÃO ================= */
 
 .barra-selecao{
     display:none;
     align-items:center;
     justify-content:space-between;
-    background:linear-gradient(135deg,#2a0515,#3a081e);
-    border:1px solid #ff0055;
-    border-radius:14px;
-    padding:10px 12px;
-    margin-top:12px;
+    background:linear-gradient(135deg, rgba(232,17,35,.15), rgba(197,15,31,.15));
+    border:1px solid var(--win-error);
+    padding:12px 14px;
+    margin-top:14px;
     gap:10px;
-    animation:fadeInUp .3s ease both;
+    animation:slideInRight .4s var(--ease-fluent) both;
+    border-radius:6px;
 }
 
 .barra-selecao.ativa{ display:flex; }
 
 .barra-selecao .contador{
-    font-size:12.5px;
-    font-weight:900;
-    color:#fff;
+    font-size:13px;
+    font-weight:600;
+    color:var(--win-text);
+    display:flex;
+    align-items:center;
+    gap:8px;
 }
 
-.barra-selecao .contador b{ color:#ff0055; }
+.barra-selecao .contador .ico{ font-size:16px; }
+.barra-selecao .contador b{ color:#fff; font-weight:700; }
 
 .barra-selecao .acoes{
     display:flex;
-    gap:7px;
+    gap:8px;
 }
 
 .barra-selecao button{
-    border:0;
-    border-radius:10px;
-    padding:9px 12px;
-    font-weight:900;
+    border:none;
+    padding:8px 14px;
+    font-weight:600;
     font-size:11.5px;
     color:#fff;
-    transition:transform .2s;
+    background:rgba(255,255,255,.1);
+    transition:all .25s var(--ease-fluent);
+    letter-spacing:.3px;
+    border-radius:4px;
+    display:flex;
+    align-items:center;
+    gap:6px;
 }
 
-.barra-selecao button:active{ transform:scale(.94); }
-.barra-selecao .btn-cancelar-sel{ background:#1a2533; }
-.barra-selecao .btn-excluir-sel{ background:linear-gradient(135deg,#a50038,#ff0055); }
-.barra-selecao .btn-excluir-sel:disabled{ opacity:.4; }
+.barra-selecao button:hover{ background:rgba(255,255,255,.2); }
+.barra-selecao button:active{ background:rgba(255,255,255,.3); transform:scale(.96); }
+.barra-selecao .btn-excluir-sel{ background:var(--win-error); }
+.barra-selecao .btn-excluir-sel:hover{ background:#c50f1f; }
+.barra-selecao .btn-excluir-sel:disabled{ opacity:.4; cursor:not-allowed; }
+
+/* ================= MODAIS ================= */
 
 .modal{
     position:fixed;
@@ -602,306 +1039,389 @@ button{ cursor:pointer; }
     display:none;
     align-items:center;
     justify-content:center;
-    padding:12px;
-    background:rgba(0,0,0,.78);
-    backdrop-filter:blur(7px);
+    padding:16px;
+    background:rgba(0,0,0,.6);
+    backdrop-filter:blur(20px) saturate(1.4);
+    -webkit-backdrop-filter:blur(20px) saturate(1.4);
 }
 
-.modal.aberto{ display:flex; }
+.modal.aberto{
+    display:flex;
+    animation:fadeIn .25s var(--ease-smooth) both;
+}
 
-.modal.aberto .modal-box{ animation:popIn .35s cubic-bezier(.34,1.56,.64,1) both; }
+.modal.aberto .modal-box{
+    animation:popIn .4s var(--ease-fluent) both;
+}
 
 .modal-box{
     width:100%;
-    max-width:650px;
+    max-width:720px;
     max-height:94vh;
     overflow-y:auto;
-    background:#080e16;
-    border:1px solid #2b405a;
-    border-radius:22px;
-    padding:15px;
-    box-shadow:0 20px 70px rgba(0,0,0,.6);
+    background:#2b2b2b;
+    border:1px solid var(--win-border);
+    border-radius:8px;
+    padding:20px;
+    box-shadow:0 20px 60px rgba(0,0,0,.7);
+    color:var(--win-text);
 }
 
-.modal-box.pequeno{ max-width:420px; }
+.modal-box.pequeno{ max-width:440px; }
 
 .modal-header{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:10px;
+    gap:12px;
     position:sticky;
     top:0;
     z-index:5;
-    background:#080e16;
-    padding-bottom:12px;
-    margin-bottom:6px;
+    background:#2b2b2b;
+    padding-bottom:14px;
+    margin-bottom:8px;
+    border-bottom:1px solid var(--win-border);
 }
 
-.modal-title{ font-size:17px; font-weight:900; }
-.modal-sub{ color:#8295aa; font-size:11px; margin-top:3px; }
+.modal-title{
+    font-size:18px;
+    font-weight:600;
+    color:var(--win-text);
+    letter-spacing:-.2px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.modal-title .ico{
+    font-size:22px;
+}
+
+.modal-sub{ color:var(--win-text-secondary); font-size:12px; margin-top:3px; font-weight:400; }
 
 .fechar{
-    width:34px;
-    height:34px;
-    border:0;
-    border-radius:50%;
-    background:#1a2533;
-    color:#fff;
+    width:36px;
+    height:36px;
+    border:none;
+    background:transparent;
+    color:var(--win-text);
     font-size:18px;
+    font-weight:600;
     flex-shrink:0;
-    transition:transform .25s, background .25s;
+    transition:all .25s var(--ease-fluent);
+    border-radius:4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-.fechar:active{ transform:rotate(90deg) scale(.9); background:#ff0055; }
+.fechar:hover{
+    background:var(--win-error);
+    color:#fff;
+    transform:rotate(90deg);
+}
+
+.fechar:active{ transform:rotate(90deg) scale(.9); }
+
+/* ================= SUB-ABAS ================= */
 
 .subtabs{
     display:flex;
-    gap:5px;
-    background:#0a1420;
-    padding:5px;
-    border-radius:13px;
-    border:1px solid #1b2d42;
-    margin-bottom:12px;
+    gap:0;
+    background:rgba(0,0,0,.2);
+    padding:0;
+    margin-bottom:16px;
     overflow-x:auto;
     scrollbar-width:none;
+    border-bottom:1px solid var(--win-border);
+    border-radius:0;
 }
 
 .subtabs::-webkit-scrollbar{ display:none; }
 
 .subtab{
     flex:1;
-    min-width:74px;
-    border:0;
+    min-width:80px;
+    border:none;
     background:transparent;
-    color:#8ba1b8;
-    padding:9px 6px;
-    border-radius:9px;
-    font-weight:900;
-    font-size:10px;
-    transition:all .25s;
+    color:var(--win-text-secondary);
+    padding:12px 8px;
+    font-weight:400;
+    font-size:11.5px;
+    transition:all .3s var(--ease-fluent);
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:3px;
+    gap:4px;
     white-space:nowrap;
     position:relative;
     user-select:none;
     -webkit-user-select:none;
     -webkit-touch-callout:none;
+    border-bottom:2px solid transparent;
+    margin-bottom:-1px;
+    border-radius:0;
 }
 
-.subtab .ic{ font-size:15px; transition:transform .3s; }
+.subtab .ic{
+    font-size:20px;
+    transition:transform .35s var(--ease-fluent);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    line-height:1;
+}
 
-.subtab:active .ic{ transform:scale(1.25); }
+.subtab:hover .ic{ transform:scale(1.1) translateY(-1px); }
+.subtab:active .ic{ transform:scale(1.05); }
 
 .subtab.ativo{
     color:#fff;
-    background:linear-gradient(135deg,#073344,#211539);
-    box-shadow:0 0 12px rgba(0,217,255,.2);
-    animation:popIn .35s ease;
+    background:rgba(0,120,212,.1);
+    border-bottom-color:var(--win-accent);
+    font-weight:600;
 }
 
-.subtab.ativo .ic{ animation:iconPop .4s ease; }
+.subtab.ativo .ic{ animation:iconPop .5s var(--ease-fluent); }
 
 .subtab.travada{
-    color:#ffaa00;
-    background:linear-gradient(135deg,#2a1e05,#1a1405);
-    border:1px solid #ffaa00;
-    animation:pulsarTrava 2.4s infinite;
+    color:var(--win-warning);
+    background:rgba(255,185,0,.1);
+    border-bottom-color:var(--win-warning);
+    animation:pulseWarning 2.4s infinite;
 }
-
-.subtab.travada .ic{ filter:grayscale(.4); }
 
 .subtab.travada::after{
     content:"🔒";
     position:absolute;
-    top:-4px;
-    right:-4px;
+    top:4px;
+    right:4px;
     font-size:11px;
-    animation:iconPop .4s ease;
+    animation:iconPop .5s var(--ease-fluent);
 }
 
 .subtab.travada.destravada{
     animation:none;
-    color:#00ff88;
-    background:linear-gradient(135deg,#05281b,#0f2a1e);
-    border-color:#00ff88;
+    color:var(--win-success);
+    background:rgba(16,124,16,.15);
+    border-bottom-color:var(--win-success);
 }
 
 .subtab.travada.destravada::after{ content:"🔓"; }
 
 .subtab-painel{ display:none; }
-.subtab-painel.ativo{ display:block; animation:fadeInUp .35s ease both; }
+.subtab-painel.ativo{ display:block; animation:fadeInUp .45s var(--ease-fluent) both; }
+
+/* ================= LOJA INFO ================= */
 
 .loja-info{
-    margin-top:10px;
-    padding:13px;
-    background:#0a1420;
-    border:1px solid #1b2d42;
-    border-radius:14px;
-    animation:fadeInUp .4s ease both;
+    margin-top:12px;
+    padding:16px;
+    background:var(--win-bg-mid);
+    border:1px solid var(--win-border);
+    border-radius:6px;
+    animation:fadeInUp .45s var(--ease-fluent) both;
 }
 
 .loja-info-titulo{
     font-size:12px;
-    font-weight:900;
-    color:#00d9ff;
-    margin-bottom:11px;
-    letter-spacing:.4px;
+    font-weight:600;
+    color:var(--win-accent);
+    margin-bottom:14px;
+    letter-spacing:.8px;
+    text-transform:uppercase;
+    display:flex;
+    align-items:center;
+    gap:8px;
 }
 
-.loja-info-campo{ margin-bottom:11px; }
+.loja-info-titulo .ico{ font-size:16px; }
+
+.loja-info-campo{ margin-bottom:14px; }
 .loja-info-campo:last-child{ margin-bottom:0; }
 
 .loja-info-label{
     display:block;
-    font-size:10.5px;
-    color:#8ba1b8;
-    font-weight:800;
+    font-size:11px;
+    color:var(--win-text-secondary);
+    font-weight:500;
     text-transform:uppercase;
-    letter-spacing:.4px;
-    margin-bottom:5px;
+    letter-spacing:.6px;
+    margin-bottom:6px;
+    display:flex;
+    align-items:center;
+    gap:6px;
 }
+
+.loja-info-label .ico{ font-size:14px; }
 
 .loja-info-input{
     width:100%;
-    border:1px solid #26364a;
+    border:1px solid var(--win-border);
     outline:none;
-    background:#050a10;
+    background:rgba(0,0,0,.25);
     color:#fff;
-    border-radius:10px;
     padding:10px 12px;
     font-size:13.5px;
-    transition:border-color .2s, box-shadow .2s;
+    font-weight:400;
+    transition:all .3s var(--ease-fluent);
+    border-radius:4px;
 }
 
 .loja-info-input:focus{
-    border-color:#00d9ff;
-    box-shadow:0 0 12px rgba(0,217,255,.2);
+    border-color:var(--win-accent);
+    background:rgba(0,0,0,.35);
+    box-shadow:0 0 0 2px rgba(0,120,212,.2);
 }
 
-.loja-info-input::placeholder{ color:#4a5f75; }
+.loja-info-input::placeholder{ color:var(--win-text-disabled); }
 
 .aviso-trava{
     display:none;
-    margin-top:8px;
-    padding:9px 12px;
-    border-radius:10px;
-    background:linear-gradient(135deg,#2a1e05,#1a1405);
-    border:1px solid #ffaa00;
-    color:#ffcc33;
-    font-size:11px;
-    font-weight:800;
+    margin-top:12px;
+    padding:10px 14px;
+    background:rgba(255,185,0,.15);
+    border-left:3px solid var(--win-warning);
+    color:#ffd24d;
+    font-size:11.5px;
+    font-weight:400;
     text-align:center;
-    animation:fadeInUp .3s ease both;
+    animation:fadeInUp .4s var(--ease-fluent) both;
+    border-radius:0 4px 4px 0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
 }
 
-.aviso-trava.ativo{ display:block; }
+.aviso-trava.ativo{ display:flex; }
+
+/* ================= SHARE ================= */
 
 .unidades{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:8px;
-    margin-bottom:12px;
+    gap:10px;
+    margin-bottom:16px;
 }
 
 .btn-unidade{
-    border:1px solid #29384b;
-    background:#0d1520;
-    color:#9db0c7;
-    padding:10px;
-    border-radius:11px;
-    font-weight:800;
+    border:1px solid var(--win-border);
+    background:var(--win-bg-mid);
+    color:var(--win-text-secondary);
+    padding:11px;
+    font-weight:500;
     font-size:12px;
-    transition:all .2s;
+    transition:all .25s var(--ease-fluent);
+    border-radius:4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
 }
 
-.btn-unidade:active{ transform:scale(.95); }
+.btn-unidade .ico{ font-size:16px; }
+
+.btn-unidade:hover{ background:var(--win-bg-tile-hover); transform:translateY(-1px); }
+.btn-unidade:active{ transform:scale(.97); }
 
 .btn-unidade.ativo{
     color:#fff;
-    border-color:#00d9ff;
-    background:linear-gradient(135deg,#07384a,#151b39);
-    box-shadow:0 0 18px rgba(0,217,255,.15);
-    animation:popIn .3s ease;
+    background:var(--win-accent);
+    border-color:var(--win-accent);
+    font-weight:600;
 }
 
 .label{
     display:block;
-    color:#8ba1b8;
-    font-size:10.5px;
-    margin-bottom:4px;
-    margin-top:9px;
+    color:var(--win-text-secondary);
+    font-size:11px;
+    margin-bottom:6px;
+    margin-top:12px;
     text-transform:uppercase;
-    letter-spacing:.4px;
-    font-weight:800;
+    letter-spacing:.6px;
+    font-weight:500;
+    display:flex;
+    align-items:center;
+    gap:6px;
 }
+
+.label .ico{ font-size:14px; }
 
 .input{
     width:100%;
-    border:1px solid #26364a;
+    border:1px solid var(--win-border);
     outline:none;
-    background:#050a10;
+    background:rgba(0,0,0,.25);
     color:#fff;
-    border-radius:10px;
     padding:10px 12px;
     font-size:13.5px;
-    transition:border-color .2s, box-shadow .2s;
+    font-weight:400;
+    transition:all .3s var(--ease-fluent);
+    border-radius:4px;
 }
 
 .input:focus{
-    border-color:#00d9ff;
-    box-shadow:0 0 15px rgba(0,217,255,.15);
+    border-color:var(--win-accent);
+    background:rgba(0,0,0,.35);
+    box-shadow:0 0 0 2px rgba(0,120,212,.2);
 }
 
 .btn-calculadora{
     width:100%;
-    margin-top:10px;
-    border:1px solid #4e3b7d;
-    background:linear-gradient(135deg,#191333,#25143b);
+    margin-top:12px;
+    border:none;
+    background:var(--win-accent);
     color:#fff;
-    padding:11px;
-    border-radius:11px;
-    font-weight:900;
-    font-size:12px;
-    letter-spacing:.4px;
-    transition:transform .2s, box-shadow .2s;
+    padding:12px;
+    font-weight:600;
+    font-size:12.5px;
+    letter-spacing:.3px;
+    transition:all .25s var(--ease-fluent);
+    border-radius:4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
 }
 
-.btn-calculadora:active{
-    transform:scale(.96);
-    box-shadow:0 0 22px rgba(166,108,255,.4);
+.btn-calculadora .ico{ font-size:16px; }
+
+.btn-calculadora:hover{
+    background:var(--win-accent-hover);
+    transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(0,120,212,.3);
 }
+.btn-calculadora:active{ background:#005fa3; transform:scale(.98); }
+
+/* ================= RESULTADO ================= */
 
 .share-resultado-box{
-    margin-top:10px;
-    padding:12px;
-    border-radius:13px;
+    margin-top:14px;
+    padding:18px;
     text-align:center;
-    border:1px solid #29384b;
-    background:#0b121c;
-    transition:.4s;
+    border:1px solid var(--win-border);
+    background:rgba(0,0,0,.25);
+    transition:all .5s var(--ease-fluent);
+    border-radius:6px;
 }
 
 .share-resultado-box.verde{
-    border-color:#00ff88;
-    box-shadow:0 0 15px rgba(0,255,136,.15);
-    animation:pulseGreen 1.2s ease-out;
+    border-color:var(--win-success);
+    background:rgba(16,124,16,.1);
 }
 
 .share-resultado-box.vermelho{
-    border-color:#ff0055;
-    box-shadow:0 0 15px rgba(255,0,85,.15);
-    animation:pulseRed 1.2s ease-out;
+    border-color:var(--win-error);
+    background:rgba(232,17,35,.1);
 }
 
 .emoji-resultado{
-    font-size:28px;
+    font-size:42px;
     display:block;
-    margin:0 auto 3px;
+    margin:0 auto 6px;
     line-height:1;
-    transition:transform .3s;
+    transition:transform .3s var(--ease-fluent);
 }
 
 .share-resultado-box.verde .emoji-resultado{
@@ -914,64 +1434,69 @@ button{ cursor:pointer; }
 
 @keyframes bounceEmoji{
     0%,100%{transform:translateY(0) scale(1) rotate(0deg);}
-    25%{transform:translateY(-10px) scale(1.15) rotate(-8deg);}
-    50%{transform:translateY(0) scale(1.05) rotate(0deg);}
-    75%{transform:translateY(-6px) scale(1.12) rotate(8deg);}
+    25%{transform:translateY(-10px) scale(1.1) rotate(-6deg);}
+    50%{transform:translateY(0) scale(1.03) rotate(0deg);}
+    75%{transform:translateY(-6px) scale(1.08) rotate(6deg);}
 }
 
 @keyframes shakeEmoji{
     0%,100%{transform:translateX(0) rotate(0deg);}
-    20%{transform:translateX(-6px) rotate(-5deg);}
-    40%{transform:translateX(6px) rotate(5deg);}
-    60%{transform:translateX(-4px) rotate(-3deg);}
-    80%{transform:translateX(4px) rotate(3deg);}
+    20%{transform:translateX(-6px) rotate(-4deg);}
+    40%{transform:translateX(6px) rotate(4deg);}
+    60%{transform:translateX(-4px) rotate(-2deg);}
+    80%{transform:translateX(4px) rotate(2deg);}
 }
 
 .share-resultado{
-    font-size:24px;
-    font-weight:900;
-    margin:2px 0;
+    font-size:36px;
+    font-weight:300;
+    margin:3px 0;
     line-height:1.1;
-    transition:.3s;
+    color:#fff;
+    transition:all .4s var(--ease-fluent);
+    letter-spacing:-1px;
 }
 
-.share-resultado-box.verde .share-resultado{ color:#00ff88; }
-.share-resultado-box.vermelho .share-resultado{ color:#ff0055; }
+.share-resultado-box.verde .share-resultado{ color:#4ade80; }
+.share-resultado-box.vermelho .share-resultado{ color:#ff6b7a; }
 
 .status-resultado{
-    font-size:10px;
-    letter-spacing:.4px;
-    color:#9fb0c3;
-    font-weight:800;
+    font-size:11px;
+    letter-spacing:.8px;
+    color:var(--win-text-secondary);
+    font-weight:500;
     display:block;
+    text-transform:uppercase;
 }
 
+/* ================= GRÁFICO ================= */
+
 .painel-grafico{
-    margin-top:11px;
-    padding:11px 9px;
-    border-radius:12px;
-    background:linear-gradient(180deg,#070b11 0%,#050910 100%);
-    border:1px solid #172536;
+    margin-top:14px;
+    padding:14px 12px;
+    background:rgba(0,0,0,.2);
+    border:1px solid var(--win-border);
     display:block;
     width:100%;
-    animation:fadeInUp .5s ease both;
+    animation:fadeInUp .6s var(--ease-fluent) both;
+    border-radius:6px;
 }
 
 .painel-grafico-titulo{
     display:block;
     text-align:center;
-    font-size:9px;
-    letter-spacing:1px;
-    margin-bottom:9px;
-    color:#5f7d9a;
+    font-size:10px;
+    letter-spacing:1.5px;
+    margin-bottom:12px;
+    color:var(--win-accent);
     text-transform:uppercase;
-    font-weight:800;
+    font-weight:600;
 }
 
 .donut-wrapper{
-    width:120px;
-    height:120px;
-    margin:0 auto 10px;
+    width:150px;
+    height:150px;
+    margin:0 auto 14px;
     position:relative;
     display:block;
 }
@@ -990,28 +1515,24 @@ button{ cursor:pointer; }
     stroke-width:12;
 }
 
-.donut-track{ stroke:#151f2d; }
+.donut-track{ stroke:rgba(255,255,255,.08); }
 
 .donut-meta{
-    stroke:#00d9ff;
+    stroke:#2b88d8;
     stroke-linecap:round;
     stroke-dasharray:0 999;
-    transition:stroke-dasharray 1s ease;
-    opacity:.35;
+    transition:stroke-dasharray 1.2s var(--ease-fluent);
+    opacity:.4;
 }
 
 .donut-share{
-    stroke:#00ff88;
+    stroke:#107c10;
     stroke-linecap:round;
     stroke-dasharray:0 999;
-    transition:stroke-dasharray 1.2s cubic-bezier(.4,0,.2,1), stroke .5s;
-    filter:drop-shadow(0 0 6px rgba(0,255,136,.4));
+    transition:stroke-dasharray 1.4s var(--ease-fluent), stroke .5s var(--ease-smooth);
 }
 
-.donut-share.vermelho{
-    stroke:#ff0055;
-    filter:drop-shadow(0 0 6px rgba(255,0,85,.5));
-}
+.donut-share.vermelho{ stroke:#e81123; }
 
 .donut-centro{
     position:absolute;
@@ -1025,34 +1546,35 @@ button{ cursor:pointer; }
 }
 
 .donut-centro-valor{
-    font-size:20px;
-    font-weight:900;
+    font-size:26px;
+    font-weight:400;
     line-height:1;
     color:#fff;
-    transition:.3s;
+    transition:all .4s var(--ease-fluent);
+    letter-spacing:-.3px;
 }
 
 .donut-centro-label{
-    font-size:7px;
-    margin-top:2px;
-    letter-spacing:.8px;
-    color:#6d8299;
+    font-size:8px;
+    margin-top:4px;
+    letter-spacing:1px;
+    color:var(--win-text-secondary);
     text-transform:uppercase;
-    font-weight:800;
+    font-weight:500;
 }
 
 .barras-grafico{
     display:flex;
     flex-direction:column;
-    gap:8px;
-    margin-top:6px;
+    gap:10px;
+    margin-top:8px;
     width:100%;
 }
 
 .barra-item{
     display:flex;
     flex-direction:column;
-    gap:3px;
+    gap:5px;
     width:100%;
 }
 
@@ -1060,611 +1582,858 @@ button{ cursor:pointer; }
     display:flex;
     justify-content:space-between;
     align-items:center;
-    font-size:10px;
+    font-size:11px;
     line-height:1.2;
     gap:6px;
 }
 
 .barra-topo-label{
-    font-size:10px;
+    font-size:11px;
     letter-spacing:.3px;
-    color:#8ba1b8;
-    font-weight:800;
+    color:var(--win-text-secondary);
+    font-weight:400;
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
+    display:flex;
+    align-items:center;
+    gap:6px;
 }
 
+.barra-topo-label .ico{ font-size:14px; }
+
 .barra-topo-valor{
-    font-size:10.5px;
-    font-weight:900;
+    font-size:12px;
+    font-weight:600;
     white-space:nowrap;
     flex-shrink:0;
+    color:#fff;
 }
 
 .barra-trilho{
-    height:7px;
-    border-radius:5px;
+    height:8px;
     width:100%;
-    background:#101a26;
+    background:rgba(255,255,255,.08);
     overflow:hidden;
     position:relative;
+    border-radius:4px;
 }
 
 .barra-preenchimento{
     height:100%;
-    border-radius:5px;
     width:0;
-    transition:width 1s cubic-bezier(.4,0,.2,1);
+    transition:width 1.2s var(--ease-fluent);
     position:relative;
     overflow:hidden;
+    border-radius:4px;
 }
 
-.barra-preenchimento::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(90deg,
-        rgba(255,255,255,0) 0%,
-        rgba(255,255,255,.35) 50%,
-        rgba(255,255,255,0) 100%);
-    animation:confettiSlide 1.8s linear infinite;
-}
-
-.barra-meta{ background:linear-gradient(90deg,#0085b3,#00d9ff); }
-.barra-atual-verde{ background:linear-gradient(90deg,#009d5a,#00ff88); }
-.barra-atual-vermelho{ background:linear-gradient(90deg,#a8003a,#ff0055); }
-.barra-restante{ background:linear-gradient(90deg,#5a2b8a,#a66cff); }
+.barra-meta{ background:linear-gradient(90deg, #005fa3, #0078d4); }
+.barra-atual-verde{ background:linear-gradient(90deg, #0a5c0a, #107c10); }
+.barra-atual-vermelho{ background:linear-gradient(90deg, #a50f1e, #e81123); }
+.barra-restante{ background:linear-gradient(90deg, #6a4fa0, #8764b8); }
 
 .barra-info-extra{
     display:flex;
     justify-content:space-between;
-    font-size:9.5px;
-    margin-top:1px;
-    color:#5f7d9a;
-    font-weight:700;
+    font-size:10px;
+    margin-top:3px;
+    color:var(--win-text-secondary);
+    font-weight:400;
     gap:6px;
 }
 
 .painel-cards{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:5px;
-    margin-top:10px;
+    gap:8px;
+    margin-top:14px;
 }
 
 .painel-card{
-    padding:7px 4px;
-    border-radius:9px;
+    padding:11px 6px;
     text-align:center;
-    background:#0a1420;
-    border:1px solid #1b2d42;
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--win-border);
     display:flex;
     flex-direction:column;
     align-items:center;
     min-width:0;
-    transition:transform .2s;
-    animation:popIn .4s ease both;
+    transition:all .3s var(--ease-fluent);
+    animation:popIn .5s var(--ease-fluent) both;
+    border-radius:5px;
 }
 
-.painel-card:active{ transform:scale(.95); }
+.painel-card:hover{
+    transform:translateY(-2px);
+    border-color:var(--win-accent);
+    box-shadow:0 4px 12px rgba(0,0,0,.3);
+}
 
-.painel-card-icon{ font-size:12px; line-height:1; }
+.painel-card-icon{
+    font-size:20px;
+    line-height:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
 .painel-card-label{
-    font-size:7px;
-    letter-spacing:.4px;
-    color:#5f7d9a;
+    font-size:8.5px;
+    letter-spacing:.6px;
+    color:var(--win-text-secondary);
     text-transform:uppercase;
-    font-weight:800;
-    margin:3px 0 2px;
+    font-weight:500;
+    margin:5px 0 3px;
 }
 .painel-card-valor{
-    font-size:11px;
-    font-weight:900;
+    font-size:14px;
+    font-weight:600;
     color:#fff;
     white-space:nowrap;
-    transition:.3s;
+    transition:all .4s var(--ease-fluent);
 }
 
 .resumo{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:5px;
-    margin-top:10px;
+    gap:8px;
+    margin-top:14px;
 }
 
 .resumo-item{
-    padding:8px 9px;
-    border-radius:9px;
-    background:#080e16;
-    border:1px solid #1b2a3b;
+    padding:11px 12px;
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--win-border);
     min-width:0;
-    animation:fadeInUp .4s ease both;
+    animation:fadeInUp .5s var(--ease-fluent) both;
+    border-radius:5px;
+    transition:all .3s var(--ease-fluent);
+}
+
+.resumo-item:hover{
+    border-color:var(--win-accent);
+    transform:translateY(-1px);
 }
 
 .resumo-label{
-    font-size:8.5px;
-    letter-spacing:.3px;
-    color:#778ca4;
+    font-size:9px;
+    letter-spacing:.4px;
+    color:var(--win-text-secondary);
     text-transform:uppercase;
     display:block;
-    line-height:1.1;
+    line-height:1.2;
+    font-weight:500;
 }
 
 .resumo-valor{
-    font-size:12px;
-    margin-top:2px;
-    font-weight:900;
+    font-size:14px;
+    margin-top:3px;
+    font-weight:600;
     display:block;
-    line-height:1.2;
+    line-height:1.3;
     word-break:break-word;
-    transition:.3s;
+    transition:all .4s var(--ease-fluent);
+    color:#fff;
 }
 
 .resumo-mensagem{
     grid-column:1/-1;
-    font-size:10px;
-    padding:7px;
+    font-size:11.5px;
+    padding:12px;
     text-align:center;
-    color:#9db0c4;
-    line-height:1.3;
+    color:var(--win-text-secondary);
+    line-height:1.4;
+    font-weight:400;
+    background:rgba(0,120,212,.1);
+    border-left:3px solid var(--win-accent);
+    border-radius:0 5px 5px 0;
 }
+
+/* ================= RUPTURAS ================= */
 
 .ruptura-contadores{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:7px;
-    margin:10px 0 12px;
+    gap:8px;
+    margin:12px 0 16px;
 }
 
 .ruptura-contador{
-    background:#0e1722;
-    border:1px solid #1c3045;
-    border-radius:12px;
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--win-border);
     text-align:center;
-    padding:9px 5px;
-    transition:transform .2s;
-    animation:popIn .4s ease both;
+    padding:12px 6px;
+    transition:all .3s var(--ease-fluent);
+    animation:popIn .5s var(--ease-fluent) both;
+    border-radius:5px;
+}
+
+.ruptura-contador:hover{
+    transform:translateY(-2px);
+    border-color:var(--win-accent);
 }
 
 .ruptura-contador-numero{
-    font-size:19px;
-    font-weight:900;
-    transition:.3s;
+    font-size:24px;
+    font-weight:400;
+    transition:all .4s var(--ease-fluent);
+    color:#fff;
 }
 
-.ruptura-contador-numero.pulsar{ animation:iconPop .4s ease; }
+.ruptura-contador-numero.pulsar{ animation:iconPop .5s var(--ease-fluent); }
 
 .ruptura-contador-label{
-    color:#74879b;
-    font-size:8.5px;
+    color:var(--win-text-secondary);
+    font-size:9px;
     text-transform:uppercase;
-    margin-top:2px;
+    margin-top:4px;
+    font-weight:500;
+    letter-spacing:.4px;
 }
 
 .ruptura-categorias{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:8px;
-    margin-bottom:10px;
+    gap:10px;
+    margin-bottom:14px;
 }
 
 .ruptura-categoria{
-    border:1px solid #293b51;
-    background:#0d1520;
-    color:#9eafc3;
-    border-radius:12px;
-    padding:11px 8px;
-    font-weight:900;
-    font-size:12px;
-    transition:all .2s;
+    border:1px solid var(--win-border);
+    background:var(--win-bg-mid);
+    color:var(--win-text-secondary);
+    padding:12px 10px;
+    font-weight:500;
+    font-size:12.5px;
+    transition:all .3s var(--ease-fluent);
+    border-radius:5px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
 }
 
-.ruptura-categoria:active{ transform:scale(.96); }
+.ruptura-categoria .ico{ font-size:18px; }
+
+.ruptura-categoria:hover{ background:var(--win-bg-tile-hover); transform:translateY(-1px); }
+.ruptura-categoria:active{ transform:scale(.98); }
 
 .ruptura-categoria.ativo{
     color:#fff;
-    border-color:#00d9ff;
-    background:linear-gradient(135deg,#073344,#211539);
-    animation:popIn .3s ease;
+    background:var(--win-accent);
+    border-color:var(--win-accent);
+    font-weight:600;
 }
 
 .ruptura-pesquisa{
     width:100%;
-    margin:10px 0;
-    border:1px solid #27394d;
-    background:#050a10;
+    margin:12px 0;
+    border:1px solid var(--win-border);
+    background:rgba(0,0,0,.25);
     color:#fff;
     outline:none;
-    border-radius:12px;
     padding:11px 12px;
     font-size:13px;
-    transition:border-color .2s;
+    font-weight:400;
+    transition:all .3s var(--ease-fluent);
+    border-radius:5px;
 }
 
-.ruptura-pesquisa:focus{ border-color:#00d9ff; }
+.ruptura-pesquisa:focus{
+    border-color:var(--win-accent);
+    box-shadow:0 0 0 2px rgba(0,120,212,.2);
+}
+.ruptura-pesquisa::placeholder{ color:var(--win-text-disabled); }
 
-.ruptura-secao{ margin-top:12px; }
+.ruptura-secao{ margin-top:16px; }
 
 .ruptura-secao-titulo{
-    padding:10px 12px;
-    background:#101a26;
-    border-radius:11px;
-    margin-bottom:6px;
-    font-weight:900;
+    padding:11px 14px;
+    background:rgba(0,120,212,.12);
+    border-left:3px solid var(--win-accent);
+    margin-bottom:8px;
+    font-weight:600;
     font-size:12.5px;
+    color:#fff;
+    letter-spacing:.2px;
+    border-radius:0 5px 5px 0;
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
 
-.ruptura-lista{ display:flex; flex-direction:column; gap:5px; }
+.ruptura-secao-titulo .ico{ font-size:18px; }
+
+.ruptura-lista{ display:flex; flex-direction:column; gap:6px; }
 
 .ruptura-produto{
     display:flex;
     align-items:center;
-    gap:10px;
-    background:#0b131e;
-    border:1px solid #17283a;
-    border-radius:11px;
-    padding:10px;
+    gap:12px;
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--win-border);
+    padding:12px;
     cursor:pointer;
-    transition:all .25s;
-    animation:fadeInUp .3s ease both;
+    transition:all .3s var(--ease-fluent);
+    animation:fadeInUp .4s var(--ease-fluent) both;
+    border-radius:5px;
 }
 
-.ruptura-produto:active{ transform:scale(.985); }
+.ruptura-produto:hover{
+    background:rgba(255,255,255,.06);
+    border-color:var(--win-accent);
+}
+
+.ruptura-produto:active{ transform:scale(.99); }
 
 .ruptura-produto.selecionado{
-    border-color:#ff0055;
-    background:#21101a;
-    animation:popIn .35s cubic-bezier(.34,1.56,.64,1);
-    box-shadow:0 0 14px rgba(255,0,85,.35);
+    background:rgba(232,17,35,.15);
+    border-color:var(--win-error);
+    animation:popIn .35s var(--ease-fluent);
 }
 
 .ruptura-checkbox{
     width:20px;
     height:20px;
-    accent-color:#ff0055;
+    accent-color:var(--win-accent);
     flex-shrink:0;
-    transition:transform .3s;
+    transition:transform .3s var(--ease-fluent);
 }
 
-.ruptura-checkbox:checked{ animation:iconPop .35s ease; }
+.ruptura-checkbox:checked{ animation:iconPop .4s var(--ease-fluent); }
 
 .ruptura-produto-info{ flex:1; }
-.ruptura-produto-nome{ font-size:12.5px; font-weight:800; }
-.ruptura-produto-descricao{ color:#71869d; font-size:10.5px; margin-top:2px; }
+.ruptura-produto-nome{ font-size:13px; font-weight:500; color:#fff; }
+.ruptura-produto-descricao{ color:var(--win-text-secondary); font-size:11px; margin-top:3px; font-weight:400; }
+
+/* ================= VALIDADES ================= */
 
 .validade-top-bar{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    background:#0a1420;
-    border:1px solid #1b2d42;
-    border-radius:12px;
-    padding:10px 12px;
-    margin:10px 0;
-    font-size:11.5px;
-    font-weight:800;
+    background:rgba(0,0,0,.25);
+    border:1px solid var(--win-border);
+    padding:12px 14px;
+    margin:12px 0;
+    font-size:12px;
+    font-weight:500;
+    border-radius:5px;
+}
+
+.validade-top-bar span:first-child{
+    display:flex;
+    align-items:center;
+    gap:8px;
 }
 
 .validade-top-bar .num{
-    color:#00ff88;
-    font-size:13px;
-    transition:.3s;
+    color:#fff;
+    font-size:14px;
+    transition:all .4s var(--ease-fluent);
+    background:var(--win-accent);
+    padding:4px 12px;
+    font-weight:600;
+    border-radius:3px;
 }
 
-.validade-top-bar .num.pulsar{ animation:iconPop .4s ease; }
+.validade-top-bar .num.pulsar{ animation:iconPop .5s var(--ease-fluent); }
 
 .validade-produto-item{
     display:flex;
     align-items:center;
-    gap:10px;
-    background:#0b131e;
-    border:1px solid #17283a;
-    border-radius:11px;
-    padding:10px;
+    gap:12px;
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--win-border);
+    padding:12px;
     cursor:pointer;
-    transition:all .25s;
+    transition:all .3s var(--ease-fluent);
+    border-radius:5px;
+}
+
+.validade-produto-item:hover{
+    background:rgba(255,255,255,.06);
+    border-color:var(--win-accent);
 }
 
 .validade-produto-item.ja-registrado{
-    border-color:#00ff88;
-    background:linear-gradient(135deg,#05281b,#0b1a13);
-    animation:popIn .35s ease;
+    background:rgba(16,124,16,.15);
+    border-color:var(--win-success);
+    animation:popIn .35s var(--ease-fluent);
 }
 
 .validade-controles{
     display:flex;
     align-items:center;
-    gap:7px;
-    margin-top:8px;
-    animation:fadeInUp .3s ease both;
+    gap:8px;
+    margin-top:9px;
+    animation:fadeInUp .4s var(--ease-fluent) both;
 }
 
 .validade-input-qtd{
-    width:75px;
-    border:1px solid #26364a;
+    width:80px;
+    border:1px solid var(--win-border);
     outline:none;
-    background:#050a10;
+    background:rgba(0,0,0,.25);
     color:#fff;
-    border-radius:9px;
-    padding:9px 10px;
+    padding:10px 11px;
     font-size:13px;
     text-align:center;
-    transition:border-color .2s;
+    font-weight:400;
+    transition:all .3s var(--ease-fluent);
+    border-radius:4px;
 }
 
 .validade-input-data{
     flex:1;
-    border:1px solid #26364a;
+    border:1px solid var(--win-border);
     outline:none;
-    background:#050a10;
+    background:rgba(0,0,0,.25);
     color:#fff;
-    border-radius:9px;
-    padding:9px 10px;
+    padding:10px 11px;
     font-size:13px;
-    transition:border-color .2s;
+    font-weight:400;
+    transition:all .3s var(--ease-fluent);
+    border-radius:4px;
 }
 
 .validade-input-qtd:focus,
-.validade-input-data:focus{ border-color:#00d9ff; }
-
-.btn-validade-add{
-    border:0;
-    background:linear-gradient(135deg,#0085b3,#693ca1);
-    color:#fff;
-    border-radius:9px;
-    padding:9px 12px;
-    font-weight:900;
-    font-size:12px;
-    white-space:nowrap;
-    transition:transform .2s;
+.validade-input-data:focus{
+    border-color:var(--win-accent);
+    box-shadow:0 0 0 2px rgba(0,120,212,.2);
 }
 
-.btn-validade-add:active{ transform:scale(.94); }
+.btn-validade-add{
+    border:none;
+    background:var(--win-accent);
+    color:#fff;
+    padding:10px 16px;
+    font-weight:600;
+    font-size:12px;
+    white-space:nowrap;
+    transition:all .25s var(--ease-fluent);
+    border-radius:4px;
+    letter-spacing:.2px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.btn-validade-add .ico{ font-size:14px; }
+
+.btn-validade-add:hover{
+    background:var(--win-accent-hover);
+    transform:translateY(-1px);
+}
+.btn-validade-add:active{ background:#005fa3; transform:scale(.97); }
 
 .validade-item-adicionado{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:9px;
-    background:#071a12;
-    border:1px solid #0f5c38;
-    border-radius:11px;
-    padding:10px 11px;
-    margin-top:7px;
+    gap:10px;
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--win-border);
+    padding:12px 13px;
+    margin-top:8px;
     user-select:none;
     -webkit-user-select:none;
     -webkit-touch-callout:none;
-    animation:popIn .35s cubic-bezier(.34,1.56,.64,1) both;
+    animation:popIn .4s var(--ease-fluent) both;
+    border-radius:5px;
+    transition:all .3s var(--ease-fluent);
+}
+
+.validade-item-adicionado:hover{
+    border-color:var(--win-accent);
+    transform:translateY(-1px);
 }
 
 .validade-item-adicionado.alerta-amarelo{
-    border-color:#ffaa00;
-    background:linear-gradient(135deg,#2a1e05,#1a1405);
-    animation:piscarAmarelo 2.5s ease-in-out infinite;
+    background:rgba(255,185,0,.12);
+    border-color:var(--win-warning);
 }
 
 .validade-item-adicionado.alerta-vermelho{
-    border-color:#ff0055;
-    background:linear-gradient(135deg,#2a0515,#3a081e);
-    animation:piscarVermelho .7s ease-in-out infinite;
+    background:rgba(232,17,35,.15);
+    border-color:var(--win-error);
+    animation:pulseError .9s ease-in-out infinite;
 }
 
 .validade-item-info{ flex:1; min-width:0; }
 
 .validade-item-nome{
-    font-size:12.5px;
-    font-weight:900;
+    font-size:13px;
+    font-weight:500;
     color:#fff;
     word-break:break-word;
 }
 
 .validade-item-detalhe{
-    font-size:10.5px;
-    color:#7d92a8;
-    margin-top:3px;
+    font-size:11px;
+    color:var(--win-text-secondary);
+    margin-top:4px;
     display:flex;
     flex-wrap:wrap;
-    gap:7px;
+    gap:8px;
+    font-weight:400;
 }
 
 .validade-item-editar{
-    border:0;
-    background:linear-gradient(135deg,#0085b3,#693ca1);
+    border:none;
+    background:rgba(0,120,212,.25);
     color:#fff;
-    border-radius:8px;
-    width:30px;
-    height:30px;
-    font-weight:900;
-    font-size:13px;
+    width:34px;
+    height:34px;
+    font-weight:400;
+    font-size:16px;
     flex-shrink:0;
-    transition:transform .2s;
+    transition:all .25s var(--ease-fluent);
+    border-radius:4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-.validade-item-editar:active{ transform:scale(.9) rotate(-10deg); }
+.validade-item-editar:hover{
+    background:var(--win-accent);
+    transform:translateY(-1px);
+}
+.validade-item-editar:active{ transform:scale(.9); }
 
 .validade-cat{
-    border:1px solid #293b51;
-    background:#0d1520;
-    color:#9eafc3;
-    border-radius:12px;
-    padding:10px 8px;
-    font-weight:900;
-    font-size:12px;
-    transition:all .2s;
+    border:1px solid var(--win-border);
+    background:var(--win-bg-mid);
+    color:var(--win-text-secondary);
+    padding:12px 10px;
+    font-weight:500;
+    font-size:12.5px;
+    transition:all .3s var(--ease-fluent);
+    border-radius:5px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
 }
 
-.validade-cat:active{ transform:scale(.96); }
+.validade-cat .ico{ font-size:18px; }
+
+.validade-cat:hover{ background:var(--win-bg-tile-hover); transform:translateY(-1px); }
+.validade-cat:active{ transform:scale(.98); }
 
 .validade-cat.ativo{
     color:#fff;
-    border-color:#00d9ff;
-    background:linear-gradient(135deg,#073344,#211539);
-    animation:popIn .3s ease;
+    background:var(--win-accent);
+    border-color:var(--win-accent);
+    font-weight:600;
 }
 
 .validade-vazio{
     text-align:center;
-    color:#4a5f75;
-    font-size:12.5px;
-    padding:18px 10px;
+    color:var(--win-text-secondary);
+    font-size:13px;
+    padding:24px 14px;
     font-style:italic;
+    font-weight:400;
+    background:rgba(0,0,0,.15);
+    border:1px dashed var(--win-border);
+    border-radius:5px;
+}
+
+/* ================= BLOCO DE NOTAS ================= */
+
+.notepad{
+    background:#f0f0f0;
+    border:1px solid #a0a0a0;
+    border-radius:4px;
+    overflow:hidden;
+    box-shadow:0 4px 16px rgba(0,0,0,.4);
+    animation:fadeInUp .5s var(--ease-fluent) both;
+}
+
+.notepad-titulo-barra{
+    background:linear-gradient(180deg, #f6f6f6 0%, #eaeaea 100%);
+    border-bottom:1px solid #d0d0d0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:6px 12px;
+    font-size:12px;
+    color:#333;
+    font-family:'Segoe UI',sans-serif;
+    font-weight:400;
+    user-select:none;
+    gap:8px;
+}
+
+.notepad-titulo-barra .ico{
+    font-size:14px;
+    color:#0078d4;
+}
+
+.notepad-area{
+    background:#ffffff;
+    color:#000;
+    font-family:'Consolas','Courier New',monospace;
+    font-size:13px;
+    line-height:1.5;
+    padding:10px 12px;
+    min-height:280px;
+    max-height:55vh;
+    overflow-y:auto;
+    white-space:pre-wrap;
+    word-break:break-word;
+    border:none;
+    outline:none;
+    animation:fadeInUp .4s var(--ease-fluent) both;
+}
+
+.notepad-statusbar{
+    background:linear-gradient(180deg, #f6f6f6 0%, #eaeaea 100%);
+    border-top:1px solid #d0d0d0;
+    display:flex;
+    justify-content:space-between;
+    padding:5px 12px;
+    font-size:11px;
+    color:#333;
+    font-family:'Segoe UI',sans-serif;
+    user-select:none;
+}
+
+.notepad-statusbar span{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.notepad-statusbar span .ico{
+    font-size:13px;
+    color:#0078d4;
+}
+
+.notepad-area::-webkit-scrollbar{
+    width:14px;
+    height:14px;
+}
+.notepad-area::-webkit-scrollbar-track{
+    background:#f0f0f0;
+}
+.notepad-area::-webkit-scrollbar-thumb{
+    background:#cdcdcd;
+    border:3px solid #f0f0f0;
+    background-clip:padding-box;
+    border-radius:0;
+}
+.notepad-area::-webkit-scrollbar-thumb:hover{
+    background:#a0a0a0;
+    background-clip:padding-box;
 }
 
 .notas-acoes-topo{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:8px;
-    margin-bottom:10px;
-    animation:fadeInUp .35s ease both;
-}
-
-.bloco-notas{
-    background:#03070b;
-    border:1px solid #1e3043;
-    border-radius:14px;
-    padding:13px;
-    white-space:pre-wrap;
-    font-family:monospace;
-    font-size:12px;
-    line-height:1.6;
-    min-height:220px;
-    max-height:55vh;
-    overflow-y:auto;
-    animation:fadeInUp .4s ease both;
+    gap:10px;
+    margin-bottom:12px;
+    animation:fadeInUp .45s var(--ease-fluent) both;
 }
 
 .btn-copiar{
-    border:0;
-    background:#075e54;
+    border:1px solid var(--win-accent);
+    background:var(--win-accent);
     color:#fff;
-    border-radius:12px;
-    padding:13px;
-    font-weight:900;
+    padding:11px 14px;
+    font-weight:600;
     font-size:12.5px;
-    transition:transform .2s, background .2s;
+    transition:all .3s var(--ease-fluent);
+    border-radius:4px;
+    letter-spacing:.2px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
 }
 
-.btn-copiar:active{
-    transform:scale(.94);
-    background:#0a8b7c;
-    animation:popIn .3s ease;
+.btn-copiar .ico{ font-size:16px; }
+
+.btn-copiar:hover{
+    background:var(--win-accent-hover);
+    transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(0,120,212,.3);
 }
+.btn-copiar:active{ background:#005fa3; transform:scale(.98); }
 
 .btn-copiar.copiado{
-    background:#00ff88;
-    color:#002f1c;
-    animation:popIn .35s cubic-bezier(.34,1.56,.64,1);
+    background:var(--win-success);
+    border-color:var(--win-success);
+    animation:popIn .4s var(--ease-fluent);
 }
 
 .btn-limpar{
-    border:0;
-    background:#a50038;
-    color:#fff;
-    border-radius:12px;
-    padding:13px;
-    font-weight:900;
+    border:1px solid var(--win-border);
+    background:var(--win-bg-mid);
+    color:var(--win-text);
+    padding:11px 14px;
+    font-weight:600;
     font-size:12.5px;
-    transition:transform .2s;
+    transition:all .3s var(--ease-fluent);
+    border-radius:4px;
+    letter-spacing:.2px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
 }
 
-.btn-limpar:active{ transform:scale(.94); }
+.btn-limpar .ico{ font-size:16px; }
+
+.btn-limpar:hover{
+    background:#3a3a3a;
+    border-color:#555;
+    transform:translateY(-1px);
+}
+.btn-limpar:active{ background:#222; transform:scale(.98); }
 
 .btn-cancelar{
-    border:0;
-    background:#1a2533;
-    color:#fff;
-    border-radius:12px;
-    padding:13px;
-    font-weight:900;
+    border:1px solid var(--win-border);
+    background:var(--win-bg-mid);
+    color:var(--win-text);
+    padding:11px 14px;
+    font-weight:600;
     font-size:12.5px;
-    transition:transform .2s;
+    transition:all .3s var(--ease-fluent);
+    border-radius:4px;
+    letter-spacing:.2px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
 }
 
-.btn-cancelar:active{ transform:scale(.94); }
+.btn-cancelar:hover{ background:#3a3a3a; transform:translateY(-1px); }
+.btn-cancelar:active{ background:#222; transform:scale(.98); }
+
+/* ================= SELEÇÃO DE LOJA ================= */
 
 .lista-selecao-loja{
     display:flex;
     flex-direction:column;
-    gap:7px;
-    margin-top:6px;
+    gap:8px;
+    margin-top:8px;
 }
 
 .btn-selecao-loja{
     display:flex;
     align-items:center;
-    gap:12px;
-    border:1px solid #29384b;
-    background:linear-gradient(135deg,#0d1520,#0a1019);
+    gap:14px;
+    border:1px solid var(--win-border);
+    background:var(--win-bg-mid);
     color:#fff;
-    border-radius:13px;
-    padding:12px 13px;
+    padding:14px 15px;
     text-align:left;
-    transition:.2s;
-    animation:fadeInUp .35s ease both;
+    transition:all .3s var(--ease-fluent);
+    animation:fadeInUp .45s var(--ease-fluent) both;
+    border-radius:5px;
 }
 
-.btn-selecao-loja:active{ transform:scale(.98); }
+.btn-selecao-loja:hover{
+    background:var(--win-bg-tile-hover);
+    border-color:var(--win-accent);
+    transform:translateY(-1px);
+}
+.btn-selecao-loja:active{ background:rgba(0,120,212,.2); transform:scale(.99); }
 
-.btn-selecao-loja .ic{ font-size:20px; flex-shrink:0; }
+.btn-selecao-loja .ic{
+    font-size:24px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    line-height:1;
+}
+
 .btn-selecao-loja .info{ flex:1; min-width:0; }
-.btn-selecao-loja .nome{ font-size:12.5px; font-weight:900; word-break:break-word; }
-.btn-selecao-loja .sub{ font-size:10.5px; color:#7d92a8; margin-top:2px; }
+.btn-selecao-loja .nome{ font-size:13.5px; font-weight:500; word-break:break-word; color:#fff; }
+.btn-selecao-loja .sub{ font-size:11px; color:var(--win-text-secondary); margin-top:3px; font-weight:400; }
 
 .btn-selecao-loja .cont{
-    min-width:28px;
-    height:28px;
-    padding:0 8px;
-    border-radius:20px;
-    background:#00d9ff;
-    color:#000;
-    font-size:11.5px;
-    font-weight:900;
+    min-width:32px;
+    height:32px;
+    padding:0 10px;
+    background:var(--win-accent);
+    color:#fff;
+    font-size:12.5px;
+    font-weight:600;
     display:flex;
     align-items:center;
     justify-content:center;
     flex-shrink:0;
+    border-radius:4px;
 }
 
-.btn-selecao-loja .cont.rosa{ background:#ff0055; color:#fff; }
+/* ================= TOAST ================= */
 
 .toast{
     position:fixed;
-    left:50%;
+    right:20px;
     bottom:20px;
-    transform:translateX(-50%) translateY(100px);
+    transform:translateX(120%);
     z-index:9000;
-    background:#111c29;
-    border:1px solid #32465c;
-    border-radius:13px;
-    padding:11px 16px;
+    background:#2b2b2b;
+    border-left:3px solid var(--win-accent);
+    padding:14px 20px;
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:10px;
     opacity:0;
-    transition:.3s;
-    max-width:90%;
-    font-size:12.5px;
-    font-weight:700;
+    transition:all .45s var(--ease-fluent);
+    max-width:340px;
+    font-size:13px;
+    font-weight:400;
+    color:#fff;
+    box-shadow:0 8px 30px rgba(0,0,0,.5);
+    border-radius:4px;
+}
+
+.toast .ico{
+    font-size:20px;
+    color:var(--win-accent);
 }
 
 .toast.mostrar{
     opacity:1;
-    transform:translateX(-50%) translateY(0);
-    animation:popIn .35s cubic-bezier(.34,1.56,.64,1);
+    transform:translateX(0);
 }
 
 footer{
     text-align:center;
-    color:#52657a;
+    color:var(--win-text-secondary);
     font-size:11px;
-    padding:20px 0 15px;
+    padding:24px 0 16px;
+    font-weight:400;
+    letter-spacing:.3px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+}
+
+footer .ico{
+    font-size:13px;
+    vertical-align:middle;
 }
 
 @media(max-width:400px){
     .acoes-rapidas{ grid-template-columns:1fr; }
-    .subtab{ font-size:9.5px; min-width:64px; padding:8px 4px; }
-    .subtab .ic{ font-size:14px; }
+    .subtab{ font-size:10.5px; min-width:66px; padding:11px 4px; }
+    .subtab .ic{ font-size:18px; }
+    .share-resultado{ font-size:30px; }
+    .splash-title{ font-size:26px; }
+    .card{ padding:16px; }
+    .container{ padding:12px 14px 0; }
+    .splash-cena{ width:190px; }
+    .loja-casinha{ width:95px; height:95px; }
+    .carrinho{ width:80px; }
+    .notepad-area{ font-size:12px; }
 }
 </style>
 </head>
@@ -1673,9 +2442,46 @@ footer{
 
 <div id="splash">
     <div class="splash-box">
-        <div class="splash-icon">🛒</div>
-        <div class="splash-title">Bem-vindo ao MShare Space</div>
-        <div class="splash-subtitle">Divirta-se com nossas ferramentas 🚀</div>
+
+        <div class="splash-cena">
+
+            <div class="carrinho">
+                <div class="velocidade"></div>
+                <div class="velocidade v2"></div>
+                <div class="velocidade v3"></div>
+
+                <div class="carrinho-itens">
+                    <span>🥤</span>
+                    <span>🍺</span>
+                    <span>🍫</span>
+                </div>
+
+                <div class="carrinho-cesta"></div>
+                <div class="carrinho-alca"></div>
+                <div class="carrinho-roda esq"></div>
+                <div class="carrinho-roda dir"></div>
+
+                <div class="poeira">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="loja-casinha">
+                <div class="loja-telhado"></div>
+                <div class="loja-corpo">
+                    <div class="loja-letreiro">SHOP</div>
+                    <div class="loja-janela esq"></div>
+                    <div class="loja-janela dir"></div>
+                    <div class="loja-porta"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="splash-title">MShare Space</div>
+        <div class="splash-subtitle">Ferramentas profissionais para o seu dia</div>
         <div class="loading"><div class="loading-bar"></div></div>
     </div>
 </div>
@@ -1686,35 +2492,37 @@ footer{
             <span class="dot-online" id="statusConexao"></span>
             <span id="textoConexao">Online</span>
         </div>
-        <div class="logo">MShare Space</div>
+        <div class="logo"><span class="ico">🛒</span> MShare Space</div>
         <div class="right">
+            <span class="ico">⏰</span>
             <span id="horaAtual">--:--</span>
         </div>
     </div>
-    <div class="sub" id="dataAtual">--/--/----</div>
+    <div class="sub" id="dataAtual" style="text-align:center;max-width:720px;margin:4px auto 0;">--/--/----</div>
 </header>
 
 <div class="container">
 
     <div class="card">
         <div class="card-title">
-            🏪 Minhas Lojas
+            <span class="ico">🏬</span> Minhas Lojas
             <span class="badge" id="contadorLojasNum">0 / 4</span>
         </div>
 
-        <div style="font-size:11px;color:#8da2ba;text-align:left;margin-bottom:6px;" id="subtituloAjuda">
-            Toque para abrir • Segure 2s para selecionar
+        <div style="font-size:12px;color:var(--win-text-secondary);text-align:left;margin-bottom:10px;font-weight:400;">
+            👆 Toque para abrir • ✋ Segure 2s para selecionar
         </div>
 
         <div class="lojas-grid" id="lojasGrid"></div>
 
         <div class="barra-selecao" id="barraSelecao">
             <div class="contador">
+                <span class="ico">📋</span>
                 <b id="contSel">0</b> loja(s) selecionada(s)
             </div>
             <div class="acoes">
-                <button class="btn-cancelar-sel" onclick="cancelarSelecao()">CANCELAR</button>
-                <button class="btn-excluir-sel" id="btnExcluirSel" onclick="abrirExcluirMultiplas()" disabled>EXCLUIR</button>
+                <button class="btn-cancelar-sel" onclick="cancelarSelecao()">✖ CANCELAR</button>
+                <button class="btn-excluir-sel" id="btnExcluirSel" onclick="abrirExcluirMultiplas()" disabled>🗑️ EXCLUIR</button>
             </div>
         </div>
 
@@ -1722,7 +2530,7 @@ footer{
             <button class="btn-acao" id="btnAcaoRupturas" onclick="abrirSelecaoLojaRupturas()">
                 <span class="icone">📋</span>
                 <span class="txt">Ver rupturas</span>
-                <span class="pill rosa" id="pillRupturas">0</span>
+                <span class="pill" id="pillRupturas">0</span>
             </button>
             <button class="btn-acao" id="btnAcaoValidades" onclick="abrirSelecaoLojaValidades()">
                 <span class="icone">📅</span>
@@ -1732,7 +2540,7 @@ footer{
         </div>
     </div>
 
-    <footer>Desenvolvido por Yuri Lima</footer>
+    <footer><span class="ico">💻</span> Desenvolvido por Yuri Lima</footer>
 
 </div>
 
@@ -1741,14 +2549,14 @@ footer{
 
         <div class="modal-header">
             <div>
-                <div class="modal-title" id="tituloLojaAtiva">🏪 Loja</div>
+                <div class="modal-title" id="tituloLojaAtiva"><span class="ico">🏬</span> Loja</div>
                 <div class="modal-sub">Gerencie tudo desta loja</div>
             </div>
-            <button class="fechar" onclick="fecharFerramentaRupturas()">×</button>
+            <button class="fechar" onclick="fecharFerramentaRupturas()">✖</button>
         </div>
 
         <div class="subtabs">
-            <button class="subtab ativo" id="subDados" onclick="tentarTrocarDados()"><span class="ic">🏪</span>Dados</button>
+            <button class="subtab ativo" id="subDados" onclick="tentarTrocarDados()"><span class="ic">🏬</span>Dados</button>
             <button class="subtab" id="subShare" onclick="trocarSubAba('share')"><span class="ic">📏</span>Share</button>
             <button class="subtab" id="subRupturas" onclick="trocarSubAba('rupturas')"><span class="ic">📋</span>Rupturas</button>
             <button class="subtab" id="subValidades" onclick="trocarSubAba('validades')"><span class="ic">📅</span>Validades</button>
@@ -1758,57 +2566,57 @@ footer{
 
         <div class="subtab-painel ativo" id="painelDados">
             <div class="loja-info">
-                <div class="loja-info-titulo">🏪 INFORMAÇÕES DA LOJA</div>
+                <div class="loja-info-titulo"><span class="ico">🏬</span> INFORMAÇÕES DA LOJA</div>
 
                 <div class="loja-info-campo">
-                    <label class="loja-info-label">🏬 Nome da loja</label>
+                    <label class="loja-info-label"><span class="ico">🏬</span> Nome da loja</label>
                     <input class="loja-info-input" id="infoLoja" type="text"
                            placeholder="Ex.: Assaí Atacadista - Bezerra" oninput="salvarInfoLoja()">
                 </div>
                 <div class="loja-info-campo">
-                    <label class="loja-info-label">👤 Seu nome</label>
+                    <label class="loja-info-label"><span class="ico">👤</span> Seu nome</label>
                     <input class="loja-info-input" id="infoNome" type="text"
                            placeholder="Ex.: Yuri Lima" oninput="salvarInfoLoja()">
                 </div>
                 <div class="loja-info-campo">
-                    <label class="loja-info-label">📍 Endereço da loja</label>
+                    <label class="loja-info-label"><span class="ico">📍</span> Endereço da loja</label>
                     <input class="loja-info-input" id="infoEndereco" type="text"
                            placeholder="Ex.: Av. Bezerra de Menezes, 1234" oninput="salvarInfoLoja()">
                 </div>
                 <div class="loja-info-campo">
-                    <label class="loja-info-label">👨‍💼 Supervisor</label>
+                    <label class="loja-info-label"><span class="ico">👨‍💼</span> Supervisor</label>
                     <input class="loja-info-input" id="infoSupervisor" type="text"
                            placeholder="Ex.: Carlos Silva" oninput="salvarInfoLoja()">
                 </div>
 
                 <div class="aviso-trava" id="avisoTrava">
-                    🔒 Dados completos • Pressione 2s na aba "Dados" para editar
+                    <span class="ico">🔒</span> Dados completos • Pressione 2s na aba "Dados" para editar
                 </div>
             </div>
         </div>
 
         <div class="subtab-painel" id="painelShare">
             <div class="loja-info">
-                <div class="loja-info-titulo">📏 MEDIR SHARE DE GÔNDOLA</div>
+                <div class="loja-info-titulo"><span class="ico">📏</span> MEDIR SHARE DE GÔNDOLA</div>
 
                 <div class="unidades">
-                    <button class="btn-unidade ativo" id="btnFrentesLoja" onclick="mudarUnidadeLoja('frentes')">📦 FRENTES</button>
-                    <button class="btn-unidade" id="btnCentimetrosLoja" onclick="mudarUnidadeLoja('cm')">📐 CM</button>
+                    <button class="btn-unidade ativo" id="btnFrentesLoja" onclick="mudarUnidadeLoja('frentes')"><span class="ico">📦</span> FRENTES</button>
+                    <button class="btn-unidade" id="btnCentimetrosLoja" onclick="mudarUnidadeLoja('cm')"><span class="ico">📐</span> CM</button>
                 </div>
 
-                <label class="label">Meta desejada (%)</label>
+                <label class="label"><span class="ico">🎯</span> Meta desejada (%)</label>
                 <input class="input" id="metaLoja" type="number" min="0" max="100" step="0.01"
                        placeholder="Ex.: 30" oninput="calcularLoja()">
 
-                <label class="label">Espaço total</label>
+                <label class="label"><span class="ico">📦</span> Espaço total</label>
                 <input class="input" id="totalLoja" type="number" min="0" step="0.01"
                        placeholder="Ex.: 100" oninput="calcularLoja()">
 
-                <label class="label">Meu espaço</label>
+                <label class="label"><span class="ico">📊</span> Meu espaço</label>
                 <input class="input" id="meuEspacoLoja" type="number" min="0" step="0.01"
                        placeholder="Ex.: 35" oninput="calcularLoja()">
 
-                <button class="btn-calculadora" onclick="abrirCalculadora()">🧮 CALCULADORA</button>
+                <button class="btn-calculadora" onclick="abrirCalculadora()"><span class="ico">🧮</span> CALCULADORA</button>
 
                 <div class="share-resultado-box neutro" id="resultadoLoja">
                     <div class="emoji-resultado" id="emojiResultadoLoja">📊</div>
@@ -1833,21 +2641,21 @@ footer{
                         <div class="barras-grafico">
                             <div class="barra-item">
                                 <div class="barra-topo">
-                                    <span class="barra-topo-label">🎯 Meta</span>
+                                    <span class="barra-topo-label"><span class="ico">🎯</span> Meta</span>
                                     <span class="barra-topo-valor" id="barraMetaValorLoja">0%</span>
                                 </div>
                                 <div class="barra-trilho"><div class="barra-preenchimento barra-meta" id="barraMetaFillLoja"></div></div>
                             </div>
                             <div class="barra-item">
                                 <div class="barra-topo">
-                                    <span class="barra-topo-label">📊 Share Atual</span>
+                                    <span class="barra-topo-label"><span class="ico">📊</span> Share Atual</span>
                                     <span class="barra-topo-valor" id="barraAtualValorLoja">0%</span>
                                 </div>
                                 <div class="barra-trilho"><div class="barra-preenchimento barra-atual-verde" id="barraAtualFillLoja"></div></div>
                             </div>
                             <div class="barra-item">
                                 <div class="barra-topo">
-                                    <span class="barra-topo-label">📦 Restante</span>
+                                    <span class="barra-topo-label"><span class="ico">📦</span> Restante</span>
                                     <span class="barra-topo-valor" id="barraRestanteValorLoja">0%</span>
                                 </div>
                                 <div class="barra-trilho"><div class="barra-preenchimento barra-restante" id="barraRestanteFillLoja"></div></div>
@@ -1908,111 +2716,137 @@ footer{
             </div>
 
             <div class="ruptura-categorias">
-                <button class="ruptura-categoria ativo" id="categoriaAlcoolicos" onclick="mostrarCategoriaRuptura('alcoolicos')">🍺 Alcoólicos</button>
-                <button class="ruptura-categoria" id="categoriaNaoAlcoolicos" onclick="mostrarCategoriaRuptura('naoAlcoolicos')">🥤 Não alcoólicos</button>
+                <button class="ruptura-categoria ativo" id="categoriaAlcoolicos" onclick="mostrarCategoriaRuptura('alcoolicos')"><span class="ico">🍺</span> Alcoólicos</button>
+                <button class="ruptura-categoria" id="categoriaNaoAlcoolicos" onclick="mostrarCategoriaRuptura('naoAlcoolicos')"><span class="ico">🥤</span> Não alcoólicos</button>
             </div>
 
             <input class="ruptura-pesquisa" id="pesquisaRupturas" type="search"
                    placeholder="🔎 Pesquisar produto..." oninput="pesquisarRupturas()">
 
             <div id="painelAlcoolicos">
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 210 ml</div><div class="ruptura-lista" id="listaCervejas210"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 330 ml</div><div class="ruptura-lista" id="listaCervejas330"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 350 ml</div><div class="ruptura-lista" id="listaCervejas350"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 355 ml</div><div class="ruptura-lista" id="listaCervejas355"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 473 ml</div><div class="ruptura-lista" id="listaCervejas473"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 600 ml</div><div class="ruptura-lista" id="listaCervejas600"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🚫 Cervejas Zero</div><div class="ruptura-lista" id="listaCervejasZero"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍹 Bebidas Mistas</div><div class="ruptura-lista" id="listaMistas"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 210 ml</div><div class="ruptura-lista" id="listaCervejas210"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 330 ml</div><div class="ruptura-lista" id="listaCervejas330"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 350 ml</div><div class="ruptura-lista" id="listaCervejas350"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 355 ml</div><div class="ruptura-lista" id="listaCervejas355"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 473 ml</div><div class="ruptura-lista" id="listaCervejas473"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 600 ml</div><div class="ruptura-lista" id="listaCervejas600"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🚫</span> Cervejas Zero</div><div class="ruptura-lista" id="listaCervejasZero"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍹</span> Bebidas Mistas</div><div class="ruptura-lista" id="listaMistas"></div></div>
             </div>
 
             <div id="painelNaoAlcoolicos" style="display:none;">
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 200 ml</div><div class="ruptura-lista" id="listaRefrigerantes200"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 350 ml</div><div class="ruptura-lista" id="listaRefrigerantes350"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 1 L</div><div class="ruptura-lista" id="listaRefrigerantes1L"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 2 L</div><div class="ruptura-lista" id="listaRefrigerantes2L"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 2,5 L</div><div class="ruptura-lista" id="listaRefrigerantes25L"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍋 Água Tônica</div><div class="ruptura-lista" id="listaTonicas"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🧃 Isotônicos</div><div class="ruptura-lista" id="listaIsotonicos"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 200 ml</div><div class="ruptura-lista" id="listaRefrigerantes200"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 350 ml</div><div class="ruptura-lista" id="listaRefrigerantes350"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 1 L</div><div class="ruptura-lista" id="listaRefrigerantes1L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 2 L</div><div class="ruptura-lista" id="listaRefrigerantes2L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 2,5 L</div><div class="ruptura-lista" id="listaRefrigerantes25L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍋</span> Água Tônica</div><div class="ruptura-lista" id="listaTonicas"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🧃</span> Isotônicos</div><div class="ruptura-lista" id="listaIsotonicos"></div></div>
             </div>
         </div>
 
         <div class="subtab-painel" id="painelValidades">
             <div class="loja-info" id="infoLojaValidadeBox" style="margin-top:0;">
-                <div class="loja-info-titulo">🏪 INFORMAÇÕES DA LOJA</div>
-                <div id="infoLojaValidadeTexto" style="font-size:12px;color:#9db0c7;line-height:1.8;"></div>
+                <div class="loja-info-titulo"><span class="ico">🏬</span> INFORMAÇÕES DA LOJA</div>
+                <div id="infoLojaValidadeTexto" style="font-size:12.5px;color:var(--win-text-secondary);line-height:1.8;"></div>
             </div>
 
             <div class="validade-top-bar">
-                <span>📦 Produtos registrados</span>
+                <span><span class="ico">📦</span> Produtos registrados</span>
                 <span class="num" id="validadeTotalNum">0</span>
             </div>
 
             <div class="ruptura-categorias" style="margin-bottom:10px;">
-                <button class="validade-cat ativo" id="validadeCatAlcoolicos" onclick="mostrarCategoriaValidade('alcoolicos')">🍺 Alcoólicos</button>
-                <button class="validade-cat" id="validadeCatNaoAlcoolicos" onclick="mostrarCategoriaValidade('naoAlcoolicos')">🥤 Não alcoólicos</button>
+                <button class="validade-cat ativo" id="validadeCatAlcoolicos" onclick="mostrarCategoriaValidade('alcoolicos')"><span class="ico">🍺</span> Alcoólicos</button>
+                <button class="validade-cat" id="validadeCatNaoAlcoolicos" onclick="mostrarCategoriaValidade('naoAlcoolicos')"><span class="ico">🥤</span> Não alcoólicos</button>
             </div>
 
             <input class="ruptura-pesquisa" id="pesquisaValidades" type="search"
                    placeholder="🔎 Pesquisar produto..." oninput="pesquisarValidades()">
 
             <div id="painelValidadeAlcoolicos">
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 210 ml</div><div class="ruptura-lista" id="validadeListaCervejas210"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 330 ml</div><div class="ruptura-lista" id="validadeListaCervejas330"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 350 ml</div><div class="ruptura-lista" id="validadeListaCervejas350"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 355 ml</div><div class="ruptura-lista" id="validadeListaCervejas355"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 473 ml</div><div class="ruptura-lista" id="validadeListaCervejas473"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍺 Cervejas — 600 ml</div><div class="ruptura-lista" id="validadeListaCervejas600"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🚫 Cervejas Zero</div><div class="ruptura-lista" id="validadeListaCervejasZero"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍹 Bebidas Mistas</div><div class="ruptura-lista" id="validadeListaMistas"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 210 ml</div><div class="ruptura-lista" id="validadeListaCervejas210"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 330 ml</div><div class="ruptura-lista" id="validadeListaCervejas330"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 350 ml</div><div class="ruptura-lista" id="validadeListaCervejas350"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 355 ml</div><div class="ruptura-lista" id="validadeListaCervejas355"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 473 ml</div><div class="ruptura-lista" id="validadeListaCervejas473"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 600 ml</div><div class="ruptura-lista" id="validadeListaCervejas600"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🚫</span> Cervejas Zero</div><div class="ruptura-lista" id="validadeListaCervejasZero"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍹</span> Bebidas Mistas</div><div class="ruptura-lista" id="validadeListaMistas"></div></div>
             </div>
 
             <div id="painelValidadeNaoAlcoolicos" style="display:none;">
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 200 ml</div><div class="ruptura-lista" id="validadeListaRefrigerantes200"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 350 ml</div><div class="ruptura-lista" id="validadeListaRefrigerantes350"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 1 L</div><div class="ruptura-lista" id="validadeListaRefrigerantes1L"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 2 L</div><div class="ruptura-lista" id="validadeListaRefrigerantes2L"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🥤 Refrigerantes — 2,5 L</div><div class="ruptura-lista" id="validadeListaRefrigerantes25L"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍋 Água Tônica</div><div class="ruptura-lista" id="validadeListaTonicas"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo">🧃 Isotônicos</div><div class="ruptura-lista" id="validadeListaIsotonicos"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 200 ml</div><div class="ruptura-lista" id="validadeListaRefrigerantes200"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 350 ml</div><div class="ruptura-lista" id="validadeListaRefrigerantes350"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 1 L</div><div class="ruptura-lista" id="validadeListaRefrigerantes1L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 2 L</div><div class="ruptura-lista" id="validadeListaRefrigerantes2L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 2,5 L</div><div class="ruptura-lista" id="validadeListaRefrigerantes25L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍋</span> Água Tônica</div><div class="ruptura-lista" id="validadeListaTonicas"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🧃</span> Isotônicos</div><div class="ruptura-lista" id="validadeListaIsotonicos"></div></div>
             </div>
 
             <div class="ruptura-secao" style="margin-top:16px;">
-                <div class="ruptura-secao-titulo">📋 PRODUTOS REGISTRADOS</div>
+                <div class="ruptura-secao-titulo"><span class="ico">📋</span> PRODUTOS REGISTRADOS</div>
                 <div id="listaValidadesAdicionadas"></div>
             </div>
         </div>
 
         <div class="subtab-painel" id="painelNotasRupturas">
             <div class="loja-info" style="margin-top:0;">
-                <div class="loja-info-titulo">📝 BLOCO DE NOTAS — RUPTURAS</div>
-                <div style="font-size:11px;color:#8295aa;margin-bottom:10px;">
+                <div class="loja-info-titulo"><span class="ico">📝</span> BLOCO DE NOTAS — RUPTURAS</div>
+                <div style="font-size:11.5px;color:var(--win-text-secondary);margin-bottom:10px;font-weight:400;">
                     Bloco gerado automaticamente com base nos produtos marcados
                 </div>
             </div>
 
             <div class="notas-acoes-topo">
-                <button class="btn-copiar" id="btnCopiarRuptInline" onclick="copiarNotasRupturasInline()">📋 Copiar informações</button>
-                <button class="btn-limpar" onclick="limparRupturas()">🗑️ Limpar informações</button>
+                <button class="btn-copiar" id="btnCopiarRuptInline" onclick="copiarNotasRupturasInline()">
+                    <span class="ico">📋</span> Copiar informações
+                </button>
+                <button class="btn-limpar" onclick="limparRupturas()">
+                    <span class="ico">🗑️</span> Limpar informações
+                </button>
             </div>
 
-            <div class="bloco-notas" id="blocoNotasRupturasInline"></div>
+            <div class="notepad">
+                <div class="notepad-titulo-barra">
+                    <span class="ico">📝</span> Rupturas.txt — Bloco de Notas
+                </div>
+                <div class="notepad-area" id="blocoNotasRupturasInline" contenteditable="false"></div>
+                <div class="notepad-statusbar">
+                    <span><span class="ico">📄</span> <span id="statusRuptInfo">Linhas: 0</span></span>
+                    <span><span class="ico">🔤</span> UTF-8</span>
+                </div>
+            </div>
         </div>
 
         <div class="subtab-painel" id="painelNotasValidades">
             <div class="loja-info" style="margin-top:0;">
-                <div class="loja-info-titulo">🗒️ BLOCO DE NOTAS — VALIDADES</div>
-                <div style="font-size:11px;color:#8295aa;margin-bottom:10px;">
+                <div class="loja-info-titulo"><span class="ico">🗒️</span> BLOCO DE NOTAS — VALIDADES</div>
+                <div style="font-size:11.5px;color:var(--win-text-secondary);margin-bottom:10px;font-weight:400;">
                     Bloco gerado automaticamente com base nos produtos registrados
                 </div>
             </div>
 
             <div class="notas-acoes-topo">
-                <button class="btn-copiar" id="btnCopiarValidInline" onclick="copiarNotasValidadesInline()">📋 Copiar informações</button>
-                <button class="btn-limpar" onclick="limparValidades()">🗑️ Limpar informações</button>
+                <button class="btn-copiar" id="btnCopiarValidInline" onclick="copiarNotasValidadesInline()">
+                    <span class="ico">📋</span> Copiar informações
+                </button>
+                <button class="btn-limpar" onclick="limparValidades()">
+                    <span class="ico">🗑️</span> Limpar informações
+                </button>
             </div>
 
-            <div class="bloco-notas" id="blocoNotasValidadesInline"></div>
+            <div class="notepad">
+                <div class="notepad-titulo-barra">
+                    <span class="ico">🗒️</span> Validades.txt — Bloco de Notas
+                </div>
+                <div class="notepad-area" id="blocoNotasValidadesInline" contenteditable="false"></div>
+                <div class="notepad-statusbar">
+                    <span><span class="ico">📄</span> <span id="statusValidInfo">Linhas: 0</span></span>
+                    <span><span class="ico">🔤</span> UTF-8</span>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -2022,23 +2856,23 @@ footer{
     <div class="modal-box pequeno">
         <div class="modal-header">
             <div>
-                <div class="modal-title">🗑️ EXCLUIR LOJA(S)</div>
+                <div class="modal-title"><span class="ico">🗑️</span> EXCLUIR LOJA(S)</div>
                 <div class="modal-sub" id="subtituloExcluirLoja">Confirmação</div>
             </div>
-            <button class="fechar" onclick="fecharExcluirLoja()">×</button>
+            <button class="fechar" onclick="fecharExcluirLoja()">✖</button>
         </div>
-        <div style="text-align:center;padding:12px 4px 18px;">
-            <div style="font-size:50px;margin-bottom:10px;">⚠️</div>
-            <div style="font-size:14px;font-weight:900;color:#fff;line-height:1.5;" id="textoExcluirLoja">
+        <div style="text-align:center;padding:16px 6px 22px;">
+            <div style="font-size:60px;margin-bottom:14px;">⚠️</div>
+            <div style="font-size:14px;font-weight:400;color:#fff;line-height:1.5;" id="textoExcluirLoja">
                 Tem certeza que deseja excluir esta loja?
             </div>
-            <div style="font-size:11.5px;color:#9db0c7;margin-top:10px;line-height:1.6;" id="subtextoExcluirLoja">
+            <div style="font-size:12px;color:var(--win-text-secondary);margin-top:12px;line-height:1.6;font-weight:400;" id="subtextoExcluirLoja">
                 Todos os dados de <b>rupturas</b> e <b>validades</b> serão apagados permanentemente.
             </div>
         </div>
         <div class="notas-acoes-topo" style="grid-template-columns:1fr 1fr;">
-            <button class="btn-cancelar" onclick="fecharExcluirLoja()">CANCELAR</button>
-            <button class="btn-limpar" onclick="confirmarExcluirLoja()">🗑️ EXCLUIR</button>
+            <button class="btn-cancelar" onclick="fecharExcluirLoja()">✖ CANCELAR</button>
+            <button class="btn-limpar" onclick="confirmarExcluirLoja()"><span class="ico">🗑️</span> EXCLUIR</button>
         </div>
     </div>
 </div>
@@ -2047,21 +2881,21 @@ footer{
     <div class="modal-box pequeno">
         <div class="modal-header">
             <div>
-                <div class="modal-title">🗑️ EXCLUIR REGISTRO</div>
+                <div class="modal-title"><span class="ico">🗑️</span> EXCLUIR REGISTRO</div>
                 <div class="modal-sub">Confirmação</div>
             </div>
-            <button class="fechar" onclick="fecharExcluirValidade()">×</button>
+            <button class="fechar" onclick="fecharExcluirValidade()">✖</button>
         </div>
-        <div style="text-align:center;padding:12px 4px 18px;">
-            <div style="font-size:46px;margin-bottom:10px;">⚠️</div>
-            <div style="font-size:14px;font-weight:900;color:#fff;line-height:1.5;">
+        <div style="text-align:center;padding:16px 6px 22px;">
+            <div style="font-size:56px;margin-bottom:14px;">⚠️</div>
+            <div style="font-size:14px;font-weight:400;color:#fff;line-height:1.5;">
                 Deseja realmente excluir este registro de validade?
             </div>
-            <div style="font-size:11.5px;color:#9db0c7;margin-top:10px;line-height:1.6;" id="textoExcluirValidade"></div>
+            <div style="font-size:12px;color:var(--win-text-secondary);margin-top:12px;line-height:1.6;font-weight:400;" id="textoExcluirValidade"></div>
         </div>
         <div class="notas-acoes-topo" style="grid-template-columns:1fr 1fr;">
-            <button class="btn-cancelar" onclick="fecharExcluirValidade()">NÃO</button>
-            <button class="btn-limpar" onclick="confirmarExcluirValidade()">SIM, EXCLUIR</button>
+            <button class="btn-cancelar" onclick="fecharExcluirValidade()">✖ NÃO</button>
+            <button class="btn-limpar" onclick="confirmarExcluirValidade()">✓ SIM, EXCLUIR</button>
         </div>
     </div>
 </div>
@@ -2070,51 +2904,51 @@ footer{
     <div class="modal-box pequeno">
         <div class="modal-header">
             <div>
-                <div class="modal-title" id="tituloSelecaoLoja">Selecione uma loja</div>
+                <div class="modal-title" id="tituloSelecaoLoja"><span class="ico">🏬</span> Selecione uma loja</div>
                 <div class="modal-sub" id="subtituloSelecaoLoja">Escolha qual loja deseja visualizar</div>
             </div>
-            <button class="fechar" onclick="fecharSelecaoLoja()">×</button>
+            <button class="fechar" onclick="fecharSelecaoLoja()">✖</button>
         </div>
         <div class="lista-selecao-loja" id="listaSelecaoLoja"></div>
     </div>
 </div>
 
 <div class="modal" id="modalCalculadora">
-    <div class="modal-box pequeno" style="max-width:340px;">
+    <div class="modal-box pequeno" style="max-width:380px;">
         <div class="modal-header">
-            <div class="modal-title">🧮 CALCULADORA</div>
-            <button class="fechar" onclick="fecharCalculadora()">×</button>
+            <div class="modal-title"><span class="ico">🧮</span> CALCULADORA</div>
+            <button class="fechar" onclick="fecharCalculadora()">✖</button>
         </div>
-        <div style="background:#05080d;border:1px solid #25364a;border-radius:13px;padding:14px;min-height:70px;margin-bottom:11px;">
-            <div id="calcExpression" style="color:#70839b;font-size:11.5px;min-height:18px;"></div>
-            <div id="calcResult" style="font-size:23px;font-weight:900;text-align:right;">0</div>
+        <div style="background:rgba(0,0,0,.35);border:1px solid var(--win-border);padding:16px;min-height:85px;margin-bottom:14px;border-radius:4px;">
+            <div id="calcExpression" style="color:var(--win-text-secondary);font-size:12px;min-height:18px;font-weight:400;"></div>
+            <div id="calcResult" style="font-size:30px;font-weight:300;text-align:right;color:#fff;letter-spacing:-1px;">0</div>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px;">
-            <button onclick="calcLimpar()" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">C</button>
-            <button onclick="calcAdicionar('(')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">(</button>
-            <button onclick="calcAdicionar(')')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">)</button>
-            <button onclick="calcAdicionar('/')" style="border:0;min-height:50px;border-radius:11px;background:#22203c;color:#fff;font-size:17px;font-weight:800;">÷</button>
-            <button onclick="calcAdicionar('7')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">7</button>
-            <button onclick="calcAdicionar('8')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">8</button>
-            <button onclick="calcAdicionar('9')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">9</button>
-            <button onclick="calcAdicionar('*')" style="border:0;min-height:50px;border-radius:11px;background:#22203c;color:#fff;font-size:17px;font-weight:800;">×</button>
-            <button onclick="calcAdicionar('4')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">4</button>
-            <button onclick="calcAdicionar('5')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">5</button>
-            <button onclick="calcAdicionar('6')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">6</button>
-            <button onclick="calcAdicionar('-')" style="border:0;min-height:50px;border-radius:11px;background:#22203c;color:#fff;font-size:17px;font-weight:800;">−</button>
-            <button onclick="calcAdicionar('1')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">1</button>
-            <button onclick="calcAdicionar('2')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">2</button>
-            <button onclick="calcAdicionar('3')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">3</button>
-            <button onclick="calcAdicionar('+')" style="border:0;min-height:50px;border-radius:11px;background:#22203c;color:#fff;font-size:17px;font-weight:800;">+</button>
-            <button onclick="calcAdicionar('0')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">0</button>
-            <button onclick="calcAdicionar('.')" style="border:0;min-height:50px;border-radius:11px;background:#141e2b;color:#fff;font-size:17px;font-weight:800;">.</button>
-            <button onclick="calcResultado()" style="border:0;min-height:50px;border-radius:11px;background:linear-gradient(135deg,#006b82,#7543aa);color:#fff;font-size:17px;font-weight:800;grid-column:span 2;">=</button>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+            <button onclick="calcLimpar()" style="border:1px solid var(--win-border);min-height:58px;background:var(--win-bg-mid);color:#fff;font-size:18px;font-weight:400;border-radius:4px;">C</button>
+            <button onclick="calcAdicionar('(')" style="border:1px solid var(--win-border);min-height:58px;background:var(--win-bg-mid);color:#fff;font-size:18px;font-weight:400;border-radius:4px;">(</button>
+            <button onclick="calcAdicionar(')')" style="border:1px solid var(--win-border);min-height:58px;background:var(--win-bg-mid);color:#fff;font-size:18px;font-weight:400;border-radius:4px;">)</button>
+            <button onclick="calcAdicionar('/')" style="border:none;min-height:58px;background:var(--win-accent);color:#fff;font-size:18px;font-weight:400;border-radius:4px;">÷</button>
+            <button onclick="calcAdicionar('7')" style="border:1px solid var(--win-border);min-height:58px;background:var(--win-bg-mid);color:#fff;font-size:18px;font-weight:400;border-radius:4px;">7</button>
+            <button onclick="calcAdicionar('8')" style="border:1px solid var(--win-border);min-height:58px;background:var(--win-bg-mid);color:#fff;font-size:18px;font-weight:400;border-radius:4px;">8</button>
+            <button onclick="calcAdicionar('9')" style="border:1px solid var(--win-border);min-height:58px;background:var(--win-bg-mid);color:#fff;font-size:18px;font-weight:400;border-radius:4px;">9</button>
+            <button onclick="calcAdicionar('*')" style="border:none;min-height:58px;background:var(--win-accent);color:#fff;font-size:18px;font-weight:400;border-radius:4px;">×</button>
+            <button onclick="calcAdicionar('4')" style="border:1px solid var(--win-border);min-height:58px;background:var(--win-bg-mid);color:#fff;font-size:18px;font-weight:400;border-radius:4px;">4</button>
+            <button onclick="calcAdicionar('5')" style="border:1px solid var(--win-border);min-height:58px;background:var(--win-bg-mid);color:#fff;font-size:18px;font-weight:400;border-radius:4px;">5</button>
+            <button onclick="calcAdicionar('6')" style="border:1px solid var(--win-border);min-height:58px;background:var(--win-bg-mid);color:#fff;font-size:18px;font-weight:400;border-radius:4px;">6</button>
+            <button onclick="calcAdicionar('-')" style="border:none;min-height:58px;background:var(--win-accent);color:#fff;font-size:18px;font-weight:400;border-radius:4px;">−</button>
+            <button onclick="calcAdicionar('1')" style="border:1px solid var(--win-border);min-height:58px;background:var(--win-bg-mid);color:#fff;font-size:18px;font-weight:400;border-radius:4px;">1</button>
+            <button onclick="calcAdicionar('2')" style="border:1px solid var(--win-border);min-height:58px;background:var(--win-bg-mid);color:#fff;font-size:18px;font-weight:400;border-radius:4px;">2</button>
+            <button onclick="calcAdicionar('3')" style="border:1px solid var(--win-border);min-height:58px;background:var(--win-bg-mid);color:#fff;font-size:18px;font-weight:400;border-radius:4px;">3</button>
+            <button onclick="calcAdicionar('+')" style="border:none;min-height:58px;background:var(--win-accent);color:#fff;font-size:18px;font-weight:400;border-radius:4px;">+</button>
+            <button onclick="calcAdicionar('0')" style="border:1px solid var(--win-border);min-height:58px;background:var(--win-bg-mid);color:#fff;font-size:18px;font-weight:400;border-radius:4px;">0</button>
+            <button onclick="calcAdicionar('.')" style="border:1px solid var(--win-border);min-height:58px;background:var(--win-bg-mid);color:#fff;font-size:18px;font-weight:400;border-radius:4px;">.</button>
+            <button onclick="calcResultado()" style="border:none;min-height:58px;background:var(--win-success);color:#fff;font-size:18px;font-weight:600;grid-column:span 2;border-radius:4px;">=</button>
         </div>
     </div>
 </div>
 
 <div class="toast" id="toast">
-    <span id="toastIcone">✓</span>
+    <span id="toastIcone" class="ico">✓</span>
     <span id="toastTexto"></span>
 </div>
 
@@ -2132,17 +2966,20 @@ let lojaParaExcluir = null;
 let modoSelecaoMultipla = false;
 let lojasSelecionadas = new Set();
 
-/* controle do destrave temporário da aba Dados */
 let dadosDestravados = false;
 
 window.addEventListener("load",()=>{
-    setTimeout(()=>{ $("splash").style.display="none"; },1900);
+    setTimeout(()=>{
+        const s = $("splash");
+        s.style.opacity = "0";
+        setTimeout(()=>{ s.style.display="none"; },500);
+    },1900);
 });
 
 function atualizarDataHora(){
     const agora = new Date();
     $("dataAtual").textContent = new Intl.DateTimeFormat("pt-BR",
-        {timeZone:"America/Fortaleza",day:"2-digit",month:"2-digit",year:"numeric"}).format(agora);
+        {timeZone:"America/Fortaleza",day:"2-digit",month:"2-digit",year:"numeric",weekday:"long"}).format(agora);
     $("horaAtual").textContent = new Intl.DateTimeFormat("pt-BR",
         {timeZone:"America/Fortaleza",hour:"2-digit",minute:"2-digit"}).format(agora);
 }
@@ -2151,7 +2988,14 @@ setInterval(atualizarDataHora,1000);
 
 function atualizarConexao(){
     const online = navigator.onLine;
-    $("statusConexao").style.background = online ? "#00ff88" : "#ff0055";
+    const dot = $("statusConexao");
+    if(online){
+        dot.style.background = "#107c10";
+        dot.classList.remove("offline");
+    } else {
+        dot.style.background = "#e81123";
+        dot.classList.add("offline");
+    }
     $("textoConexao").textContent = online ? "Online" : "Offline";
 }
 window.addEventListener("online",atualizarConexao);
@@ -2166,12 +3010,47 @@ function mostrarToast(texto,icone="✓"){
     void $("toast").offsetWidth;
     $("toast").classList.add("mostrar");
     clearTimeout(toastTimer);
-    toastTimer=setTimeout(()=>{ $("toast").classList.remove("mostrar"); },2500);
+    toastTimer=setTimeout(()=>{ $("toast").classList.remove("mostrar"); },2800);
 }
 
-/* ============================================================
-   VERIFICA SE OS 4 DADOS DA LOJA ESTÃO PREENCHIDOS
-============================================================ */
+function criarRipple(e){
+    const el = e.currentTarget;
+    if(el.disabled) return;
+    const rect = el.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    let x, y;
+
+    if(e.touches && e.touches[0]){
+        x = e.touches[0].clientX - rect.left;
+        y = e.touches[0].clientY - rect.top;
+    } else {
+        x = e.clientX - rect.left;
+        y = e.clientY - rect.top;
+    }
+
+    const ripple = document.createElement("span");
+    ripple.className = "ripple-efecto";
+    ripple.style.width = size + "px";
+    ripple.style.height = size + "px";
+    ripple.style.left = (x - size/2) + "px";
+    ripple.style.top = (y - size/2) + "px";
+    el.appendChild(ripple);
+    setTimeout(()=>{ ripple.remove(); }, 700);
+}
+
+function aplicarRippleGlobal(){
+    const seletores = "button, .loja-card, .btn-acao, .btn-unidade, .ruptura-categoria, .validade-cat, .subtab, .btn-copiar, .btn-limpar, .btn-cancelar, .btn-validade-add, .btn-calculadora, .btn-add-loja, .barra-selecao button";
+    document.querySelectorAll(seletores).forEach(el=>{
+        if(el.dataset.ripplePronto === "1") return;
+        el.dataset.ripplePronto = "1";
+        el.classList.add("btn-ripple");
+        el.addEventListener("pointerdown", criarRipple);
+    });
+}
+
+setTimeout(aplicarRippleGlobal, 300);
+setInterval(aplicarRippleGlobal, 800);
+
 function lojaTemDadosCompletos(loja){
     const i = loja.info || {};
     return (
@@ -2182,7 +3061,6 @@ function lojaTemDadosCompletos(loja){
     );
 }
 
-/* Aplica/atualiza o estado de trava na aba Dados */
 function aplicarTravaDados(){
     const loja = getLoja(lojaAtiva);
     const completa = lojaTemDadosCompletos(loja);
@@ -2199,20 +3077,13 @@ function aplicarTravaDados(){
     }
 }
 
-/* Trava a aba Dados novamente (usada ao sair dela ou do modal) */
-function travarDados(){
-    dadosDestravados = false;
-    aplicarTravaDados();
-}
-
-/* Toque simples na aba Dados */
 function tentarTrocarDados(){
     const loja = getLoja(lojaAtiva);
     const completa = lojaTemDadosCompletos(loja);
 
     if(completa && !dadosDestravados){
         if(navigator.vibrate) navigator.vibrate([30,40,30]);
-        mostrarToast("🔒 Dados completos • Pressione 2s para editar","🔒");
+        mostrarToast("Dados completos • Pressione 2s para editar","🔒");
         const sub = $("subDados");
         sub.classList.remove("animar-popIn");
         void sub.offsetWidth;
@@ -2223,7 +3094,6 @@ function tentarTrocarDados(){
     trocarSubAba("dados");
 }
 
-/* Long press na aba Dados → destrava temporariamente */
 (function configurarLongPressDados(){
     const sub = $("subDados");
     let pressTimer=null, pressAtivado=false, startX=0, startY=0;
@@ -2247,7 +3117,7 @@ function tentarTrocarDados(){
                 if(navigator.vibrate) navigator.vibrate([40,60,40]);
                 aplicarTravaDados();
                 sub.classList.add("destravada");
-                mostrarToast("🔓 Dados destravados para edição","🔓");
+                mostrarToast("Dados destravados para edição","🔓");
                 setTimeout(()=>{
                     trocarSubAba("dados");
                 },150);
@@ -2286,9 +3156,7 @@ function tentarTrocarDados(){
     sub.addEventListener("click",clickHandler,true);
 })();
 
-/* SUB-ABA */
 function trocarSubAba(nome){
-    // Se está saindo da aba dados, trava novamente
     if(nome !== "dados" && dadosDestravados){
         dadosDestravados = false;
         aplicarTravaDados();
@@ -2335,9 +3203,10 @@ function trocarSubAba(nome){
     if(nome === "dados"){
         aplicarTravaDados();
     }
+
+    setTimeout(aplicarRippleGlobal, 100);
 }
 
-/* NÚMEROS */
 function numero(v){
     if(v===null||v===undefined||v==="") return 0;
     return Number(String(v).replace(",","."));
@@ -2440,7 +3309,7 @@ function calcularLoja(){
     $("resumoRestanteLoja").textContent = formatarUnidade(restante,unidadeAtualLoja);
     $("resumoShareLoja").textContent = formatarNumero(share)+"%";
     $("resumoDiferencaLoja").textContent = (diferenca>=0?"+":"-")+formatarUnidade(Math.abs(diferenca),unidadeAtualLoja);
-    $("resumoSituacaoLoja").textContent = atingiu ? "ATINGIDA" : "NÃO ATINGIDA";
+    $("resumoSituacaoLoja").textContent = atingiu ? "✅ ATINGIDA" : "❌ NÃO ATINGIDA";
     $("resumoMensagemLoja").textContent = atingiu
         ? "🎉 Você atingiu a meta."
         : "⚠️ Faltam "+formatarUnidade(restante,unidadeAtualLoja)+" para a meta.";
@@ -2469,10 +3338,9 @@ function atualizarPainelGraficoLoja(meta,share,restante,total,atingiu){
     $("cardShareLoja").textContent = formatarNumero(share)+"%";
     const d = share-meta, s = d>=0?"+":"";
     $("cardDiferencaLoja").textContent = s+formatarNumero(d)+"%";
-    $("cardDiferencaLoja").style.color = atingiu ? "#00ff88" : "#ff0055";
 }
 
-function abrirCalculadora(){ $("modalCalculadora").classList.add("aberto"); }
+function abrirCalculadora(){ $("modalCalculadora").classList.add("aberto"); setTimeout(aplicarRippleGlobal, 100); }
 function fecharCalculadora(){ $("modalCalculadora").classList.remove("aberto"); }
 function calcAdicionar(v){ expressaoCalc+=v; $("calcExpression").textContent=expressaoCalc; $("calcResult").textContent=expressaoCalc||"0"; }
 function calcLimpar(){ expressaoCalc=""; $("calcExpression").textContent=""; $("calcResult").textContent="0"; }
@@ -2647,6 +3515,7 @@ function atualizarCardsLojas(){
         const card = document.createElement("button");
         card.className = "loja-card";
         card.dataset.loja = i;
+        card.style.animationDelay = (i * 0.05) + "s";
 
         if(completa){
             if(tR>0||tV>0) card.classList.add("cadastrada-com-rupturas");
@@ -2676,7 +3545,7 @@ function atualizarCardsLojas(){
         if(pior){
             const faixa = document.createElement("div");
             faixa.className = "loja-alerta-faixa " + pior;
-            let texto = "Vencimentos em dia";
+            let texto = "✅ Vencimentos em dia";
             if(pior === "amarelo") texto = "⚠️ Vencendo (31-60 dias)";
             if(pior === "vermelho") texto = "🚨 URGENTE (≤30 dias)";
             faixa.textContent = texto;
@@ -2692,22 +3561,19 @@ function atualizarCardsLojas(){
         const partes=[];
         if(loja.info.nome) partes.push("👤 "+loja.info.nome);
         if(loja.info.supervisor) partes.push("👨‍💼 "+loja.info.supervisor);
-        infoEl.textContent = partes.length ? partes.join(" • ") : "Toque para preencher";
+        infoEl.textContent = partes.length ? partes.join(" • ") : "👆 Toque para preencher";
 
         const statusEl = document.createElement("div");
         statusEl.className = "loja-card-status";
         if(!completa){
             statusEl.textContent = "📝 Faltam dados";
-            statusEl.classList.add("pendente");
         } else if(tR>0||tV>0){
             const p=[];
             if(tR>0) p.push(`📋 ${tR}`);
             if(tV>0) p.push(`📅 ${tV}`);
             statusEl.textContent = p.join(" • ") + " ✅";
-            statusEl.classList.add("cadastrada");
         } else {
             statusEl.textContent = "✅ Cadastrada";
-            statusEl.classList.add("cadastrada");
         }
 
         const contStatus = contarStatusValidades(loja);
@@ -2738,7 +3604,7 @@ function atualizarCardsLojas(){
             if(tR > 0){
                 const s = document.createElement("span");
                 s.className = "loja-status-mini ruptura";
-                s.textContent = "⚠️ "+tR+" ruptura(s)";
+                s.textContent = "⚠️ "+tR+" rupt.";
                 linhaStatus.appendChild(s);
             }
         }
@@ -2801,7 +3667,7 @@ function atualizarCardsLojas(){
 
     const btnAdd = document.createElement("button");
     btnAdd.className = "btn-add-loja";
-    btnAdd.innerHTML = '<span class="mais">+</span> ADICIONAR LOJA';
+    btnAdd.innerHTML = '<span class="ico">➕</span> ADICIONAR LOJA';
     btnAdd.addEventListener("click", adicionarNovaLoja);
     grid.appendChild(btnAdd);
 
@@ -2811,8 +3677,8 @@ function atualizarCardsLojas(){
     const acoes = $("acoesRapidas");
     if(temRupturas || temValidades){
         acoes.style.display = "grid";
-        $("btnAcaoRupturas").style.display = temRupturas ? "flex" : "none";
-        $("btnAcaoValidades").style.display = temValidades ? "flex" : "none";
+        $("btnAcaoRupturas").style.display = "flex";
+        $("btnAcaoValidades").style.display = "flex";
         $("pillRupturas").textContent = totalRupturas;
         $("pillValidades").textContent = totalValidades;
     } else {
@@ -2820,6 +3686,7 @@ function atualizarCardsLojas(){
     }
 
     atualizarBarraSelecao();
+    setTimeout(aplicarRippleGlobal, 100);
 }
 
 function ativarModoSelecao(indiceInicial){
@@ -2828,7 +3695,7 @@ function ativarModoSelecao(indiceInicial){
         lojasSelecionadas.clear();
         lojasSelecionadas.add(indiceInicial);
         if(navigator.vibrate) navigator.vibrate([40,40,40]);
-        mostrarToast("Modo seleção ativado","✓");
+        mostrarToast("Modo seleção ativado","✅");
     } else {
         lojasSelecionadas.add(indiceInicial);
     }
@@ -2845,23 +3712,20 @@ function cancelarSelecao(){
     modoSelecaoMultipla = false;
     lojasSelecionadas.clear();
     atualizarCardsLojas();
-    mostrarToast("Seleção cancelada","✕");
+    mostrarToast("Seleção cancelada","✖");
 }
 
 function atualizarBarraSelecao(){
     const barra = $("barraSelecao");
     const cont = $("contSel");
     const btn = $("btnExcluirSel");
-    const subtitulo = $("subtituloAjuda");
 
     if(modoSelecaoMultipla){
         barra.classList.add("ativa");
         cont.textContent = lojasSelecionadas.size;
         btn.disabled = lojasSelecionadas.size === 0;
-        subtitulo.textContent = "Toque nas lojas para marcar/desmarcar • Exclua em lote";
     } else {
         barra.classList.remove("ativa");
-        subtitulo.textContent = "Toque para abrir • Segure 2s para selecionar";
     }
 }
 
@@ -2878,11 +3742,12 @@ function abrirExcluirMultiplas(){
 
     $("subtituloExcluirLoja").textContent = lojasSelecionadas.size + " loja(s)";
     $("textoExcluirLoja").innerHTML =
-        'Tem certeza que deseja excluir <b style="color:#ff0055;">'+lojasSelecionadas.size+' loja(s)</b>?';
+        'Tem certeza que deseja excluir <b style="color:#fff;">'+lojasSelecionadas.size+' loja(s)</b>?';
     $("subtextoExcluirLoja").innerHTML =
         'Todos os dados de <b>rupturas</b> e <b>validades</b> dessas lojas serão apagados permanentemente.';
 
     $("modalExcluirLoja").classList.add("aberto");
+    setTimeout(aplicarRippleGlobal, 100);
 }
 
 function fecharExcluirLoja(){
@@ -2921,6 +3786,7 @@ function abrirExcluirValidade(g){
     grupoParaExcluir = g;
     $("textoExcluirValidade").innerHTML = '<b>'+g.nome+'</b><br>Quantidade: <b>'+g.quantidade+'</b>';
     $("modalExcluirValidade").classList.add("aberto");
+    setTimeout(aplicarRippleGlobal, 100);
 }
 function fecharExcluirValidade(){
     $("modalExcluirValidade").classList.remove("aberto");
@@ -2941,16 +3807,18 @@ function confirmarExcluirValidade(){
 }
 
 function abrirSelecaoLojaRupturas(){
-    $("tituloSelecaoLoja").textContent = "📋 Verificar lista de rupturas";
+    $("tituloSelecaoLoja").innerHTML = '<span class="ico">📋</span> Verificar lista de rupturas';
     $("subtituloSelecaoLoja").textContent = "Escolha qual loja deseja visualizar";
     montarSelecaoLoja("rupturas");
     $("modalSelecaoLoja").classList.add("aberto");
+    setTimeout(aplicarRippleGlobal, 100);
 }
 function abrirSelecaoLojaValidades(){
-    $("tituloSelecaoLoja").textContent = "📅 Abrir validades das lojas";
+    $("tituloSelecaoLoja").innerHTML = '<span class="ico">📅</span> Abrir validades das lojas';
     $("subtituloSelecaoLoja").textContent = "Escolha qual loja deseja visualizar";
     montarSelecaoLoja("validades");
     $("modalSelecaoLoja").classList.add("aberto");
+    setTimeout(aplicarRippleGlobal, 100);
 }
 function fecharSelecaoLoja(){ $("modalSelecaoLoja").classList.remove("aberto"); }
 
@@ -2981,11 +3849,11 @@ function montarSelecaoLoja(tipo){
 
         const info = document.createElement("div");
         info.className = "info";
-        info.innerHTML = '<div class="nome">'+nome+'</div>'+
+        info.innerHTML = '<div class="nome">🏬 '+nome+'</div>'+
             '<div class="sub">'+(partes.length?partes.join(" • "):"Sem dados complementares")+'</div>';
 
         const ct = document.createElement("span");
-        ct.className = "cont" + (tipo==="rupturas"?" rosa":"");
+        ct.className = "cont";
         ct.textContent = tipo==="rupturas" ? tR : tV;
 
         btn.appendChild(ic); btn.appendChild(info); btn.appendChild(ct);
@@ -3008,6 +3876,8 @@ function montarSelecaoLoja(tipo){
         v.textContent = "Nenhuma loja com registros encontrada.";
         c.appendChild(v);
     }
+
+    setTimeout(aplicarRippleGlobal, 100);
 }
 
 function abrirFerramentaRupturas(i){
@@ -3015,7 +3885,7 @@ function abrirFerramentaRupturas(i){
     dadosDestravados = false;
     const lojas = carregarLojas();
     const nome = lojas[i].info.loja || `Loja ${i+1}`;
-    $("tituloLojaAtiva").textContent = `🏪 ${nome}`;
+    $("tituloLojaAtiva").innerHTML = '<span class="ico">🏬</span> '+nome;
     preencherInfoLoja();
     montarListaRupturas();
     atualizarContadoresRuptura();
@@ -3033,6 +3903,7 @@ function abrirFerramentaRupturas(i){
     aplicarTravaDados();
 
     $("modalLoja").classList.add("aberto");
+    setTimeout(aplicarRippleGlobal, 100);
 }
 function fecharFerramentaRupturas(){
     $("modalLoja").classList.remove("aberto");
@@ -3050,7 +3921,7 @@ function salvarInfoLoja(){
     const l = getLoja(lojaAtiva);
     l.info = info;
     setLoja(lojaAtiva, l);
-    $("tituloLojaAtiva").textContent = "🏪 "+(info.loja || `Loja ${lojaAtiva+1}`);
+    $("tituloLojaAtiva").innerHTML = '<span class="ico">🏬</span> '+(info.loja || `Loja ${lojaAtiva+1}`);
     atualizarInfoLojaValidade();
     atualizarCardsLojas();
     aplicarTravaDados();
@@ -3065,10 +3936,10 @@ function preencherInfoLoja(){
 function atualizarInfoLojaValidade(){
     const i = getLoja(lojaAtiva).info;
     $("infoLojaValidadeTexto").innerHTML =
-        "🏬 <b>"+(i.loja||"Não informado")+"</b><br>"+
-        "👤 "+(i.nome||"Não informado")+"<br>"+
-        "📍 "+(i.endereco||"Não informado")+"<br>"+
-        "👨‍💼 "+(i.supervisor||"Não informado");
+        '🏬 <b>'+(i.loja||"Não informado")+'</b><br>'+
+        '👤 '+(i.nome||"Não informado")+'<br>'+
+        '📍 '+(i.endereco||"Não informado")+'<br>'+
+        '👨‍💼 '+(i.supervisor||"Não informado");
 }
 
 function criarProdutoRuptura(nome,descricao,categoria){
@@ -3172,7 +4043,7 @@ function atualizarNotasRupturasInline(){
     const itens = Object.values(loja.rupturas||{});
     const info = loja.info;
     let t = "";
-    t += "🏪 INFORMAÇÕES DA LOJA\n━━━━━━━━━━━━━━━━━━━━\n\n";
+    t += "🏬 INFORMAÇÕES DA LOJA\n━━━━━━━━━━━━━━━━━━━━\n\n";
     t += "🏬 Loja: "+(info.loja||"Não informado")+"\n";
     t += "👤 Nome: "+(info.nome||"Não informado")+"\n";
     t += "📍 Endereço: "+(info.endereco||"Não informado")+"\n";
@@ -3182,6 +4053,8 @@ function atualizarNotasRupturasInline(){
     if(!itens.length){
         t += "\n📋 LISTA DE RUPTURAS\n\nNenhum produto selecionado.";
         $("blocoNotasRupturasInline").textContent = t;
+        const status = $("statusRuptInfo");
+        if(status) status.textContent = "Linhas: " + t.split("\n").length;
         return;
     }
     const al = itens.filter(i=>i.categoria==="cerveja"||i.categoria==="cerveja_zero"||i.categoria==="mistas");
@@ -3203,6 +4076,8 @@ function atualizarNotasRupturasInline(){
     }
     t += "\n━━━━━━━━━━━━━━━━━━━━\nTotal de rupturas: "+itens.length;
     $("blocoNotasRupturasInline").textContent = t;
+    const status = $("statusRuptInfo");
+    if(status) status.textContent = "Linhas: " + t.split("\n").length;
 }
 async function copiarNotasRupturasInline(){
     const t = $("blocoNotasRupturasInline").textContent;
@@ -3213,12 +4088,12 @@ async function copiarNotasRupturasInline(){
     }
     const btn = $("btnCopiarRuptInline");
     btn.classList.add("copiado");
-    btn.textContent = "✓ Copiado!";
+    btn.innerHTML = '<span class="ico">✓</span> Copiado!';
     mostrarToast("Informações copiadas!","📋");
     if(navigator.vibrate) navigator.vibrate(30);
     setTimeout(()=>{
         btn.classList.remove("copiado");
-        btn.textContent = "📋 Copiar informações";
+        btn.innerHTML = '<span class="ico">📋</span> Copiar informações';
     },1500);
 }
 function limparRupturas(){
@@ -3278,10 +4153,10 @@ function criarItemValidade(nome,descricao,categoria){
     if(jaAdic) itemDiv.classList.add("ja-registrado");
     itemDiv.innerHTML =
         '<div style="flex:1;">'+
-        '<div style="font-size:12.5px;font-weight:800;">'+emojiProduto(nome)+' '+nome+'</div>'+
-        '<div style="color:#71869d;font-size:10.5px;margin-top:3px;">'+descricao+
-        (jaAdic?' • <span style="color:#00ff88;font-weight:900;">JÁ REGISTRADO ('+existentes.length+')</span>':'')+
-        '</div></div><span style="color:#00d9ff;font-size:18px;">+</span>';
+        '<div style="font-size:13px;font-weight:500;color:#fff;">'+emojiProduto(nome)+' '+nome+'</div>'+
+        '<div style="color:var(--win-text-secondary);font-size:11px;margin-top:3px;font-weight:400;">'+descricao+
+        (jaAdic?' • <span style="font-weight:600;">✅ JÁ REGISTRADO ('+existentes.length+')</span>':'')+
+        '</div></div><span style="color:var(--win-accent);font-size:20px;font-weight:600;">➕</span>';
 
     const controles = document.createElement("div");
     controles.className = "validade-controles";
@@ -3295,7 +4170,7 @@ function criarItemValidade(nome,descricao,categoria){
     inpD.type="date"; inpD.className="validade-input-data";
 
     const btnA = document.createElement("button");
-    btnA.className="btn-validade-add"; btnA.textContent="ADICIONAR";
+    btnA.className="btn-validade-add"; btnA.innerHTML = '<span class="ico">➕</span> ADICIONAR';
 
     controles.appendChild(inpQ); controles.appendChild(inpD); controles.appendChild(btnA);
 
@@ -3306,6 +4181,7 @@ function criarItemValidade(nome,descricao,categoria){
         });
         controles.style.display = aberto ? "none" : "flex";
         if(!aberto){ inpQ.value=""; inpD.value=""; }
+        setTimeout(aplicarRippleGlobal, 50);
     });
 
     btnA.addEventListener("click", function(e){
@@ -3345,7 +4221,7 @@ function atualizarListaValidadesAdicionadas(){
     const itens = Object.entries(v);
 
     if(!itens.length){
-        c.innerHTML = '<div class="validade-vazio">Nenhum produto registrado ainda.</div>';
+        c.innerHTML = '<div class="validade-vazio">📭 Nenhum produto registrado ainda.</div>';
         return;
     }
 
@@ -3383,12 +4259,12 @@ function atualizarListaValidadesAdicionadas(){
         if(status === "amarelo") div.classList.add("alerta-amarelo");
         if(status === "vermelho") div.classList.add("alerta-vermelho");
 
-        let cor="#00ff88", txt="";
-        if(diff<0){ cor="#ff0055"; txt="VENCIDO há "+Math.abs(diff)+"d"; }
-        else if(diff===0){ cor="#ff0055"; txt="VENCE HOJE"; }
-        else if(diff<=30){ cor="#ff0055"; txt="Vence em "+diff+"d"; }
-        else if(diff<=60){ cor="#ffcc33"; txt="Vence em "+diff+"d"; }
-        else { cor="#00ff88"; txt="Vence em "+diff+"d"; }
+        let ico = "🟢", txt="";
+        if(diff<0){ ico="🔴"; txt="VENCIDO há "+Math.abs(diff)+"d"; }
+        else if(diff===0){ ico="🔴"; txt="VENCE HOJE"; }
+        else if(diff<=30){ ico="🔴"; txt="Vence em "+diff+"d"; }
+        else if(diff<=60){ ico="🟡"; txt="Vence em "+diff+"d"; }
+        else { ico="🟢"; txt="Vence em "+diff+"d"; }
 
         div.innerHTML =
             '<div class="validade-item-info">'+
@@ -3396,7 +4272,7 @@ function atualizarListaValidadesAdicionadas(){
             '<div class="validade-item-detalhe">'+
             '<span>📦 <b>'+g.quantidade+'</b></span>'+
             '<span>📅 <b>'+dFmt+'</b></span>'+
-            '<span style="color:'+cor+';font-weight:900;">⏳ '+txt+'</span>'+
+            '<span style="font-weight:500;">'+ico+' '+txt+'</span>'+
             '</div></div>';
 
         const acoes = document.createElement("div");
@@ -3404,7 +4280,7 @@ function atualizarListaValidadesAdicionadas(){
 
         const btnE = document.createElement("button");
         btnE.className = "validade-item-editar";
-        btnE.textContent = "✏️";
+        btnE.innerHTML = '✏️';
         acoes.appendChild(btnE);
         div.appendChild(acoes);
 
@@ -3420,12 +4296,10 @@ function atualizarListaValidadesAdicionadas(){
         iD.type="date"; iD.className="validade-input-data"; iD.value=g.data;
 
         const bS = document.createElement("button");
-        bS.className="btn-validade-add"; bS.textContent="SALVAR";
+        bS.className="btn-validade-add"; bS.innerHTML = '<span class="ico">💾</span> SALVAR';
 
         const bC = document.createElement("button");
-        bC.className="btn-validade-add";
-        bC.style.background="linear-gradient(135deg,#7a1030,#a50038)";
-        bC.textContent="CANCELAR";
+        bC.className="btn-cancelar"; bC.innerHTML = '<span class="ico">✖</span> CANCELAR';
 
         painel.appendChild(iQ); painel.appendChild(iD); painel.appendChild(bS); painel.appendChild(bC);
 
@@ -3434,6 +4308,7 @@ function atualizarListaValidadesAdicionadas(){
             const ab = painel.style.display !== "none";
             painel.style.display = ab ? "none" : "flex";
             if(!ab){ iQ.value=g.quantidade; iD.value=g.data; }
+            setTimeout(aplicarRippleGlobal, 50);
         });
 
         bC.addEventListener("click", function(){ painel.style.display="none"; });
@@ -3497,6 +4372,8 @@ function atualizarListaValidadesAdicionadas(){
         wrapper.appendChild(painel);
         c.appendChild(wrapper);
     });
+
+    setTimeout(aplicarRippleGlobal, 100);
 }
 
 function atualizarTotalValidades(){
@@ -3531,7 +4408,7 @@ function atualizarNotasValidadesInline(){
     const info = loja.info;
 
     let t = "";
-    t += "🏪 INFORMAÇÕES DA LOJA\n━━━━━━━━━━━━━━━━━━━━\n\n";
+    t += "🏬 INFORMAÇÕES DA LOJA\n━━━━━━━━━━━━━━━━━━━━\n\n";
     t += "🏬 Loja: "+(info.loja||"Não informado")+"\n";
     t += "👤 Nome: "+(info.nome||"Não informado")+"\n";
     t += "📍 Endereço: "+(info.endereco||"Não informado")+"\n";
@@ -3542,6 +4419,8 @@ function atualizarNotasValidadesInline(){
     if(!itens.length){
         t += "\n📅 LISTA DE VALIDADES\n\nNenhum produto registrado.";
         $("blocoNotasValidadesInline").textContent = t;
+        const status = $("statusValidInfo");
+        if(status) status.textContent = "Linhas: " + t.split("\n").length;
         return;
     }
 
@@ -3583,6 +4462,8 @@ function atualizarNotasValidadesInline(){
     }
     t += "━━━━━━━━━━━━━━━━━━━━\nTotal de itens (agrupados): "+lista.length;
     $("blocoNotasValidadesInline").textContent = t;
+    const status = $("statusValidInfo");
+    if(status) status.textContent = "Linhas: " + t.split("\n").length;
 }
 async function copiarNotasValidadesInline(){
     const t = $("blocoNotasValidadesInline").textContent;
@@ -3593,12 +4474,12 @@ async function copiarNotasValidadesInline(){
     }
     const btn = $("btnCopiarValidInline");
     btn.classList.add("copiado");
-    btn.textContent = "✓ Copiado!";
+    btn.innerHTML = '<span class="ico">✓</span> Copiado!';
     mostrarToast("Informações copiadas!","📋");
     if(navigator.vibrate) navigator.vibrate(30);
     setTimeout(()=>{
         btn.classList.remove("copiado");
-        btn.textContent = "📋 Copiar informações";
+        btn.innerHTML = '<span class="ico">📋</span> Copiar informações';
     },1500);
 }
 function limparValidades(){
