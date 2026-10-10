@@ -23,8 +23,6 @@ body{
 button,input,select{ font:inherit; }
 button{ cursor:pointer; }
 
-/* ================= SPLASH ================= */
-
 #splash{
     position:fixed;
     inset:0;
@@ -60,7 +58,62 @@ button{ cursor:pointer; }
 @keyframes carregar{ to{width:100%} }
 @keyframes flutuar{ 50%{transform:translateY(-10px)} }
 
-/* ================= HEADER ================= */
+@keyframes fadeInUp{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+}
+
+@keyframes popIn{
+    0%{ opacity:0; transform:scale(.85); }
+    60%{ opacity:1; transform:scale(1.04); }
+    100%{ transform:scale(1); }
+}
+
+@keyframes pulseGreen{
+    0%{ box-shadow:0 0 0 0 rgba(0,255,136,.55); }
+    100%{ box-shadow:0 0 0 16px rgba(0,255,136,0); }
+}
+
+@keyframes pulseRed{
+    0%{ box-shadow:0 0 0 0 rgba(255,0,85,.55); }
+    100%{ box-shadow:0 0 0 16px rgba(255,0,85,0); }
+}
+
+@keyframes shake{
+    0%,100%{ transform:translateX(0); }
+    25%{ transform:translateX(-3px); }
+    50%{ transform:translateX(3px); }
+    75%{ transform:translateX(-2px); }
+}
+
+@keyframes confettiSlide{
+    0%{ background-position:-200% 0; }
+    100%{ background-position:200% 0; }
+}
+
+@keyframes iconPop{
+    0%{ transform:scale(1); }
+    40%{ transform:scale(1.35); }
+    100%{ transform:scale(1); }
+}
+
+@keyframes piscarAmarelo{
+    0%,100%{ background:rgba(255,170,0,.18); border-color:#ffaa00; box-shadow:0 0 8px rgba(255,170,0,.35); }
+    50%{ background:rgba(255,170,0,.45); border-color:#ffcc33; box-shadow:0 0 22px rgba(255,170,0,.75); }
+}
+
+@keyframes piscarVermelho{
+    0%,100%{ background:rgba(255,0,85,.25); border-color:#ff0055; box-shadow:0 0 8px rgba(255,0,85,.45); }
+    50%{ background:rgba(255,0,85,.7); border-color:#ff3377; box-shadow:0 0 26px rgba(255,0,85,.95); }
+}
+
+@keyframes pulsarTrava{
+    0%,100%{ box-shadow:0 0 0 0 rgba(255,170,0,.5); }
+    50%{ box-shadow:0 0 0 8px rgba(255,170,0,0); }
+}
+
+.animar-fadeInUp{ animation:fadeInUp .35s ease both; }
+.animar-popIn{ animation:popIn .35s cubic-bezier(.34,1.56,.64,1) both; }
 
 .app-header{
     padding:14px 15px 8px;
@@ -106,8 +159,6 @@ button{ cursor:pointer; }
     display:inline-block;
 }
 
-/* ================= CONTEÚDO ================= */
-
 .container{
     width:100%;
     max-width:650px;
@@ -122,6 +173,7 @@ button{ cursor:pointer; }
     padding:16px;
     margin-top:12px;
     box-shadow:0 10px 35px rgba(0,0,0,.3);
+    animation:fadeInUp .4s ease both;
 }
 
 .card-title{
@@ -143,8 +195,6 @@ button{ cursor:pointer; }
     font-weight:800;
 }
 
-/* ================= LOJAS ================= */
-
 .lojas-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -162,12 +212,13 @@ button{ cursor:pointer; }
     display:flex;
     flex-direction:column;
     gap:7px;
-    transition:.25s;
+    transition:transform .2s, border-color .2s, background .2s;
     position:relative;
     overflow:hidden;
     user-select:none;
     -webkit-user-select:none;
     -webkit-touch-callout:none;
+    animation:popIn .35s cubic-bezier(.34,1.56,.64,1) both;
 }
 
 .loja-card:active{ transform:scale(.97); }
@@ -184,6 +235,7 @@ button{ cursor:pointer; }
     top:6px;
     right:6px;
     font-size:13px;
+    animation:iconPop .4s ease;
 }
 
 .loja-card.cadastrada-com-rupturas{
@@ -198,6 +250,7 @@ button{ cursor:pointer; }
     top:6px;
     right:6px;
     font-size:13px;
+    animation:iconPop .4s ease;
 }
 
 .loja-card.pendente{
@@ -220,6 +273,138 @@ button{ cursor:pointer; }
     font-size:14px;
 }
 
+.loja-card.alerta-amarelo{
+    animation:piscarAmarelo 2.5s ease-in-out infinite;
+}
+
+.loja-card.alerta-vermelho{
+    animation:piscarVermelho .7s ease-in-out infinite;
+}
+
+.loja-alerta-faixa{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:5px 8px;
+    border-radius:9px;
+    font-size:9.5px;
+    font-weight:900;
+    letter-spacing:.3px;
+    text-transform:uppercase;
+    margin-bottom:2px;
+    animation:popIn .35s ease;
+}
+
+.loja-alerta-faixa.verde{
+    background:rgba(0,255,136,.15);
+    border:1px solid #00ff88;
+    color:#00ff88;
+}
+
+.loja-alerta-faixa.amarelo{
+    background:rgba(255,170,0,.2);
+    border:1px solid #ffaa00;
+    color:#ffcc33;
+}
+
+.loja-alerta-faixa.vermelho{
+    background:rgba(255,0,85,.25);
+    border:1px solid #ff0055;
+    color:#ff3377;
+    animation:piscarVermelhoFaixa .7s ease-in-out infinite;
+}
+
+@keyframes piscarVermelhoFaixa{
+    0%,100%{ background:rgba(255,0,85,.25); border-color:#ff0055; }
+    50%{ background:rgba(255,0,85,.6); border-color:#ff3377; }
+}
+
+.loja-status-linha{
+    display:flex;
+    gap:4px;
+    flex-wrap:wrap;
+    margin-top:2px;
+}
+
+.loja-status-mini{
+    font-size:9px;
+    font-weight:900;
+    padding:3px 7px;
+    border-radius:8px;
+    letter-spacing:.3px;
+    display:inline-flex;
+    align-items:center;
+    gap:3px;
+    animation:popIn .3s ease;
+}
+
+.loja-status-mini.ruptura{
+    background:rgba(255,0,85,.18);
+    color:#ff3377;
+    border:1px solid rgba(255,0,85,.4);
+}
+
+.loja-status-mini.verde{
+    background:rgba(0,255,136,.15);
+    color:#00ff88;
+    border:1px solid rgba(0,255,136,.4);
+}
+
+.loja-status-mini.amarelo{
+    background:rgba(255,170,0,.2);
+    color:#ffcc33;
+    border:1px solid rgba(255,170,0,.45);
+}
+
+.loja-status-mini.vermelho{
+    background:rgba(255,0,85,.25);
+    color:#ff3377;
+    border:1px solid rgba(255,0,85,.5);
+    animation:piscarVermelhoFaixa .7s ease-in-out infinite;
+}
+
+.loja-card.modo-selecao{
+    border-style:dashed;
+    border-color:#00d9ff;
+}
+
+.loja-card.selecionada{
+    border-color:#ff0055;
+    background:linear-gradient(135deg,#2a0515,#3a081e);
+    animation:shake .35s ease;
+    box-shadow:0 0 22px rgba(255,0,85,.35);
+}
+
+.loja-card.selecionada::before{
+    content:"☑️";
+    position:absolute;
+    top:6px;
+    right:6px;
+    font-size:16px;
+    animation:iconPop .3s ease;
+}
+
+.loja-check{
+    position:absolute;
+    top:6px;
+    right:6px;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:#0d1520;
+    border:2px solid #00d9ff;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    font-weight:900;
+    color:#00d9ff;
+}
+
+.loja-card.modo-selecao .loja-check{ display:flex; }
+.loja-card.selecionada .loja-check{ background:#ff0055; border-color:#ff0055; color:#fff; }
+.loja-card.selecionada::before{ display:none; }
+
 .loja-card-topo{
     display:flex;
     align-items:center;
@@ -227,7 +412,8 @@ button{ cursor:pointer; }
     gap:6px;
 }
 
-.loja-card-icone{ font-size:20px; }
+.loja-card-icone{ font-size:20px; transition:transform .3s; }
+.loja-card.selecionada .loja-card-icone{ transform:scale(1.15) rotate(-6deg); }
 
 .loja-card-badge{
     min-width:24px;
@@ -241,6 +427,7 @@ button{ cursor:pointer; }
     display:flex;
     align-items:center;
     justify-content:center;
+    animation:popIn .4s ease;
 }
 
 .loja-card-badge.zero{
@@ -294,7 +481,7 @@ button{ cursor:pointer; }
     align-items:center;
     justify-content:center;
     gap:8px;
-    transition:.25s;
+    transition:transform .2s;
     margin-top:4px;
 }
 
@@ -312,9 +499,10 @@ button{ cursor:pointer; }
     border-radius:50%;
     background:linear-gradient(135deg,#00d9ff,#693ca1);
     color:#fff;
+    transition:transform .3s;
 }
 
-/* ---- AÇÕES RÁPIDAS ---- */
+.btn-add-loja:hover .mais{ transform:rotate(90deg); }
 
 .acoes-rapidas{
     display:grid;
@@ -339,10 +527,12 @@ button{ cursor:pointer; }
     box-shadow:0 6px 18px rgba(0,0,0,.25);
     transition:.2s;
     line-height:1.3;
+    animation:fadeInUp .4s ease both;
 }
 
 .btn-acao:active{ transform:scale(.97); }
-.btn-acao .icone{ font-size:20px; flex-shrink:0; }
+.btn-acao .icone{ font-size:20px; flex-shrink:0; transition:transform .3s; }
+.btn-acao:active .icone{ transform:scale(1.2) rotate(-8deg); }
 .btn-acao .txt{ flex:1; }
 
 .btn-acao .pill{
@@ -357,11 +547,53 @@ button{ cursor:pointer; }
     display:flex;
     align-items:center;
     justify-content:center;
+    animation:popIn .4s ease;
 }
 
 .btn-acao .pill.rosa{ background:#ff0055; color:#fff; }
 
-/* ================= MODAIS ================= */
+.barra-selecao{
+    display:none;
+    align-items:center;
+    justify-content:space-between;
+    background:linear-gradient(135deg,#2a0515,#3a081e);
+    border:1px solid #ff0055;
+    border-radius:14px;
+    padding:10px 12px;
+    margin-top:12px;
+    gap:10px;
+    animation:fadeInUp .3s ease both;
+}
+
+.barra-selecao.ativa{ display:flex; }
+
+.barra-selecao .contador{
+    font-size:12.5px;
+    font-weight:900;
+    color:#fff;
+}
+
+.barra-selecao .contador b{ color:#ff0055; }
+
+.barra-selecao .acoes{
+    display:flex;
+    gap:7px;
+}
+
+.barra-selecao button{
+    border:0;
+    border-radius:10px;
+    padding:9px 12px;
+    font-weight:900;
+    font-size:11.5px;
+    color:#fff;
+    transition:transform .2s;
+}
+
+.barra-selecao button:active{ transform:scale(.94); }
+.barra-selecao .btn-cancelar-sel{ background:#1a2533; }
+.barra-selecao .btn-excluir-sel{ background:linear-gradient(135deg,#a50038,#ff0055); }
+.barra-selecao .btn-excluir-sel:disabled{ opacity:.4; }
 
 .modal{
     position:fixed;
@@ -376,6 +608,8 @@ button{ cursor:pointer; }
 }
 
 .modal.aberto{ display:flex; }
+
+.modal.aberto .modal-box{ animation:popIn .35s cubic-bezier(.34,1.56,.64,1) both; }
 
 .modal-box{
     width:100%;
@@ -416,9 +650,10 @@ button{ cursor:pointer; }
     color:#fff;
     font-size:18px;
     flex-shrink:0;
+    transition:transform .25s, background .25s;
 }
 
-/* ================= SUB-ABAS ================= */
+.fechar:active{ transform:rotate(90deg) scale(.9); background:#ff0055; }
 
 .subtabs{
     display:flex;
@@ -429,37 +664,75 @@ button{ cursor:pointer; }
     border:1px solid #1b2d42;
     margin-bottom:12px;
     overflow-x:auto;
+    scrollbar-width:none;
 }
+
+.subtabs::-webkit-scrollbar{ display:none; }
 
 .subtab{
     flex:1;
-    min-width:72px;
+    min-width:74px;
     border:0;
     background:transparent;
     color:#8ba1b8;
     padding:9px 6px;
     border-radius:9px;
     font-weight:900;
-    font-size:10.5px;
-    transition:.2s;
+    font-size:10px;
+    transition:all .25s;
     display:flex;
     flex-direction:column;
     align-items:center;
     gap:3px;
     white-space:nowrap;
+    position:relative;
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-touch-callout:none;
 }
 
-.subtab .ic{ font-size:15px; }
+.subtab .ic{ font-size:15px; transition:transform .3s; }
+
+.subtab:active .ic{ transform:scale(1.25); }
+
 .subtab.ativo{
     color:#fff;
     background:linear-gradient(135deg,#073344,#211539);
     box-shadow:0 0 12px rgba(0,217,255,.2);
+    animation:popIn .35s ease;
 }
 
-.subtab-painel{ display:none; }
-.subtab-painel.ativo{ display:block; }
+.subtab.ativo .ic{ animation:iconPop .4s ease; }
 
-/* ================= INFORMAÇÕES ================= */
+.subtab.travada{
+    color:#ffaa00;
+    background:linear-gradient(135deg,#2a1e05,#1a1405);
+    border:1px solid #ffaa00;
+    animation:pulsarTrava 2.4s infinite;
+}
+
+.subtab.travada .ic{ filter:grayscale(.4); }
+
+.subtab.travada::after{
+    content:"🔒";
+    position:absolute;
+    top:-4px;
+    right:-4px;
+    font-size:11px;
+    animation:iconPop .4s ease;
+}
+
+.subtab.travada.destravada{
+    animation:none;
+    color:#00ff88;
+    background:linear-gradient(135deg,#05281b,#0f2a1e);
+    border-color:#00ff88;
+}
+
+.subtab.travada.destravada::after{ content:"🔓"; }
+
+.subtab-painel{ display:none; }
+.subtab-painel.ativo{ display:block; animation:fadeInUp .35s ease both; }
 
 .loja-info{
     margin-top:10px;
@@ -467,6 +740,7 @@ button{ cursor:pointer; }
     background:#0a1420;
     border:1px solid #1b2d42;
     border-radius:14px;
+    animation:fadeInUp .4s ease both;
 }
 
 .loja-info-titulo{
@@ -499,16 +773,31 @@ button{ cursor:pointer; }
     border-radius:10px;
     padding:10px 12px;
     font-size:13.5px;
+    transition:border-color .2s, box-shadow .2s;
 }
 
 .loja-info-input:focus{
     border-color:#00d9ff;
-    box-shadow:0 0 12px rgba(0,217,255,.15);
+    box-shadow:0 0 12px rgba(0,217,255,.2);
 }
 
 .loja-info-input::placeholder{ color:#4a5f75; }
 
-/* ================= SHARE ================= */
+.aviso-trava{
+    display:none;
+    margin-top:8px;
+    padding:9px 12px;
+    border-radius:10px;
+    background:linear-gradient(135deg,#2a1e05,#1a1405);
+    border:1px solid #ffaa00;
+    color:#ffcc33;
+    font-size:11px;
+    font-weight:800;
+    text-align:center;
+    animation:fadeInUp .3s ease both;
+}
+
+.aviso-trava.ativo{ display:block; }
 
 .unidades{
     display:grid;
@@ -525,13 +814,17 @@ button{ cursor:pointer; }
     border-radius:11px;
     font-weight:800;
     font-size:12px;
+    transition:all .2s;
 }
+
+.btn-unidade:active{ transform:scale(.95); }
 
 .btn-unidade.ativo{
     color:#fff;
     border-color:#00d9ff;
     background:linear-gradient(135deg,#07384a,#151b39);
     box-shadow:0 0 18px rgba(0,217,255,.15);
+    animation:popIn .3s ease;
 }
 
 .label{
@@ -554,11 +847,12 @@ button{ cursor:pointer; }
     border-radius:10px;
     padding:10px 12px;
     font-size:13.5px;
+    transition:border-color .2s, box-shadow .2s;
 }
 
 .input:focus{
     border-color:#00d9ff;
-    box-shadow:0 0 15px rgba(0,217,255,.1);
+    box-shadow:0 0 15px rgba(0,217,255,.15);
 }
 
 .btn-calculadora{
@@ -572,6 +866,12 @@ button{ cursor:pointer; }
     font-weight:900;
     font-size:12px;
     letter-spacing:.4px;
+    transition:transform .2s, box-shadow .2s;
+}
+
+.btn-calculadora:active{
+    transform:scale(.96);
+    box-shadow:0 0 22px rgba(166,108,255,.4);
 }
 
 .share-resultado-box{
@@ -587,11 +887,13 @@ button{ cursor:pointer; }
 .share-resultado-box.verde{
     border-color:#00ff88;
     box-shadow:0 0 15px rgba(0,255,136,.15);
+    animation:pulseGreen 1.2s ease-out;
 }
 
 .share-resultado-box.vermelho{
     border-color:#ff0055;
     box-shadow:0 0 15px rgba(255,0,85,.15);
+    animation:pulseRed 1.2s ease-out;
 }
 
 .emoji-resultado{
@@ -599,6 +901,30 @@ button{ cursor:pointer; }
     display:block;
     margin:0 auto 3px;
     line-height:1;
+    transition:transform .3s;
+}
+
+.share-resultado-box.verde .emoji-resultado{
+    animation:bounceEmoji 1.4s infinite ease-in-out;
+}
+
+.share-resultado-box.vermelho .emoji-resultado{
+    animation:shakeEmoji 1.4s infinite ease-in-out;
+}
+
+@keyframes bounceEmoji{
+    0%,100%{transform:translateY(0) scale(1) rotate(0deg);}
+    25%{transform:translateY(-10px) scale(1.15) rotate(-8deg);}
+    50%{transform:translateY(0) scale(1.05) rotate(0deg);}
+    75%{transform:translateY(-6px) scale(1.12) rotate(8deg);}
+}
+
+@keyframes shakeEmoji{
+    0%,100%{transform:translateX(0) rotate(0deg);}
+    20%{transform:translateX(-6px) rotate(-5deg);}
+    40%{transform:translateX(6px) rotate(5deg);}
+    60%{transform:translateX(-4px) rotate(-3deg);}
+    80%{transform:translateX(4px) rotate(3deg);}
 }
 
 .share-resultado{
@@ -606,7 +932,11 @@ button{ cursor:pointer; }
     font-weight:900;
     margin:2px 0;
     line-height:1.1;
+    transition:.3s;
 }
+
+.share-resultado-box.verde .share-resultado{ color:#00ff88; }
+.share-resultado-box.vermelho .share-resultado{ color:#ff0055; }
 
 .status-resultado{
     font-size:10px;
@@ -624,6 +954,7 @@ button{ cursor:pointer; }
     border:1px solid #172536;
     display:block;
     width:100%;
+    animation:fadeInUp .5s ease both;
 }
 
 .painel-grafico-titulo{
@@ -698,6 +1029,7 @@ button{ cursor:pointer; }
     font-weight:900;
     line-height:1;
     color:#fff;
+    transition:.3s;
 }
 
 .donut-centro-label{
@@ -764,6 +1096,19 @@ button{ cursor:pointer; }
     border-radius:5px;
     width:0;
     transition:width 1s cubic-bezier(.4,0,.2,1);
+    position:relative;
+    overflow:hidden;
+}
+
+.barra-preenchimento::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(90deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,.35) 50%,
+        rgba(255,255,255,0) 100%);
+    animation:confettiSlide 1.8s linear infinite;
 }
 
 .barra-meta{ background:linear-gradient(90deg,#0085b3,#00d9ff); }
@@ -798,7 +1143,11 @@ button{ cursor:pointer; }
     flex-direction:column;
     align-items:center;
     min-width:0;
+    transition:transform .2s;
+    animation:popIn .4s ease both;
 }
+
+.painel-card:active{ transform:scale(.95); }
 
 .painel-card-icon{ font-size:12px; line-height:1; }
 .painel-card-label{
@@ -814,6 +1163,7 @@ button{ cursor:pointer; }
     font-weight:900;
     color:#fff;
     white-space:nowrap;
+    transition:.3s;
 }
 
 .resumo{
@@ -829,6 +1179,7 @@ button{ cursor:pointer; }
     background:#080e16;
     border:1px solid #1b2a3b;
     min-width:0;
+    animation:fadeInUp .4s ease both;
 }
 
 .resumo-label{
@@ -847,6 +1198,7 @@ button{ cursor:pointer; }
     display:block;
     line-height:1.2;
     word-break:break-word;
+    transition:.3s;
 }
 
 .resumo-mensagem{
@@ -857,8 +1209,6 @@ button{ cursor:pointer; }
     color:#9db0c4;
     line-height:1.3;
 }
-
-/* ================= RUPTURAS ================= */
 
 .ruptura-contadores{
     display:grid;
@@ -873,9 +1223,17 @@ button{ cursor:pointer; }
     border-radius:12px;
     text-align:center;
     padding:9px 5px;
+    transition:transform .2s;
+    animation:popIn .4s ease both;
 }
 
-.ruptura-contador-numero{ font-size:19px; font-weight:900; }
+.ruptura-contador-numero{
+    font-size:19px;
+    font-weight:900;
+    transition:.3s;
+}
+
+.ruptura-contador-numero.pulsar{ animation:iconPop .4s ease; }
 
 .ruptura-contador-label{
     color:#74879b;
@@ -899,12 +1257,16 @@ button{ cursor:pointer; }
     padding:11px 8px;
     font-weight:900;
     font-size:12px;
+    transition:all .2s;
 }
+
+.ruptura-categoria:active{ transform:scale(.96); }
 
 .ruptura-categoria.ativo{
     color:#fff;
     border-color:#00d9ff;
     background:linear-gradient(135deg,#073344,#211539);
+    animation:popIn .3s ease;
 }
 
 .ruptura-pesquisa{
@@ -917,7 +1279,10 @@ button{ cursor:pointer; }
     border-radius:12px;
     padding:11px 12px;
     font-size:13px;
+    transition:border-color .2s;
 }
+
+.ruptura-pesquisa:focus{ border-color:#00d9ff; }
 
 .ruptura-secao{ margin-top:12px; }
 
@@ -941,12 +1306,17 @@ button{ cursor:pointer; }
     border-radius:11px;
     padding:10px;
     cursor:pointer;
-    transition:.2s;
+    transition:all .25s;
+    animation:fadeInUp .3s ease both;
 }
+
+.ruptura-produto:active{ transform:scale(.985); }
 
 .ruptura-produto.selecionado{
     border-color:#ff0055;
     background:#21101a;
+    animation:popIn .35s cubic-bezier(.34,1.56,.64,1);
+    box-shadow:0 0 14px rgba(255,0,85,.35);
 }
 
 .ruptura-checkbox{
@@ -954,35 +1324,14 @@ button{ cursor:pointer; }
     height:20px;
     accent-color:#ff0055;
     flex-shrink:0;
+    transition:transform .3s;
 }
+
+.ruptura-checkbox:checked{ animation:iconPop .35s ease; }
 
 .ruptura-produto-info{ flex:1; }
 .ruptura-produto-nome{ font-size:12.5px; font-weight:800; }
 .ruptura-produto-descricao{ color:#71869d; font-size:10.5px; margin-top:2px; }
-
-.btn-principal{
-    width:100%;
-    margin-top:14px;
-    border:0;
-    border-radius:14px;
-    padding:14px;
-    background:linear-gradient(90deg,#006f86,#693ca1);
-    color:#fff;
-    font-weight:900;
-    font-size:13.5px;
-    letter-spacing:.4px;
-    box-shadow:0 8px 25px rgba(0,0,0,.3);
-    transition:.2s;
-}
-
-.btn-principal:active{ transform:scale(.98); }
-
-.btn-principal.secundario{
-    background:linear-gradient(90deg,#0a4a63,#693ca1);
-    margin-top:8px;
-}
-
-/* ================= VALIDADES ================= */
 
 .validade-top-bar{
     display:flex;
@@ -997,7 +1346,13 @@ button{ cursor:pointer; }
     font-weight:800;
 }
 
-.validade-top-bar .num{ color:#00ff88; font-size:13px; }
+.validade-top-bar .num{
+    color:#00ff88;
+    font-size:13px;
+    transition:.3s;
+}
+
+.validade-top-bar .num.pulsar{ animation:iconPop .4s ease; }
 
 .validade-produto-item{
     display:flex;
@@ -1008,12 +1363,13 @@ button{ cursor:pointer; }
     border-radius:11px;
     padding:10px;
     cursor:pointer;
-    transition:.2s;
+    transition:all .25s;
 }
 
 .validade-produto-item.ja-registrado{
     border-color:#00ff88;
     background:linear-gradient(135deg,#05281b,#0b1a13);
+    animation:popIn .35s ease;
 }
 
 .validade-controles{
@@ -1021,6 +1377,7 @@ button{ cursor:pointer; }
     align-items:center;
     gap:7px;
     margin-top:8px;
+    animation:fadeInUp .3s ease both;
 }
 
 .validade-input-qtd{
@@ -1033,6 +1390,7 @@ button{ cursor:pointer; }
     padding:9px 10px;
     font-size:13px;
     text-align:center;
+    transition:border-color .2s;
 }
 
 .validade-input-data{
@@ -1044,6 +1402,7 @@ button{ cursor:pointer; }
     border-radius:9px;
     padding:9px 10px;
     font-size:13px;
+    transition:border-color .2s;
 }
 
 .validade-input-qtd:focus,
@@ -1058,9 +1417,10 @@ button{ cursor:pointer; }
     font-weight:900;
     font-size:12px;
     white-space:nowrap;
+    transition:transform .2s;
 }
 
-.btn-validade-add:active{ transform:scale(.96); }
+.btn-validade-add:active{ transform:scale(.94); }
 
 .validade-item-adicionado{
     display:flex;
@@ -1075,6 +1435,19 @@ button{ cursor:pointer; }
     user-select:none;
     -webkit-user-select:none;
     -webkit-touch-callout:none;
+    animation:popIn .35s cubic-bezier(.34,1.56,.64,1) both;
+}
+
+.validade-item-adicionado.alerta-amarelo{
+    border-color:#ffaa00;
+    background:linear-gradient(135deg,#2a1e05,#1a1405);
+    animation:piscarAmarelo 2.5s ease-in-out infinite;
+}
+
+.validade-item-adicionado.alerta-vermelho{
+    border-color:#ff0055;
+    background:linear-gradient(135deg,#2a0515,#3a081e);
+    animation:piscarVermelho .7s ease-in-out infinite;
 }
 
 .validade-item-info{ flex:1; min-width:0; }
@@ -1105,7 +1478,10 @@ button{ cursor:pointer; }
     font-weight:900;
     font-size:13px;
     flex-shrink:0;
+    transition:transform .2s;
 }
+
+.validade-item-editar:active{ transform:scale(.9) rotate(-10deg); }
 
 .validade-cat{
     border:1px solid #293b51;
@@ -1115,12 +1491,16 @@ button{ cursor:pointer; }
     padding:10px 8px;
     font-weight:900;
     font-size:12px;
+    transition:all .2s;
 }
+
+.validade-cat:active{ transform:scale(.96); }
 
 .validade-cat.ativo{
     color:#fff;
     border-color:#00d9ff;
     background:linear-gradient(135deg,#073344,#211539);
+    animation:popIn .3s ease;
 }
 
 .validade-vazio{
@@ -1131,7 +1511,13 @@ button{ cursor:pointer; }
     font-style:italic;
 }
 
-/* ================= BLOCO DE NOTAS ================= */
+.notas-acoes-topo{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-bottom:10px;
+    animation:fadeInUp .35s ease both;
+}
 
 .bloco-notas{
     background:#03070b;
@@ -1145,13 +1531,7 @@ button{ cursor:pointer; }
     min-height:220px;
     max-height:55vh;
     overflow-y:auto;
-}
-
-.notas-acoes{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-    margin-top:10px;
+    animation:fadeInUp .4s ease both;
 }
 
 .btn-copiar{
@@ -1162,6 +1542,19 @@ button{ cursor:pointer; }
     padding:13px;
     font-weight:900;
     font-size:12.5px;
+    transition:transform .2s, background .2s;
+}
+
+.btn-copiar:active{
+    transform:scale(.94);
+    background:#0a8b7c;
+    animation:popIn .3s ease;
+}
+
+.btn-copiar.copiado{
+    background:#00ff88;
+    color:#002f1c;
+    animation:popIn .35s cubic-bezier(.34,1.56,.64,1);
 }
 
 .btn-limpar{
@@ -1172,7 +1565,10 @@ button{ cursor:pointer; }
     padding:13px;
     font-weight:900;
     font-size:12.5px;
+    transition:transform .2s;
 }
+
+.btn-limpar:active{ transform:scale(.94); }
 
 .btn-cancelar{
     border:0;
@@ -1182,9 +1578,10 @@ button{ cursor:pointer; }
     padding:13px;
     font-weight:900;
     font-size:12.5px;
+    transition:transform .2s;
 }
 
-/* ================= SELEÇÃO DE LOJA ================= */
+.btn-cancelar:active{ transform:scale(.94); }
 
 .lista-selecao-loja{
     display:flex;
@@ -1204,6 +1601,7 @@ button{ cursor:pointer; }
     padding:12px 13px;
     text-align:left;
     transition:.2s;
+    animation:fadeInUp .35s ease both;
 }
 
 .btn-selecao-loja:active{ transform:scale(.98); }
@@ -1230,8 +1628,6 @@ button{ cursor:pointer; }
 
 .btn-selecao-loja .cont.rosa{ background:#ff0055; color:#fff; }
 
-/* ================= TOAST ================= */
-
 .toast{
     position:fixed;
     left:50%;
@@ -1252,7 +1648,11 @@ button{ cursor:pointer; }
     font-weight:700;
 }
 
-.toast.mostrar{ opacity:1; transform:translateX(-50%) translateY(0); }
+.toast.mostrar{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+    animation:popIn .35s cubic-bezier(.34,1.56,.64,1);
+}
 
 footer{
     text-align:center;
@@ -1263,14 +1663,13 @@ footer{
 
 @media(max-width:400px){
     .acoes-rapidas{ grid-template-columns:1fr; }
-    .subtab{ font-size:10px; min-width:64px; }
+    .subtab{ font-size:9.5px; min-width:64px; padding:8px 4px; }
+    .subtab .ic{ font-size:14px; }
 }
 </style>
 </head>
 
 <body>
-
-<!-- SPLASH -->
 
 <div id="splash">
     <div class="splash-box">
@@ -1280,8 +1679,6 @@ footer{
         <div class="loading"><div class="loading-bar"></div></div>
     </div>
 </div>
-
-<!-- HEADER -->
 
 <header class="app-header">
     <div class="header-top">
@@ -1305,11 +1702,21 @@ footer{
             <span class="badge" id="contadorLojasNum">0 / 4</span>
         </div>
 
-        <div style="font-size:11px;color:#8da2ba;text-align:left;margin-bottom:6px;">
-            Toque para abrir • Segure 3s para excluir
+        <div style="font-size:11px;color:#8da2ba;text-align:left;margin-bottom:6px;" id="subtituloAjuda">
+            Toque para abrir • Segure 2s para selecionar
         </div>
 
         <div class="lojas-grid" id="lojasGrid"></div>
+
+        <div class="barra-selecao" id="barraSelecao">
+            <div class="contador">
+                <b id="contSel">0</b> loja(s) selecionada(s)
+            </div>
+            <div class="acoes">
+                <button class="btn-cancelar-sel" onclick="cancelarSelecao()">CANCELAR</button>
+                <button class="btn-excluir-sel" id="btnExcluirSel" onclick="abrirExcluirMultiplas()" disabled>EXCLUIR</button>
+            </div>
+        </div>
 
         <div class="acoes-rapidas" id="acoesRapidas" style="display:none;">
             <button class="btn-acao" id="btnAcaoRupturas" onclick="abrirSelecaoLojaRupturas()">
@@ -1329,10 +1736,6 @@ footer{
 
 </div>
 
-<!-- =====================================================
-     MODAL DA LOJA (com sub-abas)
-===================================================== -->
-
 <div class="modal" id="modalLoja">
     <div class="modal-box">
 
@@ -1345,13 +1748,14 @@ footer{
         </div>
 
         <div class="subtabs">
-            <button class="subtab ativo" id="subDados" onclick="trocarSubAba('dados')"><span class="ic">🏪</span>Dados</button>
+            <button class="subtab ativo" id="subDados" onclick="tentarTrocarDados()"><span class="ic">🏪</span>Dados</button>
             <button class="subtab" id="subShare" onclick="trocarSubAba('share')"><span class="ic">📏</span>Share</button>
             <button class="subtab" id="subRupturas" onclick="trocarSubAba('rupturas')"><span class="ic">📋</span>Rupturas</button>
             <button class="subtab" id="subValidades" onclick="trocarSubAba('validades')"><span class="ic">📅</span>Validades</button>
+            <button class="subtab" id="subNotasRupturas" onclick="trocarSubAba('notasRupturas')"><span class="ic">📝</span>Nota Rupt.</button>
+            <button class="subtab" id="subNotasValidades" onclick="trocarSubAba('notasValidades')"><span class="ic">🗒️</span>Nota Valid.</button>
         </div>
 
-        <!-- PAINEL DADOS -->
         <div class="subtab-painel ativo" id="painelDados">
             <div class="loja-info">
                 <div class="loja-info-titulo">🏪 INFORMAÇÕES DA LOJA</div>
@@ -1376,10 +1780,13 @@ footer{
                     <input class="loja-info-input" id="infoSupervisor" type="text"
                            placeholder="Ex.: Carlos Silva" oninput="salvarInfoLoja()">
                 </div>
+
+                <div class="aviso-trava" id="avisoTrava">
+                    🔒 Dados completos • Pressione 2s na aba "Dados" para editar
+                </div>
             </div>
         </div>
 
-        <!-- PAINEL SHARE DA LOJA -->
         <div class="subtab-painel" id="painelShare">
             <div class="loja-info">
                 <div class="loja-info-titulo">📏 MEDIR SHARE DE GÔNDOLA</div>
@@ -1484,7 +1891,6 @@ footer{
             </div>
         </div>
 
-        <!-- PAINEL RUPTURAS -->
         <div class="subtab-painel" id="painelRupturas">
             <div class="ruptura-contadores">
                 <div class="ruptura-contador">
@@ -1529,11 +1935,8 @@ footer{
                 <div class="ruptura-secao"><div class="ruptura-secao-titulo">🍋 Água Tônica</div><div class="ruptura-lista" id="listaTonicas"></div></div>
                 <div class="ruptura-secao"><div class="ruptura-secao-titulo">🧃 Isotônicos</div><div class="ruptura-lista" id="listaIsotonicos"></div></div>
             </div>
-
-            <button class="btn-principal" onclick="abrirListaRupturas()">📋 GERAR BLOCO DE NOTAS</button>
         </div>
 
-        <!-- PAINEL VALIDADES -->
         <div class="subtab-painel" id="painelValidades">
             <div class="loja-info" id="infoLojaValidadeBox" style="margin-top:0;">
                 <div class="loja-info-titulo">🏪 INFORMAÇÕES DA LOJA</div>
@@ -1578,58 +1981,48 @@ footer{
                 <div class="ruptura-secao-titulo">📋 PRODUTOS REGISTRADOS</div>
                 <div id="listaValidadesAdicionadas"></div>
             </div>
-
-            <button class="btn-principal secundario" onclick="abrirNotasValidades()">📋 BLOCO DE NOTAS DE VALIDADES</button>
         </div>
 
-    </div>
-</div>
-
-<!-- BLOCO DE NOTAS — RUPTURAS -->
-
-<div class="modal" id="modalListaRupturas">
-    <div class="modal-box">
-        <div class="modal-header">
-            <div>
-                <div class="modal-title">📋 BLOCO DE NOTAS — RUPTURAS</div>
-                <div class="modal-sub" id="subtituloNotas">Produtos em ruptura</div>
+        <div class="subtab-painel" id="painelNotasRupturas">
+            <div class="loja-info" style="margin-top:0;">
+                <div class="loja-info-titulo">📝 BLOCO DE NOTAS — RUPTURAS</div>
+                <div style="font-size:11px;color:#8295aa;margin-bottom:10px;">
+                    Bloco gerado automaticamente com base nos produtos marcados
+                </div>
             </div>
-            <button class="fechar" onclick="fecharListaRupturas()">×</button>
-        </div>
-        <div class="bloco-notas" id="blocoNotasRupturas"></div>
-        <div class="notas-acoes">
-            <button class="btn-copiar" onclick="copiarRupturas()">📋 COPIAR</button>
-            <button class="btn-limpar" onclick="limparRupturas()">🗑️ LIMPAR</button>
-        </div>
-    </div>
-</div>
 
-<!-- BLOCO DE NOTAS — VALIDADES -->
-
-<div class="modal" id="modalNotasValidades">
-    <div class="modal-box">
-        <div class="modal-header">
-            <div>
-                <div class="modal-title">📅 BLOCO DE NOTAS — VALIDADES</div>
-                <div class="modal-sub" id="subtituloNotasValidades">Produtos com validade</div>
+            <div class="notas-acoes-topo">
+                <button class="btn-copiar" id="btnCopiarRuptInline" onclick="copiarNotasRupturasInline()">📋 Copiar informações</button>
+                <button class="btn-limpar" onclick="limparRupturas()">🗑️ Limpar informações</button>
             </div>
-            <button class="fechar" onclick="fecharNotasValidades()">×</button>
+
+            <div class="bloco-notas" id="blocoNotasRupturasInline"></div>
         </div>
-        <div class="bloco-notas" id="blocoNotasValidades"></div>
-        <div class="notas-acoes">
-            <button class="btn-copiar" onclick="copiarValidades()">📋 COPIAR</button>
-            <button class="btn-limpar" onclick="limparValidades()">🗑️ LIMPAR</button>
+
+        <div class="subtab-painel" id="painelNotasValidades">
+            <div class="loja-info" style="margin-top:0;">
+                <div class="loja-info-titulo">🗒️ BLOCO DE NOTAS — VALIDADES</div>
+                <div style="font-size:11px;color:#8295aa;margin-bottom:10px;">
+                    Bloco gerado automaticamente com base nos produtos registrados
+                </div>
+            </div>
+
+            <div class="notas-acoes-topo">
+                <button class="btn-copiar" id="btnCopiarValidInline" onclick="copiarNotasValidadesInline()">📋 Copiar informações</button>
+                <button class="btn-limpar" onclick="limparValidades()">🗑️ Limpar informações</button>
+            </div>
+
+            <div class="bloco-notas" id="blocoNotasValidadesInline"></div>
         </div>
+
     </div>
 </div>
-
-<!-- EXCLUIR LOJA -->
 
 <div class="modal" id="modalExcluirLoja">
     <div class="modal-box pequeno">
         <div class="modal-header">
             <div>
-                <div class="modal-title">🗑️ EXCLUIR LOJA</div>
+                <div class="modal-title">🗑️ EXCLUIR LOJA(S)</div>
                 <div class="modal-sub" id="subtituloExcluirLoja">Confirmação</div>
             </div>
             <button class="fechar" onclick="fecharExcluirLoja()">×</button>
@@ -1639,18 +2032,16 @@ footer{
             <div style="font-size:14px;font-weight:900;color:#fff;line-height:1.5;" id="textoExcluirLoja">
                 Tem certeza que deseja excluir esta loja?
             </div>
-            <div style="font-size:11.5px;color:#9db0c7;margin-top:10px;line-height:1.6;">
+            <div style="font-size:11.5px;color:#9db0c7;margin-top:10px;line-height:1.6;" id="subtextoExcluirLoja">
                 Todos os dados de <b>rupturas</b> e <b>validades</b> serão apagados permanentemente.
             </div>
         </div>
-        <div class="notas-acoes">
+        <div class="notas-acoes-topo" style="grid-template-columns:1fr 1fr;">
             <button class="btn-cancelar" onclick="fecharExcluirLoja()">CANCELAR</button>
             <button class="btn-limpar" onclick="confirmarExcluirLoja()">🗑️ EXCLUIR</button>
         </div>
     </div>
 </div>
-
-<!-- EXCLUIR VALIDADE -->
 
 <div class="modal" id="modalExcluirValidade">
     <div class="modal-box pequeno">
@@ -1668,14 +2059,12 @@ footer{
             </div>
             <div style="font-size:11.5px;color:#9db0c7;margin-top:10px;line-height:1.6;" id="textoExcluirValidade"></div>
         </div>
-        <div class="notas-acoes">
+        <div class="notas-acoes-topo" style="grid-template-columns:1fr 1fr;">
             <button class="btn-cancelar" onclick="fecharExcluirValidade()">NÃO</button>
             <button class="btn-limpar" onclick="confirmarExcluirValidade()">SIM, EXCLUIR</button>
         </div>
     </div>
 </div>
-
-<!-- SELEÇÃO DE LOJA -->
 
 <div class="modal" id="modalSelecaoLoja">
     <div class="modal-box pequeno">
@@ -1689,8 +2078,6 @@ footer{
         <div class="lista-selecao-loja" id="listaSelecaoLoja"></div>
     </div>
 </div>
-
-<!-- CALCULADORA -->
 
 <div class="modal" id="modalCalculadora">
     <div class="modal-box pequeno" style="max-width:340px;">
@@ -1726,8 +2113,6 @@ footer{
     </div>
 </div>
 
-<!-- TOAST -->
-
 <div class="toast" id="toast">
     <span id="toastIcone">✓</span>
     <span id="toastTexto"></span>
@@ -1744,12 +2129,16 @@ let lojaAtiva = 0;
 let grupoParaExcluir = null;
 let lojaParaExcluir = null;
 
-/* SPLASH */
+let modoSelecaoMultipla = false;
+let lojasSelecionadas = new Set();
+
+/* controle do destrave temporário da aba Dados */
+let dadosDestravados = false;
+
 window.addEventListener("load",()=>{
     setTimeout(()=>{ $("splash").style.display="none"; },1900);
 });
 
-/* DATA/HORA */
 function atualizarDataHora(){
     const agora = new Date();
     $("dataAtual").textContent = new Intl.DateTimeFormat("pt-BR",
@@ -1760,7 +2149,6 @@ function atualizarDataHora(){
 atualizarDataHora();
 setInterval(atualizarDataHora,1000);
 
-/* CONEXÃO */
 function atualizarConexao(){
     const online = navigator.onLine;
     $("statusConexao").style.background = online ? "#00ff88" : "#ff0055";
@@ -1770,22 +2158,166 @@ window.addEventListener("online",atualizarConexao);
 window.addEventListener("offline",atualizarConexao);
 atualizarConexao();
 
-/* TOAST */
 let toastTimer;
 function mostrarToast(texto,icone="✓"){
     $("toastTexto").textContent = texto;
     $("toastIcone").textContent = icone;
+    $("toast").classList.remove("mostrar");
+    void $("toast").offsetWidth;
     $("toast").classList.add("mostrar");
     clearTimeout(toastTimer);
     toastTimer=setTimeout(()=>{ $("toast").classList.remove("mostrar"); },2500);
 }
 
+/* ============================================================
+   VERIFICA SE OS 4 DADOS DA LOJA ESTÃO PREENCHIDOS
+============================================================ */
+function lojaTemDadosCompletos(loja){
+    const i = loja.info || {};
+    return (
+        i.loja && i.loja.trim()!=="" &&
+        i.nome && i.nome.trim()!=="" &&
+        i.endereco && i.endereco.trim()!=="" &&
+        i.supervisor && i.supervisor.trim()!==""
+    );
+}
+
+/* Aplica/atualiza o estado de trava na aba Dados */
+function aplicarTravaDados(){
+    const loja = getLoja(lojaAtiva);
+    const completa = lojaTemDadosCompletos(loja);
+    const sub = $("subDados");
+    const aviso = $("avisoTrava");
+
+    sub.classList.remove("travada","destravada");
+
+    if(completa && !dadosDestravados){
+        sub.classList.add("travada");
+        aviso.classList.add("ativo");
+    } else {
+        aviso.classList.remove("ativo");
+    }
+}
+
+/* Trava a aba Dados novamente (usada ao sair dela ou do modal) */
+function travarDados(){
+    dadosDestravados = false;
+    aplicarTravaDados();
+}
+
+/* Toque simples na aba Dados */
+function tentarTrocarDados(){
+    const loja = getLoja(lojaAtiva);
+    const completa = lojaTemDadosCompletos(loja);
+
+    if(completa && !dadosDestravados){
+        if(navigator.vibrate) navigator.vibrate([30,40,30]);
+        mostrarToast("🔒 Dados completos • Pressione 2s para editar","🔒");
+        const sub = $("subDados");
+        sub.classList.remove("animar-popIn");
+        void sub.offsetWidth;
+        sub.classList.add("animar-popIn");
+        return;
+    }
+
+    trocarSubAba("dados");
+}
+
+/* Long press na aba Dados → destrava temporariamente */
+(function configurarLongPressDados(){
+    const sub = $("subDados");
+    let pressTimer=null, pressAtivado=false, startX=0, startY=0;
+    const TEMPO=2000;
+
+    function iniciarPress(e){
+        pressAtivado = false;
+
+        if(e.touches && e.touches[0]){ startX=e.touches[0].clientX; startY=e.touches[0].clientY; }
+        else { startX=e.clientX; startY=e.clientY; }
+
+        clearTimeout(pressTimer);
+        pressTimer = setTimeout(function(){
+            pressAtivado = true;
+
+            const loja = getLoja(lojaAtiva);
+            const completa = lojaTemDadosCompletos(loja);
+
+            if(completa && !dadosDestravados){
+                dadosDestravados = true;
+                if(navigator.vibrate) navigator.vibrate([40,60,40]);
+                aplicarTravaDados();
+                sub.classList.add("destravada");
+                mostrarToast("🔓 Dados destravados para edição","🔓");
+                setTimeout(()=>{
+                    trocarSubAba("dados");
+                },150);
+            }
+        }, TEMPO);
+    }
+
+    function cancelarPress(){ clearTimeout(pressTimer); }
+
+    function detectarArrasto(e){
+        if(!pressTimer) return;
+        let cx,cy;
+        if(e.touches && e.touches[0]){ cx=e.touches[0].clientX; cy=e.touches[0].clientY; }
+        else { cx=e.clientX; cy=e.clientY; }
+        if(Math.abs(cx-startX)>10 || Math.abs(cy-startY)>10) clearTimeout(pressTimer);
+    }
+
+    function clickHandler(e){
+        if(pressAtivado){
+            pressAtivado = false;
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+        }
+    }
+
+    sub.addEventListener("touchstart",iniciarPress,{passive:true});
+    sub.addEventListener("touchend",cancelarPress);
+    sub.addEventListener("touchcancel",cancelarPress);
+    sub.addEventListener("touchmove",detectarArrasto,{passive:true});
+    sub.addEventListener("mousedown",iniciarPress);
+    sub.addEventListener("mouseup",cancelarPress);
+    sub.addEventListener("mouseleave",cancelarPress);
+    sub.addEventListener("mousemove",detectarArrasto);
+
+    sub.addEventListener("click",clickHandler,true);
+})();
+
 /* SUB-ABA */
 function trocarSubAba(nome){
+    // Se está saindo da aba dados, trava novamente
+    if(nome !== "dados" && dadosDestravados){
+        dadosDestravados = false;
+        aplicarTravaDados();
+    }
+
+    if(nome === "dados"){
+        const loja = getLoja(lojaAtiva);
+        if(lojaTemDadosCompletos(loja) && !dadosDestravados){
+            tentarTrocarDados();
+            return;
+        }
+    }
+
     document.querySelectorAll(".subtab").forEach(t=>t.classList.remove("ativo"));
     document.querySelectorAll(".subtab-painel").forEach(t=>t.classList.remove("ativo"));
-    $("sub" + nome.charAt(0).toUpperCase() + nome.slice(1)).classList.add("ativo");
-    $("painel" + nome.charAt(0).toUpperCase() + nome.slice(1)).classList.add("ativo");
+
+    const mapa = {
+        dados:    ["subDados","painelDados"],
+        share:    ["subShare","painelShare"],
+        rupturas: ["subRupturas","painelRupturas"],
+        validades:["subValidades","painelValidades"],
+        notasRupturas:  ["subNotasRupturas","painelNotasRupturas"],
+        notasValidades: ["subNotasValidades","painelNotasValidades"]
+    };
+    const par = mapa[nome];
+    if(!par) return;
+
+    $(par[0]).classList.add("ativo");
+    $(par[1]).classList.add("ativo");
 
     if(nome === "validades"){
         atualizarTotalValidades();
@@ -1793,6 +2325,15 @@ function trocarSubAba(nome){
     }
     if(nome === "share"){
         calcularLoja();
+    }
+    if(nome === "notasRupturas"){
+        atualizarNotasRupturasInline();
+    }
+    if(nome === "notasValidades"){
+        atualizarNotasValidadesInline();
+    }
+    if(nome === "dados"){
+        aplicarTravaDados();
     }
 }
 
@@ -1809,7 +2350,54 @@ function formatarUnidade(v,unid){
     return unid==="cm" ? formatarNumero(v)+" cm" : formatarNumero(v)+" frentes";
 }
 
-/* SHARE DA LOJA */
+function statusPorDias(dias){
+    if(dias > 60) return "verde";
+    if(dias >= 31) return "amarelo";
+    return "vermelho";
+}
+
+function piorStatusValidade(loja){
+    const v = loja.validades || {};
+    const chaves = Object.keys(v);
+    if(!chaves.length) return null;
+
+    let pior = "verde";
+    const hoje = new Date(); hoje.setHours(0,0,0,0);
+
+    chaves.forEach(k=>{
+        const item = v[k];
+        if(!item || !item.data) return;
+        const dV = new Date(item.data+"T12:00:00"); dV.setHours(0,0,0,0);
+        const diff = Math.ceil((dV-hoje)/(1000*60*60*24));
+        const st = statusPorDias(diff);
+        if(st === "vermelho"){ pior = "vermelho"; return; }
+        if(st === "amarelo" && pior !== "vermelho"){ pior = "amarelo"; }
+    });
+
+    return pior;
+}
+
+function contarStatusValidades(loja){
+    const v = loja.validades || {};
+    const r = {verde:0, amarelo:0, vermelho:0};
+    const hoje = new Date(); hoje.setHours(0,0,0,0);
+    const vistos = new Set();
+
+    Object.keys(v).forEach(k=>{
+        const item = v[k];
+        if(!item || !item.data) return;
+        const cg = item.nome+"|"+item.descricao+"|"+item.data;
+        if(vistos.has(cg)) return;
+        vistos.add(cg);
+
+        const dV = new Date(item.data+"T12:00:00"); dV.setHours(0,0,0,0);
+        const diff = Math.ceil((dV-hoje)/(1000*60*60*24));
+        r[statusPorDias(diff)]++;
+    });
+
+    return r;
+}
+
 function mudarUnidadeLoja(u){
     unidadeAtualLoja=u;
     $("btnFrentesLoja").classList.toggle("ativo", u==="frentes");
@@ -1884,7 +2472,6 @@ function atualizarPainelGraficoLoja(meta,share,restante,total,atingiu){
     $("cardDiferencaLoja").style.color = atingiu ? "#00ff88" : "#ff0055";
 }
 
-/* CALCULADORA */
 function abrirCalculadora(){ $("modalCalculadora").classList.add("aberto"); }
 function fecharCalculadora(){ $("modalCalculadora").classList.remove("aberto"); }
 function calcAdicionar(v){ expressaoCalc+=v; $("calcExpression").textContent=expressaoCalc; $("calcResult").textContent=expressaoCalc||"0"; }
@@ -1897,10 +2484,12 @@ function calcResultado(){
         const r=Function('"use strict";return ('+expressaoCalc+')')();
         if(!Number.isFinite(r)) throw new Error();
         $("calcResult").textContent = Number(r).toLocaleString("pt-BR",{maximumFractionDigits:8});
+        $("calcResult").classList.remove("animar-popIn");
+        void $("calcResult").offsetWidth;
+        $("calcResult").classList.add("animar-popIn");
     }catch(e){ $("calcResult").textContent="Erro"; }
 }
 
-/* LISTAS */
 const cervejas210=[["Coronita Extra","210 ml • Long Neck"]];
 const cervejas330=[
     ["Beck's","330 ml • Long Neck"],["Budweiser","330 ml • Long Neck"],
@@ -2007,7 +2596,6 @@ function emojiProduto(nome){
     return "📦";
 }
 
-/* STORAGE */
 const STORAGE_LOJAS="mshare_space_lojas_v2";
 function criarLojaVazia(){
     return { info:{loja:"",nome:"",endereco:"",supervisor:""}, rupturas:{}, validades:{} };
@@ -2033,7 +2621,6 @@ function lojaEstaCompleta(loja){
     return i.loja && i.loja.trim()!=="" && i.nome && i.nome.trim()!=="" && i.supervisor && i.supervisor.trim()!=="";
 }
 
-/* CARDS */
 function atualizarCardsLojas(){
     const lojas = carregarLojas();
     const grid = $("lojasGrid");
@@ -2066,6 +2653,17 @@ function atualizarCardsLojas(){
             else card.classList.add("cadastrada");
         } else card.classList.add("pendente");
 
+        const pior = piorStatusValidade(loja);
+        if(pior === "amarelo") card.classList.add("alerta-amarelo");
+        if(pior === "vermelho") card.classList.add("alerta-vermelho");
+
+        if(lojasSelecionadas.has(i)) card.classList.add("selecionada");
+        if(modoSelecaoMultipla) card.classList.add("modo-selecao");
+
+        const check = document.createElement("div");
+        check.className = "loja-check";
+        check.textContent = lojasSelecionadas.has(i) ? "✓" : "";
+
         const badge = document.createElement("span");
         badge.className = "loja-card-badge"+(tR===0?" zero":"");
         badge.textContent = tR;
@@ -2074,6 +2672,16 @@ function atualizarCardsLojas(){
         topo.className = "loja-card-topo";
         topo.innerHTML = '<span class="loja-card-icone">🏬</span>';
         topo.appendChild(badge);
+
+        if(pior){
+            const faixa = document.createElement("div");
+            faixa.className = "loja-alerta-faixa " + pior;
+            let texto = "Vencimentos em dia";
+            if(pior === "amarelo") texto = "⚠️ Vencendo (31-60 dias)";
+            if(pior === "vermelho") texto = "🚨 URGENTE (≤30 dias)";
+            faixa.textContent = texto;
+            card.appendChild(faixa);
+        }
 
         const nomeEl = document.createElement("div");
         nomeEl.className = "loja-card-nome"+(loja.info.loja?"":" vazio");
@@ -2102,13 +2710,48 @@ function atualizarCardsLojas(){
             statusEl.classList.add("cadastrada");
         }
 
+        const contStatus = contarStatusValidades(loja);
+        const temAlgumaValidade = (contStatus.verde + contStatus.amarelo + contStatus.vermelho) > 0;
+        let linhaStatus = null;
+        if(temAlgumaValidade){
+            linhaStatus = document.createElement("div");
+            linhaStatus.className = "loja-status-linha";
+
+            if(contStatus.verde > 0){
+                const s = document.createElement("span");
+                s.className = "loja-status-mini verde";
+                s.textContent = "🟢 "+contStatus.verde;
+                linhaStatus.appendChild(s);
+            }
+            if(contStatus.amarelo > 0){
+                const s = document.createElement("span");
+                s.className = "loja-status-mini amarelo";
+                s.textContent = "🟡 "+contStatus.amarelo;
+                linhaStatus.appendChild(s);
+            }
+            if(contStatus.vermelho > 0){
+                const s = document.createElement("span");
+                s.className = "loja-status-mini vermelho";
+                s.textContent = "🔴 "+contStatus.vermelho;
+                linhaStatus.appendChild(s);
+            }
+            if(tR > 0){
+                const s = document.createElement("span");
+                s.className = "loja-status-mini ruptura";
+                s.textContent = "⚠️ "+tR+" ruptura(s)";
+                linhaStatus.appendChild(s);
+            }
+        }
+
+        card.appendChild(check);
         card.appendChild(topo);
         card.appendChild(nomeEl);
         card.appendChild(infoEl);
         card.appendChild(statusEl);
+        if(linhaStatus) card.appendChild(linhaStatus);
 
         let pressTimer=null, pressAtivado=false, startX=0, startY=0;
-        const TEMPO=3000;
+        const TEMPO=2000;
 
         function iniciarPress(e){
             pressAtivado=false;
@@ -2118,7 +2761,7 @@ function atualizarCardsLojas(){
             pressTimer = setTimeout(function(){
                 pressAtivado=true;
                 if(navigator.vibrate) navigator.vibrate(60);
-                abrirExcluirLoja(i);
+                ativarModoSelecao(i);
             }, TEMPO);
         }
         function cancelarPress(){ clearTimeout(pressTimer); }
@@ -2140,7 +2783,16 @@ function atualizarCardsLojas(){
         card.addEventListener("mousemove",detectarArrasto);
 
         card.addEventListener("click", function(e){
-            if(pressAtivado){ pressAtivado=false; e.preventDefault(); e.stopPropagation(); return; }
+            if(pressAtivado){
+                pressAtivado=false;
+                e.preventDefault();
+                e.stopPropagation();
+                return;
+            }
+            if(modoSelecaoMultipla){
+                toggleSelecaoLoja(i);
+                return;
+            }
             abrirFerramentaRupturas(i);
         });
 
@@ -2166,24 +2818,97 @@ function atualizarCardsLojas(){
     } else {
         acoes.style.display = "none";
     }
+
+    atualizarBarraSelecao();
 }
 
-/* EXCLUIR LOJA */
-function abrirExcluirLoja(i){
-    lojaParaExcluir = i;
-    const loja = carregarLojas()[i];
-    const nome = loja.info.loja || `Loja ${i+1}`;
-    $("subtituloExcluirLoja").textContent = nome;
-    $("textoExcluirLoja").innerHTML = 'Tem certeza que deseja excluir a loja<br><b style="color:#00d9ff;">'+nome+'</b> ?';
+function ativarModoSelecao(indiceInicial){
+    if(!modoSelecaoMultipla){
+        modoSelecaoMultipla = true;
+        lojasSelecionadas.clear();
+        lojasSelecionadas.add(indiceInicial);
+        if(navigator.vibrate) navigator.vibrate([40,40,40]);
+        mostrarToast("Modo seleção ativado","✓");
+    } else {
+        lojasSelecionadas.add(indiceInicial);
+    }
+    atualizarCardsLojas();
+}
+
+function toggleSelecaoLoja(i){
+    if(lojasSelecionadas.has(i)) lojasSelecionadas.delete(i);
+    else lojasSelecionadas.add(i);
+    atualizarCardsLojas();
+}
+
+function cancelarSelecao(){
+    modoSelecaoMultipla = false;
+    lojasSelecionadas.clear();
+    atualizarCardsLojas();
+    mostrarToast("Seleção cancelada","✕");
+}
+
+function atualizarBarraSelecao(){
+    const barra = $("barraSelecao");
+    const cont = $("contSel");
+    const btn = $("btnExcluirSel");
+    const subtitulo = $("subtituloAjuda");
+
+    if(modoSelecaoMultipla){
+        barra.classList.add("ativa");
+        cont.textContent = lojasSelecionadas.size;
+        btn.disabled = lojasSelecionadas.size === 0;
+        subtitulo.textContent = "Toque nas lojas para marcar/desmarcar • Exclua em lote";
+    } else {
+        barra.classList.remove("ativa");
+        subtitulo.textContent = "Toque para abrir • Segure 2s para selecionar";
+    }
+}
+
+function abrirExcluirMultiplas(){
+    if(lojasSelecionadas.size === 0){
+        mostrarToast("Nenhuma loja selecionada","⚠️");
+        return;
+    }
+    const lojas = carregarLojas();
+    if(lojasSelecionadas.size >= lojas.length){
+        mostrarToast("Precisa manter pelo menos 1 loja","⚠️");
+        return;
+    }
+
+    $("subtituloExcluirLoja").textContent = lojasSelecionadas.size + " loja(s)";
+    $("textoExcluirLoja").innerHTML =
+        'Tem certeza que deseja excluir <b style="color:#ff0055;">'+lojasSelecionadas.size+' loja(s)</b>?';
+    $("subtextoExcluirLoja").innerHTML =
+        'Todos os dados de <b>rupturas</b> e <b>validades</b> dessas lojas serão apagados permanentemente.';
+
     $("modalExcluirLoja").classList.add("aberto");
 }
+
 function fecharExcluirLoja(){
     $("modalExcluirLoja").classList.remove("aberto");
     lojaParaExcluir=null;
 }
+
 function confirmarExcluirLoja(){
-    if(lojaParaExcluir===null){ fecharExcluirLoja(); return; }
     const lojas = carregarLojas();
+
+    if(modoSelecaoMultipla && lojasSelecionadas.size > 0){
+        const indices = Array.from(lojasSelecionadas).sort((a,b)=>b-a);
+        indices.forEach(i => lojas.splice(i,1));
+        salvarLojas(lojas);
+
+        const qtd = indices.length;
+        modoSelecaoMultipla = false;
+        lojasSelecionadas.clear();
+
+        fecharExcluirLoja();
+        atualizarCardsLojas();
+        mostrarToast(qtd+" loja(s) excluída(s)","🗑️");
+        return;
+    }
+
+    if(lojaParaExcluir===null){ fecharExcluirLoja(); return; }
     if(lojas.length<=1){ mostrarToast("Precisa manter pelo menos 1 loja.","⚠️"); fecharExcluirLoja(); return; }
     lojas.splice(lojaParaExcluir,1);
     salvarLojas(lojas);
@@ -2192,7 +2917,6 @@ function confirmarExcluirLoja(){
     mostrarToast("Loja excluída.","🗑️");
 }
 
-/* EXCLUIR VALIDADE */
 function abrirExcluirValidade(g){
     grupoParaExcluir = g;
     $("textoExcluirValidade").innerHTML = '<b>'+g.nome+'</b><br>Quantidade: <b>'+g.quantidade+'</b>';
@@ -2212,10 +2936,10 @@ function confirmarExcluirValidade(){
     atualizarTotalValidades();
     atualizarCardsLojas();
     montarListaValidades();
+    atualizarNotasValidadesInline();
     mostrarToast("Registro excluído.","🗑️");
 }
 
-/* SELEÇÃO DE LOJA */
 function abrirSelecaoLojaRupturas(){
     $("tituloSelecaoLoja").textContent = "📋 Verificar lista de rupturas";
     $("subtituloSelecaoLoja").textContent = "Escolha qual loja deseja visualizar";
@@ -2270,12 +2994,8 @@ function montarSelecaoLoja(tipo){
             fecharSelecaoLoja();
             abrirFerramentaRupturas(i);
             setTimeout(()=>{
-                if(tipo==="rupturas"){
-                    trocarSubAba("rupturas");
-                    setTimeout(()=>abrirListaRupturas(),250);
-                } else {
-                    trocarSubAba("validades");
-                }
+                if(tipo==="rupturas") trocarSubAba("notasRupturas");
+                else trocarSubAba("notasValidades");
             },200);
         });
 
@@ -2290,9 +3010,9 @@ function montarSelecaoLoja(tipo){
     }
 }
 
-/* MODAL DA LOJA */
 function abrirFerramentaRupturas(i){
     lojaAtiva = i;
+    dadosDestravados = false;
     const lojas = carregarLojas();
     const nome = lojas[i].info.loja || `Loja ${i+1}`;
     $("tituloLojaAtiva").textContent = `🏪 ${nome}`;
@@ -2302,15 +3022,24 @@ function abrirFerramentaRupturas(i){
     montarListaValidades();
     atualizarTotalValidades();
     atualizarInfoLojaValidade();
-    trocarSubAba("dados");
+
+    const loja = getLoja(i);
+    if(lojaTemDadosCompletos(loja)){
+        trocarSubAba("share");
+    } else {
+        trocarSubAba("dados");
+    }
+
+    aplicarTravaDados();
+
     $("modalLoja").classList.add("aberto");
 }
 function fecharFerramentaRupturas(){
     $("modalLoja").classList.remove("aberto");
+    dadosDestravados = false;
     atualizarCardsLojas();
 }
 
-/* INFO LOJA */
 function salvarInfoLoja(){
     const info = {
         loja:$("infoLoja").value.trim(),
@@ -2324,6 +3053,7 @@ function salvarInfoLoja(){
     $("tituloLojaAtiva").textContent = "🏪 "+(info.loja || `Loja ${lojaAtiva+1}`);
     atualizarInfoLojaValidade();
     atualizarCardsLojas();
+    aplicarTravaDados();
 }
 function preencherInfoLoja(){
     const i = getLoja(lojaAtiva).info;
@@ -2341,7 +3071,6 @@ function atualizarInfoLojaValidade(){
         "👨‍💼 "+(i.supervisor||"Não informado");
 }
 
-/* RUPTURAS */
 function criarProdutoRuptura(nome,descricao,categoria){
     const chave = categoria+"|"+nome+"|"+descricao;
     const loja = getLoja(lojaAtiva);
@@ -2364,6 +3093,7 @@ function criarProdutoRuptura(nome,descricao,categoria){
         setLoja(lojaAtiva, l);
         atualizarContadoresRuptura();
         atualizarCardsLojas();
+        atualizarNotasRupturasInline();
     });
 
     const info = document.createElement("div");
@@ -2409,9 +3139,16 @@ function atualizarContadoresRuptura(){
         if(it.categoria==="cerveja"||it.categoria==="cerveja_zero"||it.categoria==="mistas") a++;
         else n++;
     });
-    $("contadorTotal").textContent=t;
-    $("contadorAlcoolicos").textContent=a;
-    $("contadorNaoAlcoolicos").textContent=n;
+    const elT = $("contadorTotal");
+    const elA = $("contadorAlcoolicos");
+    const elN = $("contadorNaoAlcoolicos");
+    elT.textContent=t; elA.textContent=a; elN.textContent=n;
+    [elT,elA,elN].forEach(el=>{
+        el.classList.remove("pulsar");
+        void el.offsetWidth;
+        el.classList.add("pulsar");
+        setTimeout(()=>el.classList.remove("pulsar"),500);
+    });
 }
 function mostrarCategoriaRuptura(cat){
     const al = cat==="alcoolicos";
@@ -2430,8 +3167,7 @@ function pesquisarRupturas(){
     });
 }
 
-/* NOTAS RUPTURAS */
-function atualizarNotasRuptura(){
+function atualizarNotasRupturasInline(){
     const loja = getLoja(lojaAtiva);
     const itens = Object.values(loja.rupturas||{});
     const info = loja.info;
@@ -2445,7 +3181,7 @@ function atualizarNotasRuptura(){
 
     if(!itens.length){
         t += "\n📋 LISTA DE RUPTURAS\n\nNenhum produto selecionado.";
-        $("blocoNotasRupturas").textContent = t;
+        $("blocoNotasRupturasInline").textContent = t;
         return;
     }
     const al = itens.filter(i=>i.categoria==="cerveja"||i.categoria==="cerveja_zero"||i.categoria==="mistas");
@@ -2466,22 +3202,24 @@ function atualizarNotasRuptura(){
         });
     }
     t += "\n━━━━━━━━━━━━━━━━━━━━\nTotal de rupturas: "+itens.length;
-    $("blocoNotasRupturas").textContent = t;
+    $("blocoNotasRupturasInline").textContent = t;
 }
-function abrirListaRupturas(){
-    atualizarNotasRuptura();
-    const loja = getLoja(lojaAtiva);
-    $("subtituloNotas").textContent = (loja.info.loja || `Loja ${lojaAtiva+1}`)+" — produtos em ruptura";
-    $("modalListaRupturas").classList.add("aberto");
-}
-function fecharListaRupturas(){ $("modalListaRupturas").classList.remove("aberto"); }
-async function copiarRupturas(){
-    const t = $("blocoNotasRupturas").textContent;
-    try{ await navigator.clipboard.writeText(t); mostrarToast("Lista copiada!","📋"); }
+async function copiarNotasRupturasInline(){
+    const t = $("blocoNotasRupturasInline").textContent;
+    try{ await navigator.clipboard.writeText(t); }
     catch(e){
         const a=document.createElement("textarea"); a.value=t; document.body.appendChild(a); a.select();
-        document.execCommand("copy"); a.remove(); mostrarToast("Lista copiada!","📋");
+        document.execCommand("copy"); a.remove();
     }
+    const btn = $("btnCopiarRuptInline");
+    btn.classList.add("copiado");
+    btn.textContent = "✓ Copiado!";
+    mostrarToast("Informações copiadas!","📋");
+    if(navigator.vibrate) navigator.vibrate(30);
+    setTimeout(()=>{
+        btn.classList.remove("copiado");
+        btn.textContent = "📋 Copiar informações";
+    },1500);
 }
 function limparRupturas(){
     if(!confirm("Limpar todas as rupturas desta loja?")) return;
@@ -2489,13 +3227,12 @@ function limparRupturas(){
     l.rupturas = {};
     setLoja(lojaAtiva, l);
     montarListaRupturas();
-    atualizarNotasRuptura();
     atualizarContadoresRuptura();
     atualizarCardsLojas();
+    atualizarNotasRupturasInline();
     mostrarToast("Rupturas limpas.","🗑️");
 }
 
-/* VALIDADES */
 function montarListaValidades(){
     montarGrupoValidade("validadeListaCervejas210",cervejas210,"cerveja");
     montarGrupoValidade("validadeListaCervejas330",cervejas330,"cerveja");
@@ -2592,6 +3329,7 @@ function criarItemValidade(nome,descricao,categoria){
         atualizarTotalValidades();
         atualizarCardsLojas();
         montarListaValidades();
+        atualizarNotasValidadesInline();
         mostrarToast(nome+" registrado!","✅");
     });
 
@@ -2600,7 +3338,6 @@ function criarItemValidade(nome,descricao,categoria){
     return wrapper;
 }
 
-/* LISTA VALIDADES ADICIONADAS */
 function atualizarListaValidadesAdicionadas(){
     const loja = getLoja(lojaAtiva);
     const v = loja.validades || {};
@@ -2642,11 +3379,16 @@ function atualizarListaValidadesAdicionadas(){
         const dV = new Date(g.data+"T12:00:00"); dV.setHours(0,0,0,0);
         const diff = Math.ceil((dV-hoje)/(1000*60*60*24));
 
+        const status = statusPorDias(diff);
+        if(status === "amarelo") div.classList.add("alerta-amarelo");
+        if(status === "vermelho") div.classList.add("alerta-vermelho");
+
         let cor="#00ff88", txt="";
         if(diff<0){ cor="#ff0055"; txt="VENCIDO há "+Math.abs(diff)+"d"; }
-        else if(diff===0){ cor="#ffaa00"; txt="VENCE HOJE"; }
-        else if(diff<=7){ cor="#ffaa00"; txt="Vence em "+diff+"d"; }
-        else { txt="Vence em "+diff+"d"; }
+        else if(diff===0){ cor="#ff0055"; txt="VENCE HOJE"; }
+        else if(diff<=30){ cor="#ff0055"; txt="Vence em "+diff+"d"; }
+        else if(diff<=60){ cor="#ffcc33"; txt="Vence em "+diff+"d"; }
+        else { cor="#00ff88"; txt="Vence em "+diff+"d"; }
 
         div.innerHTML =
             '<div class="validade-item-info">'+
@@ -2713,15 +3455,14 @@ function atualizarListaValidadesAdicionadas(){
 
             atualizarListaValidadesAdicionadas();
             atualizarTotalValidades();
-            atualizarNotasValidades();
+            atualizarNotasValidadesInline();
             atualizarCardsLojas();
             montarListaValidades();
             mostrarToast("Validade atualizada!","✅");
         });
 
-        /* Long press → excluir */
         let pT=null, sx=0, sy=0;
-        const TEMPO=3000;
+        const TEMPO=2000;
 
         function iP(e){
             if(e.target.closest(".validade-item-editar")) return;
@@ -2760,7 +3501,12 @@ function atualizarListaValidadesAdicionadas(){
 
 function atualizarTotalValidades(){
     const l = getLoja(lojaAtiva);
-    $("validadeTotalNum").textContent = Object.keys(l.validades||{}).length;
+    const el = $("validadeTotalNum");
+    el.textContent = Object.keys(l.validades||{}).length;
+    el.classList.remove("pulsar");
+    void el.offsetWidth;
+    el.classList.add("pulsar");
+    setTimeout(()=>el.classList.remove("pulsar"),500);
 }
 function mostrarCategoriaValidade(cat){
     const al = cat==="alcoolicos";
@@ -2778,7 +3524,8 @@ function pesquisarValidades(){
         w.style.display = (w.dataset.busca||"").includes(t) ? "block" : "none";
     });
 }
-function atualizarNotasValidades(){
+
+function atualizarNotasValidadesInline(){
     const loja = getLoja(lojaAtiva);
     const v = loja.validades || {};
     const info = loja.info;
@@ -2794,7 +3541,7 @@ function atualizarNotasValidades(){
     const itens = Object.values(v);
     if(!itens.length){
         t += "\n📅 LISTA DE VALIDADES\n\nNenhum produto registrado.";
-        $("blocoNotasValidades").textContent = t;
+        $("blocoNotasValidadesInline").textContent = t;
         return;
     }
 
@@ -2835,22 +3582,24 @@ function atualizarNotasValidades(){
         na.forEach(i=>{ t += fmt(i)+"\n"; });
     }
     t += "━━━━━━━━━━━━━━━━━━━━\nTotal de itens (agrupados): "+lista.length;
-    $("blocoNotasValidades").textContent = t;
+    $("blocoNotasValidadesInline").textContent = t;
 }
-function abrirNotasValidades(){
-    atualizarNotasValidades();
-    const loja = getLoja(lojaAtiva);
-    $("subtituloNotasValidades").textContent = (loja.info.loja || `Loja ${lojaAtiva+1}`)+" — produtos com validade";
-    $("modalNotasValidades").classList.add("aberto");
-}
-function fecharNotasValidades(){ $("modalNotasValidades").classList.remove("aberto"); }
-async function copiarValidades(){
-    const t = $("blocoNotasValidades").textContent;
-    try{ await navigator.clipboard.writeText(t); mostrarToast("Validades copiadas!","📋"); }
+async function copiarNotasValidadesInline(){
+    const t = $("blocoNotasValidadesInline").textContent;
+    try{ await navigator.clipboard.writeText(t); }
     catch(e){
         const a=document.createElement("textarea"); a.value=t; document.body.appendChild(a); a.select();
-        document.execCommand("copy"); a.remove(); mostrarToast("Lista copiada!","📋");
+        document.execCommand("copy"); a.remove();
     }
+    const btn = $("btnCopiarValidInline");
+    btn.classList.add("copiado");
+    btn.textContent = "✓ Copiado!";
+    mostrarToast("Informações copiadas!","📋");
+    if(navigator.vibrate) navigator.vibrate(30);
+    setTimeout(()=>{
+        btn.classList.remove("copiado");
+        btn.textContent = "📋 Copiar informações";
+    },1500);
 }
 function limparValidades(){
     if(!confirm("Limpar todas as validades desta loja?")) return;
@@ -2858,13 +3607,12 @@ function limparValidades(){
     l.validades = {};
     setLoja(lojaAtiva, l);
     montarListaValidades();
-    atualizarNotasValidades();
     atualizarTotalValidades();
     atualizarCardsLojas();
+    atualizarNotasValidadesInline();
     mostrarToast("Validades limpas.","🗑️");
 }
 
-/* INICIALIZAÇÃO */
 atualizarCardsLojas();
 
 </script>
