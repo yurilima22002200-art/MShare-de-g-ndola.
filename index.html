@@ -1878,6 +1878,7 @@ button{ cursor:pointer; }
     transition:all .3s var(--ease-fluent);
     animation:fadeInUp .4s var(--ease-fluent) both;
     border-radius:5px;
+    position:relative;
 }
 
 .ruptura-produto:hover{
@@ -1893,6 +1894,10 @@ button{ cursor:pointer; }
     animation:popIn .35s var(--ease-fluent);
 }
 
+.ruptura-produto.bloqueado{
+    border-color:#5a3a3a;
+}
+
 .ruptura-checkbox{
     width:20px;
     height:20px;
@@ -1903,9 +1908,48 @@ button{ cursor:pointer; }
 
 .ruptura-checkbox:checked{ animation:iconPop .4s var(--ease-fluent); }
 
+.ruptura-checkbox.bloqueado{
+    cursor:not-allowed;
+    pointer-events:none;
+    opacity:.5;
+}
+
 .ruptura-produto-info{ flex:1; }
 .ruptura-produto-nome{ font-size:13px; font-weight:500; color:#fff; }
 .ruptura-produto-descricao{ color:var(--win-text-secondary); font-size:11px; margin-top:3px; font-weight:400; }
+
+/* Botão de cadeado individual */
+.btn-lock-item{
+    width:34px;
+    height:34px;
+    flex-shrink:0;
+    border:none;
+    background:rgba(255,185,0,.2);
+    color:#ffb900;
+    font-size:16px;
+    border-radius:4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all .25s var(--ease-fluent);
+    cursor:pointer;
+}
+
+.btn-lock-item:hover{
+    background:rgba(255,185,0,.35);
+    transform:translateY(-1px);
+}
+
+.btn-lock-item:active{ transform:scale(.9); }
+
+.btn-lock-item.liberado{
+    background:rgba(16,124,16,.25);
+    color:#4ade80;
+}
+
+.btn-lock-item.liberado:hover{
+    background:rgba(16,124,16,.4);
+}
 
 /* ================= VALIDADES ================= */
 
@@ -1950,6 +1994,7 @@ button{ cursor:pointer; }
     cursor:pointer;
     transition:all .3s var(--ease-fluent);
     border-radius:5px;
+    position:relative;
 }
 
 .validade-produto-item:hover{
@@ -1961,6 +2006,16 @@ button{ cursor:pointer; }
     background:rgba(16,124,16,.15);
     border-color:var(--win-success);
     animation:popIn .35s var(--ease-fluent);
+}
+
+.validade-produto-item.bloqueado{
+    cursor:not-allowed;
+    border-color:#3a5a3a;
+}
+
+.validade-produto-item.bloqueado:hover{
+    background:rgba(16,124,16,.15);
+    border-color:var(--win-success);
 }
 
 .validade-controles{
@@ -2043,6 +2098,7 @@ button{ cursor:pointer; }
     animation:popIn .4s var(--ease-fluent) both;
     border-radius:5px;
     transition:all .3s var(--ease-fluent);
+    position:relative;
 }
 
 .validade-item-adicionado:hover{
@@ -2101,6 +2157,25 @@ button{ cursor:pointer; }
     transform:translateY(-1px);
 }
 .validade-item-editar:active{ transform:scale(.9); }
+
+.validade-item-editar.bloqueado{
+    background:rgba(255,185,0,.2);
+    color:#ffb900;
+}
+
+.validade-item-editar.bloqueado:hover{
+    background:rgba(255,185,0,.35);
+    transform:none;
+}
+
+.validade-item-editar.liberado{
+    background:rgba(0,120,212,.4);
+    color:#fff;
+}
+
+.validade-item-editar.liberado:hover{
+    background:var(--win-accent);
+}
 
 .validade-cat{
     border:1px solid var(--win-border);
@@ -2232,7 +2307,7 @@ button{ cursor:pointer; }
 
 .notas-acoes-topo{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:1fr;
     gap:10px;
     margin-bottom:12px;
     animation:fadeInUp .45s var(--ease-fluent) both;
@@ -2269,6 +2344,25 @@ button{ cursor:pointer; }
     animation:popIn .4s var(--ease-fluent);
 }
 
+.btn-cancelar{
+    border:1px solid var(--win-border);
+    background:var(--win-bg-mid);
+    color:var(--win-text);
+    padding:11px 14px;
+    font-weight:600;
+    font-size:12.5px;
+    transition:all .3s var(--ease-fluent);
+    border-radius:4px;
+    letter-spacing:.2px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+}
+
+.btn-cancelar:hover{ background:#3a3a3a; transform:translateY(-1px); }
+.btn-cancelar:active{ background:#222; transform:scale(.98); }
+
 .btn-limpar{
     border:1px solid var(--win-border);
     background:var(--win-bg-mid);
@@ -2293,25 +2387,6 @@ button{ cursor:pointer; }
     transform:translateY(-1px);
 }
 .btn-limpar:active{ background:#222; transform:scale(.98); }
-
-.btn-cancelar{
-    border:1px solid var(--win-border);
-    background:var(--win-bg-mid);
-    color:var(--win-text);
-    padding:11px 14px;
-    font-weight:600;
-    font-size:12.5px;
-    transition:all .3s var(--ease-fluent);
-    border-radius:4px;
-    letter-spacing:.2px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-}
-
-.btn-cancelar:hover{ background:#3a3a3a; transform:translateY(-1px); }
-.btn-cancelar:active{ background:#222; transform:scale(.98); }
 
 /* ================= SELEÇÃO DE LOJA ================= */
 
@@ -2803,9 +2878,6 @@ footer .ico{
                 <button class="btn-copiar" id="btnCopiarRuptInline" onclick="copiarNotasRupturasInline()">
                     <span class="ico">📋</span> Copiar informações
                 </button>
-                <button class="btn-limpar" onclick="limparRupturas()">
-                    <span class="ico">🗑️</span> Limpar informações
-                </button>
             </div>
 
             <div class="notepad">
@@ -2831,9 +2903,6 @@ footer .ico{
             <div class="notas-acoes-topo">
                 <button class="btn-copiar" id="btnCopiarValidInline" onclick="copiarNotasValidadesInline()">
                     <span class="ico">📋</span> Copiar informações
-                </button>
-                <button class="btn-limpar" onclick="limparValidades()">
-                    <span class="ico">🗑️</span> Limpar informações
                 </button>
             </div>
 
@@ -2968,6 +3037,10 @@ let lojasSelecionadas = new Set();
 
 let dadosDestravados = false;
 
+/* ===== CONTROLE DE ITENS LIBERADOS INDIVIDUALMENTE ===== */
+let rupturasItensLiberados = new Set();
+let validadesItensLiberados = new Set();
+
 window.addEventListener("load",()=>{
     setTimeout(()=>{
         const s = $("splash");
@@ -3039,7 +3112,7 @@ function criarRipple(e){
 }
 
 function aplicarRippleGlobal(){
-    const seletores = "button, .loja-card, .btn-acao, .btn-unidade, .ruptura-categoria, .validade-cat, .subtab, .btn-copiar, .btn-limpar, .btn-cancelar, .btn-validade-add, .btn-calculadora, .btn-add-loja, .barra-selecao button";
+    const seletores = "button, .loja-card, .btn-acao, .btn-unidade, .ruptura-categoria, .validade-cat, .subtab, .btn-copiar, .btn-limpar, .btn-cancelar, .btn-validade-add, .btn-calculadora, .btn-add-loja, .barra-selecao button, .btn-lock-item";
     document.querySelectorAll(seletores).forEach(el=>{
         if(el.dataset.ripplePronto === "1") return;
         el.dataset.ripplePronto = "1";
@@ -3162,6 +3235,17 @@ function trocarSubAba(nome){
         aplicarTravaDados();
     }
 
+    /* Se está saindo de rupturas ou validades, limpa as liberações */
+    const painelRupturasAtivo = $("painelRupturas").classList.contains("ativo");
+    const painelValidadesAtivo = $("painelValidades").classList.contains("ativo");
+
+    if(painelRupturasAtivo && nome !== "rupturas"){
+        rupturasItensLiberados.clear();
+    }
+    if(painelValidadesAtivo && nome !== "validades"){
+        validadesItensLiberados.clear();
+    }
+
     if(nome === "dados"){
         const loja = getLoja(lojaAtiva);
         if(lojaTemDadosCompletos(loja) && !dadosDestravados){
@@ -3190,6 +3274,7 @@ function trocarSubAba(nome){
     if(nome === "validades"){
         atualizarTotalValidades();
         atualizarListaValidadesAdicionadas();
+        montarListaValidades();
     }
     if(nome === "share"){
         calcularLoja();
@@ -3199,6 +3284,10 @@ function trocarSubAba(nome){
     }
     if(nome === "notasValidades"){
         atualizarNotasValidadesInline();
+    }
+    if(nome === "rupturas"){
+        montarListaRupturas();
+        atualizarContadoresRuptura();
     }
     if(nome === "dados"){
         aplicarTravaDados();
@@ -3883,6 +3972,9 @@ function montarSelecaoLoja(tipo){
 function abrirFerramentaRupturas(i){
     lojaAtiva = i;
     dadosDestravados = false;
+    rupturasItensLiberados.clear();
+    validadesItensLiberados.clear();
+
     const lojas = carregarLojas();
     const nome = lojas[i].info.loja || `Loja ${i+1}`;
     $("tituloLojaAtiva").innerHTML = '<span class="ico">🏬</span> '+nome;
@@ -3908,6 +4000,8 @@ function abrirFerramentaRupturas(i){
 function fecharFerramentaRupturas(){
     $("modalLoja").classList.remove("aberto");
     dadosDestravados = false;
+    rupturasItensLiberados.clear();
+    validadesItensLiberados.clear();
     atualizarCardsLojas();
 }
 
@@ -3942,10 +4036,16 @@ function atualizarInfoLojaValidade(){
         '👨‍💼 '+(i.supervisor||"Não informado");
 }
 
+/* ============================================================
+   RUPTURAS — BLOQUEIO INDIVIDUAL
+   ============================================================ */
+
 function criarProdutoRuptura(nome,descricao,categoria){
     const chave = categoria+"|"+nome+"|"+descricao;
     const loja = getLoja(lojaAtiva);
     const rupturas = loja.rupturas || {};
+    const estaMarcado = !!rupturas[chave];
+    const estaLiberado = rupturasItensLiberados.has(chave);
 
     const div = document.createElement("label");
     div.className = "ruptura-produto";
@@ -3953,18 +4053,30 @@ function criarProdutoRuptura(nome,descricao,categoria){
 
     const cb = document.createElement("input");
     cb.type="checkbox"; cb.className="ruptura-checkbox";
-    cb.checked = !!rupturas[chave];
-    if(cb.checked) div.classList.add("selecionado");
+    cb.checked = estaMarcado;
+
+    if(estaMarcado && !estaLiberado){
+        div.classList.add("bloqueado");
+        cb.disabled = true;
+        cb.classList.add("bloqueado");
+    }
+    if(estaMarcado) div.classList.add("selecionado");
 
     cb.addEventListener("change", function(){
+        if(this.disabled) return;
         const l = getLoja(lojaAtiva);
         l.rupturas = l.rupturas || {};
         if(this.checked){ l.rupturas[chave] = {nome,descricao,categoria}; div.classList.add("selecionado"); }
-        else { delete l.rupturas[chave]; div.classList.remove("selecionado"); }
+        else {
+            delete l.rupturas[chave];
+            div.classList.remove("selecionado");
+            rupturasItensLiberados.delete(chave);
+        }
         setLoja(lojaAtiva, l);
         atualizarContadoresRuptura();
         atualizarCardsLojas();
         atualizarNotasRupturasInline();
+        montarListaRupturas();
     });
 
     const info = document.createElement("div");
@@ -3973,8 +4085,34 @@ function criarProdutoRuptura(nome,descricao,categoria){
                      '<div class="ruptura-produto-descricao">'+descricao+'</div>';
 
     div.appendChild(cb); div.appendChild(info);
+
+    if(estaMarcado){
+        const btnLock = document.createElement("button");
+        btnLock.type = "button";
+        btnLock.className = "btn-lock-item" + (estaLiberado ? " liberado" : "");
+        btnLock.textContent = estaLiberado ? "🔓" : "🔒";
+        btnLock.title = estaLiberado ? "Bloquear este item novamente" : "Liberar este item para edição";
+
+        btnLock.addEventListener("click", function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            if(rupturasItensLiberados.has(chave)){
+                rupturasItensLiberados.delete(chave);
+                mostrarToast("Item bloqueado novamente","🔒");
+            } else {
+                rupturasItensLiberados.add(chave);
+                mostrarToast("Item liberado para edição","🔓");
+            }
+            if(navigator.vibrate) navigator.vibrate(30);
+            montarListaRupturas();
+        });
+
+        div.appendChild(btnLock);
+    }
+
     return div;
 }
+
 function montarListaRupturas(){
     montarGrupo("listaCervejas210",cervejas210,"cerveja");
     montarGrupo("listaCervejas330",cervejas330,"cerveja");
@@ -4108,6 +4246,10 @@ function limparRupturas(){
     mostrarToast("Rupturas limpas.","🗑️");
 }
 
+/* ============================================================
+   VALIDADES — BLOQUEIO INDIVIDUAL
+   ============================================================ */
+
 function montarListaValidades(){
     montarGrupoValidade("validadeListaCervejas210",cervejas210,"cerveja");
     montarGrupoValidade("validadeListaCervejas330",cervejas330,"cerveja");
@@ -4142,6 +4284,7 @@ function criarItemValidade(nome,descricao,categoria){
     const v = loja.validades || {};
     const existentes = Object.keys(v).filter(k=>k.startsWith(chaveBase+"||"));
     const jaAdic = existentes.length>0;
+    const estaLiberado = validadesItensLiberados.has(chaveBase);
 
     const wrapper = document.createElement("div");
     wrapper.style.marginBottom="8px";
@@ -4151,12 +4294,17 @@ function criarItemValidade(nome,descricao,categoria){
     const itemDiv = document.createElement("div");
     itemDiv.className = "validade-produto-item";
     if(jaAdic) itemDiv.classList.add("ja-registrado");
+    if(jaAdic && !estaLiberado) itemDiv.classList.add("bloqueado");
+
+    const iconeAcao = (jaAdic && !estaLiberado) ? '🔒' : '➕';
+    const corIcone = (jaAdic && !estaLiberado) ? '#ffb900' : 'var(--win-accent)';
+
     itemDiv.innerHTML =
         '<div style="flex:1;">'+
         '<div style="font-size:13px;font-weight:500;color:#fff;">'+emojiProduto(nome)+' '+nome+'</div>'+
         '<div style="color:var(--win-text-secondary);font-size:11px;margin-top:3px;font-weight:400;">'+descricao+
         (jaAdic?' • <span style="font-weight:600;">✅ JÁ REGISTRADO ('+existentes.length+')</span>':'')+
-        '</div></div><span style="color:var(--win-accent);font-size:20px;font-weight:600;">➕</span>';
+        '</div></div><span style="color:'+corIcone+';font-size:20px;font-weight:600;">'+iconeAcao+'</span>';
 
     const controles = document.createElement("div");
     controles.className = "validade-controles";
@@ -4175,6 +4323,10 @@ function criarItemValidade(nome,descricao,categoria){
     controles.appendChild(inpQ); controles.appendChild(inpD); controles.appendChild(btnA);
 
     itemDiv.addEventListener("click", function(){
+        if(jaAdic && !validadesItensLiberados.has(chaveBase)){
+            mostrarToast("Produto já registrado. Use o cadeado 🔒 para liberar.","🔒");
+            return;
+        }
         const aberto = controles.style.display !== "none";
         document.querySelectorAll("#painelValidades .validade-controles").forEach(el=>{
             el.style.display="none";
@@ -4210,6 +4362,35 @@ function criarItemValidade(nome,descricao,categoria){
     });
 
     wrapper.appendChild(itemDiv);
+
+    // Botão cadeado individual para produtos JÁ REGISTRADOS
+    if(jaAdic){
+        const btnLock = document.createElement("button");
+        btnLock.type = "button";
+        btnLock.className = "btn-lock-item" + (estaLiberado ? " liberado" : "");
+        btnLock.textContent = estaLiberado ? "🔓" : "🔒";
+        btnLock.title = estaLiberado ? "Bloquear este produto novamente" : "Liberar para adicionar/editar lotes";
+        btnLock.style.marginTop = "6px";
+        btnLock.style.width = "100%";
+        btnLock.style.height = "34px";
+
+        btnLock.addEventListener("click", function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            if(validadesItensLiberados.has(chaveBase)){
+                validadesItensLiberados.delete(chaveBase);
+                mostrarToast("Produto bloqueado novamente","🔒");
+            } else {
+                validadesItensLiberados.add(chaveBase);
+                mostrarToast("Produto liberado — pode adicionar/editar lotes","🔓");
+            }
+            if(navigator.vibrate) navigator.vibrate(30);
+            montarListaValidades();
+        });
+
+        wrapper.appendChild(btnLock);
+    }
+
     wrapper.appendChild(controles);
     return wrapper;
 }
@@ -4242,6 +4423,9 @@ function atualizarListaValidadesAdicionadas(){
     c.innerHTML = "";
 
     lista.forEach(g=>{
+        const chaveGrupo = g.nome+"|"+g.descricao+"|"+g.data;
+        const estaLiberado = validadesItensLiberados.has(chaveGrupo);
+
         const wrapper = document.createElement("div");
         wrapper.style.marginBottom = "8px";
 
@@ -4278,9 +4462,31 @@ function atualizarListaValidadesAdicionadas(){
         const acoes = document.createElement("div");
         acoes.style.display="flex"; acoes.style.gap="6px"; acoes.style.flexShrink="0";
 
+        // Botão cadeado individual
+        const btnLock = document.createElement("button");
+        btnLock.className = "btn-lock-item" + (estaLiberado ? " liberado" : "");
+        btnLock.type = "button";
+        btnLock.textContent = estaLiberado ? "🔓" : "🔒";
+        btnLock.title = estaLiberado ? "Bloquear este item novamente" : "Liberar este item para edição/exclusão";
+        btnLock.addEventListener("click", function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            if(validadesItensLiberados.has(chaveGrupo)){
+                validadesItensLiberados.delete(chaveGrupo);
+                mostrarToast("Item bloqueado novamente","🔒");
+            } else {
+                validadesItensLiberados.add(chaveGrupo);
+                mostrarToast("Item liberado para edição","🔓");
+            }
+            if(navigator.vibrate) navigator.vibrate(30);
+            atualizarListaValidadesAdicionadas();
+        });
+        acoes.appendChild(btnLock);
+
+        // Botão editar (lápis) — só ativo se liberado
         const btnE = document.createElement("button");
-        btnE.className = "validade-item-editar";
-        btnE.innerHTML = '✏️';
+        btnE.className = "validade-item-editar" + (estaLiberado ? " liberado" : " bloqueado");
+        btnE.innerHTML = estaLiberado ? '✏️' : '🔒';
         acoes.appendChild(btnE);
         div.appendChild(acoes);
 
@@ -4305,6 +4511,10 @@ function atualizarListaValidadesAdicionadas(){
 
         btnE.addEventListener("click", function(e){
             e.stopPropagation();
+            if(!validadesItensLiberados.has(chaveGrupo)){
+                mostrarToast("Use o cadeado 🔒 ao lado para liberar","🔒");
+                return;
+            }
             const ab = painel.style.display !== "none";
             painel.style.display = ab ? "none" : "flex";
             if(!ab){ iQ.value=g.quantidade; iD.value=g.data; }
@@ -4314,6 +4524,10 @@ function atualizarListaValidadesAdicionadas(){
         bC.addEventListener("click", function(){ painel.style.display="none"; });
 
         bS.addEventListener("click", function(){
+            if(!validadesItensLiberados.has(chaveGrupo)){
+                mostrarToast("Use o cadeado 🔒 para liberar este item","🔒");
+                return;
+            }
             const q = parseInt(iQ.value)||0;
             const d = iD.value;
             if(q<=0){ mostrarToast("Informe uma quantidade válida.","⚠️"); return; }
@@ -4328,6 +4542,10 @@ function atualizarListaValidadesAdicionadas(){
             chaves.slice(1).forEach(k=> delete l.validades[k]);
             setLoja(lojaAtiva, l);
 
+            validadesItensLiberados.delete(chaveGrupo);
+            const novaChave = g.nome+"|"+g.descricao+"|"+d;
+            validadesItensLiberados.add(novaChave);
+
             atualizarListaValidadesAdicionadas();
             atualizarTotalValidades();
             atualizarNotasValidadesInline();
@@ -4341,11 +4559,16 @@ function atualizarListaValidadesAdicionadas(){
 
         function iP(e){
             if(e.target.closest(".validade-item-editar")) return;
+            if(e.target.closest(".btn-lock-item")) return;
             if(e.target.closest(".validade-controles")) return;
             if(e.touches && e.touches[0]){ sx=e.touches[0].clientX; sy=e.touches[0].clientY; }
             else { sx=e.clientX; sy=e.clientY; }
             clearTimeout(pT);
             pT = setTimeout(function(){
+                if(!validadesItensLiberados.has(chaveGrupo)){
+                    mostrarToast("Use o cadeado 🔒 para liberar este item","🔒");
+                    return;
+                }
                 if(navigator.vibrate) navigator.vibrate(60);
                 abrirExcluirValidade(g);
             }, TEMPO);
