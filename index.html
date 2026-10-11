@@ -28,8 +28,7 @@
 }
 
 html,body{
-    margin:0;
-    padding:0;
+    margin:0; padding:0;
     background:var(--jarvis-bg);
     color:var(--jarvis-text);
     font-family:'Segoe UI','Orbitron','Rajdhani',-apple-system,Arial,sans-serif;
@@ -49,11 +48,9 @@ body{
     position:relative;
 }
 
-/* Grid estático (sem animação — muito mais leve) */
 body::before{
     content:"";
-    position:fixed;
-    inset:0;
+    position:fixed; inset:0;
     background-image:
         linear-gradient(rgba(0,212,255,.04) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0,212,255,.04) 1px, transparent 1px);
@@ -77,21 +74,16 @@ button{ cursor:pointer; }
 /* ================= SPLASH ================= */
 
 #splash{
-    position:fixed;
-    inset:0;
+    position:fixed; inset:0;
     background:radial-gradient(circle at 50% 50%, #001a3a 0%, #000a18 60%, #000000 100%);
     z-index:9999;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center; overflow:hidden;
 }
 
 #splash::before{
     content:"";
-    position:absolute;
-    inset:0;
+    position:absolute; inset:0;
     background-image:
         linear-gradient(rgba(0,212,255,.08) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0,212,255,.08) 1px, transparent 1px);
@@ -99,94 +91,28 @@ button{ cursor:pointer; }
     pointer-events:none;
 }
 
-.splash-box{
-    position:relative;
-    width:92%;
-    max-width:520px;
-    padding:32px 20px;
-    z-index:2;
-}
+.splash-box{ position:relative; width:92%; max-width:520px; padding:32px 20px; z-index:2; }
+.jarvis-core{ position:relative; width:180px; height:180px; margin:0 auto 24px; display:flex; align-items:center; justify-content:center; }
+.jarvis-ring{ position:absolute; border-radius:50%; border:2px solid var(--jarvis-cyan); opacity:.85; will-change:transform; }
 
-.jarvis-core{
-    position:relative;
-    width:180px;
-    height:180px;
-    margin:0 auto 24px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.jarvis-ring{
-    position:absolute;
-    border-radius:50%;
-    border:2px solid var(--jarvis-cyan);
-    opacity:.85;
-    will-change:transform;
-}
-
-.jarvis-ring.r1{
-    width:180px; height:180px;
-    border-style:dashed;
-    animation:spin 10s linear infinite;
-}
-.jarvis-ring.r2{
-    width:145px; height:145px;
-    border-width:1px;
-    border-color:var(--jarvis-blue);
-    animation:spin 8s linear infinite reverse;
-    opacity:.6;
-}
-.jarvis-ring.r3{
-    width:110px; height:110px;
-    border-style:dotted;
-    border-width:3px;
-    animation:spin 5s linear infinite;
-}
-.jarvis-ring.r4{
-    width:75px; height:75px;
-    border-width:1px;
-    animation:spin 4s linear infinite reverse;
-    opacity:.7;
-}
+.jarvis-ring.r1{ width:180px; height:180px; border-style:dashed; animation:spin 10s linear infinite; }
+.jarvis-ring.r2{ width:145px; height:145px; border-width:1px; border-color:var(--jarvis-blue); animation:spin 8s linear infinite reverse; opacity:.6; }
+.jarvis-ring.r3{ width:110px; height:110px; border-style:dotted; border-width:3px; animation:spin 5s linear infinite; }
+.jarvis-ring.r4{ width:75px; height:75px; border-width:1px; animation:spin 4s linear infinite reverse; opacity:.7; }
 
 .jarvis-center{
-    position:absolute;
-    width:45px;
-    height:45px;
-    border-radius:50%;
+    position:absolute; width:45px; height:45px; border-radius:50%;
     background:radial-gradient(circle, #aee8ff 0%, var(--jarvis-cyan) 45%, var(--jarvis-blue) 85%, transparent 100%);
     box-shadow:0 0 25px var(--jarvis-cyan), 0 0 50px rgba(0,212,255,.5);
-    animation:pulseCore 2s ease-in-out infinite;
-    z-index:3;
+    animation:pulseCore 2s ease-in-out infinite; z-index:3;
     will-change:transform, filter;
 }
 
 @keyframes spin{ to{ transform:rotate(360deg); } }
+@keyframes pulseCore{ 0%,100%{ transform:scale(1); filter:brightness(1); } 50%{ transform:scale(1.15); filter:brightness(1.35); } }
 
-@keyframes pulseCore{
-    0%,100%{ transform:scale(1); filter:brightness(1); }
-    50%{ transform:scale(1.15); filter:brightness(1.35); }
-}
-
-.jarvis-wave{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:4px;
-    height:30px;
-    margin-top:18px;
-}
-
-.jarvis-wave span{
-    display:block;
-    width:3px;
-    background:linear-gradient(180deg, var(--jarvis-cyan), var(--jarvis-blue));
-    border-radius:2px;
-    animation:wave 1.2s ease-in-out infinite;
-    will-change:transform;
-}
-
+.jarvis-wave{ display:flex; align-items:center; justify-content:center; gap:4px; height:30px; margin-top:18px; }
+.jarvis-wave span{ display:block; width:3px; background:linear-gradient(180deg, var(--jarvis-cyan), var(--jarvis-blue)); border-radius:2px; animation:wave 1.2s ease-in-out infinite; will-change:transform; }
 .jarvis-wave span:nth-child(1){ animation-delay:0s; height:8px; }
 .jarvis-wave span:nth-child(2){ animation-delay:.1s; height:20px; }
 .jarvis-wave span:nth-child(3){ animation-delay:.2s; height:14px; }
@@ -197,19 +123,12 @@ button{ cursor:pointer; }
 .jarvis-wave span:nth-child(8){ animation-delay:.7s; height:22px; }
 .jarvis-wave span:nth-child(9){ animation-delay:.8s; height:10px; }
 
-@keyframes wave{
-    0%,100%{ transform:scaleY(.4); opacity:.6; }
-    50%{ transform:scaleY(1.4); opacity:1; }
-}
+@keyframes wave{ 0%,100%{ transform:scaleY(.4); opacity:.6; } 50%{ transform:scaleY(1.4); opacity:1; } }
 
 .splash-title{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:34px;
-    font-weight:700;
-    margin-top:20px;
-    color:var(--jarvis-cyan);
-    letter-spacing:5px;
-    text-transform:uppercase;
+    font-size:34px; font-weight:700; margin-top:20px;
+    color:var(--jarvis-cyan); letter-spacing:5px; text-transform:uppercase;
     text-shadow:0 0 25px rgba(0,212,255,.8);
     animation:fadeInUp .8s var(--ease-fluent) .3s both;
 }
@@ -217,104 +136,41 @@ button{ cursor:pointer; }
 .splash-status{
     margin-top:24px;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:12px;
-    color:var(--jarvis-cyan);
-    letter-spacing:4px;
-    text-transform:uppercase;
+    font-size:12px; color:var(--jarvis-cyan);
+    letter-spacing:4px; text-transform:uppercase;
     animation:fadeInUp .8s var(--ease-fluent) .8s both;
 }
 
-.splash-status .dots::after{
-    content:"";
-    animation:dots 1.5s steps(4) infinite;
-}
-
-@keyframes dots{
-    0%{ content:""; }
-    25%{ content:"."; }
-    50%{ content:".."; }
-    75%{ content:"..."; }
-}
+.splash-status .dots::after{ content:""; animation:dots 1.5s steps(4) infinite; }
+@keyframes dots{ 0%{ content:""; } 25%{ content:"."; } 50%{ content:".."; } 75%{ content:"..."; } }
 
 .jarvis-loading{
-    width:100%;
-    height:2px;
-    background:rgba(0,212,255,.1);
-    overflow:hidden;
-    margin-top:24px;
-    border-radius:2px;
-    position:relative;
+    width:100%; height:2px; background:rgba(0,212,255,.1); overflow:hidden;
+    margin-top:24px; border-radius:2px; position:relative;
     animation:fadeInUp .8s var(--ease-fluent) 1s both;
 }
 
 .jarvis-loading::after{
-    content:"";
-    position:absolute;
-    inset:0;
+    content:""; position:absolute; inset:0;
     background:linear-gradient(90deg, transparent, var(--jarvis-cyan), #aee8ff, var(--jarvis-cyan), transparent);
-    animation:jarvisLoad 2.5s linear infinite;
-    will-change:transform;
+    animation:jarvisLoad 2.5s linear infinite; will-change:transform;
 }
 
-@keyframes jarvisLoad{
-    0%{ transform:translateX(-100%); }
-    100%{ transform:translateX(100%); }
-}
-
-@keyframes fadeInUp{
-    from{ opacity:0; transform:translateY(12px); }
-    to{ opacity:1; transform:translateY(0); }
-}
-
+@keyframes jarvisLoad{ 0%{ transform:translateX(-100%); } 100%{ transform:translateX(100%); } }
+@keyframes fadeInUp{ from{ opacity:0; transform:translateY(12px); } to{ opacity:1; transform:translateY(0); } }
 @keyframes fadeIn{ from{ opacity:0; } to{ opacity:1; } }
-@keyframes popIn{
-    0%{ opacity:0; transform:scale(.85); }
-    100%{ opacity:1; transform:scale(1); }
-}
-@keyframes tileAppear{
-    0%{ opacity:0; transform:translateY(16px); }
-    100%{ opacity:1; transform:translateY(0); }
-}
-@keyframes slideInRight{
-    from{ opacity:0; transform:translateX(30px); }
-    to{ opacity:1; transform:translateX(0); }
-}
-@keyframes ripple{
-    0%{ transform:scale(0); opacity:.6; }
-    100%{ transform:scale(4); opacity:0; }
-}
-@keyframes shake{
-    0%,100%{ transform:translateX(0); }
-    25%{ transform:translateX(-4px); }
-    75%{ transform:translateX(4px); }
-}
-@keyframes iconPop{
-    0%{ transform:scale(1); }
-    50%{ transform:scale(1.25); }
-    100%{ transform:scale(1); }
-}
-@keyframes pulseWarning{
-    0%,100%{ box-shadow:0 0 0 0 rgba(255,185,0,.4); }
-    50%{ box-shadow:0 0 0 8px rgba(255,185,0,0); }
-}
-@keyframes pulseError{
-    0%,100%{ background:rgba(255,45,85,.15); }
-    50%{ background:rgba(255,45,85,.35); }
-}
-@keyframes floatIcon{
-    0%,100%{ transform:translateY(0); }
-    50%{ transform:translateY(-3px); }
-}
+@keyframes popIn{ 0%{ opacity:0; transform:scale(.85); } 100%{ opacity:1; transform:scale(1); } }
+@keyframes tileAppear{ 0%{ opacity:0; transform:translateY(16px); } 100%{ opacity:1; transform:translateY(0); } }
+@keyframes slideInRight{ from{ opacity:0; transform:translateX(30px); } to{ opacity:1; transform:translateX(0); } }
+@keyframes ripple{ 0%{ transform:scale(0); opacity:.6; } 100%{ transform:scale(4); opacity:0; } }
+@keyframes shake{ 0%,100%{ transform:translateX(0); } 25%{ transform:translateX(-4px); } 75%{ transform:translateX(4px); } }
+@keyframes iconPop{ 0%{ transform:scale(1); } 50%{ transform:scale(1.25); } 100%{ transform:scale(1); } }
+@keyframes pulseWarning{ 0%,100%{ box-shadow:0 0 0 0 rgba(255,185,0,.4); } 50%{ box-shadow:0 0 0 8px rgba(255,185,0,0); } }
+@keyframes pulseError{ 0%,100%{ background:rgba(255,45,85,.15); } 50%{ background:rgba(255,45,85,.35); } }
+@keyframes floatIcon{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-3px); } }
 
 .btn-ripple{ position:relative; overflow:hidden; }
-.ripple-efecto{
-    position:absolute;
-    border-radius:50%;
-    background:radial-gradient(circle, rgba(0,212,255,.6) 0%, rgba(0,212,255,0) 70%);
-    transform:scale(0);
-    animation:ripple .6s var(--ease-fluent);
-    pointer-events:none;
-}
+.ripple-efecto{ position:absolute; border-radius:50%; background:radial-gradient(circle, rgba(0,212,255,.6) 0%, rgba(0,212,255,0) 70%); transform:scale(0); animation:ripple .6s var(--ease-fluent); pointer-events:none; }
 
 /* ================= HEADER ================= */
 
@@ -322,280 +178,123 @@ button{ cursor:pointer; }
     padding:12px 20px;
     background:rgba(0,20,40,.9);
     border-bottom:1px solid var(--jarvis-border);
-    position:sticky;
-    top:0;
-    z-index:100;
+    position:sticky; top:0; z-index:100;
     box-shadow:0 4px 20px rgba(0,212,255,.12);
 }
 
 .logo{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:16px;
-    font-weight:700;
-    color:var(--jarvis-cyan);
-    letter-spacing:2px;
-    display:flex;
-    align-items:center;
-    gap:8px;
+    font-size:16px; font-weight:700;
+    color:var(--jarvis-cyan); letter-spacing:2px;
+    display:flex; align-items:center; gap:8px;
     text-transform:uppercase;
     text-shadow:0 0 12px rgba(0,212,255,.6);
 }
 
-.logo .ico{
-    font-size:20px;
-    animation:floatIcon 3s ease-in-out infinite;
-}
+.logo .ico{ font-size:20px; animation:floatIcon 3s ease-in-out infinite; }
 
-.app-header .sub{
-    color:var(--jarvis-text-dim);
-    font-size:10.5px;
-    margin-top:2px;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-}
+.app-header .sub{ color:var(--jarvis-text-dim); font-size:10.5px; margin-top:2px; letter-spacing:1.5px; text-transform:uppercase; }
 
-.header-top{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    max-width:720px;
-    margin:0 auto;
-}
+.header-top{ display:flex; align-items:center; justify-content:space-between; gap:12px; max-width:720px; margin:0 auto; }
 
 .header-top .left,
 .header-top .right{
-    display:flex;
-    align-items:center;
-    gap:6px;
-    font-size:11px;
-    color:var(--jarvis-text-dim);
-    font-weight:600;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
+    display:flex; align-items:center; gap:6px;
+    font-size:11px; color:var(--jarvis-text-dim);
+    font-weight:600; letter-spacing:1.5px; text-transform:uppercase;
     font-family:'Orbitron','Segoe UI',sans-serif;
 }
 
-.header-top .right .ico{
-    font-size:14px;
-    color:var(--jarvis-cyan);
-}
+.header-top .right .ico{ font-size:14px; color:var(--jarvis-cyan); }
 
-.dot-online{
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    background:var(--jarvis-success);
-    display:inline-block;
-    box-shadow:0 0 8px var(--jarvis-success);
-}
-
-.dot-online.offline{
-    background:var(--jarvis-error);
-    box-shadow:0 0 8px var(--jarvis-error);
-}
+.dot-online{ width:8px; height:8px; border-radius:50%; background:var(--jarvis-success); display:inline-block; box-shadow:0 0 8px var(--jarvis-success); }
+.dot-online.offline{ background:var(--jarvis-error); box-shadow:0 0 8px var(--jarvis-error); }
 
 /* ================= CONTEÚDO ================= */
 
-.container{
-    width:100%;
-    max-width:720px;
-    margin:auto;
-    padding:14px 20px 0;
-    position:relative;
-    z-index:1;
-}
+.container{ width:100%; max-width:720px; margin:auto; padding:14px 20px 0; position:relative; z-index:1; }
 
 .card{
     background:var(--jarvis-panel);
     border:1px solid var(--jarvis-border);
     border-radius:8px;
-    padding:18px;
-    margin-top:14px;
+    padding:18px; margin-top:14px;
     animation:tileAppear .4s var(--ease-fluent) both;
     box-shadow:0 4px 20px rgba(0,212,255,.08), inset 0 1px 0 rgba(0,212,255,.15);
-    position:relative;
-    overflow:hidden;
+    position:relative; overflow:hidden;
 }
 
-.card::before{
-    content:"";
-    position:absolute;
-    top:0;
-    left:0;
-    width:20px;
-    height:20px;
-    border-top:2px solid var(--jarvis-cyan);
-    border-left:2px solid var(--jarvis-cyan);
-}
-
-.card::after{
-    content:"";
-    position:absolute;
-    bottom:0;
-    right:0;
-    width:20px;
-    height:20px;
-    border-bottom:2px solid var(--jarvis-cyan);
-    border-right:2px solid var(--jarvis-cyan);
-}
+.card::before{ content:""; position:absolute; top:0; left:0; width:20px; height:20px; border-top:2px solid var(--jarvis-cyan); border-left:2px solid var(--jarvis-cyan); }
+.card::after{ content:""; position:absolute; bottom:0; right:0; width:20px; height:20px; border-bottom:2px solid var(--jarvis-cyan); border-right:2px solid var(--jarvis-cyan); }
 
 .card-title{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:14px;
-    font-weight:700;
-    margin-bottom:14px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    color:var(--jarvis-text);
-    letter-spacing:2px;
-    text-transform:uppercase;
+    font-size:14px; font-weight:700; margin-bottom:14px;
+    display:flex; align-items:center; gap:10px;
+    color:var(--jarvis-text); letter-spacing:2px; text-transform:uppercase;
 }
 
-.card-title .ico{
-    font-size:18px;
-    animation:floatIcon 3s ease-in-out infinite;
-}
+.card-title .ico{ font-size:18px; animation:floatIcon 3s ease-in-out infinite; }
 
 .card-title .badge{
     margin-left:auto;
     font-family:'Orbitron','Segoe UI',sans-serif;
     font-size:10px;
     background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue));
-    color:#001428;
-    padding:4px 10px;
-    font-weight:700;
-    border-radius:4px;
-    animation:popIn .4s var(--ease-fluent);
-    letter-spacing:1.5px;
+    color:#001428; padding:4px 10px; font-weight:700; border-radius:4px;
+    animation:popIn .4s var(--ease-fluent); letter-spacing:1.5px;
 }
 
 /* ================= LOJAS ================= */
 
-.lojas-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-    margin-top:10px;
-}
+.lojas-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:10px; }
 
 .loja-card{
     background:rgba(0,30,60,.6);
     border:1px solid var(--jarvis-border);
-    border-radius:6px;
-    padding:14px 12px;
-    text-align:left;
+    border-radius:6px; padding:14px 12px; text-align:left;
     color:var(--jarvis-text);
-    display:flex;
-    flex-direction:column;
-    gap:8px;
+    display:flex; flex-direction:column; gap:8px;
     transition:background .2s, border-color .2s, transform .2s;
-    position:relative;
-    overflow:hidden;
-    user-select:none;
-    -webkit-user-select:none;
-    -webkit-touch-callout:none;
+    position:relative; overflow:hidden;
+    user-select:none; -webkit-user-select:none; -webkit-touch-callout:none;
     animation:tileAppear .4s var(--ease-fluent) both;
     min-height:130px;
 }
 
-.loja-card:active{
-    transform:scale(.97);
-    background:rgba(0,60,120,.7);
-}
+.loja-card:active{ transform:scale(.97); background:rgba(0,60,120,.7); }
 
-.loja-card.cadastrada{
-    background:linear-gradient(135deg, rgba(0,80,160,.5) 0%, rgba(0,40,90,.5) 100%);
-    border-color:var(--jarvis-cyan);
-}
+.loja-card.cadastrada{ background:linear-gradient(135deg, rgba(0,80,160,.5) 0%, rgba(0,40,90,.5) 100%); border-color:var(--jarvis-cyan); }
+.loja-card.cadastrada::before{ content:"✅"; position:absolute; top:8px; right:10px; font-size:14px; }
 
-.loja-card.cadastrada::before{
-    content:"✅";
-    position:absolute;
-    top:8px;
-    right:10px;
-    font-size:14px;
-}
+.loja-card.cadastrada-com-rupturas{ background:linear-gradient(135deg, rgba(120,0,160,.4) 0%, rgba(60,0,90,.4) 100%); border-color:#b44fff; }
+.loja-card.cadastrada-com-rupturas::before{ content:"📋"; position:absolute; top:8px; right:10px; font-size:14px; }
 
-.loja-card.cadastrada-com-rupturas{
-    background:linear-gradient(135deg, rgba(120,0,160,.4) 0%, rgba(60,0,90,.4) 100%);
-    border-color:#b44fff;
-}
+.loja-card.pendente{ background:linear-gradient(135deg, rgba(255,185,0,.2) 0%, rgba(230,156,0,.15) 100%); border-color:var(--jarvis-warning); animation:pulseWarning 2s infinite; }
+.loja-card.pendente::before{ content:"⚠️"; position:absolute; top:8px; right:10px; font-size:16px; }
 
-.loja-card.cadastrada-com-rupturas::before{
-    content:"📋";
-    position:absolute;
-    top:8px;
-    right:10px;
-    font-size:14px;
-}
-
-.loja-card.pendente{
-    background:linear-gradient(135deg, rgba(255,185,0,.2) 0%, rgba(230,156,0,.15) 100%);
-    border-color:var(--jarvis-warning);
-    animation:pulseWarning 2s infinite;
-}
-
-.loja-card.pendente::before{
-    content:"⚠️";
-    position:absolute;
-    top:8px;
-    right:10px;
-    font-size:16px;
-}
-
-.loja-card.alerta-amarelo{
-    background:linear-gradient(135deg, rgba(255,185,0,.25), rgba(230,156,0,.2));
-    border-color:var(--jarvis-warning);
-}
-
-.loja-card.alerta-vermelho{
-    background:linear-gradient(135deg, rgba(255,45,85,.25), rgba(200,15,50,.25));
-    border-color:var(--jarvis-error);
-    animation:pulseError 1s ease-in-out infinite;
-}
+.loja-card.alerta-amarelo{ background:linear-gradient(135deg, rgba(255,185,0,.25), rgba(230,156,0,.2)); border-color:var(--jarvis-warning); }
+.loja-card.alerta-vermelho{ background:linear-gradient(135deg, rgba(255,45,85,.25), rgba(200,15,50,.25)); border-color:var(--jarvis-error); animation:pulseError 1s ease-in-out infinite; }
 
 .loja-alerta-faixa{
-    display:flex;
-    align-items:center;
-    gap:6px;
-    padding:5px 10px;
+    display:flex; align-items:center; gap:6px; padding:5px 10px;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:9px;
-    font-weight:700;
-    letter-spacing:1px;
-    text-transform:uppercase;
-    margin-bottom:4px;
-    background:rgba(0,0,0,.5);
-    border-radius:3px;
-    color:#fff;
+    font-size:9px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+    margin-bottom:4px; background:rgba(0,0,0,.5); border-radius:3px; color:#fff;
 }
 
 .loja-alerta-faixa.verde{ background:rgba(0,255,157,.3); color:#00ff9d; }
 .loja-alerta-faixa.amarelo{ background:rgba(255,185,0,.3); color:#ffb900; }
 .loja-alerta-faixa.vermelho{ background:rgba(255,45,85,.5); color:#fff; }
 
-.loja-status-linha{
-    display:flex;
-    gap:5px;
-    flex-wrap:wrap;
-    margin-top:4px;
-}
+.loja-status-linha{ display:flex; gap:5px; flex-wrap:wrap; margin-top:4px; }
 
 .loja-status-mini{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:9px;
-    font-weight:700;
-    padding:3px 8px;
-    letter-spacing:.5px;
-    display:inline-flex;
-    align-items:center;
-    gap:3px;
-    background:rgba(0,212,255,.15);
-    border-radius:3px;
-    color:var(--jarvis-text);
-    border:1px solid rgba(0,212,255,.2);
+    font-size:9px; font-weight:700; padding:3px 8px;
+    letter-spacing:.5px; display:inline-flex; align-items:center; gap:3px;
+    background:rgba(0,212,255,.15); border-radius:3px;
+    color:var(--jarvis-text); border:1px solid rgba(0,212,255,.2);
 }
 
 .loja-status-mini.ruptura{ background:rgba(255,45,85,.3); color:#ff8fa5; border-color:rgba(255,45,85,.4); }
@@ -603,251 +302,118 @@ button{ cursor:pointer; }
 .loja-status-mini.amarelo{ background:rgba(255,185,0,.25); color:#ffb900; border-color:rgba(255,185,0,.4); }
 .loja-status-mini.vermelho{ background:rgba(255,45,85,.35); color:#fff; border-color:rgba(255,45,85,.5); }
 
-.loja-card.modo-selecao{
-    outline:1px dashed var(--jarvis-cyan);
-    outline-offset:-4px;
-}
+.loja-card.modo-selecao{ outline:1px dashed var(--jarvis-cyan); outline-offset:-4px; }
 
 .loja-card.selecionada{
     background:linear-gradient(135deg, rgba(0,212,255,.4), rgba(0,136,255,.4));
     border-color:var(--jarvis-cyan);
-    outline:2px solid var(--jarvis-cyan);
-    outline-offset:-2px;
+    outline:2px solid var(--jarvis-cyan); outline-offset:-2px;
     animation:shake .4s var(--ease-fluent);
 }
 
-.loja-card.selecionada::before{
-    content:"✅";
-    position:absolute;
-    top:8px;
-    right:10px;
-    font-size:14px;
-}
+.loja-card.selecionada::before{ content:"✅"; position:absolute; top:8px; right:10px; font-size:14px; }
 
 .loja-check{
-    position:absolute;
-    top:8px;
-    right:10px;
-    width:22px;
-    height:22px;
-    background:rgba(0,212,255,.1);
-    border:2px solid rgba(0,212,255,.6);
-    border-radius:3px;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    font-size:13px;
-    font-weight:700;
-    color:var(--jarvis-cyan);
+    position:absolute; top:8px; right:10px; width:22px; height:22px;
+    background:rgba(0,212,255,.1); border:2px solid rgba(0,212,255,.6);
+    border-radius:3px; display:none; align-items:center; justify-content:center;
+    font-size:13px; font-weight:700; color:var(--jarvis-cyan);
 }
 
 .loja-card.modo-selecao .loja-check{ display:flex; }
-.loja-card.selecionada .loja-check{
-    background:var(--jarvis-cyan);
-    border-color:var(--jarvis-cyan);
-    color:#001428;
-}
+.loja-card.selecionada .loja-check{ background:var(--jarvis-cyan); border-color:var(--jarvis-cyan); color:#001428; }
 .loja-card.selecionada::before{ display:none; }
 
-.loja-card-topo{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:6px;
-}
-
-.loja-card-icone{
-    font-size:22px;
-    display:flex;
-    align-items:center;
-    line-height:1;
-}
+.loja-card-topo{ display:flex; align-items:center; justify-content:space-between; gap:6px; }
+.loja-card-icone{ font-size:22px; display:flex; align-items:center; line-height:1; }
 
 .loja-card-badge{
-    min-width:24px;
-    height:24px;
-    padding:0 8px;
-    background:rgba(0,0,0,.6);
-    color:var(--jarvis-cyan);
+    min-width:24px; height:24px; padding:0 8px;
+    background:rgba(0,0,0,.6); color:var(--jarvis-cyan);
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:10px;
-    font-weight:700;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:12px;
-    border:1px solid rgba(0,212,255,.4);
+    font-size:10px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+    border-radius:12px; border:1px solid rgba(0,212,255,.4);
 }
 
-.loja-card-badge.zero{
-    background:rgba(0,212,255,.1);
-    color:var(--jarvis-text-dim);
-    border-color:rgba(0,212,255,.2);
-}
+.loja-card-badge.zero{ background:rgba(0,212,255,.1); color:var(--jarvis-text-dim); border-color:rgba(0,212,255,.2); }
 
-.loja-card-nome{
-    font-size:13.5px;
-    font-weight:600;
-    line-height:1.3;
-    word-break:break-word;
-    color:var(--jarvis-text);
-}
-
-.loja-card-nome.vazio{
-    color:var(--jarvis-text-disabled);
-    font-style:italic;
-    font-weight:400;
-}
-
-.loja-card-info{
-    font-size:11px;
-    color:var(--jarvis-text-dim);
-    line-height:1.4;
-    word-break:break-word;
-}
+.loja-card-nome{ font-size:13.5px; font-weight:600; line-height:1.3; word-break:break-word; color:var(--jarvis-text); }
+.loja-card-nome.vazio{ color:var(--jarvis-text-disabled); font-style:italic; font-weight:400; }
+.loja-card-info{ font-size:11px; color:var(--jarvis-text-dim); line-height:1.4; word-break:break-word; }
 
 .loja-card-status{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:9px;
-    color:var(--jarvis-cyan);
-    font-weight:600;
-    letter-spacing:1px;
-    text-transform:uppercase;
-    display:flex;
-    align-items:center;
-    gap:5px;
+    font-size:9px; color:var(--jarvis-cyan); font-weight:600;
+    letter-spacing:1px; text-transform:uppercase;
+    display:flex; align-items:center; gap:5px;
 }
 
 .btn-add-loja{
-    grid-column:1/-1;
-    width:100%;
+    grid-column:1/-1; width:100%;
     border:1px dashed var(--jarvis-cyan);
-    background:rgba(0,212,255,.08);
-    color:var(--jarvis-cyan);
+    background:rgba(0,212,255,.08); color:var(--jarvis-cyan);
     padding:14px;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-weight:700;
-    font-size:11px;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    transition:background .2s, transform .15s;
-    margin-top:4px;
-    border-radius:6px;
+    font-weight:700; font-size:11px; letter-spacing:2px; text-transform:uppercase;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    transition:background .2s, transform .15s; margin-top:4px; border-radius:6px;
 }
 
-.btn-add-loja:active{
-    transform:scale(.97);
-    background:rgba(0,212,255,.2);
-}
-
+.btn-add-loja:active{ transform:scale(.97); background:rgba(0,212,255,.2); }
 .btn-add-loja .ico{ font-size:16px; }
 
 /* ================= AÇÕES RÁPIDAS ================= */
 
-.acoes-rapidas{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-top:14px;
-}
+.acoes-rapidas{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
 
 .btn-acao{
     border:1px solid var(--jarvis-border);
-    background:rgba(0,40,90,.6);
-    color:var(--jarvis-text);
-    font-weight:600;
-    font-size:11px;
-    padding:14px 12px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    letter-spacing:1px;
-    text-align:left;
-    transition:background .2s, transform .15s;
-    line-height:1.3;
-    border-radius:6px;
-    text-transform:uppercase;
+    background:rgba(0,40,90,.6); color:var(--jarvis-text);
+    font-weight:600; font-size:11px; padding:14px 12px;
+    display:flex; align-items:center; gap:10px;
+    letter-spacing:1px; text-align:left;
+    transition:background .2s, transform .15s; line-height:1.3;
+    border-radius:6px; text-transform:uppercase;
     font-family:'Orbitron','Segoe UI',sans-serif;
 }
 
-.btn-acao:active{
-    transform:scale(.97);
-    background:var(--jarvis-panel-hover);
-}
-
-.btn-acao .icone{
-    font-size:20px;
-    flex-shrink:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    line-height:1;
-}
-
+.btn-acao:active{ transform:scale(.97); background:var(--jarvis-panel-hover); }
+.btn-acao .icone{ font-size:20px; flex-shrink:0; display:flex; align-items:center; justify-content:center; line-height:1; }
 .btn-acao .txt{ flex:1; }
 
 .btn-acao .pill{
-    min-width:26px;
-    height:22px;
-    padding:0 8px;
+    min-width:26px; height:22px; padding:0 8px;
     background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue));
     color:#001428;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:10px;
-    font-weight:700;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:11px;
+    font-size:10px; font-weight:700;
+    display:flex; align-items:center; justify-content:center; border-radius:11px;
 }
 
 /* ================= BARRA SELEÇÃO ================= */
 
 .barra-selecao{
-    display:none;
-    align-items:center;
-    justify-content:space-between;
+    display:none; align-items:center; justify-content:space-between;
     background:linear-gradient(135deg, rgba(255,45,85,.2), rgba(200,15,50,.2));
     border:1px solid var(--jarvis-error);
-    padding:12px 14px;
-    margin-top:14px;
-    gap:10px;
-    animation:slideInRight .3s var(--ease-fluent) both;
-    border-radius:6px;
+    padding:12px 14px; margin-top:14px; gap:10px;
+    animation:slideInRight .3s var(--ease-fluent) both; border-radius:6px;
 }
 
 .barra-selecao.ativa{ display:flex; }
-
-.barra-selecao .contador{
-    font-size:12px;
-    font-weight:600;
-    color:var(--jarvis-text);
-    display:flex;
-    align-items:center;
-    gap:8px;
-}
-
+.barra-selecao .contador{ font-size:12px; font-weight:600; color:var(--jarvis-text); display:flex; align-items:center; gap:8px; }
 .barra-selecao .contador .ico{ font-size:16px; }
 .barra-selecao .contador b{ color:#fff; font-weight:700; }
-
 .barra-selecao .acoes{ display:flex; gap:8px; }
 
 .barra-selecao button{
-    border:none;
-    padding:8px 14px;
+    border:none; padding:8px 14px;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-weight:700;
-    font-size:10px;
-    color:#fff;
+    font-weight:700; font-size:10px; color:#fff;
     background:rgba(255,255,255,.1);
     transition:background .2s, transform .15s;
-    letter-spacing:1px;
-    border-radius:4px;
-    text-transform:uppercase;
+    letter-spacing:1px; border-radius:4px; text-transform:uppercase;
 }
 
 .barra-selecao button:active{ transform:scale(.94); }
@@ -857,180 +423,93 @@ button{ cursor:pointer; }
 /* ================= MODAIS ================= */
 
 .modal{
-    position:fixed;
-    inset:0;
-    z-index:5000;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:16px;
+    position:fixed; inset:0; z-index:5000; display:none;
+    align-items:center; justify-content:center; padding:16px;
     background:rgba(0,10,24,.85);
 }
 
-.modal.aberto{
-    display:flex;
-    animation:fadeIn .2s ease both;
-}
-
-.modal.aberto .modal-box{
-    animation:popIn .3s var(--ease-elastic) both;
-}
+.modal.aberto{ display:flex; animation:fadeIn .2s ease both; }
+.modal.aberto .modal-box{ animation:popIn .3s var(--ease-elastic) both; }
 
 .modal-box{
-    width:100%;
-    max-width:720px;
-    max-height:94vh;
-    overflow-y:auto;
+    width:100%; max-width:720px; max-height:94vh; overflow-y:auto;
     background:linear-gradient(180deg, rgba(0,20,40,.98) 0%, rgba(0,10,24,.98) 100%);
     border:1px solid var(--jarvis-border-strong);
-    border-radius:8px;
-    padding:20px;
+    border-radius:8px; padding:20px;
     box-shadow:0 20px 60px rgba(0,0,0,.8);
-    color:var(--jarvis-text);
-    position:relative;
+    color:var(--jarvis-text); position:relative;
 }
 
 .modal-box::before{
-    content:"";
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    height:2px;
+    content:""; position:absolute; top:0; left:0; right:0; height:2px;
     background:linear-gradient(90deg, transparent, var(--jarvis-cyan), transparent);
 }
 
 .modal-box.pequeno{ max-width:440px; }
 
 .modal-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    position:sticky;
-    top:0;
-    z-index:5;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px; position:sticky; top:0; z-index:5;
     background:rgba(0,20,40,.98);
-    padding:8px 0 14px;
-    margin-bottom:8px;
+    padding:8px 0 14px; margin-bottom:8px;
     border-bottom:1px solid var(--jarvis-border);
 }
 
 .modal-title{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:14px;
-    font-weight:700;
-    color:var(--jarvis-text);
-    letter-spacing:2px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    text-transform:uppercase;
+    font-size:14px; font-weight:700;
+    color:var(--jarvis-text); letter-spacing:2px;
+    display:flex; align-items:center; gap:10px; text-transform:uppercase;
 }
 
 .modal-title .ico{ font-size:18px; }
-
 .modal-sub{ color:var(--jarvis-text-dim); font-size:11px; margin-top:3px; letter-spacing:.5px; }
 
 .fechar{
-    width:36px;
-    height:36px;
+    width:36px; height:36px;
     border:1px solid var(--jarvis-border);
-    background:rgba(0,40,90,.3);
-    color:var(--jarvis-cyan);
-    font-size:16px;
-    font-weight:600;
-    flex-shrink:0;
+    background:rgba(0,40,90,.3); color:var(--jarvis-cyan);
+    font-size:16px; font-weight:600; flex-shrink:0;
     transition:background .2s, transform .2s;
     border-radius:4px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display:flex; align-items:center; justify-content:center;
 }
 
-.fechar:active{
-    background:var(--jarvis-error);
-    color:#fff;
-    transform:rotate(90deg) scale(.9);
-}
+.fechar:active{ background:var(--jarvis-error); color:#fff; transform:rotate(90deg) scale(.9); }
 
 /* ================= SUB-ABAS ================= */
 
 .subtabs{
-    display:flex;
-    gap:0;
+    display:flex; gap:0;
     background:rgba(0,15,35,.5);
-    padding:0;
-    margin-bottom:16px;
-    overflow-x:auto;
-    scrollbar-width:none;
+    padding:0; margin-bottom:16px;
+    overflow-x:auto; scrollbar-width:none;
     border-bottom:1px solid var(--jarvis-border);
 }
 
 .subtabs::-webkit-scrollbar{ display:none; }
 
 .subtab{
-    flex:1;
-    min-width:80px;
-    border:none;
-    background:transparent;
+    flex:1; min-width:80px; border:none; background:transparent;
     color:var(--jarvis-text-dim);
-    padding:12px 8px;
-    font-weight:600;
-    font-size:10px;
+    padding:12px 8px; font-weight:600; font-size:10px;
     transition:color .2s, background .2s;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:4px;
-    white-space:nowrap;
-    position:relative;
-    user-select:none;
-    border-bottom:2px solid transparent;
-    margin-bottom:-1px;
-    letter-spacing:1px;
-    text-transform:uppercase;
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+    white-space:nowrap; position:relative;
+    user-select:none; border-bottom:2px solid transparent;
+    margin-bottom:-1px; letter-spacing:1px; text-transform:uppercase;
     font-family:'Orbitron','Segoe UI',sans-serif;
 }
 
-.subtab .ic{
-    font-size:18px;
-    transition:transform .2s;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    line-height:1;
-}
-
+.subtab .ic{ font-size:18px; transition:transform .2s; display:flex; align-items:center; justify-content:center; line-height:1; }
 .subtab:active .ic{ transform:scale(1.1); }
 
-.subtab.ativo{
-    color:var(--jarvis-cyan);
-    background:rgba(0,212,255,.08);
-    border-bottom-color:var(--jarvis-cyan);
-    font-weight:700;
-}
+.subtab.ativo{ color:var(--jarvis-cyan); background:rgba(0,212,255,.08); border-bottom-color:var(--jarvis-cyan); font-weight:700; }
 
-.subtab.travada{
-    color:var(--jarvis-warning);
-    background:rgba(255,185,0,.08);
-    border-bottom-color:var(--jarvis-warning);
-}
+.subtab.travada{ color:var(--jarvis-warning); background:rgba(255,185,0,.08); border-bottom-color:var(--jarvis-warning); }
+.subtab.travada::after{ content:"🔒"; position:absolute; top:4px; right:4px; font-size:10px; }
 
-.subtab.travada::after{
-    content:"🔒";
-    position:absolute;
-    top:4px;
-    right:4px;
-    font-size:10px;
-}
-
-.subtab.travada.destravada{
-    color:var(--jarvis-success);
-    background:rgba(0,255,157,.1);
-    border-bottom-color:var(--jarvis-success);
-}
-
+.subtab.travada.destravada{ color:var(--jarvis-success); background:rgba(0,255,157,.1); border-bottom-color:var(--jarvis-success); }
 .subtab.travada.destravada::after{ content:"🔓"; }
 
 .subtab-painel{ display:none; }
@@ -1038,223 +517,117 @@ button{ cursor:pointer; }
 
 /* ================= LOJA INFO ================= */
 
-.loja-info{
-    margin-top:12px;
-    padding:16px;
-    background:rgba(0,25,50,.6);
-    border:1px solid var(--jarvis-border);
-    border-radius:6px;
-}
+.loja-info{ margin-top:12px; padding:16px; background:rgba(0,25,50,.6); border:1px solid var(--jarvis-border); border-radius:6px; }
 
 .loja-info-titulo{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:11px;
-    font-weight:700;
-    color:var(--jarvis-cyan);
-    margin-bottom:14px;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    display:flex;
-    align-items:center;
-    gap:8px;
+    font-size:11px; font-weight:700; color:var(--jarvis-cyan);
+    margin-bottom:14px; letter-spacing:2px; text-transform:uppercase;
+    display:flex; align-items:center; gap:8px;
 }
 
 .loja-info-titulo .ico{ font-size:14px; }
-
 .loja-info-campo{ margin-bottom:14px; }
 .loja-info-campo:last-child{ margin-bottom:0; }
 
 .loja-info-label{
-    display:flex;
-    font-size:10px;
-    color:var(--jarvis-text-dim);
-    font-weight:600;
-    text-transform:uppercase;
-    letter-spacing:1.5px;
-    margin-bottom:6px;
-    align-items:center;
-    gap:6px;
+    display:flex; font-size:10px; color:var(--jarvis-text-dim);
+    font-weight:600; text-transform:uppercase; letter-spacing:1.5px;
+    margin-bottom:6px; align-items:center; gap:6px;
     font-family:'Orbitron','Segoe UI',sans-serif;
 }
 
 .loja-info-label .ico{ font-size:13px; }
 
 .loja-info-input{
-    width:100%;
-    border:1px solid var(--jarvis-border);
-    outline:none;
-    background:rgba(0,15,35,.7);
-    color:var(--jarvis-text);
-    padding:11px 12px;
-    font-size:13.5px;
-    transition:border-color .2s, box-shadow .2s;
-    border-radius:4px;
+    width:100%; border:1px solid var(--jarvis-border); outline:none;
+    background:rgba(0,15,35,.7); color:var(--jarvis-text);
+    padding:11px 12px; font-size:13.5px;
+    transition:border-color .2s, box-shadow .2s; border-radius:4px;
 }
 
-.loja-info-input:focus{
-    border-color:var(--jarvis-cyan);
-    box-shadow:0 0 0 2px rgba(0,212,255,.2);
-}
-
+.loja-info-input:focus{ border-color:var(--jarvis-cyan); box-shadow:0 0 0 2px rgba(0,212,255,.2); }
 .loja-info-input::placeholder{ color:var(--jarvis-text-disabled); }
 
 .aviso-trava{
-    display:none;
-    margin-top:12px;
-    padding:10px 14px;
-    background:rgba(255,185,0,.1);
-    border-left:3px solid var(--jarvis-warning);
-    color:#ffd24d;
-    font-size:11px;
-    font-weight:500;
-    text-align:center;
-    border-radius:0 4px 4px 0;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
+    display:none; margin-top:12px; padding:10px 14px;
+    background:rgba(255,185,0,.1); border-left:3px solid var(--jarvis-warning);
+    color:#ffd24d; font-size:11px; font-weight:500; text-align:center;
+    border-radius:0 4px 4px 0; align-items:center; justify-content:center; gap:8px;
 }
 
 .aviso-trava.ativo{ display:flex; }
 
 /* ================= SHARE ================= */
 
-.unidades{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-bottom:16px;
-}
+.unidades{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px; }
 
 .btn-unidade{
-    border:1px solid var(--jarvis-border);
-    background:rgba(0,25,50,.6);
-    color:var(--jarvis-text-dim);
-    padding:11px;
+    border:1px solid var(--jarvis-border); background:rgba(0,25,50,.6);
+    color:var(--jarvis-text-dim); padding:11px;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-weight:700;
-    font-size:10px;
+    font-weight:700; font-size:10px;
     transition:background .2s, color .2s, transform .15s;
-    border-radius:4px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
+    border-radius:4px; display:flex; align-items:center; justify-content:center;
+    gap:8px; letter-spacing:1.5px; text-transform:uppercase;
 }
 
 .btn-unidade:active{ transform:scale(.96); }
 
-.btn-unidade.ativo{
-    color:#001428;
-    background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue));
-    border-color:var(--jarvis-cyan);
-    font-weight:700;
-}
+.btn-unidade.ativo{ color:#001428; background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue)); border-color:var(--jarvis-cyan); font-weight:700; }
 
 .label{
-    display:flex;
-    color:var(--jarvis-text-dim);
-    font-size:10px;
-    margin-bottom:6px;
-    margin-top:12px;
-    text-transform:uppercase;
-    letter-spacing:1.5px;
-    font-weight:700;
-    align-items:center;
-    gap:6px;
+    display:flex; color:var(--jarvis-text-dim); font-size:10px;
+    margin-bottom:6px; margin-top:12px;
+    text-transform:uppercase; letter-spacing:1.5px;
+    font-weight:700; align-items:center; gap:6px;
     font-family:'Orbitron','Segoe UI',sans-serif;
 }
 
 .label .ico{ font-size:13px; color:var(--jarvis-cyan); }
 
 .input{
-    width:100%;
-    border:1px solid var(--jarvis-border);
-    outline:none;
-    background:rgba(0,15,35,.7);
-    color:var(--jarvis-text);
-    padding:11px 12px;
-    font-size:14px;
-    font-weight:500;
-    transition:border-color .2s, box-shadow .2s;
-    border-radius:4px;
+    width:100%; border:1px solid var(--jarvis-border); outline:none;
+    background:rgba(0,15,35,.7); color:var(--jarvis-text);
+    padding:11px 12px; font-size:14px; font-weight:500;
+    transition:border-color .2s, box-shadow .2s; border-radius:4px;
 }
 
-.input:focus{
-    border-color:var(--jarvis-cyan);
-    box-shadow:0 0 0 2px rgba(0,212,255,.2);
-}
+.input:focus{ border-color:var(--jarvis-cyan); box-shadow:0 0 0 2px rgba(0,212,255,.2); }
 
 .btn-calculadora{
-    width:100%;
-    margin-top:12px;
-    border:1px solid var(--jarvis-cyan);
-    background:rgba(0,212,255,.15);
-    color:var(--jarvis-cyan);
-    padding:12px;
+    width:100%; margin-top:12px;
+    border:1px solid var(--jarvis-cyan); background:rgba(0,212,255,.15);
+    color:var(--jarvis-cyan); padding:12px;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-weight:700;
-    font-size:11px;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    transition:background .2s, transform .15s;
-    border-radius:4px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
+    font-weight:700; font-size:11px; letter-spacing:2px; text-transform:uppercase;
+    transition:background .2s, transform .15s; border-radius:4px;
+    display:flex; align-items:center; justify-content:center; gap:8px;
 }
 
 .btn-calculadora:active{ transform:scale(.97); }
-
 .btn-calculadora .ico{ font-size:14px; }
 
 /* ================= RESULTADO ================= */
 
 .share-resultado-box{
-    margin-top:14px;
-    padding:18px;
-    text-align:center;
+    margin-top:14px; padding:18px; text-align:center;
     border:1px solid var(--jarvis-border);
     background:rgba(0,15,35,.6);
-    transition:border-color .3s, background .3s;
-    border-radius:6px;
+    transition:border-color .3s, background .3s; border-radius:6px;
 }
 
-.share-resultado-box.verde{
-    border-color:var(--jarvis-success);
-    background:rgba(0,255,157,.08);
-}
+.share-resultado-box.verde{ border-color:var(--jarvis-success); background:rgba(0,255,157,.08); }
+.share-resultado-box.vermelho{ border-color:var(--jarvis-error); background:rgba(255,45,85,.08); }
 
-.share-resultado-box.vermelho{
-    border-color:var(--jarvis-error);
-    background:rgba(255,45,85,.08);
-}
-
-.emoji-resultado{
-    font-size:42px;
-    display:block;
-    margin:0 auto 6px;
-    line-height:1;
-}
-
-.share-resultado-box.verde .emoji-resultado{
-    animation:iconPop 2s infinite ease-in-out;
-}
-
-.share-resultado-box.vermelho .emoji-resultado{
-    animation:shake 2s infinite ease-in-out;
-}
+.emoji-resultado{ font-size:42px; display:block; margin:0 auto 6px; line-height:1; }
+.share-resultado-box.verde .emoji-resultado{ animation:iconPop 2s infinite ease-in-out; }
+.share-resultado-box.vermelho .emoji-resultado{ animation:shake 2s infinite ease-in-out; }
 
 .share-resultado{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:36px;
-    font-weight:700;
-    margin:3px 0;
-    line-height:1.1;
-    color:var(--jarvis-text);
-    letter-spacing:-1px;
+    font-size:36px; font-weight:700; margin:3px 0; line-height:1.1;
+    color:var(--jarvis-text); letter-spacing:-1px;
 }
 
 .share-resultado-box.verde .share-resultado{ color:var(--jarvis-success); }
@@ -1262,447 +635,214 @@ button{ cursor:pointer; }
 
 .status-resultado{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:10px;
-    letter-spacing:2px;
-    color:var(--jarvis-text-dim);
-    font-weight:700;
-    display:block;
-    text-transform:uppercase;
+    font-size:10px; letter-spacing:2px; color:var(--jarvis-text-dim);
+    font-weight:700; display:block; text-transform:uppercase;
 }
 
 /* ================= PIZZA CHART ================= */
 
-.painel-grafico{
-    margin-top:14px;
-    padding:16px 12px;
-    background:rgba(0,15,35,.6);
-    border:1px solid var(--jarvis-border);
-    border-radius:6px;
-}
+.painel-grafico{ margin-top:14px; padding:16px 12px; background:rgba(0,15,35,.6); border:1px solid var(--jarvis-border); border-radius:6px; }
 
 .painel-grafico-titulo{
-    display:block;
-    text-align:center;
+    display:block; text-align:center;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:10px;
-    letter-spacing:3px;
-    margin-bottom:16px;
-    color:var(--jarvis-cyan);
-    text-transform:uppercase;
-    font-weight:700;
+    font-size:10px; letter-spacing:3px; margin-bottom:16px;
+    color:var(--jarvis-cyan); text-transform:uppercase; font-weight:700;
 }
 
-.pizza-wrapper{
-    width:100%;
-    max-width:200px;
-    aspect-ratio:1/1;
-    margin:0 auto 16px;
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
+.pizza-wrapper{ width:100%; max-width:200px; aspect-ratio:1/1; margin:0 auto 16px; position:relative; display:flex; align-items:center; justify-content:center; }
+.pizza-svg{ width:100%; height:100%; display:block; transition:transform .2s; }
 
-.pizza-svg{
-    width:100%;
-    height:100%;
-    display:block;
-    transition:transform .2s;
-}
-
-.pizza-slice{
-    cursor:pointer;
-    transition:opacity .2s, transform .2s;
-    transform-origin:100px 100px;
-    stroke:#001428;
-    stroke-width:2;
-}
-
-.pizza-slice:active{
-    transform:scale(1.05);
-    opacity:.9;
-}
-
+.pizza-slice{ cursor:pointer; transition:opacity .2s, transform .2s; transform-origin:100px 100px; stroke:#001428; stroke-width:2; }
+.pizza-slice:active{ transform:scale(1.05); opacity:.9; }
 .pizza-slice.meta{ fill:url(#gradMeta); }
 .pizza-slice.share{ fill:url(#gradShare); }
 .pizza-slice.resto{ fill:url(#gradResto); opacity:.55; }
 
 .pizza-centro{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    width:55%;
-    height:55%;
-    border-radius:50%;
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:55%; height:55%; border-radius:50%;
     background:radial-gradient(circle, rgba(0,20,40,.95) 0%, rgba(0,10,24,.98) 100%);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    pointer-events:none;
-    border:1px solid var(--jarvis-border);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; pointer-events:none; border:1px solid var(--jarvis-border);
 }
 
 .pizza-centro-valor{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:clamp(18px, 6vw, 24px);
-    font-weight:700;
-    line-height:1;
-    color:var(--jarvis-cyan);
-    letter-spacing:-.5px;
+    font-size:clamp(18px, 6vw, 24px); font-weight:700;
+    line-height:1; color:var(--jarvis-cyan); letter-spacing:-.5px;
 }
 
 .pizza-centro-label{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:clamp(6px, 2vw, 8px);
-    margin-top:4px;
-    letter-spacing:2px;
-    color:var(--jarvis-text-dim);
-    text-transform:uppercase;
-    font-weight:600;
+    font-size:clamp(6px, 2vw, 8px); margin-top:4px; letter-spacing:2px;
+    color:var(--jarvis-text-dim); text-transform:uppercase; font-weight:600;
 }
 
-.pizza-legenda{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:10px;
-    margin-top:12px;
-    margin-bottom:8px;
-}
+.pizza-legenda{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:12px; margin-bottom:8px; }
 
 .pizza-legenda-item{
-    display:flex;
-    align-items:center;
-    gap:6px;
-    font-size:10px;
-    font-weight:600;
-    color:var(--jarvis-text-dim);
-    letter-spacing:.5px;
-    cursor:pointer;
-    transition:transform .15s, border-color .15s;
-    padding:4px 10px;
-    border-radius:4px;
-    border:1px solid transparent;
-    font-family:'Orbitron','Segoe UI',sans-serif;
-    text-transform:uppercase;
+    display:flex; align-items:center; gap:6px; font-size:10px;
+    font-weight:600; color:var(--jarvis-text-dim); letter-spacing:.5px;
+    cursor:pointer; transition:transform .15s, border-color .15s;
+    padding:4px 10px; border-radius:4px; border:1px solid transparent;
+    font-family:'Orbitron','Segoe UI',sans-serif; text-transform:uppercase;
     user-select:none;
 }
 
-.pizza-legenda-item:active{
-    transform:scale(.95);
-    border-color:var(--jarvis-border);
-    background:rgba(0,212,255,.08);
-}
+.pizza-legenda-item:active{ transform:scale(.95); border-color:var(--jarvis-border); background:rgba(0,212,255,.08); }
 
-.pizza-legenda-dot{
-    width:10px;
-    height:10px;
-    border-radius:50%;
-    flex-shrink:0;
-}
-
+.pizza-legenda-dot{ width:10px; height:10px; border-radius:50%; flex-shrink:0; }
 .pizza-legenda-dot.meta{ background:var(--jarvis-blue); }
 .pizza-legenda-dot.share{ background:var(--jarvis-success); }
 .pizza-legenda-dot.resto{ background:#7a4fff; }
 
-.painel-cards{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:8px;
-    margin-top:14px;
-}
+.painel-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:14px; }
 
 .painel-card{
-    padding:11px 6px;
-    text-align:center;
-    background:rgba(0,25,50,.6);
-    border:1px solid var(--jarvis-border);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    min-width:0;
-    border-radius:5px;
+    padding:11px 6px; text-align:center;
+    background:rgba(0,25,50,.6); border:1px solid var(--jarvis-border);
+    display:flex; flex-direction:column; align-items:center;
+    min-width:0; border-radius:5px;
     transition:transform .15s, border-color .15s;
 }
 
-.painel-card:active{
-    transform:scale(.96);
-    border-color:var(--jarvis-cyan);
-}
+.painel-card:active{ transform:scale(.96); border-color:var(--jarvis-cyan); }
 
-.painel-card-icon{
-    font-size:20px;
-    line-height:1;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
+.painel-card-icon{ font-size:20px; line-height:1; display:flex; align-items:center; justify-content:center; }
 
 .painel-card-label{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:8px;
-    letter-spacing:1.5px;
-    color:var(--jarvis-text-dim);
-    text-transform:uppercase;
-    font-weight:700;
-    margin:5px 0 3px;
+    font-size:8px; letter-spacing:1.5px; color:var(--jarvis-text-dim);
+    text-transform:uppercase; font-weight:700; margin:5px 0 3px;
 }
 
 .painel-card-valor{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:13px;
-    font-weight:700;
-    color:var(--jarvis-cyan);
-    white-space:nowrap;
+    font-size:13px; font-weight:700; color:var(--jarvis-cyan); white-space:nowrap;
 }
 
-.barras-resumo{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    margin-top:14px;
-}
-
-.barra-item{
-    display:flex;
-    flex-direction:column;
-    gap:5px;
-}
-
-.barra-topo{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:6px;
-}
+.barras-resumo{ display:flex; flex-direction:column; gap:10px; margin-top:14px; }
+.barra-item{ display:flex; flex-direction:column; gap:5px; }
+.barra-topo{ display:flex; justify-content:space-between; align-items:center; gap:6px; }
 
 .barra-topo-label{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:10px;
-    letter-spacing:1px;
-    color:var(--jarvis-text-dim);
-    font-weight:600;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    display:flex;
-    align-items:center;
-    gap:6px;
-    text-transform:uppercase;
+    font-size:10px; letter-spacing:1px; color:var(--jarvis-text-dim);
+    font-weight:600; white-space:nowrap; overflow:hidden;
+    text-overflow:ellipsis; display:flex; align-items:center;
+    gap:6px; text-transform:uppercase;
 }
 
 .barra-topo-label .ico{ font-size:12px; }
 
 .barra-topo-valor{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:11px;
-    font-weight:700;
-    white-space:nowrap;
-    flex-shrink:0;
-    color:var(--jarvis-cyan);
+    font-size:11px; font-weight:700; white-space:nowrap;
+    flex-shrink:0; color:var(--jarvis-cyan);
 }
 
-.barra-trilho{
-    height:6px;
-    width:100%;
-    background:rgba(0,40,80,.6);
-    overflow:hidden;
-    border-radius:3px;
-}
+.barra-trilho{ height:6px; width:100%; background:rgba(0,40,80,.6); overflow:hidden; border-radius:3px; }
 
-.barra-preenchimento{
-    height:100%;
-    width:0;
-    transition:width .8s var(--ease-fluent);
-    border-radius:3px;
-}
-
+.barra-preenchimento{ height:100%; width:0; transition:width .8s var(--ease-fluent); border-radius:3px; }
 .barra-meta{ background:linear-gradient(90deg, #0055cc, var(--jarvis-cyan)); }
 .barra-atual-verde{ background:linear-gradient(90deg, #00aa66, var(--jarvis-success)); }
 .barra-atual-vermelho{ background:linear-gradient(90deg, #cc0a20, var(--jarvis-error)); }
 .barra-restante{ background:linear-gradient(90deg, #4a2fa0, #7a4fff); }
 
 .barra-info-extra{
-    display:flex;
-    justify-content:space-between;
+    display:flex; justify-content:space-between;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:9px;
-    margin-top:3px;
-    color:var(--jarvis-text-dim);
-    font-weight:600;
-    gap:6px;
-    letter-spacing:.5px;
+    font-size:9px; margin-top:3px; color:var(--jarvis-text-dim);
+    font-weight:600; gap:6px; letter-spacing:.5px;
 }
 
-.resumo{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-    margin-top:14px;
-}
+.resumo{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:14px; }
 
 .resumo-item{
-    padding:11px 12px;
-    background:rgba(0,25,50,.6);
-    border:1px solid var(--jarvis-border);
-    min-width:0;
-    border-radius:5px;
-    transition:border-color .15s, transform .15s;
+    padding:11px 12px; background:rgba(0,25,50,.6);
+    border:1px solid var(--jarvis-border); min-width:0;
+    border-radius:5px; transition:border-color .15s, transform .15s;
 }
 
-.resumo-item:active{
-    transform:scale(.98);
-    border-color:var(--jarvis-cyan);
-}
+.resumo-item:active{ transform:scale(.98); border-color:var(--jarvis-cyan); }
 
 .resumo-label{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:9px;
-    letter-spacing:1px;
-    color:var(--jarvis-text-dim);
-    text-transform:uppercase;
-    display:block;
-    line-height:1.2;
-    font-weight:600;
+    font-size:9px; letter-spacing:1px; color:var(--jarvis-text-dim);
+    text-transform:uppercase; display:block; line-height:1.2; font-weight:600;
 }
 
 .resumo-valor{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:13px;
-    margin-top:4px;
-    font-weight:700;
-    display:block;
-    line-height:1.3;
-    word-break:break-word;
-    color:var(--jarvis-cyan);
+    font-size:13px; margin-top:4px; font-weight:700;
+    display:block; line-height:1.3; word-break:break-word; color:var(--jarvis-cyan);
 }
 
 .resumo-mensagem{
-    grid-column:1/-1;
-    font-size:11px;
-    padding:12px;
-    text-align:center;
-    color:var(--jarvis-text-dim);
-    line-height:1.5;
-    background:rgba(0,80,160,.15);
-    border-left:3px solid var(--jarvis-cyan);
-    border-radius:0 5px 5px 0;
-    letter-spacing:.5px;
+    grid-column:1/-1; font-size:11px; padding:12px; text-align:center;
+    color:var(--jarvis-text-dim); line-height:1.5;
+    background:rgba(0,80,160,.15); border-left:3px solid var(--jarvis-cyan);
+    border-radius:0 5px 5px 0; letter-spacing:.5px;
 }
 
 /* ================= RUPTURAS ================= */
 
-.ruptura-contadores{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:8px;
-    margin:12px 0 16px;
-}
+.ruptura-contadores{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:12px 0 16px; }
 
 .ruptura-contador{
-    background:rgba(0,25,50,.6);
-    border:1px solid var(--jarvis-border);
-    text-align:center;
-    padding:12px 6px;
-    border-radius:5px;
+    background:rgba(0,25,50,.6); border:1px solid var(--jarvis-border);
+    text-align:center; padding:12px 6px; border-radius:5px;
     transition:transform .15s;
 }
 
 .ruptura-contador:active{ transform:scale(.96); }
 
-.ruptura-contador-numero{
-    font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:24px;
-    font-weight:700;
-    color:var(--jarvis-cyan);
-}
-
+.ruptura-contador-numero{ font-family:'Orbitron','Segoe UI',sans-serif; font-size:24px; font-weight:700; color:var(--jarvis-cyan); }
 .ruptura-contador-numero.pulsar{ animation:iconPop .4s var(--ease-fluent); }
 
 .ruptura-contador-label{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    color:var(--jarvis-text-dim);
-    font-size:8px;
-    text-transform:uppercase;
-    margin-top:4px;
-    font-weight:700;
-    letter-spacing:1.5px;
+    color:var(--jarvis-text-dim); font-size:8px;
+    text-transform:uppercase; margin-top:4px;
+    font-weight:700; letter-spacing:1.5px;
 }
 
-.ruptura-categorias{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-bottom:14px;
-}
+.ruptura-categorias{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
 
 .ruptura-categoria{
-    border:1px solid var(--jarvis-border);
-    background:rgba(0,25,50,.6);
-    color:var(--jarvis-text-dim);
-    padding:12px 10px;
+    border:1px solid var(--jarvis-border); background:rgba(0,25,50,.6);
+    color:var(--jarvis-text-dim); padding:12px 10px;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-weight:700;
-    font-size:10px;
+    font-weight:700; font-size:10px;
     transition:background .2s, color .2s, transform .15s;
-    border-radius:5px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
+    border-radius:5px; display:flex; align-items:center; justify-content:center;
+    gap:8px; letter-spacing:1.5px; text-transform:uppercase;
 }
 
 .ruptura-categoria:active{ transform:scale(.96); }
-
-.ruptura-categoria.ativo{
-    color:#001428;
-    background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue));
-    border-color:var(--jarvis-cyan);
-}
+.ruptura-categoria.ativo{ color:#001428; background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue)); border-color:var(--jarvis-cyan); }
 
 .ruptura-pesquisa{
-    width:100%;
-    margin:12px 0;
-    border:1px solid var(--jarvis-border);
-    background:rgba(0,15,35,.7);
-    color:var(--jarvis-text);
-    outline:none;
-    padding:11px 12px;
-    font-size:13px;
-    font-weight:500;
-    transition:border-color .2s, box-shadow .2s;
-    border-radius:5px;
+    width:100%; margin:12px 0;
+    border:1px solid var(--jarvis-border); background:rgba(0,15,35,.7);
+    color:var(--jarvis-text); outline:none;
+    padding:11px 12px; font-size:13px; font-weight:500;
+    transition:border-color .2s, box-shadow .2s; border-radius:5px;
 }
 
-.ruptura-pesquisa:focus{
-    border-color:var(--jarvis-cyan);
-    box-shadow:0 0 0 2px rgba(0,212,255,.2);
-}
-
+.ruptura-pesquisa:focus{ border-color:var(--jarvis-cyan); box-shadow:0 0 0 2px rgba(0,212,255,.2); }
 .ruptura-pesquisa::placeholder{ color:var(--jarvis-text-disabled); }
 
 .ruptura-secao{ margin-top:16px; }
 
 .ruptura-secao-titulo{
-    padding:11px 14px;
-    background:rgba(0,80,160,.2);
-    border-left:3px solid var(--jarvis-cyan);
-    margin-bottom:8px;
+    padding:11px 14px; background:rgba(0,80,160,.2);
+    border-left:3px solid var(--jarvis-cyan); margin-bottom:8px;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-weight:700;
-    font-size:11px;
-    color:var(--jarvis-cyan);
-    letter-spacing:1.5px;
-    border-radius:0 5px 5px 0;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    text-transform:uppercase;
+    font-weight:700; font-size:11px; color:var(--jarvis-cyan);
+    letter-spacing:1.5px; border-radius:0 5px 5px 0;
+    display:flex; align-items:center; gap:10px; text-transform:uppercase;
 }
 
 .ruptura-secao-titulo .ico{ font-size:16px; }
@@ -1710,295 +850,147 @@ button{ cursor:pointer; }
 .ruptura-lista{ display:flex; flex-direction:column; gap:6px; }
 
 .ruptura-produto{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    background:rgba(0,25,50,.5);
-    border:1px solid var(--jarvis-border);
-    padding:12px;
-    cursor:pointer;
+    display:flex; align-items:center; gap:12px;
+    background:rgba(0,25,50,.5); border:1px solid var(--jarvis-border);
+    padding:12px; cursor:pointer;
     transition:background .15s, border-color .15s;
-    border-radius:5px;
-    position:relative;
+    border-radius:5px; position:relative;
 }
 
 .ruptura-produto:active{ transform:scale(.99); }
+.ruptura-produto.selecionado{ background:rgba(255,45,85,.15); border-color:var(--jarvis-error); }
+.ruptura-produto.bloqueado{ border-color:rgba(255,185,0,.4); }
 
-.ruptura-produto.selecionado{
-    background:rgba(255,45,85,.15);
-    border-color:var(--jarvis-error);
-}
-
-.ruptura-produto.bloqueado{
-    border-color:rgba(255,185,0,.4);
-}
-
-.ruptura-checkbox{
-    width:20px;
-    height:20px;
-    accent-color:var(--jarvis-cyan);
-    flex-shrink:0;
-}
-
-.ruptura-checkbox.bloqueado{
-    cursor:not-allowed;
-    pointer-events:none;
-    opacity:.5;
-}
+.ruptura-checkbox{ width:20px; height:20px; accent-color:var(--jarvis-cyan); flex-shrink:0; }
+.ruptura-checkbox.bloqueado{ cursor:not-allowed; pointer-events:none; opacity:.5; }
 
 .ruptura-produto-info{ flex:1; }
 .ruptura-produto-nome{ font-size:13px; font-weight:600; color:var(--jarvis-text); }
 .ruptura-produto-descricao{ color:var(--jarvis-text-dim); font-size:11px; margin-top:3px; }
 
 .btn-lock-item{
-    width:34px;
-    height:34px;
-    flex-shrink:0;
+    width:34px; height:34px; flex-shrink:0;
     border:1px solid rgba(255,185,0,.5);
-    background:rgba(255,185,0,.15);
-    color:var(--jarvis-warning);
-    font-size:14px;
-    border-radius:4px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    background:rgba(255,185,0,.15); color:var(--jarvis-warning);
+    font-size:14px; border-radius:4px;
+    display:flex; align-items:center; justify-content:center;
     transition:transform .15s, background .15s;
 }
 
 .btn-lock-item:active{ transform:scale(.9); }
-
-.btn-lock-item.liberado{
-    background:rgba(0,255,157,.15);
-    color:var(--jarvis-success);
-    border-color:rgba(0,255,157,.5);
-}
+.btn-lock-item.liberado{ background:rgba(0,255,157,.15); color:var(--jarvis-success); border-color:rgba(0,255,157,.5); }
 
 /* ================= VALIDADES ================= */
 
 .validade-top-bar{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    background:rgba(0,15,35,.6);
-    border:1px solid var(--jarvis-border);
-    padding:12px 14px;
-    margin:12px 0;
-    font-size:12px;
-    font-weight:600;
-    border-radius:5px;
+    display:flex; align-items:center; justify-content:space-between;
+    background:rgba(0,15,35,.6); border:1px solid var(--jarvis-border);
+    padding:12px 14px; margin:12px 0; font-size:12px; font-weight:600; border-radius:5px;
 }
 
-.validade-top-bar span:first-child{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    color:var(--jarvis-text);
-}
+.validade-top-bar span:first-child{ display:flex; align-items:center; gap:8px; color:var(--jarvis-text); }
 
 .validade-top-bar .num{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    color:#001428;
-    font-size:14px;
+    color:#001428; font-size:14px;
     background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue));
-    padding:4px 14px;
-    font-weight:700;
-    border-radius:3px;
+    padding:4px 14px; font-weight:700; border-radius:3px;
 }
 
 .validade-top-bar .num.pulsar{ animation:iconPop .4s var(--ease-fluent); }
 
 .validade-produto-item{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    background:rgba(0,25,50,.5);
-    border:1px solid var(--jarvis-border);
-    padding:12px;
-    cursor:pointer;
-    transition:background .15s, border-color .15s;
-    border-radius:5px;
+    display:flex; align-items:center; gap:12px;
+    background:rgba(0,25,50,.5); border:1px solid var(--jarvis-border);
+    padding:12px; cursor:pointer;
+    transition:background .15s, border-color .15s; border-radius:5px;
 }
 
-.validade-produto-item.ja-registrado{
-    background:rgba(0,255,157,.1);
-    border-color:var(--jarvis-success);
-}
+.validade-produto-item.ja-registrado{ background:rgba(0,255,157,.1); border-color:var(--jarvis-success); }
+.validade-produto-item.bloqueado{ cursor:not-allowed; border-color:rgba(0,255,157,.5); }
 
-.validade-produto-item.bloqueado{
-    cursor:not-allowed;
-    border-color:rgba(0,255,157,.5);
-}
-
-.validade-controles{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    margin-top:9px;
-}
+.validade-controles{ display:flex; align-items:center; gap:8px; margin-top:9px; }
 
 .validade-input-qtd{
-    width:80px;
-    border:1px solid var(--jarvis-border);
-    outline:none;
-    background:rgba(0,15,35,.7);
-    color:var(--jarvis-text);
-    padding:10px 11px;
-    font-size:13px;
-    text-align:center;
-    font-weight:600;
-    border-radius:4px;
+    width:80px; border:1px solid var(--jarvis-border); outline:none;
+    background:rgba(0,15,35,.7); color:var(--jarvis-text);
+    padding:10px 11px; font-size:13px; text-align:center;
+    font-weight:600; border-radius:4px;
 }
 
 .validade-input-data{
-    flex:1;
-    border:1px solid var(--jarvis-border);
-    outline:none;
-    background:rgba(0,15,35,.7);
-    color:var(--jarvis-text);
-    padding:10px 11px;
-    font-size:13px;
-    font-weight:500;
-    border-radius:4px;
-    color-scheme:dark;
+    flex:1; border:1px solid var(--jarvis-border); outline:none;
+    background:rgba(0,15,35,.7); color:var(--jarvis-text);
+    padding:10px 11px; font-size:13px; font-weight:500;
+    border-radius:4px; color-scheme:dark;
 }
 
 .validade-input-qtd:focus,
-.validade-input-data:focus{
-    border-color:var(--jarvis-cyan);
-    box-shadow:0 0 0 2px rgba(0,212,255,.2);
-}
+.validade-input-data:focus{ border-color:var(--jarvis-cyan); box-shadow:0 0 0 2px rgba(0,212,255,.2); }
 
 .btn-validade-add{
-    border:1px solid var(--jarvis-cyan);
-    background:rgba(0,212,255,.15);
-    color:var(--jarvis-cyan);
-    padding:10px 16px;
+    border:1px solid var(--jarvis-cyan); background:rgba(0,212,255,.15);
+    color:var(--jarvis-cyan); padding:10px 16px;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-weight:700;
-    font-size:10px;
-    white-space:nowrap;
-    transition:background .15s, transform .15s;
-    border-radius:4px;
-    letter-spacing:1.5px;
-    display:flex;
-    align-items:center;
-    gap:6px;
-    text-transform:uppercase;
+    font-weight:700; font-size:10px; white-space:nowrap;
+    transition:background .15s, transform .15s; border-radius:4px;
+    letter-spacing:1.5px; display:flex; align-items:center;
+    gap:6px; text-transform:uppercase;
 }
 
 .btn-validade-add:active{ transform:scale(.95); }
 .btn-validade-add .ico{ font-size:12px; }
 
 .validade-item-adicionado{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    background:rgba(0,25,50,.5);
+    display:flex; align-items:center; justify-content:space-between;
+    gap:10px; background:rgba(0,25,50,.5);
     border:1px solid var(--jarvis-border);
-    padding:12px 13px;
-    margin-top:8px;
-    user-select:none;
-    -webkit-user-select:none;
-    border-radius:5px;
-    transition:transform .15s, border-color .15s;
+    padding:12px 13px; margin-top:8px;
+    user-select:none; -webkit-user-select:none;
+    border-radius:5px; transition:transform .15s, border-color .15s;
     position:relative;
 }
 
-.validade-item-adicionado.alerta-amarelo{
-    background:rgba(255,185,0,.12);
-    border-color:var(--jarvis-warning);
-}
-
-.validade-item-adicionado.alerta-vermelho{
-    background:rgba(255,45,85,.15);
-    border-color:var(--jarvis-error);
-    animation:pulseError 1.2s ease-in-out infinite;
-}
+.validade-item-adicionado.alerta-amarelo{ background:rgba(255,185,0,.12); border-color:var(--jarvis-warning); }
+.validade-item-adicionado.alerta-vermelho{ background:rgba(255,45,85,.15); border-color:var(--jarvis-error); animation:pulseError 1.2s ease-in-out infinite; }
 
 .validade-item-info{ flex:1; min-width:0; }
-
-.validade-item-nome{
-    font-size:13px;
-    font-weight:600;
-    color:var(--jarvis-text);
-    word-break:break-word;
-}
+.validade-item-nome{ font-size:13px; font-weight:600; color:var(--jarvis-text); word-break:break-word; }
 
 .validade-item-detalhe{
-    font-size:11px;
-    color:var(--jarvis-text-dim);
-    margin-top:4px;
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
+    font-size:11px; color:var(--jarvis-text-dim);
+    margin-top:4px; display:flex; flex-wrap:wrap; gap:8px;
 }
 
 .validade-item-editar{
-    border:1px solid var(--jarvis-border);
-    background:rgba(0,80,160,.3);
-    color:var(--jarvis-text);
-    width:34px;
-    height:34px;
-    font-weight:400;
-    font-size:14px;
-    flex-shrink:0;
-    transition:transform .15s, background .15s;
-    border-radius:4px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    border:1px solid var(--jarvis-border); background:rgba(0,80,160,.3);
+    color:var(--jarvis-text); width:34px; height:34px;
+    font-weight:400; font-size:14px; flex-shrink:0;
+    transition:transform .15s, background .15s; border-radius:4px;
+    display:flex; align-items:center; justify-content:center;
 }
 
 .validade-item-editar:active{ transform:scale(.9); }
-
-.validade-item-editar.bloqueado{
-    background:rgba(255,185,0,.15);
-    color:var(--jarvis-warning);
-    border-color:rgba(255,185,0,.4);
-}
-
-.validade-item-editar.liberado{
-    background:rgba(0,212,255,.3);
-    color:var(--jarvis-cyan);
-    border-color:var(--jarvis-cyan);
-}
+.validade-item-editar.bloqueado{ background:rgba(255,185,0,.15); color:var(--jarvis-warning); border-color:rgba(255,185,0,.4); }
+.validade-item-editar.liberado{ background:rgba(0,212,255,.3); color:var(--jarvis-cyan); border-color:var(--jarvis-cyan); }
 
 .validade-cat{
-    border:1px solid var(--jarvis-border);
-    background:rgba(0,25,50,.6);
-    color:var(--jarvis-text-dim);
-    padding:12px 10px;
+    border:1px solid var(--jarvis-border); background:rgba(0,25,50,.6);
+    color:var(--jarvis-text-dim); padding:12px 10px;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-weight:700;
-    font-size:10px;
+    font-weight:700; font-size:10px;
     transition:background .2s, color .2s, transform .15s;
-    border-radius:5px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
+    border-radius:5px; display:flex; align-items:center; justify-content:center;
+    gap:8px; letter-spacing:1.5px; text-transform:uppercase;
 }
 
 .validade-cat:active{ transform:scale(.96); }
-
-.validade-cat.ativo{
-    color:#001428;
-    background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue));
-    border-color:var(--jarvis-cyan);
-}
+.validade-cat.ativo{ color:#001428; background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue)); border-color:var(--jarvis-cyan); }
 
 .validade-vazio{
-    text-align:center;
-    color:var(--jarvis-text-dim);
-    font-size:13px;
-    padding:24px 14px;
-    font-style:italic;
-    background:rgba(0,15,35,.3);
-    border:1px dashed var(--jarvis-border);
-    border-radius:5px;
+    text-align:center; color:var(--jarvis-text-dim);
+    font-size:13px; padding:24px 14px; font-style:italic;
+    background:rgba(0,15,35,.3); border:1px dashed var(--jarvis-border); border-radius:5px;
 }
 
 /* ================= BLOCO DE NOTAS ================= */
@@ -2006,150 +998,81 @@ button{ cursor:pointer; }
 .notepad{
     background:rgba(0,15,35,.9);
     border:1px solid var(--jarvis-border-strong);
-    border-radius:6px;
-    overflow:hidden;
-    position:relative;
+    border-radius:6px; overflow:hidden; position:relative;
 }
 
 .notepad::before{
-    content:"";
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    height:2px;
-    background:linear-gradient(90deg, transparent, var(--jarvis-cyan), transparent);
-    z-index:2;
+    content:""; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg, transparent, var(--jarvis-cyan), transparent); z-index:2;
 }
 
 .notepad-titulo-barra{
-    background:rgba(0,30,60,.8);
-    border-bottom:1px solid var(--jarvis-border);
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    background:rgba(0,30,60,.8); border-bottom:1px solid var(--jarvis-border);
+    display:flex; align-items:center; justify-content:center;
     padding:8px 12px;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:11px;
-    color:var(--jarvis-cyan);
-    font-weight:700;
-    user-select:none;
-    gap:8px;
-    letter-spacing:2px;
-    text-transform:uppercase;
+    font-size:11px; color:var(--jarvis-cyan); font-weight:700;
+    user-select:none; gap:8px; letter-spacing:2px; text-transform:uppercase;
 }
 
 .notepad-titulo-barra .ico{ font-size:13px; }
 
 .notepad-area{
-    background:rgba(0,10,24,.9);
-    color:var(--jarvis-cyan);
+    background:rgba(0,10,24,.9); color:var(--jarvis-cyan);
     font-family:'Consolas','Courier New',monospace;
-    font-size:12.5px;
-    line-height:1.6;
-    padding:14px;
-    min-height:300px;
-    max-height:55vh;
-    overflow-y:auto;
-    white-space:pre-wrap;
-    word-break:break-word;
-    border:none;
-    outline:none;
+    font-size:12.5px; line-height:1.6; padding:14px;
+    min-height:300px; max-height:55vh; overflow-y:auto;
+    white-space:pre-wrap; word-break:break-word;
+    border:none; outline:none;
 }
 
 .notepad-statusbar{
-    background:rgba(0,30,60,.8);
-    border-top:1px solid var(--jarvis-border);
-    display:flex;
-    justify-content:space-between;
-    padding:6px 12px;
+    background:rgba(0,30,60,.8); border-top:1px solid var(--jarvis-border);
+    display:flex; justify-content:space-between; padding:6px 12px;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:9px;
-    color:var(--jarvis-text-dim);
-    user-select:none;
-    font-weight:600;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
+    font-size:9px; color:var(--jarvis-text-dim);
+    user-select:none; font-weight:600; letter-spacing:1.5px; text-transform:uppercase;
 }
 
-.notepad-statusbar span{
-    display:flex;
-    align-items:center;
-    gap:6px;
-}
-
+.notepad-statusbar span{ display:flex; align-items:center; gap:6px; }
 .notepad-statusbar span .ico{ font-size:11px; color:var(--jarvis-cyan); }
 
-.notas-acoes-topo{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:10px;
-    margin-bottom:12px;
-}
+.notas-acoes-topo{ display:grid; grid-template-columns:1fr; gap:10px; margin-bottom:12px; }
 
 .btn-copiar{
-    border:1px solid var(--jarvis-cyan);
-    background:rgba(0,212,255,.15);
-    color:var(--jarvis-cyan);
-    padding:12px 14px;
+    border:1px solid var(--jarvis-cyan); background:rgba(0,212,255,.15);
+    color:var(--jarvis-cyan); padding:12px 14px;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-weight:700;
-    font-size:11px;
-    transition:background .2s, transform .15s;
-    border-radius:4px;
-    letter-spacing:2px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    text-transform:uppercase;
+    font-weight:700; font-size:11px;
+    transition:background .2s, transform .15s; border-radius:4px;
+    letter-spacing:2px; display:flex; align-items:center;
+    justify-content:center; gap:8px; text-transform:uppercase;
 }
 
 .btn-copiar:active{ transform:scale(.97); }
 .btn-copiar .ico{ font-size:14px; }
-
-.btn-copiar.copiado{
-    background:rgba(0,255,157,.3);
-    border-color:var(--jarvis-success);
-    color:#001428;
-}
+.btn-copiar.copiado{ background:rgba(0,255,157,.3); border-color:var(--jarvis-success); color:#001428; }
 
 .btn-cancelar{
-    border:1px solid var(--jarvis-border);
-    background:rgba(0,25,50,.6);
-    color:var(--jarvis-text);
-    padding:11px 14px;
+    border:1px solid var(--jarvis-border); background:rgba(0,25,50,.6);
+    color:var(--jarvis-text); padding:11px 14px;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-weight:700;
-    font-size:10px;
-    transition:background .2s, transform .15s;
-    border-radius:4px;
-    letter-spacing:1.5px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    text-transform:uppercase;
+    font-weight:700; font-size:10px;
+    transition:background .2s, transform .15s; border-radius:4px;
+    letter-spacing:1.5px; display:flex; align-items:center;
+    justify-content:center; gap:8px; text-transform:uppercase;
 }
 
 .btn-cancelar:active{ transform:scale(.96); }
 
 .btn-limpar{
-    border:1px solid var(--jarvis-border);
-    background:rgba(0,25,50,.6);
-    color:var(--jarvis-text);
-    padding:11px 14px;
+    border:1px solid var(--jarvis-border); background:rgba(0,25,50,.6);
+    color:var(--jarvis-text); padding:11px 14px;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-weight:700;
-    font-size:10px;
-    transition:background .2s, transform .15s;
-    border-radius:4px;
-    letter-spacing:1.5px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    text-transform:uppercase;
+    font-weight:700; font-size:10px;
+    transition:background .2s, transform .15s; border-radius:4px;
+    letter-spacing:1.5px; display:flex; align-items:center;
+    justify-content:center; gap:8px; text-transform:uppercase;
 }
 
 .btn-limpar:active{ transform:scale(.96); }
@@ -2157,110 +1080,74 @@ button{ cursor:pointer; }
 
 /* ================= SELEÇÃO DE LOJA ================= */
 
-.lista-selecao-loja{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-    margin-top:8px;
-}
+.lista-selecao-loja{ display:flex; flex-direction:column; gap:8px; margin-top:8px; }
 
 .btn-selecao-loja{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    border:1px solid var(--jarvis-border);
-    background:rgba(0,25,50,.6);
-    color:var(--jarvis-text);
-    padding:14px 15px;
-    text-align:left;
-    transition:background .15s, transform .15s;
-    border-radius:5px;
+    display:flex; align-items:center; gap:14px;
+    border:1px solid var(--jarvis-border); background:rgba(0,25,50,.6);
+    color:var(--jarvis-text); padding:14px 15px;
+    text-align:left; transition:background .15s, transform .15s; border-radius:5px;
 }
 
 .btn-selecao-loja:active{ transform:scale(.98); background:rgba(0,60,120,.6); }
-
-.btn-selecao-loja .ic{
-    font-size:22px;
-    flex-shrink:0;
-    display:flex;
-    align-items:center;
-    line-height:1;
-}
-
+.btn-selecao-loja .ic{ font-size:22px; flex-shrink:0; display:flex; align-items:center; line-height:1; }
 .btn-selecao-loja .info{ flex:1; min-width:0; }
 .btn-selecao-loja .nome{ font-size:13.5px; font-weight:600; word-break:break-word; color:var(--jarvis-text); }
 .btn-selecao-loja .sub{ font-size:11px; color:var(--jarvis-text-dim); margin-top:3px; }
 
 .btn-selecao-loja .cont{
-    min-width:34px;
-    height:34px;
-    padding:0 10px;
+    min-width:34px; height:34px; padding:0 10px;
     background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue));
     color:#001428;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:12px;
-    font-weight:700;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-shrink:0;
-    border-radius:4px;
+    font-size:12px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; border-radius:4px;
 }
 
 /* ================= TOAST ================= */
 
 .toast{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    transform:translateX(140%);
-    z-index:9000;
+    position:fixed; right:20px; bottom:20px;
+    transform:translateX(140%); z-index:9000;
     background:linear-gradient(135deg, rgba(0,20,40,.98) 0%, rgba(0,10,24,.98) 100%);
-    border:1px solid var(--jarvis-cyan);
-    border-left:3px solid var(--jarvis-cyan);
-    padding:14px 20px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    opacity:0;
-    transition:transform .3s var(--ease-fluent), opacity .3s;
-    max-width:340px;
-    font-size:12px;
-    font-weight:600;
-    color:var(--jarvis-text);
-    box-shadow:0 8px 30px rgba(0,0,0,.6);
-    border-radius:5px;
-    letter-spacing:.5px;
+    border:1px solid var(--jarvis-cyan); border-left:3px solid var(--jarvis-cyan);
+    padding:14px 20px; display:flex; align-items:center; gap:10px;
+    opacity:0; transition:transform .3s var(--ease-fluent), opacity .3s;
+    max-width:340px; font-size:12px; font-weight:600;
+    color:var(--jarvis-text); box-shadow:0 8px 30px rgba(0,0,0,.6);
+    border-radius:5px; letter-spacing:.5px;
 }
 
-.toast .ico{
-    font-size:18px;
-    color:var(--jarvis-cyan);
-}
-
-.toast.mostrar{
-    opacity:1;
-    transform:translateX(0);
-}
+.toast .ico{ font-size:18px; color:var(--jarvis-cyan); }
+.toast.mostrar{ opacity:1; transform:translateX(0); }
 
 footer{
-    text-align:center;
-    color:var(--jarvis-text-dim);
+    text-align:center; color:var(--jarvis-text-dim);
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:9px;
-    padding:28px 0 20px;
-    font-weight:600;
-    letter-spacing:2px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    text-transform:uppercase;
+    font-size:9px; padding:28px 0 20px; font-weight:600;
+    letter-spacing:2px; display:flex; align-items:center;
+    justify-content:center; gap:8px; text-transform:uppercase;
 }
 
-footer .ico{
-    font-size:11px;
+footer .ico{ font-size:11px; color:var(--jarvis-cyan); }
+
+/* ================= TAG CATEGORIA ================= */
+.tag-categoria{
+    display:inline-block;
+    margin-left:6px;
+    padding:2px 7px;
+    font-family:'Orbitron','Segoe UI',sans-serif;
+    font-size:8.5px;
+    font-weight:700;
+    letter-spacing:.8px;
+    text-transform:uppercase;
     color:var(--jarvis-cyan);
+    background:rgba(0,212,255,.12);
+    border:1px solid rgba(0,212,255,.35);
+    border-radius:3px;
+    vertical-align:middle;
+    white-space:nowrap;
 }
 
 @media(max-width:400px){
@@ -2282,7 +1169,6 @@ footer .ico{
 }
 </style>
 </head>
-
 <body>
 
 <div id="splash">
@@ -2378,8 +1264,7 @@ footer .ico{
             <button class="subtab" id="subShare" onclick="trocarSubAba('share')"><span class="ic">📏</span>Share</button>
             <button class="subtab" id="subRupturas" onclick="trocarSubAba('rupturas')"><span class="ic">📋</span>Rupturas</button>
             <button class="subtab" id="subValidades" onclick="trocarSubAba('validades')"><span class="ic">📅</span>Validades</button>
-            <button class="subtab" id="subNotasRupturas" onclick="trocarSubAba('notasRupturas')"><span class="ic">📝</span>Nota Rupt.</button>
-            <button class="subtab" id="subNotasValidades" onclick="trocarSubAba('notasValidades')"><span class="ic">🗒️</span>Nota Valid.</button>
+            <button class="subtab" id="subNotas" onclick="trocarSubAba('notas')"><span class="ic">📝</span>Notas</button>
         </div>
 
         <div class="subtab-painel ativo" id="painelDados">
@@ -2568,24 +1453,40 @@ footer .ico{
                    placeholder="🔎 Pesquisar produto..." oninput="pesquisarRupturas()">
 
             <div id="painelAlcoolicos">
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 210 ml</div><div class="ruptura-lista" id="listaCervejas210"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 330 ml</div><div class="ruptura-lista" id="listaCervejas330"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 350 ml</div><div class="ruptura-lista" id="listaCervejas350"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 355 ml</div><div class="ruptura-lista" id="listaCervejas355"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 473 ml</div><div class="ruptura-lista" id="listaCervejas473"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 600 ml</div><div class="ruptura-lista" id="listaCervejas600"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🚫</span> Cervejas Zero</div><div class="ruptura-lista" id="listaCervejasZero"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍹</span> Bebidas Mistas</div><div class="ruptura-lista" id="listaMistas"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 210 ml (Long Neck)</div><div class="ruptura-lista" id="listaCervejas210"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 269 ml (Lata)</div><div class="ruptura-lista" id="listaCervejas269"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 330 ml (Long Neck)</div><div class="ruptura-lista" id="listaCervejas330"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 350 ml (Lata)</div><div class="ruptura-lista" id="listaCervejas350"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 355 ml (Long Neck)</div><div class="ruptura-lista" id="listaCervejas355"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 473 ml (Lata)</div><div class="ruptura-lista" id="listaCervejas473"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 600 ml (Garrafa)</div><div class="ruptura-lista" id="listaCervejas600"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 1 L (Garrafa)</div><div class="ruptura-lista" id="listaCervejas1L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🚫</span> Cervejas Zero Álcool</div><div class="ruptura-lista" id="listaCervejasZero"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍻</span> Cervejas Artesanais / Premium especiais</div><div class="ruptura-lista" id="listaCervejasArtesanais"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍻</span> Cervejas Regionais / Outras marcas — confirmar apresentação</div><div class="ruptura-lista" id="listaOutrasCervejas"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍹</span> Bebidas Mistas / Prontas para Beber</div><div class="ruptura-lista" id="listaMistas"></div></div>
             </div>
 
             <div id="painelNaoAlcoolicos" style="display:none;">
                 <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 200 ml</div><div class="ruptura-lista" id="listaRefrigerantes200"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 237 ml</div><div class="ruptura-lista" id="listaRefrigerantes237"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 269 ml</div><div class="ruptura-lista" id="listaRefrigerantes269"></div></div>
                 <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 350 ml</div><div class="ruptura-lista" id="listaRefrigerantes350"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 600 ml</div><div class="ruptura-lista" id="listaRefrigerantes600"></div></div>
                 <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 1 L</div><div class="ruptura-lista" id="listaRefrigerantes1L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 1,5 L</div><div class="ruptura-lista" id="listaRefrigerantes15L"></div></div>
                 <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 2 L</div><div class="ruptura-lista" id="listaRefrigerantes2L"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 2,5 L</div><div class="ruptura-lista" id="listaRefrigerantes25L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 2,25 L</div><div class="ruptura-lista" id="listaRefrigerantes225L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 3 L</div><div class="ruptura-lista" id="listaRefrigerantes3L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — Outras linhas (verificar)</div><div class="ruptura-lista" id="listaRefrigerantesOutros"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">💧</span> H2OH! — bebida gaseificada saborizada</div><div class="ruptura-lista" id="listaH2OH"></div></div>
                 <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍋</span> Água Tônica</div><div class="ruptura-lista" id="listaTonicas"></div></div>
                 <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🧃</span> Isotônicos</div><div class="ruptura-lista" id="listaIsotonicos"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">⚡</span> Energéticos — Fusion</div><div class="ruptura-lista" id="listaEnergeticosFusion"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">⚡</span> Energéticos — Red Bull</div><div class="ruptura-lista" id="listaEnergeticosRedBull"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🧊</span> Chás Gelados</div><div class="ruptura-lista" id="listaChasGelados"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🧃</span> Sucos e Bebidas à base de Frutas</div><div class="ruptura-lista" id="listaSucosDoBem"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">💧</span> Águas</div><div class="ruptura-lista" id="listaAguasAma"></div></div>
             </div>
         </div>
 
@@ -2609,24 +1510,40 @@ footer .ico{
                    placeholder="🔎 Pesquisar produto..." oninput="pesquisarValidades()">
 
             <div id="painelValidadeAlcoolicos">
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 210 ml</div><div class="ruptura-lista" id="validadeListaCervejas210"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 330 ml</div><div class="ruptura-lista" id="validadeListaCervejas330"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 350 ml</div><div class="ruptura-lista" id="validadeListaCervejas350"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 355 ml</div><div class="ruptura-lista" id="validadeListaCervejas355"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 473 ml</div><div class="ruptura-lista" id="validadeListaCervejas473"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 600 ml</div><div class="ruptura-lista" id="validadeListaCervejas600"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🚫</span> Cervejas Zero</div><div class="ruptura-lista" id="validadeListaCervejasZero"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍹</span> Bebidas Mistas</div><div class="ruptura-lista" id="validadeListaMistas"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 210 ml (Long Neck)</div><div class="ruptura-lista" id="validadeListaCervejas210"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 269 ml (Lata)</div><div class="ruptura-lista" id="validadeListaCervejas269"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 330 ml (Long Neck)</div><div class="ruptura-lista" id="validadeListaCervejas330"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 350 ml (Lata)</div><div class="ruptura-lista" id="validadeListaCervejas350"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 355 ml (Long Neck)</div><div class="ruptura-lista" id="validadeListaCervejas355"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 473 ml (Lata)</div><div class="ruptura-lista" id="validadeListaCervejas473"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 600 ml (Garrafa)</div><div class="ruptura-lista" id="validadeListaCervejas600"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍺</span> Cervejas — 1 L (Garrafa)</div><div class="ruptura-lista" id="validadeListaCervejas1L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🚫</span> Cervejas Zero Álcool</div><div class="ruptura-lista" id="validadeListaCervejasZero"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍻</span> Cervejas Artesanais / Premium especiais</div><div class="ruptura-lista" id="validadeListaCervejasArtesanais"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍻</span> Cervejas Regionais / Outras marcas — confirmar apresentação</div><div class="ruptura-lista" id="validadeListaOutrasCervejas"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍹</span> Bebidas Mistas / Prontas para Beber</div><div class="ruptura-lista" id="validadeListaMistas"></div></div>
             </div>
 
             <div id="painelValidadeNaoAlcoolicos" style="display:none;">
                 <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 200 ml</div><div class="ruptura-lista" id="validadeListaRefrigerantes200"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 237 ml</div><div class="ruptura-lista" id="validadeListaRefrigerantes237"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 269 ml</div><div class="ruptura-lista" id="validadeListaRefrigerantes269"></div></div>
                 <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 350 ml</div><div class="ruptura-lista" id="validadeListaRefrigerantes350"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 600 ml</div><div class="ruptura-lista" id="validadeListaRefrigerantes600"></div></div>
                 <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 1 L</div><div class="ruptura-lista" id="validadeListaRefrigerantes1L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 1,5 L</div><div class="ruptura-lista" id="validadeListaRefrigerantes15L"></div></div>
                 <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 2 L</div><div class="ruptura-lista" id="validadeListaRefrigerantes2L"></div></div>
-                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 2,5 L</div><div class="ruptura-lista" id="validadeListaRefrigerantes25L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 2,25 L</div><div class="ruptura-lista" id="validadeListaRefrigerantes225L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — 3 L</div><div class="ruptura-lista" id="validadeListaRefrigerantes3L"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🥤</span> Refrigerantes — Outras linhas (verificar)</div><div class="ruptura-lista" id="validadeListaRefrigerantesOutros"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">💧</span> H2OH! — bebida gaseificada saborizada</div><div class="ruptura-lista" id="validadeListaH2OH"></div></div>
                 <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🍋</span> Água Tônica</div><div class="ruptura-lista" id="validadeListaTonicas"></div></div>
                 <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🧃</span> Isotônicos</div><div class="ruptura-lista" id="validadeListaIsotonicos"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">⚡</span> Energéticos — Fusion</div><div class="ruptura-lista" id="validadeListaEnergeticosFusion"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">⚡</span> Energéticos — Red Bull</div><div class="ruptura-lista" id="validadeListaEnergeticosRedBull"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🧊</span> Chás Gelados</div><div class="ruptura-lista" id="validadeListaChasGelados"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">🧃</span> Sucos e Bebidas à base de Frutas</div><div class="ruptura-lista" id="validadeListaSucosDoBem"></div></div>
+                <div class="ruptura-secao"><div class="ruptura-secao-titulo"><span class="ico">💧</span> Águas</div><div class="ruptura-lista" id="validadeListaAguasAma"></div></div>
             </div>
 
             <div class="ruptura-secao" style="margin-top:16px;">
@@ -2635,53 +1552,27 @@ footer .ico{
             </div>
         </div>
 
-        <div class="subtab-painel" id="painelNotasRupturas">
+        <div class="subtab-painel" id="painelNotas">
             <div class="loja-info" style="margin-top:0;">
-                <div class="loja-info-titulo"><span class="ico">📝</span> BLOCO DE NOTAS — RUPTURAS</div>
+                <div class="loja-info-titulo"><span class="ico">📝</span> BLOCO DE NOTAS</div>
                 <div style="font-size:11px;color:var(--jarvis-text-dim);margin-bottom:10px;font-weight:500;letter-spacing:.5px;">
-                    Bloco gerado automaticamente com base nos produtos marcados
+                    Gerado automaticamente • Rupturas + Validades em um só lugar
                 </div>
             </div>
 
             <div class="notas-acoes-topo">
-                <button class="btn-copiar" id="btnCopiarRuptInline" onclick="copiarNotasRupturasInline()">
+                <button class="btn-copiar" id="btnCopiarNotasInline" onclick="copiarNotasInline()">
                     <span class="ico">📋</span> Copiar informações
                 </button>
             </div>
 
             <div class="notepad">
                 <div class="notepad-titulo-barra">
-                    <span class="ico">📝</span> Rupturas.txt
+                    <span class="ico">📝</span> Notas.txt
                 </div>
-                <div class="notepad-area" id="blocoNotasRupturasInline" contenteditable="false"></div>
+                <div class="notepad-area" id="blocoNotasInline" contenteditable="false"></div>
                 <div class="notepad-statusbar">
-                    <span><span class="ico">📄</span> <span id="statusRuptInfo">Linhas: 0</span></span>
-                    <span><span class="ico">🔤</span> UTF-8</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="subtab-painel" id="painelNotasValidades">
-            <div class="loja-info" style="margin-top:0;">
-                <div class="loja-info-titulo"><span class="ico">🗒️</span> BLOCO DE NOTAS — VALIDADES</div>
-                <div style="font-size:11px;color:var(--jarvis-text-dim);margin-bottom:10px;font-weight:500;letter-spacing:.5px;">
-                    Bloco gerado automaticamente com base nos produtos registrados
-                </div>
-            </div>
-
-            <div class="notas-acoes-topo">
-                <button class="btn-copiar" id="btnCopiarValidInline" onclick="copiarNotasValidadesInline()">
-                    <span class="ico">📋</span> Copiar informações
-                </button>
-            </div>
-
-            <div class="notepad">
-                <div class="notepad-titulo-barra">
-                    <span class="ico">🗒️</span> Validades.txt
-                </div>
-                <div class="notepad-area" id="blocoNotasValidadesInline" contenteditable="false"></div>
-                <div class="notepad-statusbar">
-                    <span><span class="ico">📄</span> <span id="statusValidInfo">Linhas: 0</span></span>
+                    <span><span class="ico">📄</span> <span id="statusNotasInfo">Linhas: 0</span></span>
                     <span><span class="ico">🔤</span> UTF-8</span>
                 </div>
             </div>
@@ -2789,7 +1680,6 @@ footer .ico{
     <span id="toastIcone" class="ico">✓</span>
     <span id="toastTexto"></span>
 </div>
-
 <script>
 
 const $ = id => document.getElementById(id);
@@ -3014,8 +1904,7 @@ function trocarSubAba(nome){
         share:    ["subShare","painelShare"],
         rupturas: ["subRupturas","painelRupturas"],
         validades:["subValidades","painelValidades"],
-        notasRupturas:  ["subNotasRupturas","painelNotasRupturas"],
-        notasValidades: ["subNotasValidades","painelNotasValidades"]
+        notas:    ["subNotas","painelNotas"]
     };
     const par = mapa[nome];
     if(!par) return;
@@ -3029,8 +1918,7 @@ function trocarSubAba(nome){
         montarListaValidades();
     }
     if(nome === "share") calcularLoja();
-    if(nome === "notasRupturas") atualizarNotasRupturasInline();
-    if(nome === "notasValidades") atualizarNotasValidadesInline();
+    if(nome === "notas") atualizarNotasInline();
     if(nome === "rupturas"){
         montarListaRupturas();
         atualizarContadoresRuptura();
@@ -3264,111 +2152,335 @@ function calcResultado(){
     }catch(e){ $("calcResult").textContent="Erro"; }
 }
 
-const cervejas210=[["Coronita Extra","210 ml • Long Neck"]];
+/* ============================================================
+   CATÁLOGO — ALCOÓLICOS
+   ============================================================ */
+
+const cervejas210=[
+    ["Coronita Extra","210 ml • Long Neck","Premium / Importada"]
+];
+
+const cervejas269=[
+    ["Skol Pilsen","269 ml • Lata","Mainstream"],
+    ["Brahma Chopp","269 ml • Lata","Mainstream"],
+    ["Antarctica Pilsen","269 ml • Lata","Mainstream"]
+];
+
 const cervejas330=[
-    ["Beck's","330 ml • Long Neck"],["Budweiser","330 ml • Long Neck"],
-    ["Corona Extra","330 ml • Long Neck"],["Michelob Ultra","330 ml • Long Neck"],
-    ["Stella Artois","330 ml • Long Neck"],["Stella Artois Pure Gold","330 ml • Long Neck"]
+    ["Beck's","330 ml • Long Neck","Premium / Importada"],
+    ["Budweiser","330 ml • Long Neck","Premium / Importada"],
+    ["Corona Extra","330 ml • Long Neck","Premium / Importada"],
+    ["Michelob Ultra","330 ml • Long Neck","Premium / Importada"],
+    ["Stella Artois","330 ml • Long Neck","Premium / Importada"],
+    ["Stella Artois Pure Gold","330 ml • Long Neck","Premium / Importada"],
+    ["Hoegaarden Witbier","330 ml • Garrafa","Premium / Importada"],
+    ["Leffe Blonde","330 ml • Garrafa","Premium / Importada"],
+    ["Goose Island IPA","330 ml • Long Neck","Premium / Importada"]
 ];
+
 const cervejas350=[
-    ["Antarctica Original","350 ml • Lata"],["Antarctica Pilsen","350 ml • Lata"],
-    ["Antarctica Sub-Zero","350 ml • Lata"],["Beck's","350 ml • Lata"],
-    ["Bohemia Escura","350 ml • Lata"],["Bohemia Puro Malte","350 ml • Lata"],
-    ["Brahma Chopp","350 ml • Lata"],["Brahma Duplo Malte","350 ml • Lata"],
-    ["Brahma Malzbier","350 ml • Lata"],["Budweiser","350 ml • Lata"],
-    ["Michelob Ultra","350 ml • Lata"],["Skol Pilsen","350 ml • Lata"],
-    ["Spaten","350 ml • Lata"],["Stella Artois","350 ml • Lata"],
-    ["Stella Artois Pure Gold","350 ml • Lata"]
+    ["Antarctica Original","350 ml • Lata","Premium"],
+    ["Antarctica Pilsen","350 ml • Lata","Mainstream"],
+    ["Beck's","350 ml • Lata","Premium / Importada"],
+    ["Bohemia Puro Malte","350 ml • Lata","Premium"],
+    ["Bohemia 14","350 ml • Lata","Premium / Artesanal"],
+    ["Brahma Chopp","350 ml • Lata","Mainstream"],
+    ["Brahma Duplo Malte","350 ml • Lata","Mainstream"],
+    ["Brahma Malzbier","350 ml • Lata","Mainstream"],
+    ["Brahma Extra Lager","350 ml • Lata","Mainstream"],
+    ["Budweiser","350 ml • Lata","Premium / Importada"],
+    ["Colorado Lager","350 ml • Lata — confirmar apresentação","Artesanal / Regional"],
+    ["Colorado Ribeirão Lager","350 ml • Lata","Artesanal / Regional"],
+    ["Corona Extra","350 ml • Lata — confirmar apresentação","Premium / Importada"],
+    ["Goose Island IPA","350 ml • Lata","Premium / Importada"],
+    ["Hoegaarden Witbier","350 ml • Lata — confirmar apresentação","Premium / Importada"],
+    ["Leffe Blonde","350 ml • Lata — confirmar apresentação","Premium / Importada"],
+    ["Michelob Ultra","350 ml • Lata","Premium / Importada"],
+    ["Patagonia Amber Lager","350 ml • Lata","Premium / Regional"],
+    ["Patagonia Bohemian Pilsener","350 ml • Lata","Premium / Regional"],
+    ["Patagonia Weisse","350 ml • Lata","Premium / Regional"],
+    ["Skol Pilsen","350 ml • Lata","Mainstream"],
+    ["Skol Puro Malte","350 ml • Lata","Mainstream"],
+    ["Spaten","350 ml • Lata","Premium"],
+    ["Stella Artois","350 ml • Lata","Premium / Importada"],
+    ["Stella Artois Pure Gold","350 ml • Lata — confirmar apresentação","Premium / Importada"],
+    ["Wäls Session IPA","350 ml • Lata","Artesanal / Premium"]
 ];
+
 const cervejas355=[
-    ["Antarctica Pilsen","355 ml • Long Neck"],["Corona Extra","355 ml • Long Neck"],
-    ["Patagonia Amber","355 ml • Long Neck"],["Patagonia Bohemian","355 ml • Long Neck"],
-    ["Patagonia Weiss","355 ml • Long Neck"],["Skol Pilsen","355 ml • Long Neck"],
-    ["Spaten","355 ml • Long Neck"]
+    ["Antarctica Pilsen","355 ml • Long Neck — confirmar apresentação","Mainstream"],
+    ["Corona Extra","355 ml • Long Neck","Premium / Importada"],
+    ["Patagonia Amber Lager","355 ml • Long Neck","Premium / Regional"],
+    ["Patagonia Bohemian Pilsener","355 ml • Long Neck","Premium / Regional"],
+    ["Patagonia Weisse","355 ml • Long Neck","Premium / Regional"],
+    ["Skol Pilsen","355 ml • Long Neck — confirmar apresentação","Mainstream"],
+    ["Spaten","355 ml • Long Neck","Premium"]
 ];
+
 const cervejas473=[
-    ["Antarctica Original","473 ml • Lata"],["Antarctica Pilsen","473 ml • Lata"],
-    ["Bohemia Pilsen","473 ml • Lata"],["Brahma Chopp","473 ml • Lata"],
-    ["Brahma Extra Lager","473 ml • Lata"],["Budweiser","473 ml • Lata"],
-    ["Corona","473 ml • Lata"],["Patagonia Amber","473 ml • Lata"],
-    ["Patagonia Bohemian","473 ml • Lata"],["Patagonia Weiss","473 ml • Lata"],
-    ["Skol Pilsen","473 ml • Lata"],["Stella Artois","473 ml • Lata"],
-    ["Stella Artois Pure Gold","473 ml • Lata"]
+    ["Antarctica Original","473 ml • Lata","Premium"],
+    ["Antarctica Pilsen","473 ml • Lata","Mainstream"],
+    ["Bohemia Pilsen","473 ml • Lata","Premium"],
+    ["Brahma Chopp","473 ml • Lata","Mainstream"],
+    ["Brahma Extra Lager","473 ml • Lata — confirmar apresentação","Mainstream"],
+    ["Budweiser","473 ml • Lata","Premium / Importada"],
+    ["Corona Extra","473 ml • Lata — confirmar apresentação","Premium / Importada"],
+    ["Goose Island IPA","473 ml • Lata — confirmar apresentação","Premium / Importada"],
+    ["Patagonia Amber Lager","473 ml • Lata — confirmar apresentação","Premium / Regional"],
+    ["Patagonia Bohemian Pilsener","473 ml • Lata — confirmar apresentação","Premium / Regional"],
+    ["Patagonia Weisse","473 ml • Lata — confirmar apresentação","Premium / Regional"],
+    ["Skol Pilsen","473 ml • Lata","Mainstream"],
+    ["Stella Artois","473 ml • Lata","Premium / Importada"],
+    ["Stella Artois Pure Gold","473 ml • Lata — confirmar apresentação","Premium / Importada"]
 ];
+
 const cervejas600=[
-    ["Antarctica Original","600 ml • Long Neck"],["Antarctica Pilsen","600 ml • Long Neck"],
-    ["Antarctica Sub-Zero","600 ml • Long Neck"],["Bohemia Pilsen","600 ml • Long Neck"],
-    ["Brahma Chopp","600 ml • Long Neck"],["Brahma Duplo Malte","600 ml • Long Neck"],
-    ["Brahma Malzbier","600 ml • Long Neck"],["Budweiser","600 ml • Long Neck"],
-    ["Colorado Lager","600 ml • Long Neck"],["Skol Pilsen","600 ml • Long Neck"],
-    ["Spaten","600 ml • Long Neck"],["Spaten Puro Malte","600 ml • Long Neck"],
-    ["Stella Artois","600 ml • Long Neck"]
+    ["Antarctica Original","600 ml • Garrafa retornável — confirmar apresentação","Premium"],
+    ["Antarctica Pilsen","600 ml • Garrafa retornável","Mainstream"],
+    ["Bohemia Puro Malte","600 ml • Garrafa retornável — confirmar apresentação","Premium"],
+    ["Brahma Chopp","600 ml • Garrafa retornável","Mainstream"],
+    ["Brahma Duplo Malte","600 ml • Garrafa retornável — confirmar apresentação","Mainstream"],
+    ["Brahma Malzbier","600 ml • Garrafa — confirmar apresentação","Mainstream"],
+    ["Budweiser","600 ml • Garrafa — confirmar apresentação","Premium / Importada"],
+    ["Colorado Lager","600 ml • Garrafa — confirmar apresentação","Artesanal / Regional"],
+    ["Skol Pilsen","600 ml • Garrafa retornável — confirmar apresentação","Mainstream"],
+    ["Spaten","600 ml • Garrafa retornável","Premium"],
+    ["Stella Artois","600 ml • Garrafa — confirmar apresentação","Premium / Importada"]
 ];
+
+const cervejas1L=[
+    ["Antarctica Pilsen","1 L • Garrafa retornável","Mainstream"],
+    ["Brahma Chopp","1 L • Garrafa retornável","Mainstream"],
+    ["Skol Pilsen","1 L • Garrafa retornável","Mainstream"]
+];
+
 const cervejasZero=[
-    ["Brahma Zero","330 ml • Long Neck"],["Brahma Zero","350 ml • Lata"],
-    ["Budweiser Zero","330 ml • Long Neck"],["Corona Cero","330 ml • Long Neck"],
-    ["Budweiser Zero","350 ml • Lata"],["Corona Cero","350 ml • Lata"],
-    ["Skol Zero Zero","350 ml • Lata"]
+    ["Brahma Zero","330 ml • Long Neck","Zero Álcool"],
+    ["Brahma Zero","350 ml • Lata","Zero Álcool"],
+    ["Budweiser Zero","330 ml • Long Neck","Zero Álcool / Importada"],
+    ["Budweiser Zero","350 ml • Lata — confirmar apresentação","Zero Álcool / Importada"],
+    ["Corona Cero","330 ml • Long Neck","Zero Álcool / Importada"],
+    ["Corona Cero","350 ml • Lata — confirmar apresentação","Zero Álcool / Importada"],
+    ["Skol Zero Zero","350 ml • Lata — confirmar apresentação","Zero Álcool"],
+    ["Stella Artois Zero","330 ml • Long Neck","Zero Álcool / Importada"]
 ];
+
+const cervejasArtesanais=[
+    ["Colorado Appia","355 ml • Garrafa","Artesanal / Regional"],
+    ["Colorado Cauim","355 ml • Garrafa","Artesanal / Regional"],
+    ["Colorado Demoiselle","355 ml • Garrafa","Artesanal / Regional"],
+    ["Colorado Indica","355 ml • Garrafa","Artesanal / Regional"],
+    ["Colorado Ithaca","355 ml • Garrafa","Artesanal / Regional"],
+    ["Colorado Vixnu","355 ml • Garrafa","Artesanal / Regional"],
+    ["Wäls Bela","355 ml • Garrafa","Artesanal / Premium"],
+    ["Wäls Búzios","355 ml • Garrafa","Artesanal / Premium"],
+    ["Wäls Lager","355 ml • Garrafa","Artesanal / Premium"],
+    ["Wäls Quadruppel","355 ml • Garrafa","Artesanal / Premium"],
+    ["Wäls Session IPA","355 ml • Garrafa","Artesanal / Premium"],
+    ["Wäls Verão","355 ml • Garrafa","Artesanal / Premium"]
+];
+
+const outrasCervejas=[
+    ["Adriática","Volume/embalagem variam • confirmar apresentação regional","Cerveja Regional"],
+    ["Berrió","Volume/embalagem variam • confirmar marca e distribuição","Cerveja Regional"],
+    ["Caracu","Volume/embalagem variam • confirmar apresentação","Cerveja Regional"],
+    ["Legítima","Volume/embalagem variam • confirmar distribuição no Ceará","Cerveja Regional"],
+    ["Magnífica","Volume/embalagem variam • confirmar distribuição no Ceará","Cerveja Regional"],
+    ["Nossa","Volume/embalagem variam • confirmar marca e distribuição","Cerveja Regional"],
+    ["Polar","Volume/embalagem variam • confirmar distribuição regional","Cerveja Regional"],
+    ["Quilmes","Volume/embalagem variam • confirmar disponibilidade","Premium / Importada"],
+    ["Serramalte","Volume/embalagem variam • confirmar apresentação","Cerveja Regional"]
+];
+
 const bebidasMistas=[
-    ["Brutal Fruit Spritzer","275 ml • Lata"],["Mike's Hard Lemonade","Conforme disponibilidade"],
-    ["Skol Beats Caipi — Lata","269 ml • Lata"],["Skol Beats Caipi — Long Neck","269 ml • Long Neck"],
-    ["Skol Beats GT — Lata","269 ml • Lata"],["Skol Beats GT — Long Neck","269 ml • Long Neck"],
-    ["Skol Beats Mint — Lata","269 ml • Lata"],["Skol Beats Mint — Long Neck","269 ml • Long Neck"],
-    ["Skol Beats Secret — Lata","269 ml • Lata"],["Skol Beats Secret — Long Neck","269 ml • Long Neck"],
-    ["Skol Beats Senses — Lata","269 ml • Lata"],["Skol Beats Senses — Long Neck","269 ml • Long Neck"],
-    ["Skol Beats Tropical — Lata","269 ml • Lata"],["Skol Beats Tropical — Long Neck","269 ml • Long Neck"]
+    ["Brutal Fruit Spritzer","275 ml • Lata — confirmar apresentação","Bebida Mista"],
+    ["Mike's Hard Lemonade","Volume/embalagem variam • confirmar apresentação","Bebida Mista"],
+    ["Skol Beats Caipi","269 ml • Lata/Long Neck — confirmar apresentação","Bebida Mista"],
+    ["Skol Beats GT","269 ml • Lata/Long Neck — confirmar apresentação","Bebida Mista"],
+    ["Skol Beats Green Mix","Volume/embalagem variam • confirmar apresentação","Bebida Mista"],
+    ["Skol Beats Mint","269 ml • Lata/Long Neck — confirmar apresentação","Bebida Mista"],
+    ["Skol Beats Red Mix","Volume/embalagem variam • confirmar apresentação","Bebida Mista"],
+    ["Skol Beats Secret","269 ml • Lata/Long Neck — confirmar apresentação","Bebida Mista"],
+    ["Skol Beats Senses","269 ml • Lata/Long Neck — confirmar apresentação","Bebida Mista"],
+    ["Skol Beats Tropical","269 ml • Lata/Long Neck — confirmar apresentação","Bebida Mista"],
+    ["Skol Beats Ginger","Volume/embalagem variam • confirmar apresentação","Bebida Mista"],
+    ["Vinho do Zé","Volume/embalagem variam • confirmar disponibilidade e apresentação","Bebida Mista"]
 ];
+
+/* ============================================================
+   CATÁLOGO — NÃO ALCOÓLICOS (Ambev)
+   ============================================================ */
+
 const refrigerantes200=[
-    ["Guaraná Antarctica","200 ml • PET"],["Guaraná Antarctica Zero","200 ml • PET"],
-    ["Pepsi","200 ml • PET"],["Pepsi Black","200 ml • PET"],
-    ["Soda Antarctica","200 ml • PET"],["Sukita Laranja","200 ml • PET"]
+    ["Guaraná Antarctica","200 ml • PET","Refrigerante"],
+    ["Guaraná Antarctica Zero","200 ml • PET","Refrigerante Zero"],
+    ["Pepsi","200 ml • PET","Refrigerante"],
+    ["Pepsi Black","200 ml • PET","Refrigerante Zero"],
+    ["Sukita Laranja","200 ml • PET","Refrigerante"],
+    ["Sukita Uva","200 ml • PET","Refrigerante"],
+    ["Soda Limonada Antarctica","200 ml • PET","Refrigerante"]
 ];
+
+const refrigerantes237=[
+    ["Guaraná Antarctica","237 ml • Lata","Refrigerante"],
+    ["Guaraná Antarctica Zero","237 ml • Lata","Refrigerante Zero"],
+    ["Sukita Laranja","237 ml • Lata","Refrigerante"],
+    ["Sukita Uva","237 ml • Lata","Refrigerante"]
+];
+
+const refrigerantes269=[
+    ["Guaraná Antarctica","269 ml • Lata","Refrigerante"],
+    ["Guaraná Antarctica Zero","269 ml • Lata","Refrigerante Zero"],
+    ["Pepsi","269 ml • Lata","Refrigerante"],
+    ["Pepsi Black","269 ml • Lata","Refrigerante Zero"]
+];
+
 const refrigerantes350=[
-    ["Guaraná Antarctica","350 ml • Lata"],["Guaraná Antarctica Zero","350 ml • Lata"],
-    ["H2O Limão","350 ml • Lata"],["Pepsi","350 ml • Lata"],["Pepsi Black","350 ml • Lata"],
-    ["Soda Antarctica","350 ml • Lata"],["Sukita Laranja","350 ml • Lata"],["Sukita Uva","350 ml • Lata"]
+    ["Guaraná Antarctica","350 ml • Lata","Refrigerante"],
+    ["Guaraná Antarctica Zero","350 ml • Lata","Refrigerante Zero"],
+    ["Pepsi","350 ml • Lata","Refrigerante"],
+    ["Pepsi Black","350 ml • Lata","Refrigerante Zero"],
+    ["Pepsi Twist","350 ml • Lata — confirmar disponibilidade","Refrigerante"],
+    ["Sukita Laranja","350 ml • Lata","Refrigerante"],
+    ["Sukita Uva","350 ml • Lata","Refrigerante"],
+    ["Soda Limonada Antarctica","350 ml • Lata","Refrigerante"]
 ];
+
+const refrigerantes600=[
+    ["Guaraná Antarctica","600 ml • PET","Refrigerante"],
+    ["Guaraná Antarctica Zero","600 ml • PET","Refrigerante Zero"],
+    ["Sukita Laranja","600 ml • PET","Refrigerante"],
+    ["Sukita Uva","600 ml • PET","Refrigerante"]
+];
+
 const refrigerantes1L=[
-    ["Guaraná Antarctica","1 L • PET"],["Guaraná Antarctica Zero","1 L • PET"],
-    ["Pepsi","1 L • PET"],["Pepsi Black","1 L • PET"],["Soda Antarctica","1 L • PET"],
-    ["Sukita Laranja","1 L • PET"],["Sukita Uva","1 L • PET"]
+    ["Guaraná Antarctica","1 L • PET","Refrigerante"],
+    ["Guaraná Antarctica Zero","1 L • PET","Refrigerante Zero"],
+    ["Pepsi","1 L • PET","Refrigerante"],
+    ["Pepsi Black","1 L • PET","Refrigerante Zero"],
+    ["Pepsi Black Twist","1 L • PET","Refrigerante Zero"],
+    ["Sukita Laranja","1 L • PET","Refrigerante"],
+    ["Soda Limonada Antarctica","1 L • PET","Refrigerante"]
 ];
+
+const refrigerantes15L=[
+    ["Guaraná Antarctica","1,5 L • PET","Refrigerante"],
+    ["Guaraná Antarctica Zero","1,5 L • PET","Refrigerante Zero"],
+    ["Pepsi","1,5 L • PET","Refrigerante"],
+    ["Pepsi Black","1,5 L • PET","Refrigerante Zero"]
+];
+
 const refrigerantes2L=[
-    ["Guaraná Antarctica","2 L • PET"],["Guaraná Antarctica Zero","2 L • PET"],
-    ["Pepsi","2 L • PET"],["Pepsi Black","2 L • PET"],["Soda Antarctica","2 L • PET"],
-    ["Sukita Laranja","2 L • PET"],["Sukita Uva","2 L • PET"]
+    ["Guaraná Antarctica","2 L • PET","Refrigerante"],
+    ["Guaraná Antarctica Zero","2 L • PET","Refrigerante Zero"],
+    ["Pepsi","2 L • PET","Refrigerante"],
+    ["Pepsi Black","2 L • PET","Refrigerante Zero"],
+    ["Pepsi Black Twist","2 L • PET","Refrigerante Zero"],
+    ["Sukita Laranja","2 L • PET","Refrigerante"],
+    ["Sukita Uva","2 L • PET","Refrigerante"],
+    ["Soda Limonada Antarctica","2 L • PET","Refrigerante"]
 ];
-const refrigerantes25L=[
-    ["Guaraná Antarctica","2,5 L • PET"],["Guaraná Antarctica Zero","2,5 L • PET"],["Pepsi","2,5 L • PET"]
+
+const refrigerantes225L=[
+    ["Guaraná Antarctica","2,25 L • PET","Refrigerante"],
+    ["Guaraná Antarctica Zero","2,25 L • PET","Refrigerante Zero"]
 ];
+
+const refrigerantes3L=[
+    ["Guaraná Antarctica","3 L • PET","Refrigerante"],
+    ["Guaraná Antarctica Zero","3 L • PET","Refrigerante Zero"]
+];
+
+const refrigerantesOutros=[
+    ["Baré","Embalagens a confirmar • verificar disponibilidade no Ceará","Refrigerante Regional"],
+    ["Citrus Antarctica","Embalagens a confirmar • verificar disponibilidade no Ceará","Refrigerante"],
+    ["Teem","Embalagens a confirmar • verificar disponibilidade no Ceará","Refrigerante"]
+];
+
+const h2oh=[
+    ["H2OH! Limão","350 ml • Lata","Refrigerante"],
+    ["H2OH! Limão","500 ml • PET","Refrigerante"],
+    ["H2OH! Limão","1,5 L • PET","Refrigerante"]
+];
+
 const tonicas=[
-    ["Tônica Antarctica","269 ml • Lata"],["Tônica Antarctica Gengibre","269 ml • Lata"],
-    ["Tônica Antarctica","350 ml • Lata"],["Tônica Antarctica Diet","350 ml • Lata"],
-    ["Tônica Antarctica Zero Açúcar","350 ml • Lata"],
-    ["Tônica Antarctica","1 L • PET"],["Tônica Antarctica Zero Açúcar","1 L • PET"]
+    ["Água Tônica Antarctica","350 ml • Lata","Água Tônica"],
+    ["Água Tônica Antarctica Diet","350 ml • Lata","Água Tônica / Diet"],
+    ["Água Tônica Antarctica","1 L • PET","Água Tônica"],
+    ["Água Tônica Antarctica Diet","1 L • PET","Água Tônica / Diet"]
 ];
+
 const isotonicos=[
-    ["Gatorade Laranja","500 ml • PET"],["Gatorade Limão","500 ml • PET"],
-    ["Gatorade Uva","500 ml • PET"],["Gatorade Tangerina","500 ml • PET"],
-    ["Gatorade Maracujá","500 ml • PET"],["Gatorade Morango e Maracujá","500 ml • PET"],
-    ["Gatorade Frutas Silvestres","500 ml • PET"],["Gatorade Melancia com Morango","500 ml • PET"],
-    ["Gatorade Frutas Cítricas","500 ml • PET"],["Gatorade Blueberry","500 ml • PET"],
-    ["H2O Limão","500 ml • PET"],["H2O Limoneto","500 ml • PET"]
+    ["Gatorade Laranja","500 ml • PET — confirmar outras apresentações","Isotônico"],
+    ["Gatorade Limão","500 ml • PET — confirmar outras apresentações","Isotônico"],
+    ["Gatorade Uva","500 ml • PET — confirmar outras apresentações","Isotônico"],
+    ["Gatorade Frutas Cítricas","500 ml • PET — confirmar outras apresentações","Isotônico"],
+    ["Gatorade Manga","500 ml • PET — confirmar outras apresentações","Isotônico"],
+    ["Gatorade Maracujá","500 ml • PET — confirmar outras apresentações","Isotônico"],
+    ["Gatorade Morango com Maracujá","500 ml • PET — confirmar outras apresentações","Isotônico"],
+    ["Gatorade Tangerina","500 ml • PET — confirmar outras apresentações","Isotônico"],
+    ["Gatorade Berry Blue","500 ml • PET — confirmar outras apresentações","Isotônico"],
+    ["Gatorade Zero","Sabores selecionados • confirmar disponibilidade","Isotônico Zero"]
 ];
+
+const energeticosFusion=[
+    ["Fusion","Linha tradicional • confirmar versões no catálogo vigente","Energético"],
+    ["Fusion","Outras versões • confirmar disponibilidade regional","Energético"]
+];
+
+const energeticosRedBull=[
+    ["Red Bull Original","250 ml • Lata — confirmar por versão","Energético / Importado"],
+    ["Red Bull Original","355 ml • Lata — confirmar por versão","Energético / Importado"],
+    ["Red Bull Original","473 ml • Lata — confirmar por versão","Energético / Importado"],
+    ["Red Bull Sugarfree","250 ml • Lata — confirmar por versão","Energético Zero / Importado"],
+    ["Red Bull Sugarfree","355 ml • Lata — confirmar por versão","Energético Zero / Importado"],
+    ["Red Bull Sugarfree","473 ml • Lata — confirmar por versão","Energético Zero / Importado"],
+    ["Red Bull Edições Especiais","Sabores especiais • confirmar disponibilidade","Energético / Importado"]
+];
+
+const chasGelados=[
+    ["Lipton Ice Tea Limão","Embalagens a confirmar • verificar disponibilidade regional","Chá Gelado"],
+    ["Lipton Ice Tea Pêssego","Embalagens a confirmar • verificar disponibilidade regional","Chá Gelado"],
+    ["Lipton Ice Tea Outras Variantes","Confirmar no catálogo vigente","Chá Gelado"]
+];
+
+const sucosDoBem=[
+    ["do bem Sucos de Frutas","Sabores e tamanhos a confirmar • verificar disponibilidade no Ceará","Suco Natural"],
+    ["do bem Néctares","Sabores e tamanhos a confirmar • verificar disponibilidade no Ceará","Néctar"],
+    ["do bem Outras Bebidas","Conforme portfólio disponível","Bebida à base de frutas"]
+];
+
+const aguasAma=[
+    ["AMA Água Mineral Natural","Tamanhos a confirmar no catálogo regional","Água Mineral"]
+];
+
+/* ============================================================
+   EMOJI POR PRODUTO
+   ============================================================ */
 
 function emojiProduto(nome){
     const n=nome.toLowerCase();
-    if(n.includes("beats")||n.includes("mike")||n.includes("brutal")) return "🍹";
+    if(n.includes("beats")||n.includes("mike")||n.includes("brutal")||n.includes("vinho do zé")) return "🍹";
     if(n.includes("tônica")) return "🍋";
-    if(n.includes("gatorade")||n.includes("h2o")) return "🧃";
-    if(n.includes("guaraná")||n.includes("pepsi")||n.includes("sukita")||n.includes("soda")) return "🥤";
+    if(n.includes("gatorade")) return "🧃";
+    if(n.includes("h2oh")) return "🥤";
+    if(n.includes("red bull")||n.includes("fusion")) return "⚡";
+    if(n.includes("lipton")||n.includes("ice tea")||n.includes("chá")) return "🧊";
+    if(n.includes("do bem")||n.includes("suco")||n.includes("néctar")) return "🧃";
+    if(n.includes("ama")||n.includes("água mineral")) return "💧";
+    if(n.includes("guaraná")||n.includes("pepsi")||n.includes("sukita")||n.includes("soda")||
+       n.includes("baré")||n.includes("citrus")||n.includes("teem")) return "🥤";
     if(n.includes("spaten")||n.includes("budweiser")||n.includes("corona")||n.includes("coronita")||
        n.includes("skol")||n.includes("brahma")||n.includes("stella")||n.includes("antarctica")||
        n.includes("bohemia")||n.includes("beck")||n.includes("patagonia")||n.includes("colorado")||
-       n.includes("michelob")) return "🍺";
+       n.includes("michelob")||n.includes("goose")||n.includes("hoegaarden")||n.includes("leffe")||
+       n.includes("wäls")) return "🍺";
     return "📦";
 }
+
+/* ============================================================
+   PERSISTÊNCIA
+   ============================================================ */
 
 const STORAGE_LOJAS="mshare_space_lojas_v2";
 function criarLojaVazia(){
@@ -3704,7 +2816,7 @@ function confirmarExcluirValidade(){
     atualizarTotalValidades();
     atualizarCardsLojas();
     montarListaValidades();
-    atualizarNotasValidadesInline();
+    atualizarNotasInline();
     mostrarToast("Registro excluído.","🗑️");
 }
 
@@ -3764,8 +2876,7 @@ function montarSelecaoLoja(tipo){
             fecharSelecaoLoja();
             abrirFerramentaRupturas(i);
             setTimeout(()=>{
-                if(tipo==="rupturas") trocarSubAba("notasRupturas");
-                else trocarSubAba("notasValidades");
+                trocarSubAba("notas");
             },200);
         });
 
@@ -3845,7 +2956,11 @@ function atualizarInfoLojaValidade(){
         '👨‍💼 '+(i.supervisor||"Não informado");
 }
 
-function criarProdutoRuptura(nome,descricao,categoria){
+/* ============================================================
+   RUPTURAS
+   ============================================================ */
+
+function criarProdutoRuptura(nome,descricao,categoria,categoriaComercial){
     const chave = categoria+"|"+nome+"|"+descricao;
     const loja = getLoja(lojaAtiva);
     const rupturas = loja.rupturas || {};
@@ -3854,7 +2969,7 @@ function criarProdutoRuptura(nome,descricao,categoria){
 
     const div = document.createElement("label");
     div.className = "ruptura-produto";
-    div.dataset.busca = (nome+" "+descricao).toLowerCase();
+    div.dataset.busca = (nome+" "+descricao+" "+(categoriaComercial||"")).toLowerCase();
 
     const cb = document.createElement("input");
     cb.type="checkbox"; cb.className="ruptura-checkbox";
@@ -3871,7 +2986,7 @@ function criarProdutoRuptura(nome,descricao,categoria){
         if(this.disabled) return;
         const l = getLoja(lojaAtiva);
         l.rupturas = l.rupturas || {};
-        if(this.checked){ l.rupturas[chave] = {nome,descricao,categoria}; div.classList.add("selecionado"); }
+        if(this.checked){ l.rupturas[chave] = {nome,descricao,categoria,categoriaComercial}; div.classList.add("selecionado"); }
         else {
             delete l.rupturas[chave];
             div.classList.remove("selecionado");
@@ -3880,14 +2995,20 @@ function criarProdutoRuptura(nome,descricao,categoria){
         setLoja(lojaAtiva, l);
         atualizarContadoresRuptura();
         atualizarCardsLojas();
-        atualizarNotasRupturasInline();
+        atualizarNotasInline();
         montarListaRupturas();
     });
 
     const info = document.createElement("div");
     info.className = "ruptura-produto-info";
-    info.innerHTML = '<div class="ruptura-produto-nome">'+emojiProduto(nome)+' '+nome+'</div>'+
-                     '<div class="ruptura-produto-descricao">'+descricao+'</div>';
+
+    const tag = categoriaComercial
+        ? ' <span class="tag-categoria">'+categoriaComercial+'</span>'
+        : '';
+
+    info.innerHTML =
+        '<div class="ruptura-produto-nome">'+emojiProduto(nome)+' '+nome+tag+'</div>'+
+        '<div class="ruptura-produto-descricao">'+descricao+'</div>';
 
     div.appendChild(cb); div.appendChild(info);
 
@@ -3920,21 +3041,40 @@ function criarProdutoRuptura(nome,descricao,categoria){
 
 function montarListaRupturas(){
     montarGrupo("listaCervejas210",cervejas210,"cerveja");
+    montarGrupo("listaCervejas269",cervejas269,"cerveja");
     montarGrupo("listaCervejas330",cervejas330,"cerveja");
     montarGrupo("listaCervejas350",cervejas350,"cerveja");
     montarGrupo("listaCervejas355",cervejas355,"cerveja");
     montarGrupo("listaCervejas473",cervejas473,"cerveja");
     montarGrupo("listaCervejas600",cervejas600,"cerveja");
+    montarGrupo("listaCervejas1L",cervejas1L,"cerveja");
     montarGrupo("listaCervejasZero",cervejasZero,"cerveja_zero");
+    montarGrupo("listaCervejasArtesanais",cervejasArtesanais,"cerveja");
+    montarGrupo("listaOutrasCervejas",outrasCervejas,"cerveja");
     montarGrupo("listaMistas",bebidasMistas,"mistas");
+
     montarGrupo("listaRefrigerantes200",refrigerantes200,"refrigerante");
+    montarGrupo("listaRefrigerantes237",refrigerantes237,"refrigerante");
+    montarGrupo("listaRefrigerantes269",refrigerantes269,"refrigerante");
     montarGrupo("listaRefrigerantes350",refrigerantes350,"refrigerante");
+    montarGrupo("listaRefrigerantes600",refrigerantes600,"refrigerante");
     montarGrupo("listaRefrigerantes1L",refrigerantes1L,"refrigerante");
+    montarGrupo("listaRefrigerantes15L",refrigerantes15L,"refrigerante");
     montarGrupo("listaRefrigerantes2L",refrigerantes2L,"refrigerante");
-    montarGrupo("listaRefrigerantes25L",refrigerantes25L,"refrigerante");
+    montarGrupo("listaRefrigerantes225L",refrigerantes225L,"refrigerante");
+    montarGrupo("listaRefrigerantes3L",refrigerantes3L,"refrigerante");
+    montarGrupo("listaRefrigerantesOutros",refrigerantesOutros,"refrigerante");
+    montarGrupo("listaH2OH",h2oh,"refrigerante");
+
     montarGrupo("listaTonicas",tonicas,"tonica");
     montarGrupo("listaIsotonicos",isotonicos,"isotonico");
+    montarGrupo("listaEnergeticosFusion",energeticosFusion,"energetico");
+    montarGrupo("listaEnergeticosRedBull",energeticosRedBull,"energetico");
+    montarGrupo("listaChasGelados",chasGelados,"cha");
+    montarGrupo("listaSucosDoBem",sucosDoBem,"suco");
+    montarGrupo("listaAguasAma",aguasAma,"agua");
 }
+
 function montarGrupo(id,lista,categoria){
     const c = $(id); if(!c) return;
     c.innerHTML="";
@@ -3943,8 +3083,9 @@ function montarGrupo(id,lista,categoria){
         if(na===nb) return a[1].localeCompare(b[1],"pt-BR",{numeric:true});
         return na.localeCompare(nb,"pt-BR");
     });
-    ord.forEach(i=>{ c.appendChild(criarProdutoRuptura(i[0],i[1],categoria)); });
+    ord.forEach(i=>{ c.appendChild(criarProdutoRuptura(i[0],i[1],categoria,i[2]||"")); });
 }
+
 function atualizarContadoresRuptura(){
     const d = getLoja(lojaAtiva).rupturas || {};
     let t=0,a=0,n=0;
@@ -3974,55 +3115,129 @@ function pesquisarRupturas(){
     });
 }
 
-function atualizarNotasRupturasInline(){
+/* ============================================================
+   BLOCO DE NOTAS UNIFICADO
+   ============================================================ */
+
+function atualizarNotasInline(){
     const loja = getLoja(lojaAtiva);
-    const itens = Object.values(loja.rupturas||{});
+    const itensRupt = Object.values(loja.rupturas||{});
+    const itensValid = Object.values(loja.validades||{});
     const info = loja.info;
+
+    const agora = new Date();
+    const dataFmt = agora.toLocaleDateString("pt-BR");
+    const horaFmt = agora.toLocaleTimeString("pt-BR", {hour:"2-digit", minute:"2-digit"});
+
     let t = "";
-    t += "🏬 INFORMAÇÕES DA LOJA\n━━━━━━━━━━━━━━━━━━━━\n\n";
+
+    /* Cabeçalho — sempre */
+    t += "🏬 INFORMAÇÕES DA LOJA\n";
+    t += "━━━━━━━━━━━━━━━━━━━━\n\n";
     t += "🏬 Loja: "+(info.loja||"Não informado")+"\n";
     t += "👤 Nome: "+(info.nome||"Não informado")+"\n";
     t += "📍 Endereço: "+(info.endereco||"Não informado")+"\n";
-    t += "👨‍💼 Supervisor: "+(info.supervisor||"Não informado")+"\n\n";
+    t += "👨‍💼 Supervisor: "+(info.supervisor||"Não informado")+"\n";
+    t += "📅 Data: "+dataFmt+"\n";
+    t += "⏰ Hora: "+horaFmt+"\n\n";
     t += "━━━━━━━━━━━━━━━━━━━━\n";
 
-    if(!itens.length){
-        t += "\n📋 LISTA DE RUPTURAS\n\nNenhum produto selecionado.";
-        $("blocoNotasRupturasInline").textContent = t;
-        const status = $("statusRuptInfo");
-        if(status) status.textContent = "Linhas: " + t.split("\n").length;
-        return;
-    }
-    const al = itens.filter(i=>i.categoria==="cerveja"||i.categoria==="cerveja_zero"||i.categoria==="mistas");
-    const na = itens.filter(i=>i.categoria!=="cerveja"&&i.categoria!=="cerveja_zero"&&i.categoria!=="mistas");
+    const temRupturas = itensRupt.length > 0;
+    const temValidades = itensValid.length > 0;
 
-    t += "\n📋 LISTA DE RUPTURAS\n━━━━━━━━━━━━━━━━━━━━\n\n";
-    if(al.length){
-        t += "🍺 ALCOÓLICOS\n\n";
-        al.sort((a,b)=>a.nome.localeCompare(b.nome,"pt-BR",{numeric:true})).forEach(i=>{
-            t += emojiProduto(i.nome)+" "+i.nome+" — "+i.descricao+"\n";
-        });
-        t += "\n";
+    /* Rupturas */
+    if(temRupturas){
+        const al = itensRupt.filter(i=>i.categoria==="cerveja"||i.categoria==="cerveja_zero"||i.categoria==="mistas");
+        const na = itensRupt.filter(i=>i.categoria!=="cerveja"&&i.categoria!=="cerveja_zero"&&i.categoria!=="mistas");
+
+        t += "\n📋 LISTA DE RUPTURAS\n";
+        t += "━━━━━━━━━━━━━━━━━━━━\n\n";
+
+        if(al.length){
+            t += "🍺 ALCOÓLICOS\n\n";
+            al.sort((a,b)=>a.nome.localeCompare(b.nome,"pt-BR",{numeric:true})).forEach(i=>{
+                t += emojiProduto(i.nome)+" "+i.nome+" — "+i.descricao+
+                     (i.categoriaComercial ? "  ["+i.categoriaComercial+"]" : "")+"\n";
+            });
+            t += "\n";
+        }
+        if(na.length){
+            t += "🥤 NÃO ALCOÓLICOS\n\n";
+            na.sort((a,b)=>a.nome.localeCompare(b.nome,"pt-BR",{numeric:true})).forEach(i=>{
+                t += emojiProduto(i.nome)+" "+i.nome+" — "+i.descricao+
+                     (i.categoriaComercial ? "  ["+i.categoriaComercial+"]" : "")+"\n";
+            });
+            t += "\n";
+        }
+        t += "━━━━━━━━━━━━━━━━━━━━\n";
+        t += "Total de rupturas: "+itensRupt.length+"\n";
     }
-    if(na.length){
-        t += "🥤 NÃO ALCOÓLICOS\n\n";
-        na.sort((a,b)=>a.nome.localeCompare(b.nome,"pt-BR",{numeric:true})).forEach(i=>{
-            t += emojiProduto(i.nome)+" "+i.nome+" — "+i.descricao+"\n";
+
+    /* Validades */
+    if(temValidades){
+        const grupos = {};
+        itensValid.forEach(item=>{
+            const cg = item.nome+"|"+item.descricao+"|"+item.data;
+            if(!grupos[cg]) grupos[cg] = {nome:item.nome,descricao:item.descricao,
+                                          categoria:item.categoria,
+                                          categoriaComercial:item.categoriaComercial,
+                                          data:item.data,quantidade:0};
+            grupos[cg].quantidade += Number(item.quantidade)||0;
         });
+
+        const lista = Object.values(grupos).sort((a,b)=> new Date(a.data)-new Date(b.data));
+        const al = lista.filter(i=>i.categoria==="cerveja"||i.categoria==="cerveja_zero"||i.categoria==="mistas");
+        const na = lista.filter(i=>i.categoria!=="cerveja"&&i.categoria!=="cerveja_zero"&&i.categoria!=="mistas");
+
+        t += "\n📅 LISTA DE VALIDADES\n";
+        t += "━━━━━━━━━━━━━━━━━━━━\n\n";
+
+        function fmtV(i){
+            const dObj = new Date(i.data+"T12:00:00");
+            const dFmt = dObj.toLocaleDateString("pt-BR");
+            const h = new Date(); h.setHours(0,0,0,0);
+            const dV = new Date(i.data+"T12:00:00"); dV.setHours(0,0,0,0);
+            const diff = Math.ceil((dV-h)/(1000*60*60*24));
+            let st = "";
+            if(diff<0) st = " ⚠️ VENCIDO ("+Math.abs(diff)+"d)";
+            else if(diff===0) st = " ⚠️ VENCE HOJE";
+            else st = " ⏳ "+diff+"d restantes";
+            return emojiProduto(i.nome)+" "+i.nome+" — "+i.descricao+
+                   (i.categoriaComercial ? "  ["+i.categoriaComercial+"]" : "")+
+                   "\n   📦 Quantidade: "+i.quantidade+
+                   " | 📅 Validade: "+dFmt+st+"\n";
+        }
+
+        if(al.length){
+            t += "🍺 ALCOÓLICOS\n\n";
+            al.forEach(i=>{ t += fmtV(i)+"\n"; });
+        }
+        if(na.length){
+            t += "🥤 NÃO ALCOÓLICOS\n\n";
+            na.forEach(i=>{ t += fmtV(i)+"\n"; });
+        }
+        t += "━━━━━━━━━━━━━━━━━━━━\n";
+        t += "Total de itens (agrupados): "+lista.length+"\n";
     }
-    t += "\n━━━━━━━━━━━━━━━━━━━━\nTotal de rupturas: "+itens.length;
-    $("blocoNotasRupturasInline").textContent = t;
-    const status = $("statusRuptInfo");
+
+    if(!temRupturas && !temValidades){
+        t += "\n📭 Nenhuma ruptura ou validade registrada nesta loja.\n";
+        t += "   Preencha as informações e adicione itens para gerar o relatório.\n";
+    }
+
+    $("blocoNotasInline").textContent = t;
+    const status = $("statusNotasInfo");
     if(status) status.textContent = "Linhas: " + t.split("\n").length;
 }
-async function copiarNotasRupturasInline(){
-    const t = $("blocoNotasRupturasInline").textContent;
+
+async function copiarNotasInline(){
+    const t = $("blocoNotasInline").textContent;
     try{ await navigator.clipboard.writeText(t); }
     catch(e){
         const a=document.createElement("textarea"); a.value=t; document.body.appendChild(a); a.select();
         document.execCommand("copy"); a.remove();
     }
-    const btn = $("btnCopiarRuptInline");
+    const btn = $("btnCopiarNotasInline");
     btn.classList.add("copiado");
     btn.innerHTML = '<span class="ico">✓</span> Copiado!';
     mostrarToast("Informações copiadas!","📋");
@@ -4033,24 +3248,48 @@ async function copiarNotasRupturasInline(){
     },1500);
 }
 
+/* ============================================================
+   VALIDADES
+   ============================================================ */
+
 function montarListaValidades(){
     montarGrupoValidade("validadeListaCervejas210",cervejas210,"cerveja");
+    montarGrupoValidade("validadeListaCervejas269",cervejas269,"cerveja");
     montarGrupoValidade("validadeListaCervejas330",cervejas330,"cerveja");
     montarGrupoValidade("validadeListaCervejas350",cervejas350,"cerveja");
     montarGrupoValidade("validadeListaCervejas355",cervejas355,"cerveja");
     montarGrupoValidade("validadeListaCervejas473",cervejas473,"cerveja");
     montarGrupoValidade("validadeListaCervejas600",cervejas600,"cerveja");
+    montarGrupoValidade("validadeListaCervejas1L",cervejas1L,"cerveja");
     montarGrupoValidade("validadeListaCervejasZero",cervejasZero,"cerveja_zero");
+    montarGrupoValidade("validadeListaCervejasArtesanais",cervejasArtesanais,"cerveja");
+    montarGrupoValidade("validadeListaOutrasCervejas",outrasCervejas,"cerveja");
     montarGrupoValidade("validadeListaMistas",bebidasMistas,"mistas");
+
     montarGrupoValidade("validadeListaRefrigerantes200",refrigerantes200,"refrigerante");
+    montarGrupoValidade("validadeListaRefrigerantes237",refrigerantes237,"refrigerante");
+    montarGrupoValidade("validadeListaRefrigerantes269",refrigerantes269,"refrigerante");
     montarGrupoValidade("validadeListaRefrigerantes350",refrigerantes350,"refrigerante");
+    montarGrupoValidade("validadeListaRefrigerantes600",refrigerantes600,"refrigerante");
     montarGrupoValidade("validadeListaRefrigerantes1L",refrigerantes1L,"refrigerante");
+    montarGrupoValidade("validadeListaRefrigerantes15L",refrigerantes15L,"refrigerante");
     montarGrupoValidade("validadeListaRefrigerantes2L",refrigerantes2L,"refrigerante");
-    montarGrupoValidade("validadeListaRefrigerantes25L",refrigerantes25L,"refrigerante");
+    montarGrupoValidade("validadeListaRefrigerantes225L",refrigerantes225L,"refrigerante");
+    montarGrupoValidade("validadeListaRefrigerantes3L",refrigerantes3L,"refrigerante");
+    montarGrupoValidade("validadeListaRefrigerantesOutros",refrigerantesOutros,"refrigerante");
+    montarGrupoValidade("validadeListaH2OH",h2oh,"refrigerante");
+
     montarGrupoValidade("validadeListaTonicas",tonicas,"tonica");
     montarGrupoValidade("validadeListaIsotonicos",isotonicos,"isotonico");
+    montarGrupoValidade("validadeListaEnergeticosFusion",energeticosFusion,"energetico");
+    montarGrupoValidade("validadeListaEnergeticosRedBull",energeticosRedBull,"energetico");
+    montarGrupoValidade("validadeListaChasGelados",chasGelados,"cha");
+    montarGrupoValidade("validadeListaSucosDoBem",sucosDoBem,"suco");
+    montarGrupoValidade("validadeListaAguasAma",aguasAma,"agua");
+
     atualizarListaValidadesAdicionadas();
 }
+
 function montarGrupoValidade(id,lista,categoria){
     const c=$(id); if(!c) return;
     c.innerHTML="";
@@ -4059,9 +3298,10 @@ function montarGrupoValidade(id,lista,categoria){
         if(na===nb) return a[1].localeCompare(b[1],"pt-BR",{numeric:true});
         return na.localeCompare(nb,"pt-BR");
     });
-    ord.forEach(i=>{ c.appendChild(criarItemValidade(i[0],i[1],categoria)); });
+    ord.forEach(i=>{ c.appendChild(criarItemValidade(i[0],i[1],categoria,i[2]||"")); });
 }
-function criarItemValidade(nome,descricao,categoria){
+
+function criarItemValidade(nome,descricao,categoria,categoriaComercial){
     const chaveBase = categoria+"|"+nome+"|"+descricao;
     const loja = getLoja(lojaAtiva);
     const v = loja.validades || {};
@@ -4071,7 +3311,7 @@ function criarItemValidade(nome,descricao,categoria){
 
     const wrapper = document.createElement("div");
     wrapper.style.marginBottom="8px";
-    wrapper.dataset.busca = (nome+" "+descricao).toLowerCase();
+    wrapper.dataset.busca = (nome+" "+descricao+" "+(categoriaComercial||"")).toLowerCase();
     wrapper.className = "validade-wrapper";
 
     const itemDiv = document.createElement("div");
@@ -4082,9 +3322,13 @@ function criarItemValidade(nome,descricao,categoria){
     const iconeAcao = (jaAdic && !estaLiberado) ? '🔒' : '➕';
     const corIcone = (jaAdic && !estaLiberado) ? '#ffb900' : 'var(--jarvis-cyan)';
 
+    const tag = categoriaComercial
+        ? ' <span class="tag-categoria">'+categoriaComercial+'</span>'
+        : '';
+
     itemDiv.innerHTML =
         '<div style="flex:1;">'+
-        '<div style="font-size:13px;font-weight:600;color:var(--jarvis-text);">'+emojiProduto(nome)+' '+nome+'</div>'+
+        '<div style="font-size:13px;font-weight:600;color:var(--jarvis-text);">'+emojiProduto(nome)+' '+nome+tag+'</div>'+
         '<div style="color:var(--jarvis-text-dim);font-size:11px;margin-top:3px;">'+descricao+
         (jaAdic?' • <span style="font-weight:600;color:var(--jarvis-success);">✅ JÁ REGISTRADO ('+existentes.length+')</span>':'')+
         '</div></div><span style="color:'+corIcone+';font-size:20px;font-weight:600;">'+iconeAcao+'</span>';
@@ -4129,7 +3373,7 @@ function criarItemValidade(nome,descricao,categoria){
         const l = getLoja(lojaAtiva);
         l.validades = l.validades || {};
         const chave = chaveBase+"||"+Date.now()+"||"+Math.floor(Math.random()*10000);
-        l.validades[chave] = {nome,descricao,categoria,quantidade:q,data:d};
+        l.validades[chave] = {nome,descricao,categoria,categoriaComercial,quantidade:q,data:d};
         setLoja(lojaAtiva, l);
 
         itemDiv.classList.add("ja-registrado");
@@ -4140,7 +3384,7 @@ function criarItemValidade(nome,descricao,categoria){
         atualizarTotalValidades();
         atualizarCardsLojas();
         montarListaValidades();
-        atualizarNotasValidadesInline();
+        atualizarNotasInline();
         mostrarToast(nome+" registrado!","✅");
     });
 
@@ -4193,6 +3437,7 @@ function atualizarListaValidadesAdicionadas(){
         const cg = item.nome+"|"+item.descricao+"|"+item.data;
         if(!grupos[cg]){
             grupos[cg] = {nome:item.nome,descricao:item.descricao,categoria:item.categoria,
+                          categoriaComercial:item.categoriaComercial,
                           data:item.data,quantidade:0,chaves:[]};
         }
         grupos[cg].quantidade += Number(item.quantidade)||0;
@@ -4232,9 +3477,13 @@ function atualizarListaValidadesAdicionadas(){
         else if(diff<=60){ ico="🟡"; txt="Vence em "+diff+"d"; }
         else { ico="🟢"; txt="Vence em "+diff+"d"; }
 
+        const tag = g.categoriaComercial
+            ? ' <span class="tag-categoria">'+g.categoriaComercial+'</span>'
+            : '';
+
         div.innerHTML =
             '<div class="validade-item-info">'+
-            '<div class="validade-item-nome">'+emojiProduto(g.nome)+' '+g.nome+'</div>'+
+            '<div class="validade-item-nome">'+emojiProduto(g.nome)+' '+g.nome+tag+'</div>'+
             '<div class="validade-item-detalhe">'+
             '<span>📦 <b>'+g.quantidade+'</b></span>'+
             '<span>📅 <b>'+dFmt+'</b></span>'+
@@ -4328,7 +3577,7 @@ function atualizarListaValidadesAdicionadas(){
 
             atualizarListaValidadesAdicionadas();
             atualizarTotalValidades();
-            atualizarNotasValidadesInline();
+            atualizarNotasInline();
             atualizarCardsLojas();
             montarListaValidades();
             mostrarToast("Validade atualizada!","✅");
@@ -4398,87 +3647,6 @@ function pesquisarValidades(){
     pv.querySelectorAll(".validade-wrapper").forEach(w=>{
         w.style.display = (w.dataset.busca||"").includes(t) ? "block" : "none";
     });
-}
-
-function atualizarNotasValidadesInline(){
-    const loja = getLoja(lojaAtiva);
-    const v = loja.validades || {};
-    const info = loja.info;
-
-    let t = "";
-    t += "🏬 INFORMAÇÕES DA LOJA\n━━━━━━━━━━━━━━━━━━━━\n\n";
-    t += "🏬 Loja: "+(info.loja||"Não informado")+"\n";
-    t += "👤 Nome: "+(info.nome||"Não informado")+"\n";
-    t += "📍 Endereço: "+(info.endereco||"Não informado")+"\n";
-    t += "👨‍💼 Supervisor: "+(info.supervisor||"Não informado")+"\n\n";
-    t += "━━━━━━━━━━━━━━━━━━━━\n";
-
-    const itens = Object.values(v);
-    if(!itens.length){
-        t += "\n📅 LISTA DE VALIDADES\n\nNenhum produto registrado.";
-        $("blocoNotasValidadesInline").textContent = t;
-        const status = $("statusValidInfo");
-        if(status) status.textContent = "Linhas: " + t.split("\n").length;
-        return;
-    }
-
-    const grupos = {};
-    itens.forEach(item=>{
-        const cg = item.nome+"|"+item.descricao+"|"+item.data;
-        if(!grupos[cg]) grupos[cg] = {nome:item.nome,descricao:item.descricao,categoria:item.categoria,data:item.data,quantidade:0};
-        grupos[cg].quantidade += Number(item.quantidade)||0;
-    });
-
-    const lista = Object.values(grupos).sort((a,b)=> new Date(a.data)-new Date(b.data));
-    const al = lista.filter(i=>i.categoria==="cerveja"||i.categoria==="cerveja_zero"||i.categoria==="mistas");
-    const na = lista.filter(i=>i.categoria!=="cerveja"&&i.categoria!=="cerveja_zero"&&i.categoria!=="mistas");
-
-    t += "\n📅 LISTA DE VALIDADES\n━━━━━━━━━━━━━━━━━━━━\n\n";
-
-    function fmt(i){
-        const dObj = new Date(i.data+"T12:00:00");
-        const dFmt = dObj.toLocaleDateString("pt-BR");
-        const h = new Date(); h.setHours(0,0,0,0);
-        const dV = new Date(i.data+"T12:00:00"); dV.setHours(0,0,0,0);
-        const diff = Math.ceil((dV-h)/(1000*60*60*24));
-        let st = "";
-        if(diff<0) st = " ⚠️ VENCIDO ("+Math.abs(diff)+"d)";
-        else if(diff===0) st = " ⚠️ VENCE HOJE";
-        else st = " ⏳ "+diff+"d restantes";
-        return emojiProduto(i.nome)+" "+i.nome+" — "+i.descricao+
-               "\n   📦 Quantidade: "+i.quantidade+
-               " | 📅 Validade: "+dFmt+st+"\n";
-    }
-
-    if(al.length){
-        t += "🍺 ALCOÓLICOS\n\n";
-        al.forEach(i=>{ t += fmt(i)+"\n"; });
-    }
-    if(na.length){
-        t += "🥤 NÃO ALCOÓLICOS\n\n";
-        na.forEach(i=>{ t += fmt(i)+"\n"; });
-    }
-    t += "━━━━━━━━━━━━━━━━━━━━\nTotal de itens (agrupados): "+lista.length;
-    $("blocoNotasValidadesInline").textContent = t;
-    const status = $("statusValidInfo");
-    if(status) status.textContent = "Linhas: " + t.split("\n").length;
-}
-async function copiarNotasValidadesInline(){
-    const t = $("blocoNotasValidadesInline").textContent;
-    try{ await navigator.clipboard.writeText(t); }
-    catch(e){
-        const a=document.createElement("textarea"); a.value=t; document.body.appendChild(a); a.select();
-        document.execCommand("copy"); a.remove();
-    }
-    const btn = $("btnCopiarValidInline");
-    btn.classList.add("copiado");
-    btn.innerHTML = '<span class="ico">✓</span> Copiado!';
-    mostrarToast("Informações copiadas!","📋");
-    if(navigator.vibrate) navigator.vibrate(30);
-    setTimeout(()=>{
-        btn.classList.remove("copiado");
-        btn.innerHTML = '<span class="ico">📋</span> Copiar informações';
-    },1500);
 }
 
 atualizarCardsLojas();
