@@ -61,7 +61,6 @@ button{ cursor:pointer; }
 
 .ico{ display:inline-flex; align-items:center; justify-content:center; line-height:1; flex-shrink:0; font-style:normal; }
 
-/* ================= SCROLL PRINCIPAL ================= */
 .app-scroll{
     position:fixed;
     top:0; left:0; right:0; bottom:0;
@@ -655,62 +654,170 @@ button{ cursor:pointer; }
     font-size:15px; cursor:pointer;
     display:flex; align-items:center; justify-content:center;
 }
-.rup-sug-modal{
-    position:absolute; left:0; right:0; top:100%;
-    background:linear-gradient(180deg, rgba(0,20,40,.99), rgba(0,10,24,.99));
+
+/* ÁRVORE DE SELEÇÃO */
+.rup-arvore{
+    display:none;
+    background:rgba(0,15,35,.7);
     border:1px solid var(--jarvis-border);
     border-radius:10px;
-    box-shadow:0 12px 36px rgba(0,0,0,.6);
-    max-height:320px; overflow-y:auto;
-    z-index:100; display:none; margin-top:6px;
+    padding:10px;
+    margin-bottom:12px;
+    max-height:400px;
+    overflow-y:auto;
 }
-.rup-sug-modal.ativo{ display:block; }
-.rup-sug-header{
-    padding:9px 12px; font-size:10px;
+.rup-arvore.ativo{ display:block; }
+.rup-arvore-header{
+    padding:9px 12px;
+    font-size:10px;
     color:var(--jarvis-text-dim);
     background:rgba(0,30,60,.8);
     border-bottom:1px solid var(--jarvis-border);
-    font-weight:700; position:sticky; top:0; z-index:2;
-    letter-spacing:1.2px; text-transform:uppercase;
+    font-weight:700;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
     font-family:'Orbitron','Segoe UI',sans-serif;
+    border-radius:6px 6px 0 0;
+    margin:-10px -10px 10px -10px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    position:sticky;
+    top:-10px;
+    z-index:5;
 }
-.rup-sugestao{
-    display:flex; align-items:flex-start; gap:10px;
-    padding:11px 12px;
-    border-bottom:1px solid rgba(0,212,255,.08);
+.rup-arvore-header .rup-marcar-todos{
+    background:rgba(0,212,255,.15);
+    border:1px solid var(--jarvis-border);
+    color:var(--jarvis-cyan);
+    padding:4px 10px;
+    border-radius:12px;
+    font-size:9.5px;
+    font-weight:800;
     cursor:pointer;
-}
-.rup-sugestao:last-child{ border-bottom:none; }
-.rup-sugestao:active{ background:rgba(0,60,120,.3); }
-.rup-sugestao .rup-emoji{
-    font-size:17px; flex-shrink:0;
-    width:34px; height:34px;
-    display:flex; align-items:center; justify-content:center;
-    background:rgba(0,40,90,.6); border-radius:9px; margin-top:1px;
-}
-.rup-sugestao .rup-info{
-    flex:1; min-width:0;
-    display:flex; flex-direction:column; gap:3px;
-}
-.rup-sugestao .rup-nome{
-    font-size:13px; font-weight:700; color:var(--jarvis-text);
-    line-height:1.35; word-break:break-word;
-}
-.rup-sugestao .rup-meta{
-    font-size:11px; color:var(--jarvis-text-dim);
-    line-height:1.4; word-break:break-word; font-weight:500;
-}
-.rup-sugestao .rup-tipo{
-    font-size:8.5px; font-weight:800;
-    padding:3px 7px; border-radius:5px;
-    text-transform:uppercase; letter-spacing:.5px;
-    flex-shrink:0; margin-top:2px; white-space:nowrap;
-    align-self:flex-start;
+    letter-spacing:.5px;
+    text-transform:uppercase;
     font-family:'Orbitron','Segoe UI',sans-serif;
 }
-.rup-sugestao .rup-tipo.alcool { background:rgba(255,185,0,.2); color:var(--jarvis-warning); border:1px solid rgba(255,185,0,.4); }
-.rup-sugestao .rup-tipo.nao { background:rgba(0,255,157,.15); color:var(--jarvis-success); border:1px solid rgba(0,255,157,.3); }
-.rup-sug-modal .rup-vazio{ padding:18px; text-align:center; color:var(--jarvis-text-dim); font-size:12px; }
+.rup-arvore-header .rup-marcar-todos:active{ background:rgba(0,212,255,.3); }
+
+.rup-item-selecionavel{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 11px;
+    border-bottom:1px solid rgba(0,212,255,.06);
+    cursor:pointer;
+    transition:background .12s ease;
+    border-radius:6px;
+}
+.rup-item-selecionavel:last-child{ border-bottom:none; }
+.rup-item-selecionavel:active{ background:rgba(0,60,120,.3); }
+.rup-item-selecionavel.marcado{
+    background:rgba(0,212,255,.12);
+    border-left:3px solid var(--jarvis-cyan);
+}
+.rup-item-selecionavel.ja-registrado{
+    opacity:.45;
+    cursor:not-allowed;
+}
+
+.rup-check-box{
+    width:22px;
+    height:22px;
+    border-radius:5px;
+    border:2px solid var(--jarvis-border);
+    background:rgba(0,15,35,.7);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    transition:all .15s ease;
+}
+.rup-item-selecionavel.marcado .rup-check-box{
+    background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue));
+    border-color:var(--jarvis-cyan);
+}
+.rup-item-selecionavel.marcado .rup-check-box::after{
+    content:"✓";
+    color:#001428;
+    font-size:14px;
+    font-weight:900;
+}
+
+.rup-item-selecionavel .rup-info{
+    flex:1;
+    min-width:0;
+}
+.rup-item-selecionavel .rup-nome{
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--jarvis-text);
+    line-height:1.35;
+    word-break:break-word;
+}
+.rup-item-selecionavel .rup-meta{
+    font-size:10.5px;
+    color:var(--jarvis-text-dim);
+    margin-top:3px;
+    line-height:1.35;
+    word-break:break-word;
+    font-weight:500;
+}
+.rup-item-selecionavel .rup-badge-reg{
+    font-size:9px;
+    font-weight:800;
+    color:var(--jarvis-success);
+    background:rgba(0,255,157,.15);
+    border:1px solid rgba(0,255,157,.35);
+    padding:3px 7px;
+    border-radius:5px;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+    font-family:'Orbitron','Segoe UI',sans-serif;
+    flex-shrink:0;
+}
+
+.rup-btn-salvar-sel{
+    position:sticky;
+    bottom:-10px;
+    width:calc(100% + 20px);
+    margin-left:-10px;
+    margin-right:-10px;
+    margin-top:10px;
+    padding:14px;
+    border:none;
+    border-top:1px solid var(--jarvis-border);
+    background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue));
+    color:#001428;
+    font-family:'Orbitron','Segoe UI',sans-serif;
+    font-weight:800;
+    font-size:12px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    border-radius:0 0 10px 10px;
+    transition:background .15s ease;
+    z-index:6;
+}
+.rup-btn-salvar-sel:active{ background:linear-gradient(135deg, var(--jarvis-blue), var(--jarvis-cyan)); }
+.rup-btn-salvar-sel:disabled{
+    opacity:.4;
+    cursor:not-allowed;
+    background:rgba(0,40,90,.5);
+    color:var(--jarvis-text-dim);
+}
+.rup-btn-salvar-sel .rup-count{
+    background:rgba(0,20,40,.4);
+    padding:3px 10px;
+    border-radius:10px;
+    font-size:11px;
+}
 
 .rup-lista-titulo{
     font-family:'Orbitron','Segoe UI',sans-serif;
@@ -732,12 +839,139 @@ button{ cursor:pointer; }
     font-weight:800;
 }
 
+/* BOTÃO EXCLUIR MODO */
+.rup-btn-excluir-modo{
+    width:100%;
+    padding:11px;
+    margin-bottom:10px;
+    background:rgba(255,45,85,.15);
+    border:1.5px dashed rgba(255,45,85,.5);
+    color:#ff6b7a;
+    border-radius:8px;
+    font-family:'Orbitron','Segoe UI',sans-serif;
+    font-weight:700;
+    font-size:11px;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition:background .15s ease;
+}
+.rup-btn-excluir-modo:active{ background:rgba(255,45,85,.3); }
+
+/* BARRA MODO EXCLUSÃO */
+.rup-modo-exclusao-bar{
+    display:none;
+    background:linear-gradient(135deg, rgba(255,45,85,.2), rgba(200,15,50,.2));
+    border:1px solid var(--jarvis-error);
+    border-radius:8px;
+    padding:12px;
+    margin-bottom:10px;
+    gap:10px;
+}
+.rup-modo-exclusao-bar.ativo{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    flex-wrap:wrap;
+}
+.rup-modo-info{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:12px;
+    font-weight:600;
+    color:var(--jarvis-text);
+}
+.rup-modo-info .rup-modo-count{
+    background:#001428;
+    color:#fff;
+    font-family:'Orbitron','Segoe UI',sans-serif;
+    font-weight:800;
+    font-size:13px;
+    padding:3px 10px;
+    border-radius:8px;
+    min-width:28px;
+    text-align:center;
+}
+.rup-modo-acoes{ display:flex; gap:8px; flex-wrap:wrap; }
+.rup-btn-cancelar-exc{
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.2);
+    color:var(--jarvis-text);
+    padding:9px 12px;
+    border-radius:6px;
+    font-family:'Orbitron','Segoe UI',sans-serif;
+    font-weight:700;
+    font-size:10px;
+    letter-spacing:.8px;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:background .15s ease;
+}
+.rup-btn-cancelar-exc:active{ background:rgba(255,255,255,.22); }
+.rup-btn-confirmar-exc{
+    background:var(--jarvis-error);
+    border:none;
+    color:#fff;
+    padding:9px 14px;
+    border-radius:6px;
+    font-family:'Orbitron','Segoe UI',sans-serif;
+    font-weight:800;
+    font-size:10px;
+    letter-spacing:.8px;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:transform .12s ease;
+}
+.rup-btn-confirmar-exc:active{ transform:scale(.96); }
+.rup-btn-confirmar-exc:disabled{
+    opacity:.4;
+    cursor:not-allowed;
+}
+
+/* ITEM DA LISTA COM CHECKBOX */
 .rup-item{
     display:flex; align-items:center; gap:10px;
     background:rgba(0,25,50,.5); border:1px solid var(--jarvis-border);
     padding:11px 13px;
     border-radius:6px; margin-bottom:6px;
     position:relative;
+}
+.rup-item.rup-item-check{
+    cursor:pointer;
+    padding-left:10px;
+}
+.rup-item.rup-item-check:active{ background:rgba(0,60,120,.3); }
+.rup-item.rup-item-marcado{
+    background:rgba(255,45,85,.15) !important;
+    border-color:var(--jarvis-error);
+}
+.rup-item-check-box{
+    width:22px;
+    height:22px;
+    border-radius:5px;
+    border:2px solid rgba(255,45,85,.5);
+    background:rgba(0,15,35,.7);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    transition:all .15s ease;
+}
+.rup-item.rup-item-marcado .rup-item-check-box{
+    background:var(--jarvis-error);
+    border-color:var(--jarvis-error);
+}
+.rup-item.rup-item-marcado .rup-item-check-box::after{
+    content:"✓";
+    color:#fff;
+    font-size:14px;
+    font-weight:900;
 }
 .rup-item .rup-item-info{ flex:1; min-width:0; }
 .rup-item .rup-item-nome{
@@ -747,14 +981,6 @@ button{ cursor:pointer; }
 .rup-item .rup-item-desc{
     font-size:10.5px; color:var(--jarvis-text-dim);
     margin-top:3px; line-height:1.3; word-break:break-word;
-}
-.rup-item .rup-item-btn-del{
-    width:34px; height:34px; border-radius:6px;
-    border:1px solid rgba(255,45,85,.4);
-    background:rgba(255,45,85,.2); color:#ff6b7a;
-    font-size:14px;
-    display:flex; align-items:center; justify-content:center;
-    flex-shrink:0;
 }
 
 .rup-vazio{
@@ -826,9 +1052,7 @@ footer{
 }
 footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
 
-/* ============================================================
-   SUPER DATES
-   ============================================================ */
+/* ================= SUPER DATES ================= */
 .sd-wrapper{ padding:0; margin-top:0; }
 .sd-header{
     background:linear-gradient(135deg, rgba(0,80,160,.5) 0%, rgba(0,40,90,.5) 100%);
@@ -883,7 +1107,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
     font-size:8.5px; color:var(--jarvis-text-dim);
     margin-top:4px; font-weight:700; letter-spacing:.8px; text-transform:uppercase;
 }
-
 .sd-lista{ padding:0; display:flex; flex-direction:column; gap:9px; }
 .sd-grupo{
     background:rgba(0,25,50,.5);
@@ -979,7 +1202,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
     font-family:'Orbitron','Segoe UI',sans-serif; text-transform:uppercase;
 }
 .sd-grupo .sd-btn-add-lote:active { background:rgba(0,212,255,.2); }
-
 .sd-btn-add-rodape{
     display:flex; align-items:center; justify-content:center; gap:8px;
     width:100%; margin-top:12px; padding:14px 16px;
@@ -993,7 +1215,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
 }
 .sd-btn-add-rodape:active{ background:rgba(0,212,255,.2); }
 .sd-btn-add-rodape .sd-ico-add{ font-size:16px; }
-
 .sd-vazio{ text-align:center; padding:24px 16px; }
 .sd-btn-add-vazio{
     display:flex; align-items:center; justify-content:center; gap:10px;
@@ -1028,10 +1249,41 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
     animation:sdSubir .22s ease-out;
 }
 @keyframes sdSubir{ from { transform:translateY(100%); } to { transform:translateY(0); } }
-.sd-modal h2{
+.sd-modal-topo{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:16px;
+}
+.sd-modal-topo h2{
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-size:13px; font-weight:700; margin:0 0 16px;
-    color:var(--jarvis-cyan); letter-spacing:1.8px; text-transform:uppercase;
+    font-size:13px;
+    font-weight:700;
+    margin:0;
+    color:var(--jarvis-cyan);
+    letter-spacing:1.8px;
+    text-transform:uppercase;
+    flex:1;
+}
+.sd-modal-fechar{
+    width:38px;
+    height:38px;
+    border-radius:9px;
+    border:1px solid var(--jarvis-border);
+    background:rgba(0,40,90,.4);
+    color:var(--jarvis-cyan);
+    font-size:16px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    transition:background .15s ease;
+}
+.sd-modal-fechar:active{
+    background:var(--jarvis-error);
+    color:#fff;
 }
 .sd-campo{ margin-bottom:12px; position:relative; }
 .sd-campo label{
@@ -1367,6 +1619,174 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
 .tools-notepad .sd-linha-titulo { font-weight:700; color:var(--jarvis-cyan); }
 .tools-notepad .sd-linha-data { color:var(--jarvis-text-dim); }
 
+/* ================= SOBRE ESTE APP ================= */
+.sobre-bloco{
+    text-align:center;
+    padding:16px 10px 20px;
+    border-bottom:1px solid var(--jarvis-border);
+    margin-bottom:16px;
+}
+.sobre-emoji{
+    font-size:52px;
+    display:block;
+    margin-bottom:8px;
+    animation:sobrePulse 2s ease-in-out infinite;
+}
+@keyframes sobrePulse{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.08); }
+}
+.sobre-titulo{
+    font-family:'Orbitron','Segoe UI',sans-serif;
+    font-size:20px;
+    font-weight:800;
+    color:var(--jarvis-cyan);
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:6px;
+}
+.sobre-versao{
+    display:inline-block;
+    font-family:'Orbitron','Segoe UI',sans-serif;
+    font-size:11px;
+    font-weight:700;
+    color:#001428;
+    background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue));
+    padding:5px 14px;
+    border-radius:20px;
+    letter-spacing:1.2px;
+}
+.sobre-secao{
+    margin-bottom:16px;
+    padding:12px 14px;
+    background:rgba(0,25,50,.5);
+    border:1px solid var(--jarvis-border);
+    border-radius:8px;
+}
+.sobre-secao-titulo{
+    font-family:'Orbitron','Segoe UI',sans-serif;
+    font-size:11px;
+    font-weight:700;
+    color:var(--jarvis-cyan);
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+.sobre-secao-texto{
+    font-size:12.5px;
+    color:var(--jarvis-text);
+    line-height:1.65;
+    font-weight:400;
+}
+.sobre-secao-texto b{
+    color:var(--jarvis-cyan);
+    font-weight:700;
+}
+.sobre-lista{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+.sobre-item{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:8px 0;
+    border-bottom:1px solid rgba(0,212,255,.08);
+}
+.sobre-item:last-child{ border-bottom:none; }
+.sobre-item-ico{
+    font-size:18px;
+    flex-shrink:0;
+    width:32px;
+    height:32px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,40,90,.5);
+    border-radius:8px;
+}
+.sobre-item b{
+    font-size:12.5px;
+    color:var(--jarvis-text);
+    font-weight:700;
+    display:block;
+    margin-bottom:3px;
+}
+.sobre-item-desc{
+    font-size:11px;
+    color:var(--jarvis-text-dim);
+    line-height:1.45;
+    font-weight:400;
+}
+.sobre-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+}
+.sobre-tag{
+    font-size:10px;
+    font-weight:700;
+    color:var(--jarvis-cyan);
+    background:rgba(0,212,255,.12);
+    border:1px solid rgba(0,212,255,.35);
+    padding:4px 10px;
+    border-radius:12px;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+    font-family:'Orbitron','Segoe UI',sans-serif;
+}
+.sobre-dev{
+    background:linear-gradient(135deg, rgba(0,80,160,.3) 0%, rgba(0,40,90,.3) 100%);
+    border-color:var(--jarvis-cyan);
+}
+.sobre-dev-info{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+.sobre-dev-ico{
+    font-size:26px;
+    width:48px;
+    height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue));
+    color:#001428;
+    border-radius:12px;
+    flex-shrink:0;
+    box-shadow:0 0 20px rgba(0,212,255,.4);
+}
+.sobre-dev-nome{
+    font-family:'Orbitron','Segoe UI',sans-serif;
+    font-size:15px;
+    font-weight:800;
+    color:var(--jarvis-cyan);
+    letter-spacing:1px;
+}
+.sobre-dev-desc{
+    font-size:11px;
+    color:var(--jarvis-text-dim);
+    margin-top:3px;
+    font-weight:500;
+    letter-spacing:.5px;
+}
+#modalSobreApp .modal-box{
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-touch-callout:none;
+}
+
+/* ✅ CORREÇÃO 2: esconde a lupa quando o produto já está selecionado */
+.sd-chip-produto.sd-ativo ~ .sd-btn-lupa,
+.sd-campo-busca:has(.sd-chip-produto.sd-ativo) .sd-btn-lupa {
+    display: none !important;
+}
+
 @media(max-width:380px){
     .acoes-rapidas{ grid-template-columns:1fr; }
     .subtab{ font-size:8.5px; min-width:56px; padding:10px 3px; }
@@ -1382,6 +1802,8 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
     .jarvis-ring.r4{ width:48px; height:48px; }
     .jarvis-center{ width:34px; height:34px; }
     .pizza-wrapper{ max-width:150px; }
+    .sobre-titulo{ font-size:17px; }
+    .sobre-emoji{ font-size:44px; }
 }
 </style>
 </head>
@@ -1416,6 +1838,7 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
         </div>
         <div class="logo"><span class="ico">⚡</span> MShare Space</div>
         <div class="right">
+            <button class="btn-header" onclick="abrirSobreApp()" title="Sobre este app" style="width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,0.16);border:1px solid rgba(255,255,255,0.22);color:white;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;">ℹ️</button>
             <span class="ico">⏰</span>
             <span id="horaAtual">--:--</span>
         </div>
@@ -1670,12 +2093,38 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
                        autocomplete="off"
                        oninput="rupBuscar()" onfocus="rupBuscar()">
                 <button type="button" class="rup-lupa" onclick="rupBuscar()">🔎</button>
-                <div class="rup-sug-modal" id="rupSugModal"></div>
+            </div>
+
+            <!-- ÁRVORE DE SELEÇÃO -->
+            <div class="rup-arvore" id="rupArvore">
+                <div class="rup-arvore-header">
+                    <span id="rupArvoreTitulo">Resultados</span>
+                    <button type="button" class="rup-marcar-todos" onclick="rupMarcarTodos()">Marcar todos</button>
+                </div>
+                <div id="rupArvoreItens"></div>
+                <button class="rup-btn-salvar-sel" id="rupBtnSalvarSel" onclick="rupSalvarSelecionados()" disabled>
+                    ✔️ Salvar selecionados <span class="rup-count" id="rupSelCount">0</span>
+                </button>
             </div>
 
             <div class="rup-lista-titulo">
                 <span>📋 Rupturas Registradas</span>
                 <span class="rup-badge-num" id="rupQtdBadge">0</span>
+            </div>
+
+            <button class="rup-btn-excluir-modo" id="rupBtnExcluirModo" onclick="rupEntrarModoExclusao()">
+                🗑️ Excluir itens
+            </button>
+
+            <div class="rup-modo-exclusao-bar" id="rupModoExclusaoBar">
+                <div class="rup-modo-info">
+                    <span class="rup-modo-count" id="rupModoCount">0</span>
+                    <span>selecionado(s)</span>
+                </div>
+                <div class="rup-modo-acoes">
+                    <button class="rup-btn-cancelar-exc" onclick="rupSairModoExclusao()">✖ Cancelar</button>
+                    <button class="rup-btn-confirmar-exc" id="rupBtnConfirmarExc" onclick="rupExcluirSelecionados()" disabled>🗑️ Excluir</button>
+                </div>
             </div>
 
             <div id="rupListaRegistradas"></div>
@@ -1726,7 +2175,10 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
 
 <div class="sd-overlay" id="sdOverlay" onclick="sdFecharModal(event)">
     <div class="sd-modal" onclick="event.stopPropagation()">
-        <h2 id="sdTituloModal">Adicionar produto</h2>
+        <div class="sd-modal-topo">
+            <h2 id="sdTituloModal">Adicionar produto</h2>
+            <button type="button" class="sd-modal-fechar" onclick="sdFecharModalForcado()">✖</button>
+        </div>
 
         <div class="sd-campo sd-campo-busca" id="sdCampoBuscaWrap">
             <label>Nome do produto</label>
@@ -1812,6 +2264,99 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
     </div>
 </div>
 
+<!-- SOBRE ESTE APP -->
+<div class="modal" id="modalSobreApp" onclick="fecharSobreApp(event)">
+    <div class="modal-box pequeno" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <div>
+                <div class="modal-title"><span class="ico">ℹ️</span> SOBRE ESTE APP</div>
+                <div class="modal-sub">MShare Space • V.1.0</div>
+            </div>
+            <button class="fechar" onclick="fecharSobreApp()">✖</button>
+        </div>
+
+        <div class="sobre-bloco">
+            <div class="sobre-emoji">⚡</div>
+            <div class="sobre-titulo">MShare Space</div>
+            <div class="sobre-versao">📌 Versão V.1.0</div>
+        </div>
+
+        <div class="sobre-secao">
+            <div class="sobre-secao-titulo">🎯 Para que serve</div>
+            <div class="sobre-secao-texto">
+                O <b>MShare Space</b> é uma ferramenta completa para <b>gestão de lojas</b>, focada em supermercados e atacados. Ele ajuda o profissional a organizar, controlar e reportar informações importantes do dia a dia de forma simples e rápida.
+            </div>
+        </div>
+
+        <div class="sobre-secao">
+            <div class="sobre-secao-titulo">✨ Finalidades</div>
+            <div class="sobre-lista">
+                <div class="sobre-item">
+                    <span class="sobre-item-ico">📏</span>
+                    <div>
+                        <b>Medir Share de Gôndola</b>
+                        <div class="sobre-item-desc">Calcular o percentual de espaço ocupado na gôndola comparado à meta desejada.</div>
+                    </div>
+                </div>
+                <div class="sobre-item">
+                    <span class="sobre-item-ico">📋</span>
+                    <div>
+                        <b>Registrar Rupturas</b>
+                        <div class="sobre-item-desc">Anotar produtos em falta com busca rápida pelo catálogo.</div>
+                    </div>
+                </div>
+                <div class="sobre-item">
+                    <span class="sobre-item-ico">📅</span>
+                    <div>
+                        <b>Controlar Validades</b>
+                        <div class="sobre-item-desc">Super Dates — acompanhar vencimentos por lote e receber alertas de datas críticas.</div>
+                    </div>
+                </div>
+                <div class="sobre-item">
+                    <span class="sobre-item-ico">📝</span>
+                    <div>
+                        <b>Gerar Relatórios</b>
+                        <div class="sobre-item-desc">Criar relatórios completos da loja prontos para copiar e enviar.</div>
+                    </div>
+                </div>
+                <div class="sobre-item">
+                    <span class="sobre-item-ico">🏬</span>
+                    <div>
+                        <b>Gerenciar Várias Lojas</b>
+                        <div class="sobre-item-desc">Cada loja tem seus próprios dados, rupturas e validades independentes.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sobre-secao">
+            <div class="sobre-secao-titulo">💡 Características</div>
+            <div class="sobre-tags">
+                <span class="sobre-tag">100% Offline</span>
+                <span class="sobre-tag">Salva no dispositivo</span>
+                <span class="sobre-tag">Interface Jarvis</span>
+                <span class="sobre-tag">Tela cheia</span>
+                <span class="sobre-tag">Rápido e leve</span>
+            </div>
+        </div>
+
+        <div class="sobre-secao sobre-dev">
+            <div class="sobre-secao-titulo">💻 Desenvolvedor</div>
+            <div class="sobre-dev-info">
+                <span class="sobre-dev-ico">⚡</span>
+                <div>
+                    <div class="sobre-dev-nome">Yuri Lima</div>
+                    <div class="sobre-dev-desc">Developed by Yuri Lima</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="tools-btn-copiar" onclick="fecharSobreApp()" style="margin-top:18px;">
+            ✔️ Entendido
+        </button>
+    </div>
+</div>
+
 <div class="modal" id="modalExcluirLoja">
     <div class="modal-box pequeno">
         <div class="modal-header">
@@ -1888,7 +2433,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
     <span id="toastIcone" class="ico">✓</span>
     <span id="toastTexto"></span>
 </div>
-
 <script>
 const $ = id => document.getElementById(id);
 
@@ -2154,7 +2698,6 @@ function mostrarToast(texto,icone="✓"){
     toastTimer=setTimeout(()=>{ $("toast").classList.remove("mostrar"); },2000);
 }
 
-/* 👇 CORRIGIDO: normalizar remove vírgula e ponto para busca "2,5" bater */
 function normalizar(s){
     return s.toLowerCase()
         .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
@@ -2418,9 +2961,6 @@ function confirmarExcluirLoja(){
     mostrarToast("Loja excluída.","🗑️");
 }
 
-/* ============================================================
-   SELEÇÃO LOJA
-   ============================================================ */
 function abrirSelecaoLojaRupturas(){
     $("tituloSelecaoLoja").innerHTML = '<span class="ico">📋</span> Verificar lista de rupturas';
     $("subtituloSelecaoLoja").textContent = "Escolha qual loja deseja visualizar";
@@ -2480,18 +3020,19 @@ function montarSelecaoLoja(tipo){
     }
 }
 
-/* ============================================================
-   ABRIR LOJA
-   ============================================================ */
 function abrirFerramentaRupturas(i){
     lojaAtiva = i;
     dadosDestravados = false;
+    rupModoExclusao = false;
+    rupParaExcluir.clear();
+    rupSelecionados.clear();
     const lojas = carregarLojas();
     const nome = lojas[i].info.loja || `Loja ${i+1}`;
     $("tituloLojaAtiva").innerHTML = '<span class="ico">🏬</span> '+nome;
     preencherInfoLoja();
     rupRenderLista();
     rupAtualizarContadores();
+    rupAtualizarModoExclusao();
     sdInicializar();
     const loja = getLoja(i);
     if(lojaTemDadosCompletos(loja)) trocarSubAba("share");
@@ -2502,12 +3043,12 @@ function abrirFerramentaRupturas(i){
 function fecharFerramentaRupturas(){
     $("modalLoja").classList.remove("aberto");
     dadosDestravados = false;
+    rupModoExclusao = false;
+    rupParaExcluir.clear();
+    rupSelecionados.clear();
     atualizarCardsLojas();
 }
 
-/* ============================================================
-   DADOS — trava/destrava
-   ============================================================ */
 function aplicarTravaDados(){
     const loja = getLoja(lojaAtiva);
     const completa = lojaTemDadosCompletos(loja);
@@ -2598,7 +3139,13 @@ function trocarSubAba(nome){
 
     if(nome === "validades") sdInicializar();
     if(nome === "share") calcularLoja();
-    if(nome === "rupturas"){ rupRenderLista(); rupAtualizarContadores(); }
+    if(nome === "rupturas"){ 
+        rupModoExclusao = false;
+        rupParaExcluir.clear();
+        rupRenderLista(); 
+        rupAtualizarContadores();
+        rupAtualizarModoExclusao();
+    }
     if(nome === "dados") aplicarTravaDados();
     if(nome === "ferramentas") montarRelatorio();
 }
@@ -2625,9 +3172,6 @@ function preencherInfoLoja(){
     $("infoSupervisor").value = i.supervisor || "";
 }
 
-/* ============================================================
-   SHARE
-   ============================================================ */
 function numero(v){ if(v===null||v===undefined||v==="") return 0; return Number(String(v).replace(",",".")); }
 function formatarNumero(v){ return Number(v).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}); }
 function formatarUnidade(v,unid){ unid = unid || unidadeAtualLoja; return unid==="cm" ? formatarNumero(v)+" cm" : formatarNumero(v)+" frentes"; }
@@ -2768,75 +3312,288 @@ function calcResultado(){
 }
 
 /* ============================================================
-   RUPTURAS — BUSCA
+   RUPTURAS — ÁRVORE DE SELEÇÃO
    ============================================================ */
+let rupSelecionados = new Set();
+
 function rupBuscar(){
     const termo = $("rupBuscaInput").value.trim();
-    const box = $("rupSugModal");
-    if(!termo){ box.classList.remove("ativo"); box.innerHTML = ""; return; }
+    const arvore = $("rupArvore");
+    const itensWrap = $("rupArvoreItens");
+    const titulo = $("rupArvoreTitulo");
+
+    if(!termo){
+        arvore.classList.remove("ativo");
+        itensWrap.innerHTML = "";
+        return;
+    }
 
     const palavras = normalizar(termo).split(/\s+/).filter(p=>p.length>0);
     const encontrados = SD_CATALOGO.filter(p => {
         const texto = p.nome + " " + p.desc + " " + p.sub;
         return matchAbreviado(texto, palavras);
-    }).slice(0, 40);
+    }).slice(0, 60);
 
     if(encontrados.length === 0){
-        box.innerHTML = '<div class="rup-vazio">Nenhum produto encontrado</div>';
-        box.classList.add("ativo");
+        titulo.textContent = "Nenhum resultado";
+        itensWrap.innerHTML = '<div class="rup-vazio" style="padding:20px 10px;font-size:12px;">Nenhum produto encontrado</div>';
+        arvore.classList.add("ativo");
+        rupAtualizarBotaoSalvar();
         return;
     }
 
-    const header = '<div class="rup-sug-header">'+encontrados.length+' produto(s) encontrado(s)</div>';
-    box.innerHTML = header + encontrados.map((p) => {
-        const alcool = isAlcoolico(p.cat);
+    titulo.textContent = encontrados.length + " produto(s) encontrado(s)";
+
+    const l = getLoja(lojaAtiva);
+    const registrados = l.rupturas || {};
+
+    itensWrap.innerHTML = encontrados.map((p) => {
         const idx = SD_CATALOGO.indexOf(p);
-        return '<div class="rup-sugestao" onclick="rupAdicionarProduto('+idx+')">'+
-            '<div class="rup-emoji">'+emojiProduto(p.nome)+'</div>'+
+        const chave = "|"+p.nome+"|"+p.desc;
+        const jaReg = !!registrados[chave];
+        const marcado = rupSelecionados.has(idx);
+
+        const cls = "rup-item-selecionavel" +
+                    (marcado ? " marcado" : "") +
+                    (jaReg ? " ja-registrado" : "");
+
+        return '<div class="'+cls+'" onclick="rupToggleItem('+idx+', event)">'+
+            '<div class="rup-check-box"></div>'+
             '<div class="rup-info">'+
-                '<div class="rup-nome">'+p.nome+'</div>'+
+                '<div class="rup-nome">'+emojiProduto(p.nome)+' '+p.nome+'</div>'+
                 '<div class="rup-meta">'+p.desc+' • '+p.sub+'</div>'+
             '</div>'+
-            '<span class="rup-tipo '+(alcool ? 'alcool' : 'nao')+'">'+(alcool ? '🍺 ALC' : '🥤 N.ALC')+'</span>'+
+            (jaReg ? '<span class="rup-badge-reg">✓ já salvo</span>' : '')+
         '</div>';
     }).join("");
-    box.classList.add("ativo");
+
+    arvore.classList.add("ativo");
+    rupAtualizarBotaoSalvar();
+}
+
+function rupToggleItem(idx, event){
+    if(event) event.stopPropagation();
+
+    const p = SD_CATALOGO[idx];
+    if(!p) return;
+
+    const l = getLoja(lojaAtiva);
+    const chave = "|"+p.nome+"|"+p.desc;
+    if(l.rupturas && l.rupturas[chave]){
+        mostrarToast("Este produto já está salvo","⚠️");
+        return;
+    }
+
+    if(rupSelecionados.has(idx)){
+        rupSelecionados.delete(idx);
+    } else {
+        rupSelecionados.add(idx);
+    }
+    rupBuscar();
+}
+
+function rupMarcarTodos(){
+    const termo = $("rupBuscaInput").value.trim();
+    if(!termo) return;
+
+    const palavras = normalizar(termo).split(/\s+/).filter(p=>p.length>0);
+    const encontrados = SD_CATALOGO.filter(p => {
+        const texto = p.nome + " " + p.desc + " " + p.sub;
+        return matchAbreviado(texto, palavras);
+    });
+
+    const l = getLoja(lojaAtiva);
+    const registrados = l.rupturas || {};
+
+    const todosMarcados = encontrados.every(p => {
+        const idx = SD_CATALOGO.indexOf(p);
+        return rupSelecionados.has(idx);
+    });
+
+    encontrados.forEach(p => {
+        const idx = SD_CATALOGO.indexOf(p);
+        const chave = "|"+p.nome+"|"+p.desc;
+        if(registrados[chave]) return;
+        if(todosMarcados){
+            rupSelecionados.delete(idx);
+        } else {
+            rupSelecionados.add(idx);
+        }
+    });
+
+    rupBuscar();
+}
+
+function rupAtualizarBotaoSalvar(){
+    const btn = $("rupBtnSalvarSel");
+    const count = $("rupSelCount");
+    if(!btn || !count) return;
+    const n = rupSelecionados.size;
+    count.textContent = n;
+    btn.disabled = n === 0;
+}
+
+function rupSalvarSelecionados(){
+    if(rupSelecionados.size === 0){
+        mostrarToast("Nenhum produto selecionado","⚠️");
+        return;
+    }
+
+    const l = getLoja(lojaAtiva);
+    l.rupturas = l.rupturas || {};
+
+    let adicionados = 0;
+    let pulados = 0;
+
+    rupSelecionados.forEach(idx => {
+        const p = SD_CATALOGO[idx];
+        if(!p) return;
+
+        const categoriaRup = isAlcoolico(p.cat) ? "cerveja" : "refrigerante";
+        const chave = "|"+p.nome+"|"+p.desc;
+
+        if(l.rupturas[chave]){
+            pulados++;
+            return;
+        }
+
+        l.rupturas[chave] = {
+            nome: p.nome,
+            descricao: p.desc,
+            categoria: categoriaRup,
+            categoriaComercial: p.sub
+        };
+        adicionados++;
+    });
+
+    setLoja(lojaAtiva, l);
+
+    rupSelecionados.clear();
+
+    rupRenderLista();
+    rupAtualizarContadores();
+    atualizarCardsLojas();
+    montarRelatorio();
+    rupBuscar();
+
+    if(navigator.vibrate) navigator.vibrate(40);
+
+    if(adicionados > 0){
+        mostrarToast(adicionados + " produto(s) salvo(s)" + (pulados > 0 ? " • " + pulados + " já existiam" : ""),"✅");
+    } else {
+        mostrarToast("Todos já estavam salvos","ℹ️");
+    }
 }
 
 function rupAdicionarProduto(idx){
     const p = SD_CATALOGO[idx];
     if(!p) return;
+    if(!rupSelecionados.has(idx)) rupSelecionados.add(idx);
+    rupSalvarSelecionados();
+}
 
+/* ============================================================
+   RUPTURAS — MODO EXCLUSÃO EM MASSA
+   ============================================================ */
+let rupModoExclusao = false;
+let rupParaExcluir = new Set();
+
+function rupEntrarModoExclusao(){
     const l = getLoja(lojaAtiva);
-    l.rupturas = l.rupturas || {};
+    const rup = l.rupturas || {};
+    if(Object.keys(rup).length === 0){
+        mostrarToast("Nenhuma ruptura para excluir","⚠️");
+        return;
+    }
+    rupModoExclusao = true;
+    rupParaExcluir.clear();
+    rupRenderLista();
+    rupAtualizarModoExclusao();
+    if(navigator.vibrate) navigator.vibrate(30);
+}
 
-    const categoriaRup = isAlcoolico(p.cat) ? "cerveja" : "refrigerante";
-    const chave = "|"+p.nome+"|"+p.desc;
+function rupSairModoExclusao(){
+    rupModoExclusao = false;
+    rupParaExcluir.clear();
+    rupRenderLista();
+    rupAtualizarModoExclusao();
+}
 
-    if(l.rupturas[chave]){
-        mostrarToast("Produto já está na lista de rupturas","⚠️");
-        $("rupSugModal").classList.remove("ativo");
-        $("rupBuscaInput").value = "";
+/* ✅ CORREÇÃO 1: botão "Excluir itens" só aparece quando há rupturas salvas */
+function rupAtualizarModoExclusao(){
+    const barra = $("rupModoExclusaoBar");
+    const btnExcluirModo = $("rupBtnExcluirModo");
+    const btnConfirmar = $("rupBtnConfirmarExc");
+    const count = $("rupModoCount");
+
+    if(!barra || !btnExcluirModo || !btnConfirmar || !count) return;
+
+    // ✅ Verifica se há itens salvos na loja atual
+    const l = getLoja(lojaAtiva);
+    const totalRup = Object.keys(l.rupturas || {}).length;
+
+    // ✅ Se NÃO há itens salvos, esconde o botão e a barra
+    if(totalRup === 0){
+        barra.classList.remove("ativo");
+        btnExcluirModo.style.display = "none";
         return;
     }
 
-    l.rupturas[chave] = {
-        nome: p.nome,
-        descricao: p.desc,
-        categoria: categoriaRup,
-        categoriaComercial: p.sub
-    };
+    if(rupModoExclusao){
+        barra.classList.add("ativo");
+        btnExcluirModo.style.display = "none";
+        count.textContent = rupParaExcluir.size;
+        btnConfirmar.disabled = rupParaExcluir.size === 0;
+    } else {
+        barra.classList.remove("ativo");
+        btnExcluirModo.style.display = "flex"; // ✅ Aparece só quando tem itens
+    }
+}
+
+function rupToggleExclusao(chave, event){
+    if(event) event.stopPropagation();
+    if(!rupModoExclusao) return;
+
+    if(rupParaExcluir.has(chave)){
+        rupParaExcluir.delete(chave);
+    } else {
+        rupParaExcluir.add(chave);
+    }
+    rupRenderLista();
+    rupAtualizarModoExclusao();
+    if(navigator.vibrate) navigator.vibrate(15);
+}
+
+function rupExcluirSelecionados(){
+    if(rupParaExcluir.size === 0){
+        mostrarToast("Nenhum item selecionado","⚠️");
+        return;
+    }
+
+    const qtd = rupParaExcluir.size;
+    const l = getLoja(lojaAtiva);
+    if(!l.rupturas){ return; }
+
+    rupParaExcluir.forEach(chave => {
+        delete l.rupturas[chave];
+    });
     setLoja(lojaAtiva, l);
 
-    $("rupSugModal").classList.remove("ativo");
-    $("rupBuscaInput").value = "";
-    $("rupBuscaInput").blur();
+    rupParaExcluir.clear();
+    rupModoExclusao = false;
 
     rupRenderLista();
     rupAtualizarContadores();
+    rupAtualizarModoExclusao();
     atualizarCardsLojas();
-    if(navigator.vibrate) navigator.vibrate(30);
-    mostrarToast("Adicionado: "+p.nome,"✅");
+    montarRelatorio();
+
+    if($("rupBuscaInput").value.trim()){
+        rupBuscar();
+    }
+
+    if(navigator.vibrate) navigator.vibrate([40,40,40]);
+    mostrarToast(qtd + " item(ns) excluído(s)","🗑️");
 }
 
 function rupRemoverProduto(chave){
@@ -2846,19 +3603,31 @@ function rupRemoverProduto(chave){
     setLoja(lojaAtiva, l);
     rupRenderLista();
     rupAtualizarContadores();
+    rupAtualizarModoExclusao();
     atualizarCardsLojas();
+    montarRelatorio();
     mostrarToast("Produto removido","🗑️");
 }
 
+/* ✅ CORREÇÃO 1 (continuação): botão só aparece se tiver itens */
 function rupRenderLista(){
     const l = getLoja(lojaAtiva);
     const rup = l.rupturas || {};
     const chaves = Object.keys(rup);
     const container = $("rupListaRegistradas");
+    const btnExcluirModo = $("rupBtnExcluirModo");
 
     if(chaves.length === 0){
         container.innerHTML = '<div class="rup-vazio">📭 Nenhuma ruptura registrada ainda.<br>Use a busca acima para adicionar produtos.</div>';
+        if(btnExcluirModo) btnExcluirModo.style.display = "none";
+        rupModoExclusao = false;
+        rupParaExcluir.clear();
+        rupAtualizarModoExclusao();
         return;
+    }
+
+    if(btnExcluirModo){
+        btnExcluirModo.style.display = rupModoExclusao ? "none" : "flex";
     }
 
     const itens = chaves.map(k => ({chave: k, ...rup[k]}));
@@ -2868,13 +3637,26 @@ function rupRenderLista(){
         const tag = it.categoriaComercial
             ? '<span class="tag-categoria">'+it.categoriaComercial+'</span>'
             : '';
-        return '<div class="rup-item">'+
-            '<div class="rup-item-info">'+
-                '<div class="rup-item-nome">'+emojiProduto(it.nome)+' '+it.nome+tag+'</div>'+
-                '<div class="rup-item-desc">'+it.descricao+'</div>'+
-            '</div>'+
-            '<button class="rup-item-btn-del" onclick="rupRemoverProduto(\''+it.chave.replace(/\'/g,"\\\'")+'\')">🗑️</button>'+
-        '</div>';
+
+        const marcado = rupParaExcluir.has(it.chave);
+        const chaveJS = it.chave.replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/"/g,'\\"');
+
+        if(rupModoExclusao){
+            return '<div class="rup-item rup-item-check'+(marcado ? ' rup-item-marcado' : '')+'" onclick="rupToggleExclusao(\''+chaveJS+'\', event)">'+
+                '<div class="rup-item-check-box"></div>'+
+                '<div class="rup-item-info">'+
+                    '<div class="rup-item-nome">'+emojiProduto(it.nome)+' '+it.nome+tag+'</div>'+
+                    '<div class="rup-item-desc">'+it.descricao+'</div>'+
+                '</div>'+
+            '</div>';
+        } else {
+            return '<div class="rup-item">'+
+                '<div class="rup-item-info">'+
+                    '<div class="rup-item-nome">'+emojiProduto(it.nome)+' '+it.nome+tag+'</div>'+
+                    '<div class="rup-item-desc">'+it.descricao+'</div>'+
+                '</div>'+
+            '</div>';
+        }
     }).join("");
 }
 
@@ -2892,12 +3674,6 @@ function rupAtualizarContadores(){
     $("contadorNaoAlcoolicos").textContent=n;
     $("rupQtdBadge").textContent=t;
 }
-
-document.addEventListener("click", (e)=>{
-    const box = $("rupSugModal");
-    const wrap = e.target.closest(".ruptura-busca-wrap");
-    if(!wrap && box) box.classList.remove("ativo");
-});
 
 /* ============================================================
    SUPER DATES
@@ -2989,6 +3765,8 @@ function sdAtualizarDisplayCategoria(cat, sub){
     if(sub){ txtSub.textContent = sub; txtSub.style.color = "var(--jarvis-text)"; }
     else { txtSub.textContent = "Selecione um produto acima"; txtSub.style.color = "var(--jarvis-text-dim)"; }
 }
+
+/* ✅ CORREÇÃO 2: esconde a lupa quando o chip do produto aparece */
 function sdMostrarChip(produto, bloquearTrocar){
     sdProdutoSelecionado = produto;
     $("sdInpNome").value = "";
@@ -2998,6 +3776,10 @@ function sdMostrarChip(produto, bloquearTrocar){
     if(bloquearTrocar) $("sdChipTrocar").classList.add("sd-oculto");
     else $("sdChipTrocar").classList.remove("sd-oculto");
     $("sdChipProduto").classList.add("sd-ativo");
+
+    // ✅ Esconde a lupa quando o chip está ativo
+    const lupa = $("sdBtnLupa");
+    if(lupa) lupa.style.display = "none";
 }
 function sdEsconderChip(){
     sdProdutoSelecionado = null;
@@ -3005,6 +3787,10 @@ function sdEsconderChip(){
     $("sdChipNome").textContent = "";
     $("sdChipDesc").textContent = "";
     $("sdChipTrocar").classList.remove("sd-oculto");
+
+    // ✅ Mostra a lupa novamente quando não tem chip
+    const lupa = $("sdBtnLupa");
+    if(lupa) lupa.style.display = "flex";
 }
 function sdTrocarProduto(){
     sdEsconderChip(); sdAtualizarDisplayCategoria("", "");
@@ -3359,9 +4145,7 @@ function sdFecharHistorico(e){
     $("sdOverlayHistorico").classList.remove("sd-ativo");
 }
 
-/* ============================================================
-   NOTAS — RELATÓRIO
-   ============================================================ */
+/* ✅ CORREÇÃO 3: agrupa lotes iguais (mesma descrição + validade) e soma quantidades */
 function gerarRelatorioCompleto(){
     const produtos = sdGetProdutos();
     const loja = getLoja(lojaAtiva);
@@ -3376,7 +4160,6 @@ function gerarRelatorioCompleto(){
     const temValidades = produtos.length > 0;
 
     let t = "";
-
     t += "═══════════════════════════════════\n";
     t += "     ⚡ MSHARE SPACE — RELATÓRIO\n";
     t += "═══════════════════════════════════\n\n";
@@ -3397,16 +4180,8 @@ function gerarRelatorioCompleto(){
     }
 
     if(temRupturas){
-        const alco = rupturas.filter(i =>
-            i.categoria === "cerveja" ||
-            i.categoria === "cerveja_zero" ||
-            i.categoria === "mistas"
-        );
-        const naoAlco = rupturas.filter(i =>
-            i.categoria !== "cerveja" &&
-            i.categoria !== "cerveja_zero" &&
-            i.categoria !== "mistas"
-        );
+        const alco = rupturas.filter(i => i.categoria === "cerveja" || i.categoria === "cerveja_zero" || i.categoria === "mistas");
+        const naoAlco = rupturas.filter(i => i.categoria !== "cerveja" && i.categoria !== "cerveja_zero" && i.categoria !== "mistas");
 
         t += "═══════════════════════════════════\n";
         t += "   📋 LISTA DE RUPTURAS (" + rupturas.length + ")\n";
@@ -3417,8 +4192,7 @@ function gerarRelatorioCompleto(){
             t += "🍺 ALCOÓLICOS (" + alco.length + ")\n";
             t += "───────────────────────────────────\n\n";
             alco.sort((a,b)=>a.nome.localeCompare(b.nome,"pt-BR",{numeric:true})).forEach(i=>{
-                t += "• " + i.nome + " — " + i.descricao +
-                     (i.categoriaComercial ? "  [" + i.categoriaComercial + "]" : "") + "\n";
+                t += "• " + i.nome + " — " + i.descricao + (i.categoriaComercial ? "  [" + i.categoriaComercial + "]" : "") + "\n";
             });
             t += "\n";
         }
@@ -3428,21 +4202,40 @@ function gerarRelatorioCompleto(){
             t += "🥤 NÃO ALCOÓLICOS (" + naoAlco.length + ")\n";
             t += "───────────────────────────────────\n\n";
             naoAlco.sort((a,b)=>a.nome.localeCompare(b.nome,"pt-BR",{numeric:true})).forEach(i=>{
-                t += "• " + i.nome + " — " + i.descricao +
-                     (i.categoriaComercial ? "  [" + i.categoriaComercial + "]" : "") + "\n";
+                t += "• " + i.nome + " — " + i.descricao + (i.categoriaComercial ? "  [" + i.categoriaComercial + "]" : "") + "\n";
             });
             t += "\n";
         }
     }
 
+    /* ✅ AGRUPAMENTO DE LOTES IGUAIS (mesma descrição + validade) */
     if(temValidades){
         t += "═══════════════════════════════════\n";
         t += "   🗓️ LISTA DE VALIDADES (" + produtos.length + ")\n";
         t += "═══════════════════════════════════\n\n";
 
-        const ord = [...produtos].sort((a,b)=> new Date(a.data) - new Date(b.data));
+        // Agrupa por: nome + descrição + data de validade
+        const agrupado = {};
+        produtos.forEach(p => {
+            const chave = p.nome + "||" + p.descricao + "||" + p.data;
+            if(!agrupado[chave]){
+                agrupado[chave] = {
+                    nome: p.nome,
+                    descricao: p.descricao,
+                    categoria: p.categoria,
+                    subcategoria: p.subcategoria,
+                    data: p.data,
+                    quantidade: 0
+                };
+            }
+            agrupado[chave].quantidade += parseInt(p.quantidade) || 0;
+        });
+
+        const itensAgrupados = Object.values(agrupado)
+            .sort((a,b) => new Date(a.data) - new Date(b.data));
+
         const porCat = {};
-        ord.forEach(p => {
+        itensAgrupados.forEach(p => {
             if(!porCat[p.categoria]) porCat[p.categoria] = [];
             porCat[p.categoria].push(p);
         });
@@ -3466,6 +4259,8 @@ function gerarRelatorioCompleto(){
                 const subcat = lotes[0].subcategoria;
                 t += "• " + nome + "\n";
                 t += "   🏷️ " + subcat + " • 📦 " + qtdTotal + " un total\n";
+
+                // Só mostra data + quantidade somada (sem lote original, sem histórico)
                 lotes.forEach(l => {
                     const dias = sdDiasRestantes(l.data);
                     const dataFmtL = new Date(l.data+"T00:00:00").toLocaleDateString("pt-BR");
@@ -3475,13 +4270,8 @@ function gerarRelatorioCompleto(){
                     else if(dias <= 30){ ico = "🔴"; status = "⚠️ " + dias + "d restantes"; }
                     else if(dias <= 60){ ico = "🟡"; status = dias + "d restantes"; }
                     else { ico = "🟢"; status = dias + "d restantes"; }
+
                     t += "      " + ico + " " + dataFmtL + " — " + l.quantidade + " un — " + status + "\n";
-                    const hist = l.historicoAdicoes || [];
-                    if(hist.length > 0){
-                        const totalAdic = hist.reduce((s,h)=> s + h.qtd, 0);
-                        const ultima = hist[hist.length - 1];
-                        t += "         ➕ +" + totalAdic + " un adicionadas (última: " + sdFormatarDataHora(ultima.ts) + ")\n";
-                    }
                 });
                 t += "\n";
             });
@@ -3499,6 +4289,7 @@ function gerarRelatorioCompleto(){
 function montarRelatorio(){
     const texto = gerarRelatorioCompleto();
     const np = $("toolsNotepad");
+    if(!np) return;
     const linhas = texto.split("\n");
     np.innerHTML = linhas.map(l => {
         if(l.startsWith("════") || l.startsWith("────")) return '<span class="sd-linha-titulo">'+l+'</span>';
@@ -3539,6 +4330,71 @@ async function copiarRelatorio(){
     btn.innerHTML = "✅ Copiado!";
     setTimeout(()=>{ btn.classList.remove("sd-copiado"); btn.innerHTML = "📋 Copiar informações"; }, 2000);
 }
+
+/* ============================================================
+   SOBRE ESTE APP
+   ============================================================ */
+function abrirSobreApp(){
+    $("modalSobreApp").classList.add("aberto");
+}
+function fecharSobreApp(e){
+    if(e && e.target.id !== "modalSobreApp") return;
+    $("modalSobreApp").classList.remove("aberto");
+}
+
+/* ============================================================
+   BOTÃO VOLTAR DO ANDROID
+   ============================================================ */
+window.addEventListener("popstate", ()=>{
+    const sdOverlay = $("sdOverlay");
+    if(sdOverlay && sdOverlay.classList.contains("sd-ativo")){
+        sdFecharModalForcado();
+        history.pushState(null, "", location.href);
+        return;
+    }
+    const sdConfirm = $("sdOverlayConfirm");
+    if(sdConfirm && sdConfirm.classList.contains("sd-ativo")){
+        sdConfirm.classList.remove("sd-ativo");
+        history.pushState(null, "", location.href);
+        return;
+    }
+    const sdHist = $("sdOverlayHistorico");
+    if(sdHist && sdHist.classList.contains("sd-ativo")){
+        sdHist.classList.remove("sd-ativo");
+        history.pushState(null, "", location.href);
+        return;
+    }
+    const modalLoja = $("modalLoja");
+    if(modalLoja && modalLoja.classList.contains("aberto")){
+        fecharFerramentaRupturas();
+        history.pushState(null, "", location.href);
+        return;
+    }
+    const modais = ["modalSobreApp", "modalCalculadora", "modalSelecaoLoja", "modalExcluirLoja"];
+    for(const id of modais){
+        const m = $(id);
+        if(m && m.classList.contains("aberto")){
+            m.classList.remove("aberto");
+            history.pushState(null, "", location.href);
+            return;
+        }
+    }
+});
+
+history.pushState(null, "", location.href);
+
+window.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape"){
+        const sdOverlay = $("sdOverlay");
+        if(sdOverlay && sdOverlay.classList.contains("sd-ativo")){ sdFecharModalForcado(); return; }
+        const sdConfirm = $("sdOverlayConfirm");
+        if(sdConfirm && sdConfirm.classList.contains("sd-ativo")){ sdConfirm.classList.remove("sd-ativo"); return; }
+        const modalSobre = $("modalSobreApp");
+        if(modalSobre && modalSobre.classList.contains("aberto")){ modalSobre.classList.remove("aberto"); return; }
+        const modalLoja = $("modalLoja");
+        if(modalLoja && modalLoja.classList.contains("aberto")){ fecharFerramentaRupturas(); return; }
+    }
+});
 
 /* ============================================================
    INICIALIZAÇÃO
