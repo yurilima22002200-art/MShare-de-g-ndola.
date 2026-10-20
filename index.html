@@ -458,6 +458,12 @@ button{ cursor:pointer; }
     gap:6px; letter-spacing:1.2px; text-transform:uppercase;
 }
 .btn-unidade:active{ transform:scale(.98); }
+.btn-unidade{
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-touch-callout:none;
+    -webkit-tap-highlight-color:transparent;
+}
 .btn-unidade.ativo{ color:#001428; background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue)); border-color:var(--jarvis-cyan); font-weight:700; }
 .label{
     display:flex; color:var(--jarvis-text-dim); font-size:10px;
@@ -486,6 +492,46 @@ button{ cursor:pointer; }
 }
 .btn-calculadora:active{ transform:scale(.98); }
 .btn-calculadora .ico{ font-size:14px; }
+
+/* ✅ NOVO: botão SALVAR do Share */
+.btn-salvar-share{
+    width:100%; margin-top:14px; padding:13px;
+    border-radius:8px; border:1px solid var(--jarvis-success);
+    font-size:11.5px; font-weight:800; cursor:pointer;
+    background:linear-gradient(135deg, var(--jarvis-success), #00cc7a);
+    color:#001428;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    letter-spacing:1.5px; text-transform:uppercase;
+    font-family:'Orbitron','Segoe UI',sans-serif;
+    min-height:46px;
+    transition:transform .1s, opacity .15s;
+}
+.btn-salvar-share:active{ transform:scale(.97); }
+.btn-salvar-share:disabled{
+    background:rgba(0,40,90,.5);
+    color:var(--jarvis-text-disabled);
+    border-color:var(--jarvis-border);
+    cursor:not-allowed;
+    opacity:.6;
+}
+
+/* ✅ Bloqueio visual dos inputs salvos */
+.share-bloqueado .input{
+    background:rgba(0,25,50,.4) !important;
+    color:var(--jarvis-text-dim) !important;
+    border-style:dashed !important;
+    border-color:rgba(0,212,255,.2) !important;
+    cursor:not-allowed !important;
+}
+.aviso-trava-share{
+    display:none; margin-top:10px; margin-bottom:10px; padding:10px 12px;
+    background:rgba(255,185,0,.1); border-left:3px solid var(--jarvis-warning);
+    color:#ffd24d; font-size:10.5px; font-weight:500; text-align:center;
+    border-radius:0 6px 6px 0; align-items:center; justify-content:center; gap:6px;
+    font-family:'Orbitron','Segoe UI',sans-serif;
+    letter-spacing:.6px; text-transform:uppercase;
+}
+.aviso-trava-share.ativo{ display:flex; }
 
 /* ================= RESULTADO ================= */
 .share-resultado-box{
@@ -1782,7 +1828,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
     -webkit-touch-callout:none;
 }
 
-/* ✅ CORREÇÃO 2: esconde a lupa quando o produto já está selecionado */
 .sd-chip-produto.sd-ativo ~ .sd-btn-lupa,
 .sd-campo-busca:has(.sd-chip-produto.sd-ativo) .sd-btn-lupa {
     display: none !important;
@@ -1946,22 +1991,63 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
             <div class="loja-info">
                 <div class="loja-info-titulo"><span class="ico">📏</span> MEDIR SHARE DE GÔNDOLA</div>
 
-                <div class="unidades">
-                    <button class="btn-unidade ativo" id="btnFrentesLoja" onclick="mudarUnidadeLoja('frentes')"><span class="ico">📦</span> FRENTES</button>
-                    <button class="btn-unidade" id="btnCentimetrosLoja" onclick="mudarUnidadeLoja('cm')"><span class="ico">📐</span> CM</button>
+                <div class="aviso-trava-share" id="avisoTravaShare">
+                    <span class="ico">🔒</span> Share salvo • Pressione 2s na categoria para editar
                 </div>
 
-                <label class="label"><span class="ico">🎯</span> Meta desejada (%)</label>
-                <input class="input" id="metaLoja" type="number" min="0" max="100" step="0.01"
-                       placeholder="Ex.: 30" oninput="calcularLoja()">
+                <div id="shareCategoriasBotoes">
+                    <div class="unidades">
+                        <button class="btn-unidade ativo" id="btnFrentesLoja" onclick="mudarUnidadeLoja('frentes')"><span class="ico">📦</span> FRENTES</button>
+                        <button class="btn-unidade" id="btnCentimetrosLoja" onclick="mudarUnidadeLoja('cm')"><span class="ico">📐</span> CM</button>
+                    </div>
 
-                <label class="label"><span class="ico">📦</span> Espaço total</label>
-                <input class="input" id="totalLoja" type="number" min="0" step="0.01"
-                       placeholder="Ex.: 100" oninput="calcularLoja()">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+                        <button class="btn-unidade ativo" id="btnShareNAB" onclick="tentarMudarCategoria('nab')"><span class="ico">🥤</span> NAB</button>
+                        <button class="btn-unidade" id="btnShareCerveja" onclick="tentarMudarCategoria('cerveja')"><span class="ico">🍺</span> CERVEJAS</button>
+                    </div>
+                    <div style="margin-bottom:14px;">
+                        <button class="btn-unidade" id="btnShareExtras" onclick="tentarMudarCategoria('extras')" style="width:100%;"><span class="ico">⭐</span> PONTOS EXTRAS</button>
+                    </div>
+                </div>
 
-                <label class="label"><span class="ico">📊</span> Meu espaço</label>
-                <input class="input" id="meuEspacoLoja" type="number" min="0" step="0.01"
-                       placeholder="Ex.: 35" oninput="calcularLoja()">
+                <div class="share-bloqueavel" id="shareBlocoNAB" style="display:block;">
+                    <div style="font-family:'Orbitron',sans-serif;font-size:11px;color:var(--jarvis-cyan);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+                        <span>🥤</span> NÃO ALCOÓLICOS (NAB)
+                    </div>
+                    <label class="label"><span class="ico">🎯</span> Meta NAB (%)</label>
+                    <input class="input share-input" id="metaNAB" type="number" min="0" max="100" step="0.01" placeholder="Ex.: 30" oninput="calcularShareCategoria('nab')">
+                    <label class="label"><span class="ico">📦</span> Espaço total NAB</label>
+                    <input class="input share-input" id="totalNAB" type="number" min="0" step="0.01" placeholder="Ex.: 100" oninput="calcularShareCategoria('nab')">
+                    <label class="label"><span class="ico">📊</span> Meu espaço NAB</label>
+                    <input class="input share-input" id="meuEspacoNAB" type="number" min="0" step="0.01" placeholder="Ex.: 35" oninput="calcularShareCategoria('nab')">
+                    <button class="btn-salvar-share" id="btnSalvarNAB" onclick="salvarShareCategoria('nab')" disabled>💾 SALVAR NAB</button>
+                </div>
+
+                <div class="share-bloqueavel" id="shareBlocoCerveja" style="display:none;">
+                    <div style="font-family:'Orbitron',sans-serif;font-size:11px;color:var(--jarvis-cyan);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+                        <span>🍺</span> CERVEJAS
+                    </div>
+                    <label class="label"><span class="ico">🎯</span> Meta Cervejas (%)</label>
+                    <input class="input share-input" id="metaCerveja" type="number" min="0" max="100" step="0.01" placeholder="Ex.: 30" oninput="calcularShareCategoria('cerveja')">
+                    <label class="label"><span class="ico">📦</span> Espaço total Cervejas</label>
+                    <input class="input share-input" id="totalCerveja" type="number" min="0" step="0.01" placeholder="Ex.: 100" oninput="calcularShareCategoria('cerveja')">
+                    <label class="label"><span class="ico">📊</span> Meu espaço Cervejas</label>
+                    <input class="input share-input" id="meuEspacoCerveja" type="number" min="0" step="0.01" placeholder="Ex.: 35" oninput="calcularShareCategoria('cerveja')">
+                    <button class="btn-salvar-share" id="btnSalvarCerveja" onclick="salvarShareCategoria('cerveja')" disabled>💾 SALVAR CERVEJAS</button>
+                </div>
+
+                <div class="share-bloqueavel" id="shareBlocoExtras" style="display:none;">
+                    <div style="font-family:'Orbitron',sans-serif;font-size:11px;color:var(--jarvis-cyan);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+                        <span>⭐</span> PONTOS EXTRAS
+                    </div>
+                    <label class="label"><span class="ico">🎯</span> Meta Pontos Extras (%)</label>
+                    <input class="input share-input" id="metaExtras" type="number" min="0" max="100" step="0.01" placeholder="Ex.: 30" oninput="calcularShareCategoria('extras')">
+                    <label class="label"><span class="ico">📦</span> Quantidade total de pontos extras</label>
+                    <input class="input share-input" id="totalExtras" type="number" min="0" step="0.01" placeholder="Ex.: 100" oninput="calcularShareCategoria('extras')">
+                    <label class="label"><span class="ico">📊</span> Minha quantidade de pontos extras</label>
+                    <input class="input share-input" id="meuEspacoExtras" type="number" min="0" step="0.01" placeholder="Ex.: 35" oninput="calcularShareCategoria('extras')">
+                    <button class="btn-salvar-share" id="btnSalvarExtras" onclick="salvarShareCategoria('extras')" disabled>💾 SALVAR PONTOS EXTRAS</button>
+                </div>
 
                 <button class="btn-calculadora" onclick="abrirCalculadora()"><span class="ico">🧮</span> CALCULADORA</button>
 
@@ -1971,23 +2057,14 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
                     <div class="status-resultado" id="statusResultadoLoja">Preencha os campos</div>
 
                     <div class="painel-grafico">
-                        <div class="painel-grafico-titulo">Análise de Share</div>
+                        <div class="painel-grafico-titulo" id="tituloGraficoShare">Análise de Share</div>
 
                         <div class="pizza-wrapper">
                             <svg class="pizza-svg" viewBox="0 0 200 200" id="pizzaSvg">
                                 <defs>
-                                    <linearGradient id="gradMeta" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" stop-color="#0088ff"/>
-                                        <stop offset="100%" stop-color="#00d4ff"/>
-                                    </linearGradient>
-                                    <linearGradient id="gradShare" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" stop-color="#00ff9d"/>
-                                        <stop offset="100%" stop-color="#00cc7a"/>
-                                    </linearGradient>
-                                    <linearGradient id="gradResto" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" stop-color="#7a4fff"/>
-                                        <stop offset="100%" stop-color="#4a2fa0"/>
-                                    </linearGradient>
+                                    <linearGradient id="gradMeta" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0088ff"/><stop offset="100%" stop-color="#00d4ff"/></linearGradient>
+                                    <linearGradient id="gradShare" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00ff9d"/><stop offset="100%" stop-color="#00cc7a"/></linearGradient>
+                                    <linearGradient id="gradResto" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7a4fff"/><stop offset="100%" stop-color="#4a2fa0"/></linearGradient>
                                 </defs>
                                 <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(0,212,255,.08)" stroke-width="1"/>
                                 <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(0,212,255,.05)" stroke-width="1"/>
@@ -1995,60 +2072,33 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
                             </svg>
                             <div class="pizza-centro">
                                 <div class="pizza-centro-valor" id="pizzaValorCentro">0%</div>
-                                <div class="pizza-centro-label">Share Atual</div>
+                                <div class="pizza-centro-label" id="pizzaLabelCentro">Share Atual</div>
                             </div>
                         </div>
 
                         <div class="pizza-legenda">
-                            <div class="pizza-legenda-item">
-                                <span class="pizza-legenda-dot meta"></span> Meta
-                            </div>
-                            <div class="pizza-legenda-item">
-                                <span class="pizza-legenda-dot share"></span> Share
-                            </div>
-                            <div class="pizza-legenda-item">
-                                <span class="pizza-legenda-dot resto"></span> Restante
-                            </div>
+                            <div class="pizza-legenda-item"><span class="pizza-legenda-dot meta"></span> Meta</div>
+                            <div class="pizza-legenda-item"><span class="pizza-legenda-dot share"></span> Share</div>
+                            <div class="pizza-legenda-item"><span class="pizza-legenda-dot resto"></span> Restante</div>
                         </div>
 
                         <div class="painel-cards">
-                            <div class="painel-card">
-                                <div class="painel-card-icon">🎯</div>
-                                <div class="painel-card-label">Meta</div>
-                                <div class="painel-card-valor" id="cardMetaLoja">--</div>
-                            </div>
-                            <div class="painel-card">
-                                <div class="painel-card-icon">📊</div>
-                                <div class="painel-card-label">Share</div>
-                                <div class="painel-card-valor" id="cardShareLoja">--</div>
-                            </div>
-                            <div class="painel-card">
-                                <div class="painel-card-icon">⚖️</div>
-                                <div class="painel-card-label">Dif.</div>
-                                <div class="painel-card-valor" id="cardDiferencaLoja">--</div>
-                            </div>
+                            <div class="painel-card"><div class="painel-card-icon">🎯</div><div class="painel-card-label">Meta</div><div class="painel-card-valor" id="cardMetaLoja">--</div></div>
+                            <div class="painel-card"><div class="painel-card-icon">📊</div><div class="painel-card-label">Share</div><div class="painel-card-valor" id="cardShareLoja">--</div></div>
+                            <div class="painel-card"><div class="painel-card-icon">⚖️</div><div class="painel-card-label">Dif.</div><div class="painel-card-valor" id="cardDiferencaLoja">--</div></div>
                         </div>
 
                         <div class="barras-resumo">
                             <div class="barra-item">
-                                <div class="barra-topo">
-                                    <span class="barra-topo-label"><span class="ico">🎯</span> Meta</span>
-                                    <span class="barra-topo-valor" id="barraMetaValorLoja">0%</span>
-                                </div>
+                                <div class="barra-topo"><span class="barra-topo-label"><span class="ico">🎯</span> Meta</span><span class="barra-topo-valor" id="barraMetaValorLoja">0%</span></div>
                                 <div class="barra-trilho"><div class="barra-preenchimento barra-meta" id="barraMetaFillLoja"></div></div>
                             </div>
                             <div class="barra-item">
-                                <div class="barra-topo">
-                                    <span class="barra-topo-label"><span class="ico">📊</span> Share Atual</span>
-                                    <span class="barra-topo-valor" id="barraAtualValorLoja">0%</span>
-                                </div>
+                                <div class="barra-topo"><span class="barra-topo-label"><span class="ico">📊</span> Share Atual</span><span class="barra-topo-valor" id="barraAtualValorLoja">0%</span></div>
                                 <div class="barra-trilho"><div class="barra-preenchimento barra-atual-verde" id="barraAtualFillLoja"></div></div>
                             </div>
                             <div class="barra-item">
-                                <div class="barra-topo">
-                                    <span class="barra-topo-label"><span class="ico">📦</span> Restante</span>
-                                    <span class="barra-topo-valor" id="barraRestanteValorLoja">0%</span>
-                                </div>
+                                <div class="barra-topo"><span class="barra-topo-label"><span class="ico">📦</span> Restante</span><span class="barra-topo-valor" id="barraRestanteValorLoja">0%</span></div>
                                 <div class="barra-trilho"><div class="barra-preenchimento barra-restante" id="barraRestanteFillLoja"></div></div>
                                 <div class="barra-info-extra">
                                     <span id="barraRestanteUnidadeLoja">--</span>
@@ -2096,7 +2146,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
                 <button type="button" class="rup-lupa" onclick="rupBuscar()">🔎</button>
             </div>
 
-            <!-- ÁRVORE DE SELEÇÃO -->
             <div class="rup-arvore" id="rupArvore">
                 <div class="rup-arvore-header">
                     <span id="rupArvoreTitulo">Resultados</span>
@@ -2265,7 +2314,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
     </div>
 </div>
 
-<!-- SOBRE ESTE APP -->
 <div class="modal" id="modalSobreApp" onclick="fecharSobreApp(event)">
     <div class="modal-box pequeno" onclick="event.stopPropagation()">
         <div class="modal-header">
@@ -2434,6 +2482,7 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
     <span id="toastIcone" class="ico">✓</span>
     <span id="toastTexto"></span>
 </div>
+
 <script>
 const $ = id => document.getElementById(id);
 
@@ -2445,10 +2494,10 @@ let lojaParaExcluir = null;
 let modoSelecaoMultipla = false;
 let lojasSelecionadas = new Set();
 let dadosDestravados = false;
+let categoriaShareAtiva = "nab";
 
-/* ============================================================
-   CATÁLOGO UNIFICADO
-   ============================================================ */
+const shareDestravado = { nab:false, cerveja:false, extras:false };
+
 const SD_CATALOGO = [
     {nome:"Guaraná Antarctica", desc:"200 ml • PET", cat:"🥤 Bebidas Não Alcoólicas", sub:"Refrigerantes"},
     {nome:"Guaraná Antarctica", desc:"237 ml • Lata", cat:"🥤 Bebidas Não Alcoólicas", sub:"Refrigerantes"},
@@ -2654,9 +2703,6 @@ const SD_CATALOGO = [
     {nome:"Vinho do Zé", desc:"Volume variam", cat:"🍺 Bebidas Alcoólicas", sub:"Bebidas Mistas / Prontas"}
 ];
 
-/* ============================================================
-   SPLASH
-   ============================================================ */
 window.addEventListener("load",()=>{
     setTimeout(()=>{
         const s = $("splash");
@@ -2726,11 +2772,8 @@ function emojiProduto(nome){
 }
 function isAlcoolico(cat){ return cat.indexOf("Não Alcoólicas") === -1 && cat.indexOf("Alcoólicas") !== -1; }
 
-/* ============================================================
-   PERSISTÊNCIA
-   ============================================================ */
 const STORAGE_LOJAS="mshare_space_lojas_v2";
-function criarLojaVazia(){ return { info:{loja:"",nome:"",endereco:"",supervisor:""}, rupturas:{}, validades:{} }; }
+function criarLojaVazia(){ return { info:{loja:"",nome:"",endereco:"",supervisor:""}, rupturas:{}, validades:{}, share:{} }; }
 function carregarLojas(){
     try{
         const d = JSON.parse(localStorage.getItem(STORAGE_LOJAS));
@@ -2758,9 +2801,6 @@ function lojaTemDadosCompletos(loja){
             i.endereco && i.endereco.trim()!=="" && i.supervisor && i.supervisor.trim()!=="");
 }
 
-/* ============================================================
-   LOJAS — CARDS
-   ============================================================ */
 function atualizarCardsLojas(){
     const lojas = carregarLojas();
     const grid = $("lojasGrid");
@@ -3027,6 +3067,9 @@ function abrirFerramentaRupturas(i){
     rupModoExclusao = false;
     rupParaExcluir.clear();
     rupSelecionados.clear();
+    shareDestravado.nab = false;
+    shareDestravado.cerveja = false;
+    shareDestravado.extras = false;
     const lojas = carregarLojas();
     const nome = lojas[i].info.loja || `Loja ${i+1}`;
     $("tituloLojaAtiva").innerHTML = '<span class="ico">🏬</span> '+nome;
@@ -3034,6 +3077,7 @@ function abrirFerramentaRupturas(i){
     rupRenderLista();
     rupAtualizarContadores();
     rupAtualizarModoExclusao();
+    carregarShareLoja();
     sdInicializar();
     const loja = getLoja(i);
     if(lojaTemDadosCompletos(loja)) trocarSubAba("share");
@@ -3047,6 +3091,9 @@ function fecharFerramentaRupturas(){
     rupModoExclusao = false;
     rupParaExcluir.clear();
     rupSelecionados.clear();
+    shareDestravado.nab = false;
+    shareDestravado.cerveja = false;
+    shareDestravado.extras = false;
     atualizarCardsLojas();
 }
 
@@ -3139,7 +3186,7 @@ function trocarSubAba(nome){
     $(par[1]).classList.add("ativo");
 
     if(nome === "validades") sdInicializar();
-    if(nome === "share") calcularLoja();
+    if(nome === "share"){ carregarShareLoja(); calcularLoja(); }
     if(nome === "rupturas"){ 
         rupModoExclusao = false;
         rupParaExcluir.clear();
@@ -3184,11 +3231,162 @@ function mudarUnidadeLoja(u){
     calcularLoja();
 }
 
+/* ============================================================
+   SHARE — 3 CATEGORIAS COM BOTÃO SALVAR MANUAL
+   ============================================================ */
+
+function shareCategoriaTemDadosSalvos(cat){
+    const l = getLoja(lojaAtiva);
+    const s = l.share || {};
+    if(!s[cat]) return false;
+    return (Number(s[cat].meta) > 0 && Number(s[cat].total) > 0);
+}
+
+function aplicarBloqueioShare(){
+    const cats = ["nab","cerveja","extras"];
+    cats.forEach(cat => {
+        const sufixo = cat === "nab" ? "NAB" : (cat === "cerveja" ? "Cerveja" : "Extras");
+        const bloco = $("shareBloco"+sufixo);
+        const btnSalvar = $("btnSalvar"+sufixo);
+        if(!bloco) return;
+
+        const temDados = shareCategoriaTemDadosSalvos(cat);
+        const destravado = shareDestravado[cat];
+        const travado = temDados && !destravado;
+
+        if(travado){
+            bloco.classList.add("share-bloqueado");
+            bloco.querySelectorAll(".share-input").forEach(inp => { inp.readOnly = true; });
+            if(btnSalvar){ btnSalvar.style.display = "none"; }
+        } else {
+            bloco.classList.remove("share-bloqueado");
+            bloco.querySelectorAll(".share-input").forEach(inp => { inp.readOnly = false; });
+            if(btnSalvar){ btnSalvar.style.display = "flex"; }
+            atualizarBotaoSalvar(cat);
+        }
+    });
+
+    const aviso = $("avisoTravaShare");
+    const algumaTravada = cats.some(c => shareCategoriaTemDadosSalvos(c) && !shareDestravado[c]);
+    if(algumaTravada) aviso.classList.add("ativo");
+    else aviso.classList.remove("ativo");
+}
+
+function atualizarBotaoSalvar(cat){
+    const sufixo = cat === "nab" ? "NAB" : (cat === "cerveja" ? "Cerveja" : "Extras");
+    const btn = $("btnSalvar"+sufixo);
+    if(!btn) return;
+
+    const meta = $("meta"+sufixo).value.trim();
+    const total = $("total"+sufixo).value.trim();
+    const meu = $("meuEspaco"+sufixo).value.trim();
+
+    const valido = meta !== "" && total !== "" && meu !== "" &&
+                   Number(meta) > 0 && Number(total) > 0 && Number(meu) >= 0;
+
+    btn.disabled = !valido;
+}
+
+function salvarShareCategoria(cat){
+    const sufixo = cat === "nab" ? "NAB" : (cat === "cerveja" ? "Cerveja" : "Extras");
+    const meta = numero($("meta"+sufixo).value);
+    const total = numero($("total"+sufixo).value);
+    const meu = numero($("meuEspaco"+sufixo).value);
+
+    if(meta <= 0 || total <= 0 || meu < 0){
+        mostrarToast("Preencha os 3 campos corretamente","⚠️");
+        return;
+    }
+
+    salvarShareLoja(cat, { meta, total, meu });
+    shareDestravado[cat] = false;
+    aplicarBloqueioShare();
+    calcularLoja();
+
+    if(navigator.vibrate) navigator.vibrate(40);
+    mostrarToast("Share salvo e bloqueado","🔒");
+}
+
+function tentarMudarCategoria(cat){
+    categoriaShareAtiva = cat;
+    $("btnShareNAB").classList.toggle("ativo", cat === "nab");
+    $("btnShareCerveja").classList.toggle("ativo", cat === "cerveja");
+    $("btnShareExtras").classList.toggle("ativo", cat === "extras");
+    $("shareBlocoNAB").style.display = cat === "nab" ? "block" : "none";
+    $("shareBlocoCerveja").style.display = cat === "cerveja" ? "block" : "none";
+    $("shareBlocoExtras").style.display = cat === "extras" ? "block" : "none";
+    const titulo = cat === "nab" ? "Análise NAB" : (cat === "cerveja" ? "Análise Cervejas" : "Análise Pontos Extras");
+    const label = cat === "nab" ? "NAB" : (cat === "cerveja" ? "Cerveja" : "Pontos Extras");
+    $("tituloGraficoShare").textContent = titulo;
+    $("pizzaLabelCentro").textContent = label;
+    aplicarBloqueioShare();
+    calcularLoja();
+}
+
+(function configurarLongPressShare(){
+    const botoes = [
+        { id:"btnShareNAB", cat:"nab" },
+        { id:"btnShareCerveja", cat:"cerveja" },
+        { id:"btnShareExtras", cat:"extras" }
+    ];
+    const TEMPO = 2000;
+
+    botoes.forEach(b => {
+        const el = $(b.id);
+        if(!el) return;
+        let pressTimer=null, pressAtivado=false, startX=0, startY=0;
+
+        function iniciarPress(e){
+            pressAtivado = false;
+            if(e.touches && e.touches[0]){ startX=e.touches[0].clientX; startY=e.touches[0].clientY; }
+            else { startX=e.clientX; startY=e.clientY; }
+            clearTimeout(pressTimer);
+            pressTimer = setTimeout(function(){
+                pressAtivado = true;
+                if(shareCategoriaTemDadosSalvos(b.cat) && !shareDestravado[b.cat]){
+                    shareDestravado[b.cat] = true;
+                    if(navigator.vibrate) navigator.vibrate([40,60,40]);
+                    aplicarBloqueioShare();
+                    mostrarToast("Categoria destravada para edição","🔓");
+                }
+            }, TEMPO);
+        }
+        function cancelarPress(){ clearTimeout(pressTimer); }
+        function detectarArrasto(e){
+            if(!pressTimer) return;
+            let cx,cy;
+            if(e.touches && e.touches[0]){ cx=e.touches[0].clientX; cy=e.touches[0].clientY; }
+            else { cx=e.clientX; cy=e.clientY; }
+            if(Math.abs(cx-startX)>10 || Math.abs(cy-startY)>10) clearTimeout(pressTimer);
+        }
+        function clickHandler(e){
+            if(pressAtivado){ pressAtivado = false; e.preventDefault(); e.stopPropagation(); }
+        }
+
+        el.addEventListener("touchstart",iniciarPress,{passive:true});
+        el.addEventListener("touchend",cancelarPress);
+        el.addEventListener("touchcancel",cancelarPress);
+        el.addEventListener("touchmove",detectarArrasto,{passive:true});
+        el.addEventListener("mousedown",iniciarPress);
+        el.addEventListener("mouseup",cancelarPress);
+        el.addEventListener("mouseleave",cancelarPress);
+        el.addEventListener("mousemove",detectarArrasto);
+        el.addEventListener("click",clickHandler,true);
+    });
+})();
+
+function mudarCategoriaShare(cat){ tentarMudarCategoria(cat); }
+function calcularShareCategoria(cat){ calcularLoja(); }
+
 function calcularLoja(){
-    const meta=numero($("metaLoja").value);
-    const total=numero($("totalLoja").value);
-    const meu=numero($("meuEspacoLoja").value);
+    const cat = categoriaShareAtiva;
+    atualizarBotaoSalvar(cat);
+    const sufixo = cat === "nab" ? "NAB" : (cat === "cerveja" ? "Cerveja" : "Extras");
+    const meta = numero($("meta"+sufixo).value);
+    const total = numero($("total"+sufixo).value);
+    const meu = numero($("meuEspaco"+sufixo).value);
     const box = $("resultadoLoja");
+
     if(meta<=0||total<=0||meu<0){
         $("shareResultadoLoja").textContent="0,00%";
         $("statusResultadoLoja").textContent="Preencha os campos";
@@ -3219,6 +3417,25 @@ function calcularLoja(){
     $("resumoSituacaoLoja").textContent = atingiu ? "✅ ATINGIDA" : "❌ NÃO ATINGIDA";
     $("resumoMensagemLoja").textContent = atingiu ? "🎉 Você atingiu a meta." : "⚠️ Faltam "+formatarUnidade(restante,unidadeAtualLoja)+" para a meta.";
     atualizarPainelGraficoLoja(meta,share,restante,total,atingiu);
+}
+
+function salvarShareLoja(cat, dados){
+    const l = getLoja(lojaAtiva);
+    if(!l.share) l.share = {};
+    l.share[cat] = dados;
+    setLoja(lojaAtiva, l);
+}
+
+function carregarShareLoja(){
+    const l = getLoja(lojaAtiva);
+    const s = l.share || {};
+    if(s.nab){ $("metaNAB").value=s.nab.meta||""; $("totalNAB").value=s.nab.total||""; $("meuEspacoNAB").value=s.nab.meu||""; }
+    if(s.cerveja){ $("metaCerveja").value=s.cerveja.meta||""; $("totalCerveja").value=s.cerveja.total||""; $("meuEspacoCerveja").value=s.cerveja.meu||""; }
+    if(s.extras){ $("metaExtras").value=s.extras.meta||""; $("totalExtras").value=s.extras.total||""; $("meuEspacoExtras").value=s.extras.meu||""; }
+    aplicarBloqueioShare();
+    atualizarBotaoSalvar("nab");
+    atualizarBotaoSalvar("cerveja");
+    atualizarBotaoSalvar("extras");
 }
 
 function criarSlicePizza(startAngle, endAngle, tipo){
@@ -3312,9 +3529,6 @@ function calcResultado(){
     }catch(e){ $("calcResult").textContent="Erro"; }
 }
 
-/* ============================================================
-   RUPTURAS — ÁRVORE DE SELEÇÃO
-   ============================================================ */
 let rupSelecionados = new Set();
 
 function rupBuscar(){
@@ -3374,54 +3588,37 @@ function rupBuscar(){
 
 function rupToggleItem(idx, event){
     if(event) event.stopPropagation();
-
     const p = SD_CATALOGO[idx];
     if(!p) return;
-
     const l = getLoja(lojaAtiva);
     const chave = "|"+p.nome+"|"+p.desc;
     if(l.rupturas && l.rupturas[chave]){
         mostrarToast("Este produto já está salvo","⚠️");
         return;
     }
-
-    if(rupSelecionados.has(idx)){
-        rupSelecionados.delete(idx);
-    } else {
-        rupSelecionados.add(idx);
-    }
+    if(rupSelecionados.has(idx)) rupSelecionados.delete(idx);
+    else rupSelecionados.add(idx);
     rupBuscar();
 }
 
 function rupMarcarTodos(){
     const termo = $("rupBuscaInput").value.trim();
     if(!termo) return;
-
     const palavras = normalizar(termo).split(/\s+/).filter(p=>p.length>0);
     const encontrados = SD_CATALOGO.filter(p => {
         const texto = p.nome + " " + p.desc + " " + p.sub;
         return matchAbreviado(texto, palavras);
     });
-
     const l = getLoja(lojaAtiva);
     const registrados = l.rupturas || {};
-
-    const todosMarcados = encontrados.every(p => {
-        const idx = SD_CATALOGO.indexOf(p);
-        return rupSelecionados.has(idx);
-    });
-
+    const todosMarcados = encontrados.every(p => rupSelecionados.has(SD_CATALOGO.indexOf(p)));
     encontrados.forEach(p => {
         const idx = SD_CATALOGO.indexOf(p);
         const chave = "|"+p.nome+"|"+p.desc;
         if(registrados[chave]) return;
-        if(todosMarcados){
-            rupSelecionados.delete(idx);
-        } else {
-            rupSelecionados.add(idx);
-        }
+        if(todosMarcados) rupSelecionados.delete(idx);
+        else rupSelecionados.add(idx);
     });
-
     rupBuscar();
 }
 
@@ -3439,25 +3636,16 @@ function rupSalvarSelecionados(){
         mostrarToast("Nenhum produto selecionado","⚠️");
         return;
     }
-
     const l = getLoja(lojaAtiva);
     l.rupturas = l.rupturas || {};
-
     let adicionados = 0;
     let pulados = 0;
-
     rupSelecionados.forEach(idx => {
         const p = SD_CATALOGO[idx];
         if(!p) return;
-
         const categoriaRup = isAlcoolico(p.cat) ? "cerveja" : "refrigerante";
         const chave = "|"+p.nome+"|"+p.desc;
-
-        if(l.rupturas[chave]){
-            pulados++;
-            return;
-        }
-
+        if(l.rupturas[chave]){ pulados++; return; }
         l.rupturas[chave] = {
             nome: p.nome,
             descricao: p.desc,
@@ -3466,19 +3654,14 @@ function rupSalvarSelecionados(){
         };
         adicionados++;
     });
-
     setLoja(lojaAtiva, l);
-
     rupSelecionados.clear();
-
     rupRenderLista();
     rupAtualizarContadores();
     atualizarCardsLojas();
     montarRelatorio();
     rupBuscar();
-
     if(navigator.vibrate) navigator.vibrate(40);
-
     if(adicionados > 0){
         mostrarToast(adicionados + " produto(s) salvo(s)" + (pulados > 0 ? " • " + pulados + " já existiam" : ""),"✅");
     } else {
@@ -3493,9 +3676,6 @@ function rupAdicionarProduto(idx){
     rupSalvarSelecionados();
 }
 
-/* ============================================================
-   RUPTURAS — MODO EXCLUSÃO EM MASSA
-   ============================================================ */
 let rupModoExclusao = false;
 let rupParaExcluir = new Set();
 
@@ -3520,26 +3700,19 @@ function rupSairModoExclusao(){
     rupAtualizarModoExclusao();
 }
 
-/* ✅ CORREÇÃO 1: botão "Excluir itens" só aparece quando há rupturas salvas */
 function rupAtualizarModoExclusao(){
     const barra = $("rupModoExclusaoBar");
     const btnExcluirModo = $("rupBtnExcluirModo");
     const btnConfirmar = $("rupBtnConfirmarExc");
     const count = $("rupModoCount");
-
     if(!barra || !btnExcluirModo || !btnConfirmar || !count) return;
-
-    // ✅ Verifica se há itens salvos na loja atual
     const l = getLoja(lojaAtiva);
     const totalRup = Object.keys(l.rupturas || {}).length;
-
-    // ✅ Se NÃO há itens salvos, esconde o botão e a barra
     if(totalRup === 0){
         barra.classList.remove("ativo");
         btnExcluirModo.style.display = "none";
         return;
     }
-
     if(rupModoExclusao){
         barra.classList.add("ativo");
         btnExcluirModo.style.display = "none";
@@ -3547,19 +3720,15 @@ function rupAtualizarModoExclusao(){
         btnConfirmar.disabled = rupParaExcluir.size === 0;
     } else {
         barra.classList.remove("ativo");
-        btnExcluirModo.style.display = "flex"; // ✅ Aparece só quando tem itens
+        btnExcluirModo.style.display = "flex";
     }
 }
 
 function rupToggleExclusao(chave, event){
     if(event) event.stopPropagation();
     if(!rupModoExclusao) return;
-
-    if(rupParaExcluir.has(chave)){
-        rupParaExcluir.delete(chave);
-    } else {
-        rupParaExcluir.add(chave);
-    }
+    if(rupParaExcluir.has(chave)) rupParaExcluir.delete(chave);
+    else rupParaExcluir.add(chave);
     rupRenderLista();
     rupAtualizarModoExclusao();
     if(navigator.vibrate) navigator.vibrate(15);
@@ -3570,29 +3739,19 @@ function rupExcluirSelecionados(){
         mostrarToast("Nenhum item selecionado","⚠️");
         return;
     }
-
     const qtd = rupParaExcluir.size;
     const l = getLoja(lojaAtiva);
     if(!l.rupturas){ return; }
-
-    rupParaExcluir.forEach(chave => {
-        delete l.rupturas[chave];
-    });
+    rupParaExcluir.forEach(chave => { delete l.rupturas[chave]; });
     setLoja(lojaAtiva, l);
-
     rupParaExcluir.clear();
     rupModoExclusao = false;
-
     rupRenderLista();
     rupAtualizarContadores();
     rupAtualizarModoExclusao();
     atualizarCardsLojas();
     montarRelatorio();
-
-    if($("rupBuscaInput").value.trim()){
-        rupBuscar();
-    }
-
+    if($("rupBuscaInput").value.trim()) rupBuscar();
     if(navigator.vibrate) navigator.vibrate([40,40,40]);
     mostrarToast(qtd + " item(ns) excluído(s)","🗑️");
 }
@@ -3610,7 +3769,6 @@ function rupRemoverProduto(chave){
     mostrarToast("Produto removido","🗑️");
 }
 
-/* ✅ CORREÇÃO 1 (continuação): botão só aparece se tiver itens */
 function rupRenderLista(){
     const l = getLoja(lojaAtiva);
     const rup = l.rupturas || {};
@@ -3627,21 +3785,15 @@ function rupRenderLista(){
         return;
     }
 
-    if(btnExcluirModo){
-        btnExcluirModo.style.display = rupModoExclusao ? "none" : "flex";
-    }
+    if(btnExcluirModo) btnExcluirModo.style.display = rupModoExclusao ? "none" : "flex";
 
     const itens = chaves.map(k => ({chave: k, ...rup[k]}));
     itens.sort((a,b)=> a.nome.localeCompare(b.nome,"pt-BR",{numeric:true}));
 
     container.innerHTML = itens.map(it => {
-        const tag = it.categoriaComercial
-            ? '<span class="tag-categoria">'+it.categoriaComercial+'</span>'
-            : '';
-
+        const tag = it.categoriaComercial ? '<span class="tag-categoria">'+it.categoriaComercial+'</span>' : '';
         const marcado = rupParaExcluir.has(it.chave);
         const chaveJS = it.chave.replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/"/g,'\\"');
-
         if(rupModoExclusao){
             return '<div class="rup-item rup-item-check'+(marcado ? ' rup-item-marcado' : '')+'" onclick="rupToggleExclusao(\''+chaveJS+'\', event)">'+
                 '<div class="rup-item-check-box"></div>'+
@@ -3676,9 +3828,6 @@ function rupAtualizarContadores(){
     $("rupQtdBadge").textContent=t;
 }
 
-/* ============================================================
-   SUPER DATES
-   ============================================================ */
 let sdEditandoIndex = null;
 let sdSnapshotOriginal = null;
 let sdCatAtual = "";
@@ -3767,7 +3916,6 @@ function sdAtualizarDisplayCategoria(cat, sub){
     else { txtSub.textContent = "Selecione um produto acima"; txtSub.style.color = "var(--jarvis-text-dim)"; }
 }
 
-/* ✅ CORREÇÃO 2: esconde a lupa quando o chip do produto aparece */
 function sdMostrarChip(produto, bloquearTrocar){
     sdProdutoSelecionado = produto;
     $("sdInpNome").value = "";
@@ -3777,8 +3925,6 @@ function sdMostrarChip(produto, bloquearTrocar){
     if(bloquearTrocar) $("sdChipTrocar").classList.add("sd-oculto");
     else $("sdChipTrocar").classList.remove("sd-oculto");
     $("sdChipProduto").classList.add("sd-ativo");
-
-    // ✅ Esconde a lupa quando o chip está ativo
     const lupa = $("sdBtnLupa");
     if(lupa) lupa.style.display = "none";
 }
@@ -3788,8 +3934,6 @@ function sdEsconderChip(){
     $("sdChipNome").textContent = "";
     $("sdChipDesc").textContent = "";
     $("sdChipTrocar").classList.remove("sd-oculto");
-
-    // ✅ Mostra a lupa novamente quando não tem chip
     const lupa = $("sdBtnLupa");
     if(lupa) lupa.style.display = "flex";
 }
@@ -4146,12 +4290,12 @@ function sdFecharHistorico(e){
     $("sdOverlayHistorico").classList.remove("sd-ativo");
 }
 
-/* ✅ CORREÇÃO 3: agrupa lotes iguais (mesma descrição + validade) e soma quantidades */
 function gerarRelatorioCompleto(){
     const produtos = sdGetProdutos();
     const loja = getLoja(lojaAtiva);
     const rupturas = Object.values(loja.rupturas || {});
     const info = loja.info || {};
+    const share = loja.share || {};
 
     const agora = new Date();
     const dataFmt = agora.toLocaleDateString("pt-BR");
@@ -4159,6 +4303,7 @@ function gerarRelatorioCompleto(){
 
     const temRupturas = rupturas.length > 0;
     const temValidades = produtos.length > 0;
+    const temShare = !!(share.nab || share.cerveja || share.extras);
 
     let t = "";
     t += "═══════════════════════════════════\n";
@@ -4171,7 +4316,44 @@ function gerarRelatorioCompleto(){
     t += "📅 Data: " + dataFmt + "\n";
     t += "⏰ Hora: " + horaFmt + "\n\n";
 
-    if(!temRupturas && !temValidades){
+    if(temShare){
+        const unid = unidadeAtualLoja === "cm" ? "cm" : "frentes";
+        t += "═══════════════════════════════════\n";
+        t += "   📏 SHARE DE GÔNDOLA\n";
+        t += "═══════════════════════════════════\n\n";
+
+        const categorias = [
+            { key: "nab", nome: "NAB (Não Alcoólicos)", emoji: "🥤" },
+            { key: "cerveja", nome: "Cervejas", emoji: "🍺" },
+            { key: "extras", nome: "Pontos Extras", emoji: "⭐" }
+        ];
+
+        categorias.forEach(cat => {
+            const d = share[cat.key];
+            if(!d) return;
+            const meta = Number(d.meta) || 0;
+            const total = Number(d.total) || 0;
+            const meu = Number(d.meu) || 0;
+            if(total <= 0) return;
+
+            const sharePct = (meu / total) * 100;
+            const restante = Math.max(0, (meta/100)*total - meu);
+            const atingiu = sharePct >= meta;
+            const unidadeCat = (cat.key === "extras") ? "pontos extras" : unid;
+
+            t += "───────────────────────────────────\n";
+            t += cat.emoji + " " + cat.nome.toUpperCase() + "\n";
+            t += "───────────────────────────────────\n\n";
+            t += "🎯 Meta: " + meta.toLocaleString("pt-BR", {minimumFractionDigits:2, maximumFractionDigits:2}) + "%\n";
+            t += "📦 Total: " + total.toLocaleString("pt-BR", {minimumFractionDigits:2, maximumFractionDigits:2}) + " " + unidadeCat + "\n";
+            t += "📊 Meu: " + meu.toLocaleString("pt-BR", {minimumFractionDigits:2, maximumFractionDigits:2}) + " " + unidadeCat + "\n";
+            t += "📈 Share atual: " + sharePct.toLocaleString("pt-BR", {minimumFractionDigits:2, maximumFractionDigits:2}) + "%\n";
+            t += "📦 Restante p/ meta: " + restante.toLocaleString("pt-BR", {minimumFractionDigits:2, maximumFractionDigits:2}) + " " + unidadeCat + "\n";
+            t += "✅ Situação: " + (atingiu ? "META ATINGIDA 👍" : "META NÃO ATINGIDA 😔") + "\n\n";
+        });
+    }
+
+    if(!temRupturas && !temValidades && !temShare){
         t += "═══════════════════════════════════\n";
         t += "📭 Nenhum registro encontrado nesta loja.\n";
         t += "═══════════════════════════════════\n\n";
@@ -4209,13 +4391,11 @@ function gerarRelatorioCompleto(){
         }
     }
 
-    /* ✅ AGRUPAMENTO DE LOTES IGUAIS (mesma descrição + validade) */
     if(temValidades){
         t += "═══════════════════════════════════\n";
         t += "   🗓️ LISTA DE VALIDADES (" + produtos.length + ")\n";
         t += "═══════════════════════════════════\n\n";
 
-        // Agrupa por: nome + descrição + data de validade
         const agrupado = {};
         produtos.forEach(p => {
             const chave = p.nome + "||" + p.descricao + "||" + p.data;
@@ -4261,7 +4441,6 @@ function gerarRelatorioCompleto(){
                 t += "• " + nome + "\n";
                 t += "   🏷️ " + subcat + " • 📦 " + qtdTotal + " un total\n";
 
-                // Só mostra data + quantidade somada (sem lote original, sem histórico)
                 lotes.forEach(l => {
                     const dias = sdDiasRestantes(l.data);
                     const dataFmtL = new Date(l.data+"T00:00:00").toLocaleDateString("pt-BR");
@@ -4294,7 +4473,7 @@ function montarRelatorio(){
     const linhas = texto.split("\n");
     np.innerHTML = linhas.map(l => {
         if(l.startsWith("════") || l.startsWith("────")) return '<span class="sd-linha-titulo">'+l+'</span>';
-        if(l.match(/^[📅⏰📦🏬👤📍👨‍💼]/)) return '<span class="sd-linha-titulo">'+l+'</span>';
+        if(l.match(/^[📅⏰📦🏬👤📍👨‍💼🥤🍺⭐📏]/)) return '<span class="sd-linha-titulo">'+l+'</span>';
         if(l.match(/^(🍺|🥤)/)) return '<span class="sd-linha-titulo">'+l+'</span>';
         if(l.trim().startsWith("🔴") || l.trim().startsWith("🟡") || l.trim().startsWith("🟢")) return '<span class="sd-linha-data">'+l+'</span>';
         if(l.trim() === "") return "\n";
@@ -4304,9 +4483,11 @@ function montarRelatorio(){
     const loja = getLoja(lojaAtiva);
     const totalR = Object.keys(loja.rupturas || {}).length;
     const totalV = sdGetProdutos().length;
+    const share = loja.share || {};
+    const temShare = !!(share.nab || share.cerveja || share.extras);
 
     $("toolsInfoTexto").textContent =
-        "🔒 Somente leitura • 📋 " + totalR + " ruptura(s) • 🗓️ " + totalV + " validade(s)";
+        "🔒 Somente leitura • 📋 " + totalR + " ruptura(s) • 🗓️ " + totalV + " validade(s)" + (temShare ? " • 📏 share salvo" : "");
 
     const btn = $("toolsBtnCopiar");
     btn.classList.remove("sd-copiado");
@@ -4332,9 +4513,6 @@ async function copiarRelatorio(){
     setTimeout(()=>{ btn.classList.remove("sd-copiado"); btn.innerHTML = "📋 Copiar informações"; }, 2000);
 }
 
-/* ============================================================
-   SOBRE ESTE APP
-   ============================================================ */
 function abrirSobreApp(){
     $("modalSobreApp").classList.add("aberto");
 }
@@ -4343,9 +4521,6 @@ function fecharSobreApp(e){
     $("modalSobreApp").classList.remove("aberto");
 }
 
-/* ============================================================
-   BOTÃO VOLTAR DO ANDROID
-   ============================================================ */
 window.addEventListener("popstate", ()=>{
     const sdOverlay = $("sdOverlay");
     if(sdOverlay && sdOverlay.classList.contains("sd-ativo")){
@@ -4397,9 +4572,6 @@ window.addEventListener("keydown", (e)=>{
     }
 });
 
-/* ============================================================
-   INICIALIZAÇÃO
-   ============================================================ */
 atualizarCardsLojas();
 
 </script>
