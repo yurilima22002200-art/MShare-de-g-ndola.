@@ -527,9 +527,6 @@ button{ cursor:pointer; }
     grid-template-columns:repeat(2, minmax(0,1fr));
     gap:8px;
 }
-.ambiente-cats .btn-cat-share:nth-child(3):last-child{
-    grid-column:1 / -1;
-}
 .btn-cat-share{
     border:1px solid var(--jarvis-border);
     background:rgba(0,25,50,.6);
@@ -2109,14 +2106,12 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
                     <span class="ico">🔒</span> Share salvo • Pressione 2s na categoria para editar
                 </div>
 
-                <!-- 3 UNIDADES: PRATELEIRAS | FRENTES | CM -->
                 <div class="unidades">
                     <button class="btn-unidade" id="btnPrateleirasLoja" onclick="mudarUnidadeLoja('prateleiras')"><span class="ico">🗄️</span> PRATELEIRAS</button>
                     <button class="btn-unidade ativo" id="btnFrentesLoja" onclick="mudarUnidadeLoja('frentes')"><span class="ico">📦</span> FRENTES</button>
                     <button class="btn-unidade" id="btnCentimetrosLoja" onclick="mudarUnidadeLoja('cm')"><span class="ico">📐</span> CM</button>
                 </div>
 
-                <!-- Seletor entre Gôndola e Geladeira -->
                 <div class="share-ambiente-tabs">
                     <button class="btn-ambiente ativo" id="btnAmbGondola" onclick="mudarAmbienteShare('gondola')">
                         <span class="ico">🏪</span> GÔNDOLA
@@ -2134,7 +2129,8 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
                     <div class="ambiente-cats">
                         <button type="button" class="btn-cat-share ativo" id="btnShareNABGond" onclick="mudarCategoria('gondola','nab')">🥤 NAB</button>
                         <button type="button" class="btn-cat-share" id="btnShareCervejaGond" onclick="mudarCategoria('gondola','cerveja')">🍺 CERVEJAS</button>
-                        <button type="button" class="btn-cat-share" id="btnShareExtrasGond" onclick="mudarCategoria('gondola','extras')">⭐ PONTOS EXTRAS</button>
+                        <button type="button" class="btn-cat-share" id="btnShareExtrasNABGond" onclick="mudarCategoria('gondola','extras_nab')">⭐ PONTO EXTRA NAB</button>
+                        <button type="button" class="btn-cat-share" id="btnShareExtrasCervejaGond" onclick="mudarCategoria('gondola','extras_cerveja')">⭐ PONTO EXTRA CERVEJA</button>
                     </div>
                 </div>
 
@@ -2177,18 +2173,32 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
                     <button class="btn-salvar-share" id="btnSalvarGondCerveja" onclick="salvarShareCategoria('gondola','cerveja')" disabled>💾 SALVAR CERVEJAS</button>
                 </div>
 
-                <!-- BLOCO GÔNDOLA · EXTRAS -->
-                <div class="share-bloqueavel" id="shareBlocoGondExtras" style="display:none;">
+                <!-- BLOCO PONTO EXTRA NAB -->
+                <div class="share-bloqueavel" id="shareBlocoGondExtrasNAB" style="display:none;">
                     <div style="font-family:'Orbitron',sans-serif;font-size:11px;color:var(--jarvis-cyan);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
-                        <span>⭐</span> PONTOS EXTRAS
+                        <span>⭐</span> PONTO EXTRA NAB
                     </div>
-                    <label class="label"><span class="ico">🎯</span> Meta Pontos Extras (%)</label>
-                    <input class="input share-input" id="metaGondExtras" type="number" min="0" max="100" step="0.01" placeholder="Ex.: 30" oninput="calcularLoja()">
-                    <label class="label"><span class="ico">📦</span> Quantidade total de pontos extras</label>
-                    <input class="input share-input" id="totalGondExtras" type="number" min="0" step="0.01" placeholder="Ex.: 100" oninput="calcularLoja()">
-                    <label class="label"><span class="ico">📊</span> Minha quantidade de pontos extras</label>
-                    <input class="input share-input" id="meuEspacoGondExtras" type="number" min="0" step="0.01" placeholder="Ex.: 35" oninput="calcularLoja()">
-                    <button class="btn-salvar-share" id="btnSalvarGondExtras" onclick="salvarShareCategoria('gondola','extras')" disabled>💾 SALVAR PONTOS EXTRAS</button>
+                    <label class="label"><span class="ico">🎯</span> Meta Ponto Extra NAB (%)</label>
+                    <input class="input share-input" id="metaGondExtrasNAB" type="number" min="0" max="100" step="0.01" placeholder="Ex.: 30" oninput="calcularLoja()">
+                    <label class="label"><span class="ico">📦</span> Espaço total Ponto Extra NAB</label>
+                    <input class="input share-input" id="totalGondExtrasNAB" type="number" min="0" step="0.01" placeholder="Ex.: 100" oninput="calcularLoja()">
+                    <label class="label"><span class="ico">📊</span> Meu espaço Ponto Extra NAB</label>
+                    <input class="input share-input" id="meuEspacoGondExtrasNAB" type="number" min="0" step="0.01" placeholder="Ex.: 35" oninput="calcularLoja()">
+                    <button class="btn-salvar-share" id="btnSalvarGondExtrasNAB" onclick="salvarShareCategoria('gondola','extras_nab')" disabled>💾 SALVAR PONTO EXTRA NAB</button>
+                </div>
+
+                <!-- BLOCO PONTO EXTRA CERVEJA -->
+                <div class="share-bloqueavel" id="shareBlocoGondExtrasCerveja" style="display:none;">
+                    <div style="font-family:'Orbitron',sans-serif;font-size:11px;color:var(--jarvis-cyan);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+                        <span>⭐</span> PONTO EXTRA CERVEJA
+                    </div>
+                    <label class="label"><span class="ico">🎯</span> Meta Ponto Extra Cerveja (%)</label>
+                    <input class="input share-input" id="metaGondExtrasCerveja" type="number" min="0" max="100" step="0.01" placeholder="Ex.: 30" oninput="calcularLoja()">
+                    <label class="label"><span class="ico">📦</span> Espaço total Ponto Extra Cerveja</label>
+                    <input class="input share-input" id="totalGondExtrasCerveja" type="number" min="0" step="0.01" placeholder="Ex.: 100" oninput="calcularLoja()">
+                    <label class="label"><span class="ico">📊</span> Meu espaço Ponto Extra Cerveja</label>
+                    <input class="input share-input" id="meuEspacoGondExtrasCerveja" type="number" min="0" step="0.01" placeholder="Ex.: 35" oninput="calcularLoja()">
+                    <button class="btn-salvar-share" id="btnSalvarGondExtrasCerveja" onclick="salvarShareCategoria('gondola','extras_cerveja')" disabled>💾 SALVAR PONTO EXTRA CERVEJA</button>
                 </div>
 
                 <!-- BLOCO GELADEIRA · NAB -->
@@ -2664,14 +2674,26 @@ let lojasSelecionadas = new Set();
 let dadosDestravados = false;
 let ambienteShareAtivo = "gondola";
 let categoriaShareAtiva = "nab";
+
 const shareDestravado = {
-  gondola:   { nab:false, cerveja:false, extras:false },
-  geladeira: { nab:false, cerveja:false }
+  gondola:   { nab:false, cerveja:false },
+  geladeira: { nab:false, cerveja:false },
+  extras:    { nab:false, cerveja:false }
 };
 
-function sufAmb(amb){ return amb === "gondola" ? "Gond" : "Gel"; }
-function sufCat(cat){ return cat === "nab" ? "NAB" : (cat === "cerveja" ? "Cerveja" : "Extras"); }
-function inputId(amb, cat, tipo){ return tipo + sufAmb(amb) + sufCat(cat); }
+function sufAmb(amb){ return amb === "gondola" ? "Gond" : (amb === "geladeira" ? "Gel" : "Gond"); }
+function sufCat(cat){
+    if(cat === "nab") return "NAB";
+    if(cat === "cerveja") return "Cerveja";
+    if(cat === "extras_nab") return "ExtrasNAB";
+    if(cat === "extras_cerveja") return "ExtrasCerveja";
+    return "Extras";
+}
+function inputId(amb, cat, tipo){
+    if(cat === "extras_nab") return tipo + "GondExtrasNAB";
+    if(cat === "extras_cerveja") return tipo + "GondExtrasCerveja";
+    return tipo + sufAmb(amb) + sufCat(cat);
+}
 
 const SD_CATALOGO = [
     {nome:"Guaraná Antarctica", desc:"200 ml • PET", cat:"🥤 Bebidas Não Alcoólicas", sub:"Refrigerantes"},
@@ -2953,23 +2975,30 @@ function criarLojaVazia(){
         info:{loja:"",nome:"",endereco:"",supervisor:""},
         rupturas:{}, validades:{},
         share:{
-            gondola:{nab:null, cerveja:null, extras:null},
-            geladeira:{nab:null, cerveja:null}
+            gondola:{nab:null, cerveja:null},
+            geladeira:{nab:null, cerveja:null},
+            extras:{nab:null, cerveja:null}
         }
     };
+}
+function migrarShareAntigo(loja){
+    if(!loja.share) loja.share = {};
+    if(!loja.share.gondola) loja.share.gondola = {};
+    if(!loja.share.geladeira) loja.share.geladeira = {};
+    if(!loja.share.extras) loja.share.extras = {};
+    if(loja.share.nab && !loja.share.gondola.nab) loja.share.gondola.nab = loja.share.nab;
+    if(loja.share.cerveja && !loja.share.gondola.cerveja) loja.share.gondola.cerveja = loja.share.cerveja;
+    if(loja.share.gondola && loja.share.gondola.extras && !loja.share.extras.nab){
+        loja.share.extras.nab = loja.share.gondola.extras;
+        delete loja.share.gondola.extras;
+    }
+    return loja;
 }
 function carregarLojas(){
     try{
         const d = JSON.parse(localStorage.getItem(STORAGE_LOJAS));
         if(d && Array.isArray(d) && d.length>=TOTAL_LOJAS_INICIAL){
-            d.forEach(loja => {
-                if(!loja.share) loja.share = {};
-                if(!loja.share.gondola) loja.share.gondola = {};
-                if(!loja.share.geladeira) loja.share.geladeira = {};
-                if(loja.share.nab && !loja.share.gondola.nab) loja.share.gondola.nab = loja.share.nab;
-                if(loja.share.cerveja && !loja.share.gondola.cerveja) loja.share.gondola.cerveja = loja.share.cerveja;
-                if(loja.share.extras && !loja.share.gondola.extras) loja.share.gondola.extras = loja.share.extras;
-            });
+            d.forEach(loja => migrarShareAntigo(loja));
             return d;
         }
     }catch(e){}
@@ -3397,7 +3426,6 @@ function preencherInfoLoja(){
 
 function numero(v){ if(v===null||v===undefined||v==="") return 0; return Number(String(v).replace(",",".")); }
 function formatarNumero(v){ return Number(v).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}); }
-
 function formatarUnidade(v,unid){
     unid = unid || unidadeAtualLoja;
     if(unid === "cm") return formatarNumero(v)+" cm";
@@ -3416,7 +3444,7 @@ function mudarUnidadeLoja(u){
 function mudarAmbienteShare(amb){
     if(amb === ambienteShareAtivo) return;
     ambienteShareAtivo = amb;
-    if(amb === "geladeira" && categoriaShareAtiva === "extras"){
+    if(amb === "geladeira" && (categoriaShareAtiva === "extras_nab" || categoriaShareAtiva === "extras_cerveja")){
         categoriaShareAtiva = "nab";
     }
     aplicarAmbienteShare();
@@ -3433,16 +3461,22 @@ function aplicarAmbienteShare(){
     atualizarVisibilidadeBlocos();
 }
 
-/* ✨ TÍTULO DO GRÁFICO: "NAB" / "Cervejas" */
 function atualizarBotoesCategoria(){
     const cat = categoriaShareAtiva;
-    $("btnShareNABGond").classList.toggle("ativo", cat === "nab");
-    $("btnShareCervejaGond").classList.toggle("ativo", cat === "cerveja");
-    $("btnShareExtrasGond").classList.toggle("ativo", cat === "extras");
-    $("btnShareNABGel").classList.toggle("ativo", cat === "nab");
-    $("btnShareCervejaGel").classList.toggle("ativo", cat === "cerveja");
-    const ambLabel = ambienteShareAtivo === "gondola" ? "Gôndola" : "Geladeira";
-    const catLabel = cat === "nab" ? "NAB" : (cat === "cerveja" ? "Cervejas" : "Pontos Extras");
+    $("btnShareNABGond").classList.toggle("ativo", cat === "nab" && ambienteShareAtivo === "gondola");
+    $("btnShareCervejaGond").classList.toggle("ativo", cat === "cerveja" && ambienteShareAtivo === "gondola");
+    $("btnShareExtrasNABGond").classList.toggle("ativo", cat === "extras_nab");
+    $("btnShareExtrasCervejaGond").classList.toggle("ativo", cat === "extras_cerveja");
+    $("btnShareNABGel").classList.toggle("ativo", cat === "nab" && ambienteShareAtivo === "geladeira");
+    $("btnShareCervejaGel").classList.toggle("ativo", cat === "cerveja" && ambienteShareAtivo === "geladeira");
+
+    let ambLabel = ambienteShareAtivo === "gondola" ? "Gôndola" : "Geladeira";
+    let catLabel = "NAB";
+    if(cat === "nab") catLabel = "NAB";
+    else if(cat === "cerveja") catLabel = "Cervejas";
+    else if(cat === "extras_nab"){ ambLabel = "Ponto Extra"; catLabel = "NAB"; }
+    else if(cat === "extras_cerveja"){ ambLabel = "Ponto Extra"; catLabel = "Cerveja"; }
+
     $("tituloGraficoShare").textContent = "Análise " + ambLabel + " • " + catLabel;
     $("pizzaLabelCentro").textContent = catLabel;
 }
@@ -3451,72 +3485,110 @@ function atualizarVisibilidadeBlocos(){
     const amb = ambienteShareAtivo;
     const cat = categoriaShareAtiva;
     ["gondola","geladeira"].forEach(a => {
-        const cats = a === "gondola" ? ["nab","cerveja","extras"] : ["nab","cerveja"];
+        const cats = a === "gondola" ? ["nab","cerveja"] : ["nab","cerveja"];
         cats.forEach(c => {
             const el = $("shareBloco" + sufAmb(a) + sufCat(c));
             if(!el) return;
             el.style.display = (a === amb && c === cat) ? "block" : "none";
         });
     });
+    ["extras_nab","extras_cerveja"].forEach(c => {
+        const suf = c === "extras_nab" ? "GondExtrasNAB" : "GondExtrasCerveja";
+        const el = $("shareBloco" + suf);
+        if(!el) return;
+        el.style.display = (c === cat) ? "block" : "none";
+    });
 }
 
 function mudarCategoria(amb, cat){
-    if(amb === "geladeira" && cat === "extras") return;
-    if(amb !== ambienteShareAtivo){
-        ambienteShareAtivo = amb;
-        aplicarAmbienteShare();
+    if(cat === "extras_nab" || cat === "extras_cerveja"){
+        categoriaShareAtiva = cat;
+    } else {
+        if(amb !== ambienteShareAtivo){
+            ambienteShareAtivo = amb;
+            aplicarAmbienteShare();
+        }
+        categoriaShareAtiva = cat;
     }
-    categoriaShareAtiva = cat;
     atualizarBotoesCategoria();
     atualizarVisibilidadeBlocos();
     aplicarBloqueioShare();
     calcularLoja();
 }
 
-function shareCategoriaTemDadosSalvos(amb, cat){
+function getShareData(amb, cat){
     const l = getLoja(lojaAtiva);
-    const s = (l.share && l.share[amb] && l.share[amb][cat]) || null;
+    if(!l.share) return null;
+    if(cat === "extras_nab" || cat === "extras_cerveja"){
+        const sub = cat === "extras_nab" ? "nab" : "cerveja";
+        return (l.share.extras && l.share.extras[sub]) || null;
+    }
+    return (l.share[amb] && l.share[amb][cat]) || null;
+}
+
+function shareCategoriaTemDadosSalvos(amb, cat){
+    const s = getShareData(amb, cat);
     if(!s) return false;
     return (Number(s.meta) > 0 && Number(s.total) > 0);
 }
 
 function aplicarBloqueioShare(){
-    ["gondola","geladeira"].forEach(amb => {
-        const cats = amb === "gondola" ? ["nab","cerveja","extras"] : ["nab","cerveja"];
-        cats.forEach(cat => {
-            const sufA = sufAmb(amb);
-            const sufC = sufCat(cat);
-            const bloco = $("shareBloco"+sufA+sufC);
-            const btnSalvar = $("btnSalvar"+sufA+sufC);
-            if(!bloco) return;
-            const temDados = shareCategoriaTemDadosSalvos(amb, cat);
-            const destravado = shareDestravado[amb][cat];
-            const travado = temDados && !destravado;
-            if(travado){
-                bloco.classList.add("share-bloqueado");
-                bloco.querySelectorAll(".share-input").forEach(inp => { inp.readOnly = true; });
-                if(btnSalvar){ btnSalvar.style.display = "none"; }
-            } else {
-                bloco.classList.remove("share-bloqueado");
-                bloco.querySelectorAll(".share-input").forEach(inp => { inp.readOnly = false; });
-                if(btnSalvar){ btnSalvar.style.display = "flex"; }
-                atualizarBotaoSalvar(amb, cat);
-            }
-        });
+    const cats = [
+        { amb:"gondola", cat:"nab" },
+        { amb:"gondola", cat:"cerveja" },
+        { amb:"geladeira", cat:"nab" },
+        { amb:"geladeira", cat:"cerveja" },
+        { amb:"extras", cat:"extras_nab" },
+        { amb:"extras", cat:"extras_cerveja" }
+    ];
+    cats.forEach(item => {
+        const cat = item.cat;
+        let suf = "";
+        if(cat === "extras_nab") suf = "GondExtrasNAB";
+        else if(cat === "extras_cerveja") suf = "GondExtrasCerveja";
+        else suf = sufAmb(item.amb) + sufCat(cat);
+
+        const bloco = $("shareBloco"+suf);
+        const btnSalvar = $("btnSalvar"+suf);
+        if(!bloco) return;
+
+        const ambKey = (cat === "extras_nab" || cat === "extras_cerveja") ? null : item.amb;
+        const catKey = cat;
+        const temDados = shareCategoriaTemDadosSalvos(ambKey, catKey);
+        const destravado = (cat === "extras_nab") ? shareDestravado.extras.nab :
+                           (cat === "extras_cerveja") ? shareDestravado.extras.cerveja :
+                           shareDestravado[item.amb][cat];
+        const travado = temDados && !destravado;
+
+        if(travado){
+            bloco.classList.add("share-bloqueado");
+            bloco.querySelectorAll(".share-input").forEach(inp => { inp.readOnly = true; });
+            if(btnSalvar){ btnSalvar.style.display = "none"; }
+        } else {
+            bloco.classList.remove("share-bloqueado");
+            bloco.querySelectorAll(".share-input").forEach(inp => { inp.readOnly = false; });
+            if(btnSalvar){ btnSalvar.style.display = "flex"; }
+            atualizarBotaoSalvar(item.amb, cat);
+        }
     });
+
     const algumaTravada =
         (shareCategoriaTemDadosSalvos("gondola","nab") && !shareDestravado.gondola.nab) ||
         (shareCategoriaTemDadosSalvos("gondola","cerveja") && !shareDestravado.gondola.cerveja) ||
-        (shareCategoriaTemDadosSalvos("gondola","extras") && !shareDestravado.gondola.extras) ||
         (shareCategoriaTemDadosSalvos("geladeira","nab") && !shareDestravado.geladeira.nab) ||
-        (shareCategoriaTemDadosSalvos("geladeira","cerveja") && !shareDestravado.geladeira.cerveja);
+        (shareCategoriaTemDadosSalvos("geladeira","cerveja") && !shareDestravado.geladeira.cerveja) ||
+        (shareCategoriaTemDadosSalvos(null,"extras_nab") && !shareDestravado.extras.nab) ||
+        (shareCategoriaTemDadosSalvos(null,"extras_cerveja") && !shareDestravado.extras.cerveja);
     $("avisoTravaShare").classList.toggle("ativo", algumaTravada);
 }
 
 function atualizarBotaoSalvar(amb, cat){
-    const sufA = sufAmb(amb);
-    const sufC = sufCat(cat);
-    const btn = $("btnSalvar"+sufA+sufC);
+    let suf = "";
+    if(cat === "extras_nab") suf = "GondExtrasNAB";
+    else if(cat === "extras_cerveja") suf = "GondExtrasCerveja";
+    else suf = sufAmb(amb) + sufCat(cat);
+
+    const btn = $("btnSalvar"+suf);
     if(!btn) return;
     const meta = ($(inputId(amb,cat,"meta")).value || "").trim();
     const total = ($(inputId(amb,cat,"total")).value || "").trim();
@@ -3527,7 +3599,6 @@ function atualizarBotaoSalvar(amb, cat){
 }
 
 function salvarShareCategoria(amb, cat){
-    if(amb === "geladeira" && cat === "extras") return;
     const meta = numero($(inputId(amb,cat,"meta")).value);
     const total = numero($(inputId(amb,cat,"total")).value);
     const meu = numero($(inputId(amb,cat,"meuEspaco")).value);
@@ -3537,16 +3608,29 @@ function salvarShareCategoria(amb, cat){
     }
     const l = getLoja(lojaAtiva);
     if(!l.share) l.share = {};
-    if(!l.share[amb]) l.share[amb] = {};
-    l.share[amb][cat] = { meta, total, meu };
+    if(cat === "extras_nab" || cat === "extras_cerveja"){
+        if(!l.share.extras) l.share.extras = {};
+        const sub = cat === "extras_nab" ? "nab" : "cerveja";
+        l.share.extras[sub] = { meta, total, meu };
+        shareDestravado.extras[sub] = false;
+    } else {
+        if(!l.share[amb]) l.share[amb] = {};
+        l.share[amb][cat] = { meta, total, meu };
+        shareDestravado[amb][cat] = false;
+    }
     setLoja(lojaAtiva, l);
-    shareDestravado[amb][cat] = false;
     aplicarBloqueioShare();
     calcularLoja();
     if(navigator.vibrate) navigator.vibrate(40);
-    const ambLabel = amb === "gondola" ? "Gôndola" : "Geladeira";
-    const catLabel = cat === "nab" ? "NAB" : (cat === "cerveja" ? "Cervejas" : "Extras");
-    mostrarToast(ambLabel + " • " + catLabel + " salvo","🔒");
+    let msg = "";
+    if(cat === "extras_nab") msg = "Ponto Extra NAB salvo";
+    else if(cat === "extras_cerveja") msg = "Ponto Extra Cerveja salvo";
+    else {
+        const ambLabel = amb === "gondola" ? "Gôndola" : "Geladeira";
+        const catLabel = cat === "nab" ? "NAB" : "Cervejas";
+        msg = ambLabel + " • " + catLabel + " salvo";
+    }
+    mostrarToast(msg,"🔒");
 }
 
 function calcularShareCategoria(){ calcularLoja(); }
@@ -3597,12 +3681,8 @@ function calcularLoja(){
 function carregarShareLoja(){
     const l = getLoja(lojaAtiva);
     const s = l.share || {};
-    const ambientes = {
-        gondola: ["nab","cerveja","extras"],
-        geladeira: ["nab","cerveja"]
-    };
-    Object.keys(ambientes).forEach(amb => {
-        ambientes[amb].forEach(cat => {
+    ["gondola","geladeira"].forEach(amb => {
+        ["nab","cerveja"].forEach(cat => {
             const m = $(inputId(amb,cat,"meta"));
             const t = $(inputId(amb,cat,"total"));
             const u = $(inputId(amb,cat,"meuEspaco"));
@@ -3613,17 +3693,29 @@ function carregarShareLoja(){
             u.value = dado ? dado.meu : "";
         });
     });
+    ["nab","cerveja"].forEach(sub => {
+        const cat = sub === "nab" ? "extras_nab" : "extras_cerveja";
+        const m = $(inputId("extras",cat,"meta"));
+        const t = $(inputId("extras",cat,"total"));
+        const u = $(inputId("extras",cat,"meuEspaco"));
+        if(!m) return;
+        const dado = (s.extras && s.extras[sub]) || null;
+        m.value = dado ? dado.meta : "";
+        t.value = dado ? dado.total : "";
+        u.value = dado ? dado.meu : "";
+    });
     aplicarAmbienteShare();
     aplicarBloqueioShare();
 }
 
 (function configurarLongPressShare(){
     const botoes = [
-        { id:"btnShareNABGond",     amb:"gondola",   cat:"nab" },
-        { id:"btnShareCervejaGond", amb:"gondola",   cat:"cerveja" },
-        { id:"btnShareExtrasGond",  amb:"gondola",   cat:"extras" },
-        { id:"btnShareNABGel",      amb:"geladeira", cat:"nab" },
-        { id:"btnShareCervejaGel",  amb:"geladeira", cat:"cerveja" }
+        { id:"btnShareNABGond",           amb:"gondola",   cat:"nab" },
+        { id:"btnShareCervejaGond",       amb:"gondola",   cat:"cerveja" },
+        { id:"btnShareExtrasNABGond",     amb:"extras",    cat:"extras_nab" },
+        { id:"btnShareExtrasCervejaGond", amb:"extras",    cat:"extras_cerveja" },
+        { id:"btnShareNABGel",            amb:"geladeira", cat:"nab" },
+        { id:"btnShareCervejaGel",        amb:"geladeira", cat:"cerveja" }
     ];
     const TEMPO = 2000;
 
@@ -3638,6 +3730,12 @@ function carregarShareLoja(){
         let pressCompletou = false;
         let startX = 0, startY = 0;
 
+        function getDestravadoRef(){
+            if(b.cat === "extras_nab") return { obj: shareDestravado.extras, key: "nab" };
+            if(b.cat === "extras_cerveja") return { obj: shareDestravado.extras, key: "cerveja" };
+            return { obj: shareDestravado[b.amb], key: b.cat };
+        }
+
         function iniciarPress(e){
             pressCompletou = false;
             if(e.touches && e.touches[0]){ startX = e.touches[0].clientX; startY = e.touches[0].clientY; }
@@ -3647,8 +3745,12 @@ function carregarShareLoja(){
                 pressCompletou = true;
                 if(window.getSelection) window.getSelection().removeAllRanges();
                 if(navigator.vibrate) navigator.vibrate([40,60,40]);
-                if(shareCategoriaTemDadosSalvos(b.amb, b.cat) && !shareDestravado[b.amb][b.cat]){
-                    shareDestravado[b.amb][b.cat] = true;
+                const temDados = (b.cat === "extras_nab" || b.cat === "extras_cerveja")
+                    ? shareCategoriaTemDadosSalvos(null, b.cat)
+                    : shareCategoriaTemDadosSalvos(b.amb, b.cat);
+                const ref = getDestravadoRef();
+                if(temDados && !ref.obj[ref.key]){
+                    ref.obj[ref.key] = true;
                     aplicarBloqueioShare();
                     mostrarToast("Categoria destravada para edição","🔓");
                 }
@@ -4451,7 +4553,9 @@ function sdFecharHistorico(e){
     $("sdOverlayHistorico").classList.remove("sd-ativo");
 }
 
-/* ✨ RELATÓRIO: "NAB" / "CERVEJAS" */
+/* ============================================================
+   RELATÓRIO — Ponto Extra SEM unidade de medida
+   ============================================================ */
 function gerarRelatorioCompleto(){
     const produtos = sdGetProdutos();
     const loja = getLoja(lojaAtiva);
@@ -4463,8 +4567,9 @@ function gerarRelatorioCompleto(){
     const horaFmt = agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
     const temRupturas = rupturas.length > 0;
     const temValidades = produtos.length > 0;
-    const temShareGond = (share.gondola && (share.gondola.nab || share.gondola.cerveja || share.gondola.extras));
+    const temShareGond = (share.gondola && (share.gondola.nab || share.gondola.cerveja));
     const temShareGel = (share.geladeira && (share.geladeira.nab || share.geladeira.cerveja));
+    const temExtras = (share.extras && (share.extras.nab || share.extras.cerveja));
 
     let t = "";
     t += "⚡ MSHARE SPACE — RELATÓRIO\n";
@@ -4474,7 +4579,7 @@ function gerarRelatorioCompleto(){
     t += "👨‍💼 Supervisor: " + (info.supervisor || "—") + "\n";
     t += "📅 " + dataFmt + " — ⏰ " + horaFmt + "\n";
 
-    if(!temRupturas && !temValidades && !temShareGond && !temShareGel){
+    if(!temRupturas && !temValidades && !temShareGond && !temShareGel && !temExtras){
         t += "\n📭 Nenhum registro nesta loja.\n";
         t += "\n⚡ MShare Space • Yuri Lima\n";
         return t;
@@ -4482,32 +4587,44 @@ function gerarRelatorioCompleto(){
 
     const unid = unidadeAtualLoja === "cm" ? "cm" : (unidadeAtualLoja === "prateleiras" ? "prateleiras" : "frentes");
 
+    /* semUnidade = true → NÃO mostra prateleiras/frentes/cm (usado nos Pontos Extras) */
+    const imprimirCategoria = (d, catLabel, catEmoji, semUnidade) => {
+        if(!d) return;
+        const meta = Number(d.meta) || 0;
+        const total = Number(d.total) || 0;
+        const meu = Number(d.meu) || 0;
+        if(total <= 0) return;
+        const unidadeCat = semUnidade ? "" : (" " + unid);
+        const sharePct = (meu / total) * 100;
+        const restante = Math.max(0, (meta/100)*total - meu);
+        const atingiu = sharePct >= meta;
+        t += "\n" + catEmoji + " " + catLabel + "\n";
+        t += "Meta: " + meta.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + "% | Total: " + total.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + unidadeCat + " | Meu: " + meu.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + unidadeCat + "\n";
+        t += "Share: " + sharePct.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + "% | Restante: " + restante.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + unidadeCat + " | " + (atingiu ? "✅ META ATINGIDA 👍" : "❌ META NÃO ATINGIDA 😔") + "\n";
+    };
+
     const montarBlocoShare = (amb, cats, titulo) => {
         const dados = share[amb] || {};
         const temAlgo = cats.some(c => dados[c]);
         if(!temAlgo) return;
         t += "\n" + titulo + "\n";
         cats.forEach(cat => {
-            const d = dados[cat];
-            if(!d) return;
-            const meta = Number(d.meta) || 0;
-            const total = Number(d.total) || 0;
-            const meu = Number(d.meu) || 0;
-            if(total <= 0) return;
-            const unidadeCat = (cat === "extras") ? "pontos extras" : unid;
-            const sharePct = (meu / total) * 100;
-            const restante = Math.max(0, (meta/100)*total - meu);
-            const atingiu = sharePct >= meta;
-            const catLabel = cat === "nab" ? "NAB" : (cat === "cerveja" ? "CERVEJAS" : "PONTOS EXTRAS");
-            const catEmoji = cat === "nab" ? "🥤" : (cat === "cerveja" ? "🍺" : "⭐");
-            t += "\n" + catEmoji + " " + catLabel + "\n";
-            t += "Meta: " + meta.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + "% | Total: " + total.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + " " + unidadeCat + " | Meu: " + meu.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + " " + unidadeCat + "\n";
-            t += "Share: " + sharePct.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + "% | Restante: " + restante.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + " " + unidadeCat + " | " + (atingiu ? "✅ META ATINGIDA 👍" : "❌ META NÃO ATINGIDA 😔") + "\n";
+            const catLabel = cat === "nab" ? "NAB" : "CERVEJAS";
+            const catEmoji = cat === "nab" ? "🥤" : "🍺";
+            imprimirCategoria(dados[cat], catLabel, catEmoji, false);
         });
     };
 
-    montarBlocoShare("gondola", ["nab","cerveja","extras"], "📏 SHARE DE GÔNDOLA");
+    montarBlocoShare("gondola", ["nab","cerveja"], "📏 SHARE DE GÔNDOLA");
     montarBlocoShare("geladeira", ["nab","cerveja"], "❄️ SHARE DE GELADEIRA");
+
+    /* Ponto Extra NAB / Cerveja — SEM unidade (4º parâmetro = true) */
+    if(share.extras && share.extras.nab){
+        imprimirCategoria(share.extras.nab, "PONTO EXTRA NAB", "⭐", true);
+    }
+    if(share.extras && share.extras.cerveja){
+        imprimirCategoria(share.extras.cerveja, "PONTO EXTRA CERVEJA", "⭐", true);
+    }
 
     if(temRupturas){
         const alco = rupturas.filter(i => i.categoria === "cerveja" || i.categoria === "cerveja_zero" || i.categoria === "mistas");
@@ -4613,8 +4730,9 @@ function montarRelatorio(){
     const totalV = sdGetProdutos().length;
     const share = loja.share || {};
     const temShare = !!(
-        (share.gondola && (share.gondola.nab || share.gondola.cerveja || share.gondola.extras)) ||
-        (share.geladeira && (share.geladeira.nab || share.geladeira.cerveja))
+        (share.gondola && (share.gondola.nab || share.gondola.cerveja)) ||
+        (share.geladeira && (share.geladeira.nab || share.geladeira.cerveja)) ||
+        (share.extras && (share.extras.nab || share.extras.cerveja))
     );
     $("toolsInfoTexto").textContent =
         "🔒 Somente leitura • 📋 " + totalR + " ruptura(s) • 🗓️ " + totalV + " validade(s)" + (temShare ? " • 📏 share salvo" : "");
