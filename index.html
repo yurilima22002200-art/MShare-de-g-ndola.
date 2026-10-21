@@ -72,7 +72,6 @@ button{ cursor:pointer; }
     padding-bottom:var(--safe-bottom);
 }
 
-/* ================= SPLASH ================= */
 #splash{
     position:fixed; inset:0;
     background:radial-gradient(circle at 50% 50%, #001a3a 0%, #000a18 60%, #000000 100%);
@@ -135,7 +134,6 @@ button{ cursor:pointer; }
 @keyframes fadeIn{ from{ opacity:0; } to{ opacity:1; } }
 @keyframes popIn{ 0%{ opacity:0; transform:scale(.9); } 100%{ opacity:1; transform:scale(1); } }
 
-/* ================= HEADER ================= */
 .app-header{
     padding:calc(10px + var(--safe-top)) 16px 12px;
     background:rgba(0,20,40,.92);
@@ -167,7 +165,6 @@ button{ cursor:pointer; }
     text-align:center; max-width:720px; margin-left:auto; margin-right:auto;
 }
 
-/* ================= CONTEÚDO ================= */
 .container{ width:100%; max-width:720px; margin:auto; padding:14px 14px 40px; }
 .card{
     background:var(--jarvis-panel);
@@ -192,7 +189,6 @@ button{ cursor:pointer; }
     letter-spacing:1.2px;
 }
 
-/* ================= LOJAS ================= */
 .lojas-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:10px; }
 .loja-card{
     background:rgba(0,30,60,.6);
@@ -271,7 +267,6 @@ button{ cursor:pointer; }
 .btn-add-loja:active{ transform:scale(.98); background:rgba(0,212,255,.2); }
 .btn-add-loja .ico{ font-size:15px; }
 
-/* ================= AÇÕES RÁPIDAS ================= */
 .acoes-rapidas{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
 .btn-acao{
     border:1px solid var(--jarvis-border);
@@ -295,7 +290,6 @@ button{ cursor:pointer; }
     display:flex; align-items:center; justify-content:center; border-radius:11px;
 }
 
-/* ================= BARRA SELEÇÃO ================= */
 .barra-selecao{
     display:none;
     background:linear-gradient(135deg, rgba(255,45,85,.2), rgba(200,15,50,.2));
@@ -331,7 +325,6 @@ button{ cursor:pointer; }
 .barra-selecao .btn-excluir-sel{ background:var(--jarvis-error); }
 .barra-selecao .btn-excluir-sel:disabled{ opacity:.4; cursor:not-allowed; }
 
-/* ================= MODAIS ================= */
 .modal{
     position:fixed; inset:0; z-index:5000; display:none;
     align-items:center; justify-content:center;
@@ -381,7 +374,6 @@ button{ cursor:pointer; }
 }
 .fechar:active{ background:var(--jarvis-error); color:#fff; }
 
-/* ================= SUB-ABAS ================= */
 .subtabs{
     display:flex; gap:0;
     background:rgba(0,15,35,.5);
@@ -411,7 +403,6 @@ button{ cursor:pointer; }
 .subtab-painel{ display:none; }
 .subtab-painel.ativo{ display:block; animation:fadeIn .2s ease both; }
 
-/* ================= LOJA INFO ================= */
 .loja-info{ margin-top:10px; padding:15px; background:rgba(0,25,50,.6); border:1px solid var(--jarvis-border); border-radius:8px; }
 .loja-info-titulo{
     font-family:'Orbitron','Segoe UI',sans-serif;
@@ -446,25 +437,134 @@ button{ cursor:pointer; }
 }
 .aviso-trava.ativo{ display:flex; }
 
-/* ================= SHARE ================= */
-.unidades{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+.unidades{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:14px; }
 .btn-unidade{
     border:1px solid var(--jarvis-border); background:rgba(0,25,50,.6);
-    color:var(--jarvis-text-dim); padding:11px;
+    color:var(--jarvis-text-dim); padding:11px 4px;
     font-family:'Orbitron','Segoe UI',sans-serif;
-    font-weight:700; font-size:10px;
+    font-weight:700; font-size:9px;
     transition:background .15s, color .15s, transform .1s;
     border-radius:6px; display:flex; align-items:center; justify-content:center;
-    gap:6px; letter-spacing:1.2px; text-transform:uppercase;
-}
-.btn-unidade:active{ transform:scale(.98); }
-.btn-unidade{
+    gap:4px; letter-spacing:.6px; text-transform:uppercase;
     user-select:none;
     -webkit-user-select:none;
     -webkit-touch-callout:none;
     -webkit-tap-highlight-color:transparent;
+    white-space:nowrap;
 }
+.btn-unidade:active{ transform:scale(.98); }
 .btn-unidade.ativo{ color:#001428; background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue)); border-color:var(--jarvis-cyan); font-weight:700; }
+
+.share-ambiente-tabs{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0,1fr));
+    gap:10px;
+    margin-bottom:14px;
+    width:100%;
+}
+.btn-ambiente{
+    border:2px solid var(--jarvis-border);
+    background:rgba(0,25,50,.6);
+    color:var(--jarvis-text-dim);
+    padding:13px 6px;
+    font-family:'Orbitron','Segoe UI',sans-serif;
+    font-weight:700;
+    font-size:10px;
+    transition:all .15s;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    letter-spacing:.6px;
+    text-transform:uppercase;
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-touch-callout:none;
+    width:100%;
+    min-width:0;
+    text-align:center;
+    white-space:nowrap;
+    overflow:hidden;
+    cursor:pointer;
+    touch-action:manipulation;
+}
+.btn-ambiente:active{ transform:scale(.98); }
+.btn-ambiente .ico{ font-size:16px; flex-shrink:0; }
+.btn-ambiente.ativo{
+    color:#001428;
+    background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue));
+    border-color:var(--jarvis-cyan);
+}
+
+.ambiente-bloco{
+    display:none;
+    background:rgba(0,30,60,.4);
+    border:1px solid var(--jarvis-border);
+    border-radius:10px;
+    padding:12px;
+    margin-bottom:12px;
+}
+.ambiente-bloco.ativo{ display:block; }
+.ambiente-header{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:10px;
+    padding-bottom:8px;
+    border-bottom:1px solid rgba(0,212,255,.15);
+}
+.ambiente-titulo{
+    font-family:'Orbitron','Segoe UI',sans-serif;
+    font-size:12px;
+    font-weight:800;
+    color:var(--jarvis-cyan);
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+.ambiente-cats{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0,1fr));
+    gap:8px;
+}
+.ambiente-cats .btn-cat-share:nth-child(3):last-child{
+    grid-column:1 / -1;
+}
+.btn-cat-share{
+    border:1px solid var(--jarvis-border);
+    background:rgba(0,25,50,.6);
+    color:var(--jarvis-text-dim);
+    padding:11px 4px;
+    font-family:'Orbitron','Segoe UI',sans-serif;
+    font-weight:700;
+    font-size:9px;
+    transition:background .15s, color .15s, transform .1s;
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    letter-spacing:.3px;
+    text-transform:uppercase;
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-touch-callout:none;
+    -webkit-tap-highlight-color:transparent;
+    width:100%;
+    min-width:0;
+    white-space:nowrap;
+    overflow:hidden;
+    cursor:pointer;
+    touch-action:manipulation;
+}
+.btn-cat-share:active{ transform:scale(.98); }
+.btn-cat-share.ativo{
+    color:#001428;
+    background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue));
+    border-color:var(--jarvis-cyan);
+    font-weight:700;
+}
+
 .label{
     display:flex; color:var(--jarvis-text-dim); font-size:10px;
     margin-bottom:5px; margin-top:11px;
@@ -493,7 +593,6 @@ button{ cursor:pointer; }
 .btn-calculadora:active{ transform:scale(.98); }
 .btn-calculadora .ico{ font-size:14px; }
 
-/* ✅ NOVO: botão SALVAR do Share */
 .btn-salvar-share{
     width:100%; margin-top:14px; padding:13px;
     border-radius:8px; border:1px solid var(--jarvis-success);
@@ -515,7 +614,6 @@ button{ cursor:pointer; }
     opacity:.6;
 }
 
-/* ✅ Bloqueio visual dos inputs salvos */
 .share-bloqueado .input{
     background:rgba(0,25,50,.4) !important;
     color:var(--jarvis-text-dim) !important;
@@ -533,7 +631,6 @@ button{ cursor:pointer; }
 }
 .aviso-trava-share.ativo{ display:flex; }
 
-/* ================= RESULTADO ================= */
 .share-resultado-box{
     margin-top:12px; padding:16px; text-align:center;
     border:1px solid var(--jarvis-border);
@@ -556,7 +653,6 @@ button{ cursor:pointer; }
     font-weight:700; display:block; text-transform:uppercase;
 }
 
-/* ================= PIZZA CHART ================= */
 .painel-grafico{ margin-top:12px; padding:14px 10px; background:rgba(0,15,35,.6); border:1px solid var(--jarvis-border); border-radius:8px; }
 .painel-grafico-titulo{
     display:block; text-align:center;
@@ -667,7 +763,6 @@ button{ cursor:pointer; }
     border-radius:0 6px 6px 0; letter-spacing:.4px;
 }
 
-/* ================= RUPTURAS ================= */
 .ruptura-contadores{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:10px 0 14px; }
 .ruptura-contador{
     background:rgba(0,25,50,.6); border:1px solid var(--jarvis-border);
@@ -702,7 +797,6 @@ button{ cursor:pointer; }
     display:flex; align-items:center; justify-content:center;
 }
 
-/* ÁRVORE DE SELEÇÃO */
 .rup-arvore{
     display:none;
     background:rgba(0,15,35,.7);
@@ -886,7 +980,6 @@ button{ cursor:pointer; }
     font-weight:800;
 }
 
-/* BOTÃO EXCLUIR MODO */
 .rup-btn-excluir-modo{
     width:100%;
     padding:11px;
@@ -909,7 +1002,6 @@ button{ cursor:pointer; }
 }
 .rup-btn-excluir-modo:active{ background:rgba(255,45,85,.3); }
 
-/* BARRA MODO EXCLUSÃO */
 .rup-modo-exclusao-bar{
     display:none;
     background:linear-gradient(135deg, rgba(255,45,85,.2), rgba(200,15,50,.2));
@@ -981,7 +1073,6 @@ button{ cursor:pointer; }
     cursor:not-allowed;
 }
 
-/* ITEM DA LISTA COM CHECKBOX */
 .rup-item{
     display:flex; align-items:center; gap:10px;
     background:rgba(0,25,50,.5); border:1px solid var(--jarvis-border);
@@ -1050,7 +1141,6 @@ button{ cursor:pointer; }
     vertical-align:middle; white-space:nowrap;
 }
 
-/* ================= SELEÇÃO LOJA ================= */
 .lista-selecao-loja{ display:flex; flex-direction:column; gap:8px; margin-top:8px; }
 .btn-selecao-loja{
     display:flex; align-items:center; gap:12px;
@@ -1075,7 +1165,6 @@ button{ cursor:pointer; }
     flex-shrink:0; border-radius:6px;
 }
 
-/* ================= TOAST ================= */
 .toast{
     position:fixed; right:16px; bottom:calc(16px + var(--safe-bottom));
     transform:translateX(140%); z-index:9000;
@@ -1099,7 +1188,6 @@ footer{
 }
 footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
 
-/* ================= SUPER DATES ================= */
 .sd-wrapper{ padding:0; margin-top:0; }
 .sd-header{
     background:linear-gradient(135deg, rgba(0,80,160,.5) 0%, rgba(0,40,90,.5) 100%);
@@ -1278,7 +1366,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
 .sd-btn-add-vazio:active{ background:rgba(0,212,255,.2); }
 .sd-btn-add-vazio .sd-ico-add{ font-size:18px; }
 
-/* ================= MODAIS SUPER DATES ================= */
 .sd-overlay{
     position:fixed; inset:0;
     background:rgba(0,10,24,.9);
@@ -1608,7 +1695,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
     letter-spacing:.4px; font-family:'Orbitron','Segoe UI',sans-serif;
 }
 
-/* ================= NOTAS ================= */
 .tools-bloco{ margin-top:0; }
 .tools-titulo{
     font-family:'Orbitron','Segoe UI',sans-serif;
@@ -1645,12 +1731,12 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
 .tools-notepad{
     background:rgba(0,10,24,.85);
     border:1px solid var(--jarvis-border);
-    border-radius:10px; padding:14px;
+    border-radius:10px; padding:12px;
     font-family:'Consolas','Courier New',monospace;
-    font-size:11px; line-height:1.6;
-    color:var(--jarvis-cyan);
+    font-size:11px; line-height:1.4;
+    color:var(--jarvis-text);
     white-space:pre-wrap; word-break:break-word;
-    max-height:55dvh; overflow-y:auto; min-height:200px;
+    max-height:60dvh; overflow-y:auto; min-height:200px;
     user-select:none;
     -webkit-user-select:none;
     -moz-user-select:none;
@@ -1663,10 +1749,34 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
     -webkit-user-select:none;
     -webkit-touch-callout:none;
 }
-.tools-notepad .sd-linha-titulo { font-weight:700; color:var(--jarvis-cyan); }
-.tools-notepad .sd-linha-data { color:var(--jarvis-text-dim); }
+.rp-header{
+    font-weight:700; color:var(--jarvis-cyan);
+    font-size:11.5px;
+}
+.rp-secao{
+    font-weight:800; color:var(--jarvis-cyan);
+    font-size:11px; letter-spacing:.8px;
+    text-transform:uppercase;
+    margin-top:6px; padding-top:4px;
+    border-top:1px solid rgba(0,212,255,.25);
+    display:block;
+}
+.rp-cat{
+    font-weight:800; color:#aee8ff;
+    font-size:11px; letter-spacing:.5px;
+    text-transform:uppercase;
+    margin-top:4px;
+    display:block;
+}
+.rp-info{ color:var(--jarvis-text); }
+.rp-info .rp-ok{ color:var(--jarvis-success); font-weight:700; }
+.rp-info .rp-fail{ color:#ff6b7a; font-weight:700; }
+.rp-vazio{ color:var(--jarvis-text-dim); font-style:italic; }
+.rp-data-ok{ color:var(--jarvis-success); font-weight:700; }
+.rp-data-warn{ color:var(--jarvis-warning); font-weight:700; }
+.rp-data-danger{ color:#ff6b7a; font-weight:700; }
+.rp-item{ color:var(--jarvis-text); }
 
-/* ================= SOBRE ESTE APP ================= */
 .sobre-bloco{
     text-align:center;
     padding:16px 10px 20px;
@@ -1850,6 +1960,10 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
     .pizza-wrapper{ max-width:150px; }
     .sobre-titulo{ font-size:17px; }
     .sobre-emoji{ font-size:44px; }
+    .btn-ambiente{ font-size:9px; padding:12px 4px; letter-spacing:.4px; }
+    .btn-cat-share{ font-size:8px; padding:10px 2px; letter-spacing:.2px; }
+    .unidades{ gap:6px; }
+    .btn-unidade{ font-size:8px; padding:10px 2px; }
 }
 </style>
 </head>
@@ -1989,64 +2103,120 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
 
         <div class="subtab-painel" id="painelShare">
             <div class="loja-info">
-                <div class="loja-info-titulo"><span class="ico">📏</span> MEDIR SHARE DE GÔNDOLA</div>
+                <div class="loja-info-titulo"><span class="ico">📏</span> MEDIR SHARE</div>
 
                 <div class="aviso-trava-share" id="avisoTravaShare">
                     <span class="ico">🔒</span> Share salvo • Pressione 2s na categoria para editar
                 </div>
 
-                <div id="shareCategoriasBotoes">
-                    <div class="unidades">
-                        <button class="btn-unidade ativo" id="btnFrentesLoja" onclick="mudarUnidadeLoja('frentes')"><span class="ico">📦</span> FRENTES</button>
-                        <button class="btn-unidade" id="btnCentimetrosLoja" onclick="mudarUnidadeLoja('cm')"><span class="ico">📐</span> CM</button>
-                    </div>
+                <!-- 3 UNIDADES: PRATELEIRAS | FRENTES | CM -->
+                <div class="unidades">
+                    <button class="btn-unidade" id="btnPrateleirasLoja" onclick="mudarUnidadeLoja('prateleiras')"><span class="ico">🗄️</span> PRATELEIRAS</button>
+                    <button class="btn-unidade ativo" id="btnFrentesLoja" onclick="mudarUnidadeLoja('frentes')"><span class="ico">📦</span> FRENTES</button>
+                    <button class="btn-unidade" id="btnCentimetrosLoja" onclick="mudarUnidadeLoja('cm')"><span class="ico">📐</span> CM</button>
+                </div>
 
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
-                        <button class="btn-unidade ativo" id="btnShareNAB" onclick="tentarMudarCategoria('nab')"><span class="ico">🥤</span> NAB</button>
-                        <button class="btn-unidade" id="btnShareCerveja" onclick="tentarMudarCategoria('cerveja')"><span class="ico">🍺</span> CERVEJAS</button>
+                <!-- Seletor entre Gôndola e Geladeira -->
+                <div class="share-ambiente-tabs">
+                    <button class="btn-ambiente ativo" id="btnAmbGondola" onclick="mudarAmbienteShare('gondola')">
+                        <span class="ico">🏪</span> GÔNDOLA
+                    </button>
+                    <button class="btn-ambiente" id="btnAmbGeladeira" onclick="mudarAmbienteShare('geladeira')">
+                        <span class="ico">❄️</span> GELADEIRA
+                    </button>
+                </div>
+
+                <!-- ══════════ AMBIENTE: GÔNDOLA ══════════ -->
+                <div class="ambiente-bloco ativo" id="ambGondola">
+                    <div class="ambiente-header">
+                        <span class="ambiente-titulo">🏪 GÔNDOLA</span>
                     </div>
-                    <div style="margin-bottom:14px;">
-                        <button class="btn-unidade" id="btnShareExtras" onclick="tentarMudarCategoria('extras')" style="width:100%;"><span class="ico">⭐</span> PONTOS EXTRAS</button>
+                    <div class="ambiente-cats">
+                        <button type="button" class="btn-cat-share ativo" id="btnShareNABGond" onclick="mudarCategoria('gondola','nab')">🥤 NAB</button>
+                        <button type="button" class="btn-cat-share" id="btnShareCervejaGond" onclick="mudarCategoria('gondola','cerveja')">🍺 CERVEJAS</button>
+                        <button type="button" class="btn-cat-share" id="btnShareExtrasGond" onclick="mudarCategoria('gondola','extras')">⭐ PONTOS EXTRAS</button>
                     </div>
                 </div>
 
-                <div class="share-bloqueavel" id="shareBlocoNAB" style="display:block;">
+                <!-- ══════════ AMBIENTE: GELADEIRA ══════════ -->
+                <div class="ambiente-bloco" id="ambGeladeira">
+                    <div class="ambiente-header">
+                        <span class="ambiente-titulo">❄️ GELADEIRA</span>
+                    </div>
+                    <div class="ambiente-cats">
+                        <button type="button" class="btn-cat-share ativo" id="btnShareNABGel" onclick="mudarCategoria('geladeira','nab')">🥤 NAB</button>
+                        <button type="button" class="btn-cat-share" id="btnShareCervejaGel" onclick="mudarCategoria('geladeira','cerveja')">🍺 CERVEJAS</button>
+                    </div>
+                </div>
+
+                <!-- BLOCO GÔNDOLA · NAB -->
+                <div class="share-bloqueavel" id="shareBlocoGondNAB" style="display:block;">
                     <div style="font-family:'Orbitron',sans-serif;font-size:11px;color:var(--jarvis-cyan);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
-                        <span>🥤</span> NÃO ALCOÓLICOS (NAB)
+                        <span>🥤</span> NAB
                     </div>
                     <label class="label"><span class="ico">🎯</span> Meta NAB (%)</label>
-                    <input class="input share-input" id="metaNAB" type="number" min="0" max="100" step="0.01" placeholder="Ex.: 30" oninput="calcularShareCategoria('nab')">
+                    <input class="input share-input" id="metaGondNAB" type="number" min="0" max="100" step="0.01" placeholder="Ex.: 30" oninput="calcularLoja()">
                     <label class="label"><span class="ico">📦</span> Espaço total NAB</label>
-                    <input class="input share-input" id="totalNAB" type="number" min="0" step="0.01" placeholder="Ex.: 100" oninput="calcularShareCategoria('nab')">
+                    <input class="input share-input" id="totalGondNAB" type="number" min="0" step="0.01" placeholder="Ex.: 100" oninput="calcularLoja()">
                     <label class="label"><span class="ico">📊</span> Meu espaço NAB</label>
-                    <input class="input share-input" id="meuEspacoNAB" type="number" min="0" step="0.01" placeholder="Ex.: 35" oninput="calcularShareCategoria('nab')">
-                    <button class="btn-salvar-share" id="btnSalvarNAB" onclick="salvarShareCategoria('nab')" disabled>💾 SALVAR NAB</button>
+                    <input class="input share-input" id="meuEspacoGondNAB" type="number" min="0" step="0.01" placeholder="Ex.: 35" oninput="calcularLoja()">
+                    <button class="btn-salvar-share" id="btnSalvarGondNAB" onclick="salvarShareCategoria('gondola','nab')" disabled>💾 SALVAR NAB</button>
                 </div>
 
-                <div class="share-bloqueavel" id="shareBlocoCerveja" style="display:none;">
+                <!-- BLOCO GÔNDOLA · CERVEJAS -->
+                <div class="share-bloqueavel" id="shareBlocoGondCerveja" style="display:none;">
                     <div style="font-family:'Orbitron',sans-serif;font-size:11px;color:var(--jarvis-cyan);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
                         <span>🍺</span> CERVEJAS
                     </div>
                     <label class="label"><span class="ico">🎯</span> Meta Cervejas (%)</label>
-                    <input class="input share-input" id="metaCerveja" type="number" min="0" max="100" step="0.01" placeholder="Ex.: 30" oninput="calcularShareCategoria('cerveja')">
+                    <input class="input share-input" id="metaGondCerveja" type="number" min="0" max="100" step="0.01" placeholder="Ex.: 30" oninput="calcularLoja()">
                     <label class="label"><span class="ico">📦</span> Espaço total Cervejas</label>
-                    <input class="input share-input" id="totalCerveja" type="number" min="0" step="0.01" placeholder="Ex.: 100" oninput="calcularShareCategoria('cerveja')">
+                    <input class="input share-input" id="totalGondCerveja" type="number" min="0" step="0.01" placeholder="Ex.: 100" oninput="calcularLoja()">
                     <label class="label"><span class="ico">📊</span> Meu espaço Cervejas</label>
-                    <input class="input share-input" id="meuEspacoCerveja" type="number" min="0" step="0.01" placeholder="Ex.: 35" oninput="calcularShareCategoria('cerveja')">
-                    <button class="btn-salvar-share" id="btnSalvarCerveja" onclick="salvarShareCategoria('cerveja')" disabled>💾 SALVAR CERVEJAS</button>
+                    <input class="input share-input" id="meuEspacoGondCerveja" type="number" min="0" step="0.01" placeholder="Ex.: 35" oninput="calcularLoja()">
+                    <button class="btn-salvar-share" id="btnSalvarGondCerveja" onclick="salvarShareCategoria('gondola','cerveja')" disabled>💾 SALVAR CERVEJAS</button>
                 </div>
 
-                <div class="share-bloqueavel" id="shareBlocoExtras" style="display:none;">
+                <!-- BLOCO GÔNDOLA · EXTRAS -->
+                <div class="share-bloqueavel" id="shareBlocoGondExtras" style="display:none;">
                     <div style="font-family:'Orbitron',sans-serif;font-size:11px;color:var(--jarvis-cyan);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
                         <span>⭐</span> PONTOS EXTRAS
                     </div>
                     <label class="label"><span class="ico">🎯</span> Meta Pontos Extras (%)</label>
-                    <input class="input share-input" id="metaExtras" type="number" min="0" max="100" step="0.01" placeholder="Ex.: 30" oninput="calcularShareCategoria('extras')">
+                    <input class="input share-input" id="metaGondExtras" type="number" min="0" max="100" step="0.01" placeholder="Ex.: 30" oninput="calcularLoja()">
                     <label class="label"><span class="ico">📦</span> Quantidade total de pontos extras</label>
-                    <input class="input share-input" id="totalExtras" type="number" min="0" step="0.01" placeholder="Ex.: 100" oninput="calcularShareCategoria('extras')">
+                    <input class="input share-input" id="totalGondExtras" type="number" min="0" step="0.01" placeholder="Ex.: 100" oninput="calcularLoja()">
                     <label class="label"><span class="ico">📊</span> Minha quantidade de pontos extras</label>
-                    <input class="input share-input" id="meuEspacoExtras" type="number" min="0" step="0.01" placeholder="Ex.: 35" oninput="calcularShareCategoria('extras')">
-                    <button class="btn-salvar-share" id="btnSalvarExtras" onclick="salvarShareCategoria('extras')" disabled>💾 SALVAR PONTOS EXTRAS</button>
+                    <input class="input share-input" id="meuEspacoGondExtras" type="number" min="0" step="0.01" placeholder="Ex.: 35" oninput="calcularLoja()">
+                    <button class="btn-salvar-share" id="btnSalvarGondExtras" onclick="salvarShareCategoria('gondola','extras')" disabled>💾 SALVAR PONTOS EXTRAS</button>
+                </div>
+
+                <!-- BLOCO GELADEIRA · NAB -->
+                <div class="share-bloqueavel" id="shareBlocoGelNAB" style="display:none;">
+                    <div style="font-family:'Orbitron',sans-serif;font-size:11px;color:var(--jarvis-cyan);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+                        <span>🥤</span> NAB
+                    </div>
+                    <label class="label"><span class="ico">🎯</span> Meta NAB (%)</label>
+                    <input class="input share-input" id="metaGelNAB" type="number" min="0" max="100" step="0.01" placeholder="Ex.: 30" oninput="calcularLoja()">
+                    <label class="label"><span class="ico">📦</span> Espaço total NAB</label>
+                    <input class="input share-input" id="totalGelNAB" type="number" min="0" step="0.01" placeholder="Ex.: 100" oninput="calcularLoja()">
+                    <label class="label"><span class="ico">📊</span> Meu espaço NAB</label>
+                    <input class="input share-input" id="meuEspacoGelNAB" type="number" min="0" step="0.01" placeholder="Ex.: 35" oninput="calcularLoja()">
+                    <button class="btn-salvar-share" id="btnSalvarGelNAB" onclick="salvarShareCategoria('geladeira','nab')" disabled>💾 SALVAR NAB</button>
+                </div>
+
+                <!-- BLOCO GELADEIRA · CERVEJAS -->
+                <div class="share-bloqueavel" id="shareBlocoGelCerveja" style="display:none;">
+                    <div style="font-family:'Orbitron',sans-serif;font-size:11px;color:var(--jarvis-cyan);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+                        <span>🍺</span> CERVEJAS
+                    </div>
+                    <label class="label"><span class="ico">🎯</span> Meta Cervejas (%)</label>
+                    <input class="input share-input" id="metaGelCerveja" type="number" min="0" max="100" step="0.01" placeholder="Ex.: 30" oninput="calcularLoja()">
+                    <label class="label"><span class="ico">📦</span> Espaço total Cervejas</label>
+                    <input class="input share-input" id="totalGelCerveja" type="number" min="0" step="0.01" placeholder="Ex.: 100" oninput="calcularLoja()">
+                    <label class="label"><span class="ico">📊</span> Meu espaço Cervejas</label>
+                    <input class="input share-input" id="meuEspacoGelCerveja" type="number" min="0" step="0.01" placeholder="Ex.: 35" oninput="calcularLoja()">
+                    <button class="btn-salvar-share" id="btnSalvarGelCerveja" onclick="salvarShareCategoria('geladeira','cerveja')" disabled>💾 SALVAR CERVEJAS</button>
                 </div>
 
                 <button class="btn-calculadora" onclick="abrirCalculadora()"><span class="ico">🧮</span> CALCULADORA</button>
@@ -2121,7 +2291,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
                 </div>
             </div>
         </div>
-
         <div class="subtab-painel" id="painelRupturas">
             <div class="ruptura-contadores">
                 <div class="ruptura-contador">
@@ -2343,8 +2512,8 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
                 <div class="sobre-item">
                     <span class="sobre-item-ico">📏</span>
                     <div>
-                        <b>Medir Share de Gôndola</b>
-                        <div class="sobre-item-desc">Calcular o percentual de espaço ocupado na gôndola comparado à meta desejada.</div>
+                        <b>Medir Share de Gôndola e Geladeira</b>
+                        <div class="sobre-item-desc">Calcular o percentual de espaço ocupado em cada ambiente comparado à meta desejada.</div>
                     </div>
                 </div>
                 <div class="sobre-item">
@@ -2482,7 +2651,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
     <span id="toastIcone" class="ico">✓</span>
     <span id="toastTexto"></span>
 </div>
-
 <script>
 const $ = id => document.getElementById(id);
 
@@ -2494,9 +2662,16 @@ let lojaParaExcluir = null;
 let modoSelecaoMultipla = false;
 let lojasSelecionadas = new Set();
 let dadosDestravados = false;
+let ambienteShareAtivo = "gondola";
 let categoriaShareAtiva = "nab";
+const shareDestravado = {
+  gondola:   { nab:false, cerveja:false, extras:false },
+  geladeira: { nab:false, cerveja:false }
+};
 
-const shareDestravado = { nab:false, cerveja:false, extras:false };
+function sufAmb(amb){ return amb === "gondola" ? "Gond" : "Gel"; }
+function sufCat(cat){ return cat === "nab" ? "NAB" : (cat === "cerveja" ? "Cerveja" : "Extras"); }
+function inputId(amb, cat, tipo){ return tipo + sufAmb(amb) + sufCat(cat); }
 
 const SD_CATALOGO = [
     {nome:"Guaraná Antarctica", desc:"200 ml • PET", cat:"🥤 Bebidas Não Alcoólicas", sub:"Refrigerantes"},
@@ -2773,11 +2948,30 @@ function emojiProduto(nome){
 function isAlcoolico(cat){ return cat.indexOf("Não Alcoólicas") === -1 && cat.indexOf("Alcoólicas") !== -1; }
 
 const STORAGE_LOJAS="mshare_space_lojas_v2";
-function criarLojaVazia(){ return { info:{loja:"",nome:"",endereco:"",supervisor:""}, rupturas:{}, validades:{}, share:{} }; }
+function criarLojaVazia(){
+    return {
+        info:{loja:"",nome:"",endereco:"",supervisor:""},
+        rupturas:{}, validades:{},
+        share:{
+            gondola:{nab:null, cerveja:null, extras:null},
+            geladeira:{nab:null, cerveja:null}
+        }
+    };
+}
 function carregarLojas(){
     try{
         const d = JSON.parse(localStorage.getItem(STORAGE_LOJAS));
-        if(d && Array.isArray(d) && d.length>=TOTAL_LOJAS_INICIAL) return d;
+        if(d && Array.isArray(d) && d.length>=TOTAL_LOJAS_INICIAL){
+            d.forEach(loja => {
+                if(!loja.share) loja.share = {};
+                if(!loja.share.gondola) loja.share.gondola = {};
+                if(!loja.share.geladeira) loja.share.geladeira = {};
+                if(loja.share.nab && !loja.share.gondola.nab) loja.share.gondola.nab = loja.share.nab;
+                if(loja.share.cerveja && !loja.share.gondola.cerveja) loja.share.gondola.cerveja = loja.share.cerveja;
+                if(loja.share.extras && !loja.share.gondola.extras) loja.share.gondola.extras = loja.share.extras;
+            });
+            return d;
+        }
     }catch(e){}
     return Array.from({length:TOTAL_LOJAS_INICIAL},()=>criarLojaVazia());
 }
@@ -2789,12 +2983,10 @@ function adicionarNovaLoja(){
     atualizarCardsLojas();
     mostrarToast("Nova loja adicionada!","🏬");
 }
-
 function lojaEstaCompleta(loja){
     const i = loja.info || {};
     return i.loja && i.loja.trim()!=="" && i.nome && i.nome.trim()!=="" && i.supervisor && i.supervisor.trim()!=="";
 }
-
 function lojaTemDadosCompletos(loja){
     const i = loja.info || {};
     return (i.loja && i.loja.trim()!=="" && i.nome && i.nome.trim()!=="" &&
@@ -2805,7 +2997,6 @@ function atualizarCardsLojas(){
     const lojas = carregarLojas();
     const grid = $("lojasGrid");
     grid.innerHTML = "";
-
     let totalCadastradas=0;
     const totalLojas=lojas.length;
     let temRupturas=false, temValidades=false;
@@ -2818,46 +3009,36 @@ function atualizarCardsLojas(){
         totalValidades += tV;
         if(tR>0) temRupturas=true;
         if(tV>0) temValidades=true;
-
         const completa = lojaEstaCompleta(loja);
         if(completa) totalCadastradas++;
-
         const card = document.createElement("button");
         card.className = "loja-card";
         card.dataset.loja = i;
-
         if(completa){
             if(tR>0||tV>0) card.classList.add("cadastrada-com-rupturas");
             else card.classList.add("cadastrada");
         } else card.classList.add("pendente");
-
         if(lojasSelecionadas.has(i)) card.classList.add("selecionada");
         if(modoSelecaoMultipla) card.classList.add("modo-selecao");
-
         const check = document.createElement("div");
         check.className = "loja-check";
         check.textContent = lojasSelecionadas.has(i) ? "✓" : "";
-
         const badge = document.createElement("span");
         badge.className = "loja-card-badge"+(tR===0?" zero":"");
         badge.textContent = tR;
-
         const topo = document.createElement("div");
         topo.className = "loja-card-topo";
         topo.innerHTML = '<span class="loja-card-icone">🏬</span>';
         topo.appendChild(badge);
-
         const nomeEl = document.createElement("div");
         nomeEl.className = "loja-card-nome"+(loja.info.loja?"":" vazio");
         nomeEl.textContent = loja.info.loja || `Loja ${i+1} — vazia`;
-
         const infoEl = document.createElement("div");
         infoEl.className = "loja-card-info";
         const partes=[];
         if(loja.info.nome) partes.push("👤 "+loja.info.nome);
         if(loja.info.supervisor) partes.push("👨‍💼 "+loja.info.supervisor);
         infoEl.textContent = partes.length ? partes.join(" • ") : "👆 Toque para preencher";
-
         const statusEl = document.createElement("div");
         statusEl.className = "loja-card-status";
         if(!completa){ statusEl.textContent = "📝 Faltam dados"; }
@@ -2867,7 +3048,6 @@ function atualizarCardsLojas(){
             if(tV>0) p.push(`📅 ${tV}`);
             statusEl.textContent = p.join(" • ") + " ✅";
         } else { statusEl.textContent = "✅ Cadastrada"; }
-
         if(tR > 0){
             const linhaStatus = document.createElement("div");
             linhaStatus.className = "loja-status-linha";
@@ -2877,13 +3057,11 @@ function atualizarCardsLojas(){
             linhaStatus.appendChild(s);
             card.appendChild(linhaStatus);
         }
-
         card.appendChild(check);
         card.appendChild(topo);
         card.appendChild(nomeEl);
         card.appendChild(infoEl);
         card.appendChild(statusEl);
-
         let pressTimer=null, pressAtivado=false, startX=0, startY=0;
         const TEMPO=2000;
         function iniciarPress(e){
@@ -3067,9 +3245,11 @@ function abrirFerramentaRupturas(i){
     rupModoExclusao = false;
     rupParaExcluir.clear();
     rupSelecionados.clear();
-    shareDestravado.nab = false;
-    shareDestravado.cerveja = false;
-    shareDestravado.extras = false;
+    ambienteShareAtivo = "gondola";
+    categoriaShareAtiva = "nab";
+    Object.keys(shareDestravado).forEach(a => {
+        Object.keys(shareDestravado[a]).forEach(c => shareDestravado[a][c] = false);
+    });
     const lojas = carregarLojas();
     const nome = lojas[i].info.loja || `Loja ${i+1}`;
     $("tituloLojaAtiva").innerHTML = '<span class="ico">🏬</span> '+nome;
@@ -3091,9 +3271,9 @@ function fecharFerramentaRupturas(){
     rupModoExclusao = false;
     rupParaExcluir.clear();
     rupSelecionados.clear();
-    shareDestravado.nab = false;
-    shareDestravado.cerveja = false;
-    shareDestravado.extras = false;
+    Object.keys(shareDestravado).forEach(a => {
+        Object.keys(shareDestravado[a]).forEach(c => shareDestravado[a][c] = false);
+    });
     atualizarCardsLojas();
 }
 
@@ -3106,7 +3286,6 @@ function aplicarTravaDados(){
     if(completa && !dadosDestravados){ sub.classList.add("travada"); aviso.classList.add("ativo"); }
     else { aviso.classList.remove("ativo"); }
 }
-
 function tentarTrocarDados(){
     const loja = getLoja(lojaAtiva);
     const completa = lojaTemDadosCompletos(loja);
@@ -3164,15 +3343,12 @@ function tentarTrocarDados(){
 
 function trocarSubAba(nome){
     if(nome !== "dados" && dadosDestravados){ dadosDestravados = false; aplicarTravaDados(); }
-
     if(nome === "dados"){
         const loja = getLoja(lojaAtiva);
         if(lojaTemDadosCompletos(loja) && !dadosDestravados){ tentarTrocarDados(); return; }
     }
-
     document.querySelectorAll(".subtab").forEach(t=>t.classList.remove("ativo"));
     document.querySelectorAll(".subtab-painel").forEach(t=>t.classList.remove("ativo"));
-
     const mapa = {
         dados:      ["subDados","painelDados"],
         share:      ["subShare","painelShare"],
@@ -3184,9 +3360,8 @@ function trocarSubAba(nome){
     if(!par) return;
     $(par[0]).classList.add("ativo");
     $(par[1]).classList.add("ativo");
-
     if(nome === "validades") sdInicializar();
-    if(nome === "share"){ carregarShareLoja(); calcularLoja(); }
+    if(nome === "share"){ carregarShareLoja(); aplicarAmbienteShare(); calcularLoja(); }
     if(nome === "rupturas"){ 
         rupModoExclusao = false;
         rupParaExcluir.clear();
@@ -3222,169 +3397,167 @@ function preencherInfoLoja(){
 
 function numero(v){ if(v===null||v===undefined||v==="") return 0; return Number(String(v).replace(",",".")); }
 function formatarNumero(v){ return Number(v).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}); }
-function formatarUnidade(v,unid){ unid = unid || unidadeAtualLoja; return unid==="cm" ? formatarNumero(v)+" cm" : formatarNumero(v)+" frentes"; }
+
+function formatarUnidade(v,unid){
+    unid = unid || unidadeAtualLoja;
+    if(unid === "cm") return formatarNumero(v)+" cm";
+    if(unid === "prateleiras") return formatarNumero(v)+" prateleiras";
+    return formatarNumero(v)+" frentes";
+}
 
 function mudarUnidadeLoja(u){
     unidadeAtualLoja=u;
+    $("btnPrateleirasLoja").classList.toggle("ativo", u==="prateleiras");
     $("btnFrentesLoja").classList.toggle("ativo", u==="frentes");
     $("btnCentimetrosLoja").classList.toggle("ativo", u==="cm");
     calcularLoja();
 }
 
-/* ============================================================
-   SHARE — 3 CATEGORIAS COM BOTÃO SALVAR MANUAL
-   ============================================================ */
+function mudarAmbienteShare(amb){
+    if(amb === ambienteShareAtivo) return;
+    ambienteShareAtivo = amb;
+    if(amb === "geladeira" && categoriaShareAtiva === "extras"){
+        categoriaShareAtiva = "nab";
+    }
+    aplicarAmbienteShare();
+    aplicarBloqueioShare();
+    calcularLoja();
+}
 
-function shareCategoriaTemDadosSalvos(cat){
+function aplicarAmbienteShare(){
+    $("btnAmbGondola").classList.toggle("ativo", ambienteShareAtivo === "gondola");
+    $("btnAmbGeladeira").classList.toggle("ativo", ambienteShareAtivo === "geladeira");
+    $("ambGondola").classList.toggle("ativo", ambienteShareAtivo === "gondola");
+    $("ambGeladeira").classList.toggle("ativo", ambienteShareAtivo === "geladeira");
+    atualizarBotoesCategoria();
+    atualizarVisibilidadeBlocos();
+}
+
+/* ✨ TÍTULO DO GRÁFICO: "NAB" / "Cervejas" */
+function atualizarBotoesCategoria(){
+    const cat = categoriaShareAtiva;
+    $("btnShareNABGond").classList.toggle("ativo", cat === "nab");
+    $("btnShareCervejaGond").classList.toggle("ativo", cat === "cerveja");
+    $("btnShareExtrasGond").classList.toggle("ativo", cat === "extras");
+    $("btnShareNABGel").classList.toggle("ativo", cat === "nab");
+    $("btnShareCervejaGel").classList.toggle("ativo", cat === "cerveja");
+    const ambLabel = ambienteShareAtivo === "gondola" ? "Gôndola" : "Geladeira";
+    const catLabel = cat === "nab" ? "NAB" : (cat === "cerveja" ? "Cervejas" : "Pontos Extras");
+    $("tituloGraficoShare").textContent = "Análise " + ambLabel + " • " + catLabel;
+    $("pizzaLabelCentro").textContent = catLabel;
+}
+
+function atualizarVisibilidadeBlocos(){
+    const amb = ambienteShareAtivo;
+    const cat = categoriaShareAtiva;
+    ["gondola","geladeira"].forEach(a => {
+        const cats = a === "gondola" ? ["nab","cerveja","extras"] : ["nab","cerveja"];
+        cats.forEach(c => {
+            const el = $("shareBloco" + sufAmb(a) + sufCat(c));
+            if(!el) return;
+            el.style.display = (a === amb && c === cat) ? "block" : "none";
+        });
+    });
+}
+
+function mudarCategoria(amb, cat){
+    if(amb === "geladeira" && cat === "extras") return;
+    if(amb !== ambienteShareAtivo){
+        ambienteShareAtivo = amb;
+        aplicarAmbienteShare();
+    }
+    categoriaShareAtiva = cat;
+    atualizarBotoesCategoria();
+    atualizarVisibilidadeBlocos();
+    aplicarBloqueioShare();
+    calcularLoja();
+}
+
+function shareCategoriaTemDadosSalvos(amb, cat){
     const l = getLoja(lojaAtiva);
-    const s = l.share || {};
-    if(!s[cat]) return false;
-    return (Number(s[cat].meta) > 0 && Number(s[cat].total) > 0);
+    const s = (l.share && l.share[amb] && l.share[amb][cat]) || null;
+    if(!s) return false;
+    return (Number(s.meta) > 0 && Number(s.total) > 0);
 }
 
 function aplicarBloqueioShare(){
-    const cats = ["nab","cerveja","extras"];
-    cats.forEach(cat => {
-        const sufixo = cat === "nab" ? "NAB" : (cat === "cerveja" ? "Cerveja" : "Extras");
-        const bloco = $("shareBloco"+sufixo);
-        const btnSalvar = $("btnSalvar"+sufixo);
-        if(!bloco) return;
-
-        const temDados = shareCategoriaTemDadosSalvos(cat);
-        const destravado = shareDestravado[cat];
-        const travado = temDados && !destravado;
-
-        if(travado){
-            bloco.classList.add("share-bloqueado");
-            bloco.querySelectorAll(".share-input").forEach(inp => { inp.readOnly = true; });
-            if(btnSalvar){ btnSalvar.style.display = "none"; }
-        } else {
-            bloco.classList.remove("share-bloqueado");
-            bloco.querySelectorAll(".share-input").forEach(inp => { inp.readOnly = false; });
-            if(btnSalvar){ btnSalvar.style.display = "flex"; }
-            atualizarBotaoSalvar(cat);
-        }
+    ["gondola","geladeira"].forEach(amb => {
+        const cats = amb === "gondola" ? ["nab","cerveja","extras"] : ["nab","cerveja"];
+        cats.forEach(cat => {
+            const sufA = sufAmb(amb);
+            const sufC = sufCat(cat);
+            const bloco = $("shareBloco"+sufA+sufC);
+            const btnSalvar = $("btnSalvar"+sufA+sufC);
+            if(!bloco) return;
+            const temDados = shareCategoriaTemDadosSalvos(amb, cat);
+            const destravado = shareDestravado[amb][cat];
+            const travado = temDados && !destravado;
+            if(travado){
+                bloco.classList.add("share-bloqueado");
+                bloco.querySelectorAll(".share-input").forEach(inp => { inp.readOnly = true; });
+                if(btnSalvar){ btnSalvar.style.display = "none"; }
+            } else {
+                bloco.classList.remove("share-bloqueado");
+                bloco.querySelectorAll(".share-input").forEach(inp => { inp.readOnly = false; });
+                if(btnSalvar){ btnSalvar.style.display = "flex"; }
+                atualizarBotaoSalvar(amb, cat);
+            }
+        });
     });
-
-    const aviso = $("avisoTravaShare");
-    const algumaTravada = cats.some(c => shareCategoriaTemDadosSalvos(c) && !shareDestravado[c]);
-    if(algumaTravada) aviso.classList.add("ativo");
-    else aviso.classList.remove("ativo");
+    const algumaTravada =
+        (shareCategoriaTemDadosSalvos("gondola","nab") && !shareDestravado.gondola.nab) ||
+        (shareCategoriaTemDadosSalvos("gondola","cerveja") && !shareDestravado.gondola.cerveja) ||
+        (shareCategoriaTemDadosSalvos("gondola","extras") && !shareDestravado.gondola.extras) ||
+        (shareCategoriaTemDadosSalvos("geladeira","nab") && !shareDestravado.geladeira.nab) ||
+        (shareCategoriaTemDadosSalvos("geladeira","cerveja") && !shareDestravado.geladeira.cerveja);
+    $("avisoTravaShare").classList.toggle("ativo", algumaTravada);
 }
 
-function atualizarBotaoSalvar(cat){
-    const sufixo = cat === "nab" ? "NAB" : (cat === "cerveja" ? "Cerveja" : "Extras");
-    const btn = $("btnSalvar"+sufixo);
+function atualizarBotaoSalvar(amb, cat){
+    const sufA = sufAmb(amb);
+    const sufC = sufCat(cat);
+    const btn = $("btnSalvar"+sufA+sufC);
     if(!btn) return;
-
-    const meta = $("meta"+sufixo).value.trim();
-    const total = $("total"+sufixo).value.trim();
-    const meu = $("meuEspaco"+sufixo).value.trim();
-
+    const meta = ($(inputId(amb,cat,"meta")).value || "").trim();
+    const total = ($(inputId(amb,cat,"total")).value || "").trim();
+    const meu = ($(inputId(amb,cat,"meuEspaco")).value || "").trim();
     const valido = meta !== "" && total !== "" && meu !== "" &&
                    Number(meta) > 0 && Number(total) > 0 && Number(meu) >= 0;
-
     btn.disabled = !valido;
 }
 
-function salvarShareCategoria(cat){
-    const sufixo = cat === "nab" ? "NAB" : (cat === "cerveja" ? "Cerveja" : "Extras");
-    const meta = numero($("meta"+sufixo).value);
-    const total = numero($("total"+sufixo).value);
-    const meu = numero($("meuEspaco"+sufixo).value);
-
+function salvarShareCategoria(amb, cat){
+    if(amb === "geladeira" && cat === "extras") return;
+    const meta = numero($(inputId(amb,cat,"meta")).value);
+    const total = numero($(inputId(amb,cat,"total")).value);
+    const meu = numero($(inputId(amb,cat,"meuEspaco")).value);
     if(meta <= 0 || total <= 0 || meu < 0){
         mostrarToast("Preencha os 3 campos corretamente","⚠️");
         return;
     }
-
-    salvarShareLoja(cat, { meta, total, meu });
-    shareDestravado[cat] = false;
+    const l = getLoja(lojaAtiva);
+    if(!l.share) l.share = {};
+    if(!l.share[amb]) l.share[amb] = {};
+    l.share[amb][cat] = { meta, total, meu };
+    setLoja(lojaAtiva, l);
+    shareDestravado[amb][cat] = false;
     aplicarBloqueioShare();
     calcularLoja();
-
     if(navigator.vibrate) navigator.vibrate(40);
-    mostrarToast("Share salvo e bloqueado","🔒");
+    const ambLabel = amb === "gondola" ? "Gôndola" : "Geladeira";
+    const catLabel = cat === "nab" ? "NAB" : (cat === "cerveja" ? "Cervejas" : "Extras");
+    mostrarToast(ambLabel + " • " + catLabel + " salvo","🔒");
 }
 
-function tentarMudarCategoria(cat){
-    categoriaShareAtiva = cat;
-    $("btnShareNAB").classList.toggle("ativo", cat === "nab");
-    $("btnShareCerveja").classList.toggle("ativo", cat === "cerveja");
-    $("btnShareExtras").classList.toggle("ativo", cat === "extras");
-    $("shareBlocoNAB").style.display = cat === "nab" ? "block" : "none";
-    $("shareBlocoCerveja").style.display = cat === "cerveja" ? "block" : "none";
-    $("shareBlocoExtras").style.display = cat === "extras" ? "block" : "none";
-    const titulo = cat === "nab" ? "Análise NAB" : (cat === "cerveja" ? "Análise Cervejas" : "Análise Pontos Extras");
-    const label = cat === "nab" ? "NAB" : (cat === "cerveja" ? "Cerveja" : "Pontos Extras");
-    $("tituloGraficoShare").textContent = titulo;
-    $("pizzaLabelCentro").textContent = label;
-    aplicarBloqueioShare();
-    calcularLoja();
-}
-
-(function configurarLongPressShare(){
-    const botoes = [
-        { id:"btnShareNAB", cat:"nab" },
-        { id:"btnShareCerveja", cat:"cerveja" },
-        { id:"btnShareExtras", cat:"extras" }
-    ];
-    const TEMPO = 2000;
-
-    botoes.forEach(b => {
-        const el = $(b.id);
-        if(!el) return;
-        let pressTimer=null, pressAtivado=false, startX=0, startY=0;
-
-        function iniciarPress(e){
-            pressAtivado = false;
-            if(e.touches && e.touches[0]){ startX=e.touches[0].clientX; startY=e.touches[0].clientY; }
-            else { startX=e.clientX; startY=e.clientY; }
-            clearTimeout(pressTimer);
-            pressTimer = setTimeout(function(){
-                pressAtivado = true;
-                if(shareCategoriaTemDadosSalvos(b.cat) && !shareDestravado[b.cat]){
-                    shareDestravado[b.cat] = true;
-                    if(navigator.vibrate) navigator.vibrate([40,60,40]);
-                    aplicarBloqueioShare();
-                    mostrarToast("Categoria destravada para edição","🔓");
-                }
-            }, TEMPO);
-        }
-        function cancelarPress(){ clearTimeout(pressTimer); }
-        function detectarArrasto(e){
-            if(!pressTimer) return;
-            let cx,cy;
-            if(e.touches && e.touches[0]){ cx=e.touches[0].clientX; cy=e.touches[0].clientY; }
-            else { cx=e.clientX; cy=e.clientY; }
-            if(Math.abs(cx-startX)>10 || Math.abs(cy-startY)>10) clearTimeout(pressTimer);
-        }
-        function clickHandler(e){
-            if(pressAtivado){ pressAtivado = false; e.preventDefault(); e.stopPropagation(); }
-        }
-
-        el.addEventListener("touchstart",iniciarPress,{passive:true});
-        el.addEventListener("touchend",cancelarPress);
-        el.addEventListener("touchcancel",cancelarPress);
-        el.addEventListener("touchmove",detectarArrasto,{passive:true});
-        el.addEventListener("mousedown",iniciarPress);
-        el.addEventListener("mouseup",cancelarPress);
-        el.addEventListener("mouseleave",cancelarPress);
-        el.addEventListener("mousemove",detectarArrasto);
-        el.addEventListener("click",clickHandler,true);
-    });
-})();
-
-function mudarCategoriaShare(cat){ tentarMudarCategoria(cat); }
-function calcularShareCategoria(cat){ calcularLoja(); }
+function calcularShareCategoria(){ calcularLoja(); }
 
 function calcularLoja(){
+    const amb = ambienteShareAtivo;
     const cat = categoriaShareAtiva;
-    atualizarBotaoSalvar(cat);
-    const sufixo = cat === "nab" ? "NAB" : (cat === "cerveja" ? "Cerveja" : "Extras");
-    const meta = numero($("meta"+sufixo).value);
-    const total = numero($("total"+sufixo).value);
-    const meu = numero($("meuEspaco"+sufixo).value);
+    const meta = numero($(inputId(amb,cat,"meta")).value);
+    const total = numero($(inputId(amb,cat,"total")).value);
+    const meu = numero($(inputId(amb,cat,"meuEspaco")).value);
+    atualizarBotaoSalvar(amb, cat);
     const box = $("resultadoLoja");
 
     if(meta<=0||total<=0||meu<0){
@@ -3397,46 +3570,122 @@ function calcularLoja(){
         atualizarPainelGraficoLoja(0,0,0,0,false);
         return;
     }
+
     const share=(meu/total)*100;
     const espacoMeta=(meta/100)*total;
     const diferenca=meu-espacoMeta;
     const restante=Math.max(0,espacoMeta-meu);
     const atingiu=share>=meta;
 
-    $("shareResultadoLoja").textContent = formatarNumero(share)+"%";
     box.className = "share-resultado-box "+(atingiu?"verde":"vermelho");
     $("emojiResultadoLoja").textContent = atingiu ? "👍" : "😔";
     $("statusResultadoLoja").textContent = atingiu ? "META ATINGIDA!" : "META NÃO ATINGIDA";
+    $("resumoSituacaoLoja").textContent = atingiu ? "✅ ATINGIDA" : "❌ NÃO ATINGIDA";
+    $("resumoMensagemLoja").textContent = atingiu ? "🎉 Você atingiu a meta." : "⚠️ Faltam "+formatarUnidade(restante,unidadeAtualLoja)+" para a meta.";
 
+    $("shareResultadoLoja").textContent = formatarNumero(share)+"%";
     $("resumoMetaLoja").textContent = formatarNumero(meta)+"%";
     $("resumoTotalLoja").textContent = formatarUnidade(total,unidadeAtualLoja);
     $("resumoMeuEspacoLoja").textContent = formatarUnidade(meu,unidadeAtualLoja);
     $("resumoRestanteLoja").textContent = formatarUnidade(restante,unidadeAtualLoja);
     $("resumoShareLoja").textContent = formatarNumero(share)+"%";
     $("resumoDiferencaLoja").textContent = (diferenca>=0?"+":"-")+formatarUnidade(Math.abs(diferenca),unidadeAtualLoja);
-    $("resumoSituacaoLoja").textContent = atingiu ? "✅ ATINGIDA" : "❌ NÃO ATINGIDA";
-    $("resumoMensagemLoja").textContent = atingiu ? "🎉 Você atingiu a meta." : "⚠️ Faltam "+formatarUnidade(restante,unidadeAtualLoja)+" para a meta.";
-    atualizarPainelGraficoLoja(meta,share,restante,total,atingiu);
-}
 
-function salvarShareLoja(cat, dados){
-    const l = getLoja(lojaAtiva);
-    if(!l.share) l.share = {};
-    l.share[cat] = dados;
-    setLoja(lojaAtiva, l);
+    atualizarPainelGraficoLoja(meta,share,restante,total,atingiu);
 }
 
 function carregarShareLoja(){
     const l = getLoja(lojaAtiva);
     const s = l.share || {};
-    if(s.nab){ $("metaNAB").value=s.nab.meta||""; $("totalNAB").value=s.nab.total||""; $("meuEspacoNAB").value=s.nab.meu||""; }
-    if(s.cerveja){ $("metaCerveja").value=s.cerveja.meta||""; $("totalCerveja").value=s.cerveja.total||""; $("meuEspacoCerveja").value=s.cerveja.meu||""; }
-    if(s.extras){ $("metaExtras").value=s.extras.meta||""; $("totalExtras").value=s.extras.total||""; $("meuEspacoExtras").value=s.extras.meu||""; }
+    const ambientes = {
+        gondola: ["nab","cerveja","extras"],
+        geladeira: ["nab","cerveja"]
+    };
+    Object.keys(ambientes).forEach(amb => {
+        ambientes[amb].forEach(cat => {
+            const m = $(inputId(amb,cat,"meta"));
+            const t = $(inputId(amb,cat,"total"));
+            const u = $(inputId(amb,cat,"meuEspaco"));
+            if(!m) return;
+            const dado = (s[amb] && s[amb][cat]) || null;
+            m.value = dado ? dado.meta : "";
+            t.value = dado ? dado.total : "";
+            u.value = dado ? dado.meu : "";
+        });
+    });
+    aplicarAmbienteShare();
     aplicarBloqueioShare();
-    atualizarBotaoSalvar("nab");
-    atualizarBotaoSalvar("cerveja");
-    atualizarBotaoSalvar("extras");
 }
+
+(function configurarLongPressShare(){
+    const botoes = [
+        { id:"btnShareNABGond",     amb:"gondola",   cat:"nab" },
+        { id:"btnShareCervejaGond", amb:"gondola",   cat:"cerveja" },
+        { id:"btnShareExtrasGond",  amb:"gondola",   cat:"extras" },
+        { id:"btnShareNABGel",      amb:"geladeira", cat:"nab" },
+        { id:"btnShareCervejaGel",  amb:"geladeira", cat:"cerveja" }
+    ];
+    const TEMPO = 2000;
+
+    botoes.forEach(b => {
+        const el = $(b.id);
+        if(!el) return;
+        el.style.userSelect = "none";
+        el.style.webkitUserSelect = "none";
+        el.style.webkitTouchCallout = "none";
+
+        let pressTimer = null;
+        let pressCompletou = false;
+        let startX = 0, startY = 0;
+
+        function iniciarPress(e){
+            pressCompletou = false;
+            if(e.touches && e.touches[0]){ startX = e.touches[0].clientX; startY = e.touches[0].clientY; }
+            else { startX = e.clientX; startY = e.clientY; }
+            clearTimeout(pressTimer);
+            pressTimer = setTimeout(function(){
+                pressCompletou = true;
+                if(window.getSelection) window.getSelection().removeAllRanges();
+                if(navigator.vibrate) navigator.vibrate([40,60,40]);
+                if(shareCategoriaTemDadosSalvos(b.amb, b.cat) && !shareDestravado[b.amb][b.cat]){
+                    shareDestravado[b.amb][b.cat] = true;
+                    aplicarBloqueioShare();
+                    mostrarToast("Categoria destravada para edição","🔓");
+                }
+            }, TEMPO);
+        }
+
+        function cancelarPress(){ clearTimeout(pressTimer); }
+
+        function detectarArrasto(e){
+            if(!pressTimer) return;
+            let cx, cy;
+            if(e.touches && e.touches[0]){ cx = e.touches[0].clientX; cy = e.touches[0].clientY; }
+            else { cx = e.clientX; cy = e.clientY; }
+            if(Math.abs(cx-startX) > 10 || Math.abs(cy-startY) > 10) clearTimeout(pressTimer);
+        }
+
+        function clickHandler(e){
+            if(pressCompletou){
+                pressCompletou = false;
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        }
+
+        el.addEventListener("touchstart", iniciarPress, {passive:true});
+        el.addEventListener("touchend", cancelarPress);
+        el.addEventListener("touchcancel", cancelarPress);
+        el.addEventListener("touchmove", detectarArrasto, {passive:true});
+        el.addEventListener("mousedown", iniciarPress);
+        el.addEventListener("mouseup", cancelarPress);
+        el.addEventListener("mouseleave", cancelarPress);
+        el.addEventListener("mousemove", detectarArrasto);
+        el.addEventListener("click", clickHandler, true);
+        el.addEventListener("selectstart", e => e.preventDefault());
+        el.addEventListener("contextmenu", e => e.preventDefault());
+    });
+})();
 
 function criarSlicePizza(startAngle, endAngle, tipo){
     const cx = 100, cy = 100, raio = 95;
@@ -3458,7 +3707,6 @@ function criarSlicePizza(startAngle, endAngle, tipo){
     path.setAttribute("d", d); path.setAttribute("class", "pizza-slice " + tipo);
     return path;
 }
-
 function atualizarPizzaChart(meta, share){
     const g = $("pizzaSlices"); if(!g) return;
     g.innerHTML = "";
@@ -3495,7 +3743,6 @@ function atualizarPizzaChart(meta, share){
     }
     $("pizzaValorCentro").textContent = formatarNumero(share)+"%";
 }
-
 function atualizarPainelGraficoLoja(meta,share,restante,total,atingiu){
     const restoPct = total>0 ? (restante/total)*100 : 0;
     atualizarPizzaChart(meta, share);
@@ -3536,19 +3783,12 @@ function rupBuscar(){
     const arvore = $("rupArvore");
     const itensWrap = $("rupArvoreItens");
     const titulo = $("rupArvoreTitulo");
-
-    if(!termo){
-        arvore.classList.remove("ativo");
-        itensWrap.innerHTML = "";
-        return;
-    }
-
+    if(!termo){ arvore.classList.remove("ativo"); itensWrap.innerHTML = ""; return; }
     const palavras = normalizar(termo).split(/\s+/).filter(p=>p.length>0);
     const encontrados = SD_CATALOGO.filter(p => {
         const texto = p.nome + " " + p.desc + " " + p.sub;
         return matchAbreviado(texto, palavras);
     }).slice(0, 60);
-
     if(encontrados.length === 0){
         titulo.textContent = "Nenhum resultado";
         itensWrap.innerHTML = '<div class="rup-vazio" style="padding:20px 10px;font-size:12px;">Nenhum produto encontrado</div>';
@@ -3556,22 +3796,15 @@ function rupBuscar(){
         rupAtualizarBotaoSalvar();
         return;
     }
-
     titulo.textContent = encontrados.length + " produto(s) encontrado(s)";
-
     const l = getLoja(lojaAtiva);
     const registrados = l.rupturas || {};
-
     itensWrap.innerHTML = encontrados.map((p) => {
         const idx = SD_CATALOGO.indexOf(p);
         const chave = "|"+p.nome+"|"+p.desc;
         const jaReg = !!registrados[chave];
         const marcado = rupSelecionados.has(idx);
-
-        const cls = "rup-item-selecionavel" +
-                    (marcado ? " marcado" : "") +
-                    (jaReg ? " ja-registrado" : "");
-
+        const cls = "rup-item-selecionavel" + (marcado ? " marcado" : "") + (jaReg ? " ja-registrado" : "");
         return '<div class="'+cls+'" onclick="rupToggleItem('+idx+', event)">'+
             '<div class="rup-check-box"></div>'+
             '<div class="rup-info">'+
@@ -3581,26 +3814,20 @@ function rupBuscar(){
             (jaReg ? '<span class="rup-badge-reg">✓ já salvo</span>' : '')+
         '</div>';
     }).join("");
-
     arvore.classList.add("ativo");
     rupAtualizarBotaoSalvar();
 }
-
 function rupToggleItem(idx, event){
     if(event) event.stopPropagation();
     const p = SD_CATALOGO[idx];
     if(!p) return;
     const l = getLoja(lojaAtiva);
     const chave = "|"+p.nome+"|"+p.desc;
-    if(l.rupturas && l.rupturas[chave]){
-        mostrarToast("Este produto já está salvo","⚠️");
-        return;
-    }
+    if(l.rupturas && l.rupturas[chave]){ mostrarToast("Este produto já está salvo","⚠️"); return; }
     if(rupSelecionados.has(idx)) rupSelecionados.delete(idx);
     else rupSelecionados.add(idx);
     rupBuscar();
 }
-
 function rupMarcarTodos(){
     const termo = $("rupBuscaInput").value.trim();
     if(!termo) return;
@@ -3621,7 +3848,6 @@ function rupMarcarTodos(){
     });
     rupBuscar();
 }
-
 function rupAtualizarBotaoSalvar(){
     const btn = $("rupBtnSalvarSel");
     const count = $("rupSelCount");
@@ -3630,12 +3856,8 @@ function rupAtualizarBotaoSalvar(){
     count.textContent = n;
     btn.disabled = n === 0;
 }
-
 function rupSalvarSelecionados(){
-    if(rupSelecionados.size === 0){
-        mostrarToast("Nenhum produto selecionado","⚠️");
-        return;
-    }
+    if(rupSelecionados.size === 0){ mostrarToast("Nenhum produto selecionado","⚠️"); return; }
     const l = getLoja(lojaAtiva);
     l.rupturas = l.rupturas || {};
     let adicionados = 0;
@@ -3647,10 +3869,8 @@ function rupSalvarSelecionados(){
         const chave = "|"+p.nome+"|"+p.desc;
         if(l.rupturas[chave]){ pulados++; return; }
         l.rupturas[chave] = {
-            nome: p.nome,
-            descricao: p.desc,
-            categoria: categoriaRup,
-            categoriaComercial: p.sub
+            nome: p.nome, descricao: p.desc,
+            categoria: categoriaRup, categoriaComercial: p.sub
         };
         adicionados++;
     });
@@ -3664,16 +3884,7 @@ function rupSalvarSelecionados(){
     if(navigator.vibrate) navigator.vibrate(40);
     if(adicionados > 0){
         mostrarToast(adicionados + " produto(s) salvo(s)" + (pulados > 0 ? " • " + pulados + " já existiam" : ""),"✅");
-    } else {
-        mostrarToast("Todos já estavam salvos","ℹ️");
-    }
-}
-
-function rupAdicionarProduto(idx){
-    const p = SD_CATALOGO[idx];
-    if(!p) return;
-    if(!rupSelecionados.has(idx)) rupSelecionados.add(idx);
-    rupSalvarSelecionados();
+    } else { mostrarToast("Todos já estavam salvos","ℹ️"); }
 }
 
 let rupModoExclusao = false;
@@ -3682,24 +3893,19 @@ let rupParaExcluir = new Set();
 function rupEntrarModoExclusao(){
     const l = getLoja(lojaAtiva);
     const rup = l.rupturas || {};
-    if(Object.keys(rup).length === 0){
-        mostrarToast("Nenhuma ruptura para excluir","⚠️");
-        return;
-    }
+    if(Object.keys(rup).length === 0){ mostrarToast("Nenhuma ruptura para excluir","⚠️"); return; }
     rupModoExclusao = true;
     rupParaExcluir.clear();
     rupRenderLista();
     rupAtualizarModoExclusao();
     if(navigator.vibrate) navigator.vibrate(30);
 }
-
 function rupSairModoExclusao(){
     rupModoExclusao = false;
     rupParaExcluir.clear();
     rupRenderLista();
     rupAtualizarModoExclusao();
 }
-
 function rupAtualizarModoExclusao(){
     const barra = $("rupModoExclusaoBar");
     const btnExcluirModo = $("rupBtnExcluirModo");
@@ -3723,7 +3929,6 @@ function rupAtualizarModoExclusao(){
         btnExcluirModo.style.display = "flex";
     }
 }
-
 function rupToggleExclusao(chave, event){
     if(event) event.stopPropagation();
     if(!rupModoExclusao) return;
@@ -3733,12 +3938,8 @@ function rupToggleExclusao(chave, event){
     rupAtualizarModoExclusao();
     if(navigator.vibrate) navigator.vibrate(15);
 }
-
 function rupExcluirSelecionados(){
-    if(rupParaExcluir.size === 0){
-        mostrarToast("Nenhum item selecionado","⚠️");
-        return;
-    }
+    if(rupParaExcluir.size === 0){ mostrarToast("Nenhum item selecionado","⚠️"); return; }
     const qtd = rupParaExcluir.size;
     const l = getLoja(lojaAtiva);
     if(!l.rupturas){ return; }
@@ -3755,20 +3956,6 @@ function rupExcluirSelecionados(){
     if(navigator.vibrate) navigator.vibrate([40,40,40]);
     mostrarToast(qtd + " item(ns) excluído(s)","🗑️");
 }
-
-function rupRemoverProduto(chave){
-    const l = getLoja(lojaAtiva);
-    if(!l.rupturas || !l.rupturas[chave]) return;
-    delete l.rupturas[chave];
-    setLoja(lojaAtiva, l);
-    rupRenderLista();
-    rupAtualizarContadores();
-    rupAtualizarModoExclusao();
-    atualizarCardsLojas();
-    montarRelatorio();
-    mostrarToast("Produto removido","🗑️");
-}
-
 function rupRenderLista(){
     const l = getLoja(lojaAtiva);
     const rup = l.rupturas || {};
@@ -3784,12 +3971,9 @@ function rupRenderLista(){
         rupAtualizarModoExclusao();
         return;
     }
-
     if(btnExcluirModo) btnExcluirModo.style.display = rupModoExclusao ? "none" : "flex";
-
     const itens = chaves.map(k => ({chave: k, ...rup[k]}));
     itens.sort((a,b)=> a.nome.localeCompare(b.nome,"pt-BR",{numeric:true}));
-
     container.innerHTML = itens.map(it => {
         const tag = it.categoriaComercial ? '<span class="tag-categoria">'+it.categoriaComercial+'</span>' : '';
         const marcado = rupParaExcluir.has(it.chave);
@@ -3812,7 +3996,6 @@ function rupRenderLista(){
         }
     }).join("");
 }
-
 function rupAtualizarContadores(){
     const l = getLoja(lojaAtiva);
     const rup = l.rupturas || {};
@@ -3860,7 +4043,6 @@ function sdFormatarDataHora(ts){
     const hora = d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
     return `${data} às ${hora}`;
 }
-
 function sdGetProdutos(){
     const l = getLoja(lojaAtiva);
     const v = l.validades || {};
@@ -3874,19 +4056,15 @@ function sdSetProdutos(arr){
     arr.forEach(p => {
         const chave = p._chave || (p.nome+"|"+p.descricao+"|"+p.data+"||"+Date.now()+"||"+Math.floor(Math.random()*1000));
         obj[chave] = {
-            nome: p.nome,
-            descricao: p.descricao,
-            categoria: p.categoria,
-            subcategoria: p.subcategoria,
-            data: p.data,
-            quantidade: p.quantidade,
+            nome: p.nome, descricao: p.descricao,
+            categoria: p.categoria, subcategoria: p.subcategoria,
+            data: p.data, quantidade: p.quantidade,
             historicoAdicoes: p.historicoAdicoes || []
         };
     });
     l.validades = obj;
     setLoja(lojaAtiva, l);
 }
-
 function sdInicializar(){ sdAtualizarBotaoAlerta(); sdRender(); }
 function sdAtualizarBotaoAlerta(){
     const btn = $("sdBtnToggleAlerta"); if(!btn) return;
@@ -3899,7 +4077,6 @@ function sdToggleAlertas(){
     sdRender();
     mostrarToast(sdAlertasAtivos ? "Alertas ativados" : "Alertas desativados", sdAlertasAtivos ? "🔔" : "🔕");
 }
-
 function sdCapturarSnapshot(){
     return { nome: $("sdInpNome").value, categoria: sdCatAtual, subcategoria: sdSubAtual, data: $("sdInpData").value, qtd: $("sdInpQtd").value };
 }
@@ -3915,7 +4092,6 @@ function sdAtualizarDisplayCategoria(cat, sub){
     if(sub){ txtSub.textContent = sub; txtSub.style.color = "var(--jarvis-text)"; }
     else { txtSub.textContent = "Selecione um produto acima"; txtSub.style.color = "var(--jarvis-text-dim)"; }
 }
-
 function sdMostrarChip(produto, bloquearTrocar){
     sdProdutoSelecionado = produto;
     $("sdInpNome").value = "";
@@ -3963,7 +4139,6 @@ function sdAplicarBloqueioNome(){
     if(sdModoAdicionarLote){ inp.readOnly = true; inp.classList.add("sd-bloqueado"); lupa.disabled = true; }
     else { inp.readOnly = false; inp.classList.remove("sd-bloqueado"); lupa.disabled = false; }
 }
-
 function sdRender(){
     const produtos = sdGetProdutos();
     const lista = $("sdLista"); if(!lista) return;
@@ -4049,7 +4224,6 @@ function sdRender(){
     lista.innerHTML += '<button class="sd-btn-add-rodape" onclick="sdAbrirModal()"><span class="sd-ico-add">➕</span> Adicionar produto</button>';
 }
 function sdToggleGrupo(el){ el.parentElement.classList.toggle("sd-aberto"); }
-
 function sdBuscarNoModal(){
     if(sdModoAdicionarLote) return;
     if(sdProdutoSelecionado) return;
@@ -4080,7 +4254,6 @@ function sdBuscarNoModal(){
     }).join("");
     box.classList.add("sd-ativo");
 }
-
 function sdToggleSugestoes(){
     if(sdModoAdicionarLote) return;
     if(sdProdutoSelecionado) return;
@@ -4100,7 +4273,6 @@ document.addEventListener("click", (e)=>{
     const wrap = e.target.closest(".sd-campo-busca");
     if(!wrap && box) box.classList.remove("sd-ativo");
 });
-
 function sdAbrirModal(){
     $("sdOverlay").classList.add("sd-ativo");
     sdEditandoIndex = null;
@@ -4130,8 +4302,7 @@ function sdFecharModalForcado(){
     $("sdInpQtd").value = 1;
     sdEditandoIndex = null;
     sdSnapshotOriginal = null;
-    sdCatAtual = "";
-    sdSubAtual = "";
+    sdCatAtual = ""; sdSubAtual = "";
     sdModoAdicionarLote = false;
     sdProdutoSelecionado = null;
     sdAplicarBloqueioNome();
@@ -4152,21 +4323,15 @@ function sdPedirConfirmacao(){
 }
 function sdVoltarEditar(){ $("sdOverlayConfirm").classList.remove("sd-ativo"); }
 function sdDescartarTudo(){ $("sdOverlayConfirm").classList.remove("sd-ativo"); sdFecharModalForcado(); }
-
 function sdConfirmarSalvar(){
     let nomeBase, descBase;
-    if(sdProdutoSelecionado){
-        nomeBase = sdProdutoSelecionado.nome;
-        descBase = sdProdutoSelecionado.desc;
-    } else if(sdEditandoIndex !== null || sdModoAdicionarLote){
+    if(sdProdutoSelecionado){ nomeBase = sdProdutoSelecionado.nome; descBase = sdProdutoSelecionado.desc; }
+    else if(sdEditandoIndex !== null || sdModoAdicionarLote){
         const blocoDescTexto = $("sdBlocoDesc").textContent;
         nomeBase = $("sdBlocoNome").textContent;
         const partes = blocoDescTexto.split(" • ");
         descBase = partes.slice(0, -1).join(" • ");
-    } else {
-        nomeBase = $("sdInpNome").value.trim();
-        descBase = "";
-    }
+    } else { nomeBase = $("sdInpNome").value.trim(); descBase = ""; }
     const nome = descBase ? (nomeBase + " — " + descBase) : nomeBase;
     const data = $("sdInpData").value;
     const qtd = parseInt($("sdInpQtd").value) || 1;
@@ -4212,7 +4377,6 @@ function sdConfirmarSalvar(){
     sdRender();
     atualizarCardsLojas();
 }
-
 function sdEditarProduto(index){
     const produtos = sdGetProdutos();
     const p = produtos[index];
@@ -4234,7 +4398,6 @@ function sdEditarProduto(index){
     $("sdSugModal").classList.remove("sd-ativo");
     sdSnapshotOriginal = sdCapturarSnapshot();
 }
-
 function sdAdicionarLote(nome, categoria, subcategoria){
     sdEditandoIndex = null;
     sdModoAdicionarLote = true;
@@ -4256,7 +4419,6 @@ function sdAdicionarLote(nome, categoria, subcategoria){
     $("sdInpData").focus();
     sdSnapshotOriginal = sdCapturarSnapshot();
 }
-
 function sdRemoverProduto(index){
     const produtos = sdGetProdutos();
     const p = produtos[index];
@@ -4268,7 +4430,6 @@ function sdRemoverProduto(index){
         atualizarCardsLojas();
     }
 }
-
 function sdAbrirHistorico(index){
     const produtos = sdGetProdutos();
     const p = produtos[index];
@@ -4290,179 +4451,132 @@ function sdFecharHistorico(e){
     $("sdOverlayHistorico").classList.remove("sd-ativo");
 }
 
+/* ✨ RELATÓRIO: "NAB" / "CERVEJAS" */
 function gerarRelatorioCompleto(){
     const produtos = sdGetProdutos();
     const loja = getLoja(lojaAtiva);
     const rupturas = Object.values(loja.rupturas || {});
     const info = loja.info || {};
     const share = loja.share || {};
-
     const agora = new Date();
     const dataFmt = agora.toLocaleDateString("pt-BR");
     const horaFmt = agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
-
     const temRupturas = rupturas.length > 0;
     const temValidades = produtos.length > 0;
-    const temShare = !!(share.nab || share.cerveja || share.extras);
+    const temShareGond = (share.gondola && (share.gondola.nab || share.gondola.cerveja || share.gondola.extras));
+    const temShareGel = (share.geladeira && (share.geladeira.nab || share.geladeira.cerveja));
 
     let t = "";
-    t += "═══════════════════════════════════\n";
-    t += "     ⚡ MSHARE SPACE — RELATÓRIO\n";
-    t += "═══════════════════════════════════\n\n";
-    t += "🏬 Loja: " + (info.loja || "Não informada") + "\n";
-    t += "👤 Responsável: " + (info.nome || "Não informado") + "\n";
-    t += "📍 Endereço: " + (info.endereco || "Não informado") + "\n";
-    t += "👨‍💼 Supervisor: " + (info.supervisor || "Não informado") + "\n";
-    t += "📅 Data: " + dataFmt + "\n";
-    t += "⏰ Hora: " + horaFmt + "\n\n";
+    t += "⚡ MSHARE SPACE — RELATÓRIO\n";
+    t += "🏬 Loja: " + (info.loja || "—") + "\n";
+    t += "👤 Responsável: " + (info.nome || "—") + "\n";
+    t += "📍 Endereço: " + (info.endereco || "—") + "\n";
+    t += "👨‍💼 Supervisor: " + (info.supervisor || "—") + "\n";
+    t += "📅 " + dataFmt + " — ⏰ " + horaFmt + "\n";
 
-    if(temShare){
-        const unid = unidadeAtualLoja === "cm" ? "cm" : "frentes";
-        t += "═══════════════════════════════════\n";
-        t += "   📏 SHARE DE GÔNDOLA\n";
-        t += "═══════════════════════════════════\n\n";
+    if(!temRupturas && !temValidades && !temShareGond && !temShareGel){
+        t += "\n📭 Nenhum registro nesta loja.\n";
+        t += "\n⚡ MShare Space • Yuri Lima\n";
+        return t;
+    }
 
-        const categorias = [
-            { key: "nab", nome: "NAB (Não Alcoólicos)", emoji: "🥤" },
-            { key: "cerveja", nome: "Cervejas", emoji: "🍺" },
-            { key: "extras", nome: "Pontos Extras", emoji: "⭐" }
-        ];
+    const unid = unidadeAtualLoja === "cm" ? "cm" : (unidadeAtualLoja === "prateleiras" ? "prateleiras" : "frentes");
 
-        categorias.forEach(cat => {
-            const d = share[cat.key];
+    const montarBlocoShare = (amb, cats, titulo) => {
+        const dados = share[amb] || {};
+        const temAlgo = cats.some(c => dados[c]);
+        if(!temAlgo) return;
+        t += "\n" + titulo + "\n";
+        cats.forEach(cat => {
+            const d = dados[cat];
             if(!d) return;
             const meta = Number(d.meta) || 0;
             const total = Number(d.total) || 0;
             const meu = Number(d.meu) || 0;
             if(total <= 0) return;
-
+            const unidadeCat = (cat === "extras") ? "pontos extras" : unid;
             const sharePct = (meu / total) * 100;
             const restante = Math.max(0, (meta/100)*total - meu);
             const atingiu = sharePct >= meta;
-            const unidadeCat = (cat.key === "extras") ? "pontos extras" : unid;
-
-            t += "───────────────────────────────────\n";
-            t += cat.emoji + " " + cat.nome.toUpperCase() + "\n";
-            t += "───────────────────────────────────\n\n";
-            t += "🎯 Meta: " + meta.toLocaleString("pt-BR", {minimumFractionDigits:2, maximumFractionDigits:2}) + "%\n";
-            t += "📦 Total: " + total.toLocaleString("pt-BR", {minimumFractionDigits:2, maximumFractionDigits:2}) + " " + unidadeCat + "\n";
-            t += "📊 Meu: " + meu.toLocaleString("pt-BR", {minimumFractionDigits:2, maximumFractionDigits:2}) + " " + unidadeCat + "\n";
-            t += "📈 Share atual: " + sharePct.toLocaleString("pt-BR", {minimumFractionDigits:2, maximumFractionDigits:2}) + "%\n";
-            t += "📦 Restante p/ meta: " + restante.toLocaleString("pt-BR", {minimumFractionDigits:2, maximumFractionDigits:2}) + " " + unidadeCat + "\n";
-            t += "✅ Situação: " + (atingiu ? "META ATINGIDA 👍" : "META NÃO ATINGIDA 😔") + "\n\n";
+            const catLabel = cat === "nab" ? "NAB" : (cat === "cerveja" ? "CERVEJAS" : "PONTOS EXTRAS");
+            const catEmoji = cat === "nab" ? "🥤" : (cat === "cerveja" ? "🍺" : "⭐");
+            t += "\n" + catEmoji + " " + catLabel + "\n";
+            t += "Meta: " + meta.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + "% | Total: " + total.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + " " + unidadeCat + " | Meu: " + meu.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + " " + unidadeCat + "\n";
+            t += "Share: " + sharePct.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + "% | Restante: " + restante.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + " " + unidadeCat + " | " + (atingiu ? "✅ META ATINGIDA 👍" : "❌ META NÃO ATINGIDA 😔") + "\n";
         });
-    }
+    };
 
-    if(!temRupturas && !temValidades && !temShare){
-        t += "═══════════════════════════════════\n";
-        t += "📭 Nenhum registro encontrado nesta loja.\n";
-        t += "═══════════════════════════════════\n\n";
-        t += "Gerado por MShare Space ⚡\n";
-        t += "Developed by Yuri Lima\n";
-        return t;
-    }
+    montarBlocoShare("gondola", ["nab","cerveja","extras"], "📏 SHARE DE GÔNDOLA");
+    montarBlocoShare("geladeira", ["nab","cerveja"], "❄️ SHARE DE GELADEIRA");
 
     if(temRupturas){
         const alco = rupturas.filter(i => i.categoria === "cerveja" || i.categoria === "cerveja_zero" || i.categoria === "mistas");
         const naoAlco = rupturas.filter(i => i.categoria !== "cerveja" && i.categoria !== "cerveja_zero" && i.categoria !== "mistas");
-
-        t += "═══════════════════════════════════\n";
-        t += "   📋 LISTA DE RUPTURAS (" + rupturas.length + ")\n";
-        t += "═══════════════════════════════════\n\n";
-
+        t += "\n📋 RUPTURAS (" + rupturas.length + ")\n";
         if(alco.length){
-            t += "───────────────────────────────────\n";
-            t += "🍺 ALCOÓLICOS (" + alco.length + ")\n";
-            t += "───────────────────────────────────\n\n";
+            t += "\n🍺 ALCOÓLICOS (" + alco.length + ")\n";
             alco.sort((a,b)=>a.nome.localeCompare(b.nome,"pt-BR",{numeric:true})).forEach(i=>{
-                t += "• " + i.nome + " — " + i.descricao + (i.categoriaComercial ? "  [" + i.categoriaComercial + "]" : "") + "\n";
+                t += "• " + i.nome + " — " + i.descricao + (i.categoriaComercial ? " [" + i.categoriaComercial + "]" : "") + "\n";
             });
-            t += "\n";
         }
-
         if(naoAlco.length){
-            t += "───────────────────────────────────\n";
-            t += "🥤 NÃO ALCOÓLICOS (" + naoAlco.length + ")\n";
-            t += "───────────────────────────────────\n\n";
+            t += "\n🥤 NÃO ALCOÓLICOS (" + naoAlco.length + ")\n";
             naoAlco.sort((a,b)=>a.nome.localeCompare(b.nome,"pt-BR",{numeric:true})).forEach(i=>{
-                t += "• " + i.nome + " — " + i.descricao + (i.categoriaComercial ? "  [" + i.categoriaComercial + "]" : "") + "\n";
+                t += "• " + i.nome + " — " + i.descricao + (i.categoriaComercial ? " [" + i.categoriaComercial + "]" : "") + "\n";
             });
-            t += "\n";
         }
     }
 
     if(temValidades){
-        t += "═══════════════════════════════════\n";
-        t += "   🗓️ LISTA DE VALIDADES (" + produtos.length + ")\n";
-        t += "═══════════════════════════════════\n\n";
-
+        t += "\n🗓️ VALIDADES (" + produtos.length + ")\n";
         const agrupado = {};
         produtos.forEach(p => {
             const chave = p.nome + "||" + p.descricao + "||" + p.data;
             if(!agrupado[chave]){
                 agrupado[chave] = {
-                    nome: p.nome,
-                    descricao: p.descricao,
-                    categoria: p.categoria,
-                    subcategoria: p.subcategoria,
-                    data: p.data,
-                    quantidade: 0
+                    nome: p.nome, descricao: p.descricao,
+                    categoria: p.categoria, subcategoria: p.subcategoria,
+                    data: p.data, quantidade: 0
                 };
             }
             agrupado[chave].quantidade += parseInt(p.quantidade) || 0;
         });
-
-        const itensAgrupados = Object.values(agrupado)
-            .sort((a,b) => new Date(a.data) - new Date(b.data));
-
+        const itensAgrupados = Object.values(agrupado).sort((a,b) => new Date(a.data) - new Date(b.data));
         const porCat = {};
         itensAgrupados.forEach(p => {
             if(!porCat[p.categoria]) porCat[p.categoria] = [];
             porCat[p.categoria].push(p);
         });
-
         Object.keys(porCat).forEach(cat => {
             const emojiCat = cat.split(" ")[0];
             const nomeCat = cat.replace(/^\S+\s/, "");
-            t += "───────────────────────────────────\n";
-            t += emojiCat + " " + nomeCat.toUpperCase() + "\n";
-            t += "───────────────────────────────────\n\n";
-
+            t += "\n" + emojiCat + " " + nomeCat.toUpperCase() + "\n";
             const porProd = {};
             porCat[cat].forEach(p => {
                 if(!porProd[p.nome]) porProd[p.nome] = [];
                 porProd[p.nome].push(p);
             });
-
             Object.keys(porProd).forEach(nome => {
                 const lotes = porProd[nome].sort((a,b)=> new Date(a.data) - new Date(b.data));
                 const qtdTotal = lotes.reduce((s,l)=> s + l.quantidade, 0);
                 const subcat = lotes[0].subcategoria;
-                t += "• " + nome + "\n";
-                t += "   🏷️ " + subcat + " • 📦 " + qtdTotal + " un total\n";
-
+                t += "• " + nome + " [" + subcat + "] — " + qtdTotal + " un\n";
                 lotes.forEach(l => {
                     const dias = sdDiasRestantes(l.data);
                     const dataFmtL = new Date(l.data+"T00:00:00").toLocaleDateString("pt-BR");
                     let ico, status;
                     if(dias < 0){ ico = "🔴"; status = "VENCIDO há " + Math.abs(dias) + "d"; }
                     else if(dias === 0){ ico = "🔴"; status = "VENCE HOJE"; }
-                    else if(dias <= 30){ ico = "🔴"; status = "⚠️ " + dias + "d restantes"; }
-                    else if(dias <= 60){ ico = "🟡"; status = dias + "d restantes"; }
-                    else { ico = "🟢"; status = dias + "d restantes"; }
-
-                    t += "      " + ico + " " + dataFmtL + " — " + l.quantidade + " un — " + status + "\n";
+                    else if(dias <= 30){ ico = "🔴"; status = dias + "d"; }
+                    else if(dias <= 60){ ico = "🟡"; status = dias + "d"; }
+                    else { ico = "🟢"; status = dias + "d"; }
+                    t += "   " + ico + " " + dataFmtL + " • " + l.quantidade + " un • " + status + "\n";
                 });
-                t += "\n";
             });
         });
     }
 
-    t += "═══════════════════════════════════\n";
-    t += "Gerado por MShare Space ⚡\n";
-    t += "Developed by Yuri Lima\n";
-    t += "═══════════════════════════════════\n";
-
+    t += "\n⚡ MShare Space • Yuri Lima\n";
     return t;
 }
 
@@ -4471,24 +4585,39 @@ function montarRelatorio(){
     const np = $("toolsNotepad");
     if(!np) return;
     const linhas = texto.split("\n");
-    np.innerHTML = linhas.map(l => {
-        if(l.startsWith("════") || l.startsWith("────")) return '<span class="sd-linha-titulo">'+l+'</span>';
-        if(l.match(/^[📅⏰📦🏬👤📍👨‍💼🥤🍺⭐📏]/)) return '<span class="sd-linha-titulo">'+l+'</span>';
-        if(l.match(/^(🍺|🥤)/)) return '<span class="sd-linha-titulo">'+l+'</span>';
-        if(l.trim().startsWith("🔴") || l.trim().startsWith("🟡") || l.trim().startsWith("🟢")) return '<span class="sd-linha-data">'+l+'</span>';
-        if(l.trim() === "") return "\n";
-        return l;
-    }).join("\n");
+    const out = [];
+    linhas.forEach(l => {
+        if(!l.trim()){ out.push("\n"); return; }
+        if(l.startsWith("⚡ MSHARE SPACE")){ out.push('<span class="rp-header">'+l+'</span>'); return; }
+        if(l.match(/^[📅🏬👤📍👨‍💼]/)){ out.push('<span class="rp-info">'+l+'</span>'); return; }
+        if(l.match(/^[📏❄️📋🗓️]/)){ out.push('<span class="rp-secao">'+l+'</span>'); return; }
+        if(l.match(/^[🥤🍺⭐] [A-ZÁÉÍÓÚÂÊÔÃÕÇ]/)){ out.push('<span class="rp-cat">'+l+'</span>'); return; }
+        if(l.includes("META ATINGIDA")){
+            out.push('<span class="rp-info">'+l.replace("META ATINGIDA 👍", '<span class="rp-ok">META ATINGIDA 👍</span>')+'</span>');
+            return;
+        }
+        if(l.includes("META NÃO ATINGIDA")){
+            out.push('<span class="rp-info">'+l.replace("META NÃO ATINGIDA 😔", '<span class="rp-fail">META NÃO ATINGIDA 😔</span>')+'</span>');
+            return;
+        }
+        if(l.trim().startsWith("🔴")){ out.push('<span class="rp-data-danger">'+l+'</span>'); return; }
+        if(l.trim().startsWith("🟡")){ out.push('<span class="rp-data-warn">'+l+'</span>'); return; }
+        if(l.trim().startsWith("🟢")){ out.push('<span class="rp-data-ok">'+l+'</span>'); return; }
+        if(l.match(/^(Meta:|Share:)/)){ out.push('<span class="rp-info">'+l+'</span>'); return; }
+        out.push('<span class="rp-item">'+l+'</span>');
+    });
+    np.innerHTML = out.join("\n");
 
     const loja = getLoja(lojaAtiva);
     const totalR = Object.keys(loja.rupturas || {}).length;
     const totalV = sdGetProdutos().length;
     const share = loja.share || {};
-    const temShare = !!(share.nab || share.cerveja || share.extras);
-
+    const temShare = !!(
+        (share.gondola && (share.gondola.nab || share.gondola.cerveja || share.gondola.extras)) ||
+        (share.geladeira && (share.geladeira.nab || share.geladeira.cerveja))
+    );
     $("toolsInfoTexto").textContent =
         "🔒 Somente leitura • 📋 " + totalR + " ruptura(s) • 🗓️ " + totalV + " validade(s)" + (temShare ? " • 📏 share salvo" : "");
-
     const btn = $("toolsBtnCopiar");
     btn.classList.remove("sd-copiado");
     btn.innerHTML = "📋 Copiar informações";
@@ -4513,9 +4642,7 @@ async function copiarRelatorio(){
     setTimeout(()=>{ btn.classList.remove("sd-copiado"); btn.innerHTML = "📋 Copiar informações"; }, 2000);
 }
 
-function abrirSobreApp(){
-    $("modalSobreApp").classList.add("aberto");
-}
+function abrirSobreApp(){ $("modalSobreApp").classList.add("aberto"); }
 function fecharSobreApp(e){
     if(e && e.target.id !== "modalSobreApp") return;
     $("modalSobreApp").classList.remove("aberto");
@@ -4523,37 +4650,17 @@ function fecharSobreApp(e){
 
 window.addEventListener("popstate", ()=>{
     const sdOverlay = $("sdOverlay");
-    if(sdOverlay && sdOverlay.classList.contains("sd-ativo")){
-        sdFecharModalForcado();
-        history.pushState(null, "", location.href);
-        return;
-    }
+    if(sdOverlay && sdOverlay.classList.contains("sd-ativo")){ sdFecharModalForcado(); history.pushState(null, "", location.href); return; }
     const sdConfirm = $("sdOverlayConfirm");
-    if(sdConfirm && sdConfirm.classList.contains("sd-ativo")){
-        sdConfirm.classList.remove("sd-ativo");
-        history.pushState(null, "", location.href);
-        return;
-    }
+    if(sdConfirm && sdConfirm.classList.contains("sd-ativo")){ sdConfirm.classList.remove("sd-ativo"); history.pushState(null, "", location.href); return; }
     const sdHist = $("sdOverlayHistorico");
-    if(sdHist && sdHist.classList.contains("sd-ativo")){
-        sdHist.classList.remove("sd-ativo");
-        history.pushState(null, "", location.href);
-        return;
-    }
+    if(sdHist && sdHist.classList.contains("sd-ativo")){ sdHist.classList.remove("sd-ativo"); history.pushState(null, "", location.href); return; }
     const modalLoja = $("modalLoja");
-    if(modalLoja && modalLoja.classList.contains("aberto")){
-        fecharFerramentaRupturas();
-        history.pushState(null, "", location.href);
-        return;
-    }
+    if(modalLoja && modalLoja.classList.contains("aberto")){ fecharFerramentaRupturas(); history.pushState(null, "", location.href); return; }
     const modais = ["modalSobreApp", "modalCalculadora", "modalSelecaoLoja", "modalExcluirLoja"];
     for(const id of modais){
         const m = $(id);
-        if(m && m.classList.contains("aberto")){
-            m.classList.remove("aberto");
-            history.pushState(null, "", location.href);
-            return;
-        }
+        if(m && m.classList.contains("aberto")){ m.classList.remove("aberto"); history.pushState(null, "", location.href); return; }
     }
 });
 
