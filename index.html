@@ -9,6 +9,10 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>MShare Space</title>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
 <style>
 *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 
@@ -1940,6 +1944,110 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
     display: none !important;
 }
 
+/* ================= LOGIN / AUTH ================= */
+.tela-auth{
+  position:fixed; inset:0; z-index:10000;
+  background: radial-gradient(circle at 50% 30%, #001a3a 0%, #000a18 60%, #000 100%);
+  display:flex; align-items:center; justify-content:center;
+  padding:20px; overflow-y:auto;
+}
+.auth-card{
+  width:100%; max-width:400px;
+  background:linear-gradient(180deg, rgba(0,25,50,.98), rgba(0,10,24,.98));
+  border:1px solid var(--jarvis-border-strong);
+  border-radius:16px;
+  padding:28px 22px 22px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.6);
+  animation: fadeIn .3s ease;
+}
+.auth-logo{
+  font-size:52px; text-align:center; line-height:1;
+  margin-bottom:10px;
+  filter: drop-shadow(0 0 20px var(--jarvis-cyan));
+  animation: sobrePulse 2s ease-in-out infinite;
+}
+.auth-titulo{
+  font-family:'Orbitron',sans-serif; font-size:22px; font-weight:800;
+  color:var(--jarvis-cyan); text-align:center;
+  letter-spacing:2px; text-transform:uppercase;
+  margin:0 0 6px;
+}
+.auth-sub{
+  text-align:center; color:var(--jarvis-text-dim);
+  font-size:12px; margin:0 0 20px;
+}
+.auth-form{ display:flex; flex-direction:column; }
+.auth-label{
+  display:block; font-size:10px; font-weight:700;
+  color:var(--jarvis-text-dim); margin-bottom:6px;
+  text-transform:uppercase; letter-spacing:1.2px;
+  font-family:'Orbitron',sans-serif;
+}
+.auth-input{
+  width:100%; padding:13px 14px; margin-bottom:14px;
+  border:1px solid var(--jarvis-border); border-radius:8px;
+  background:rgba(0,15,35,.7); color:var(--jarvis-text);
+  font-size:15px; outline:none; font-family:inherit;
+  transition:border-color .15s; box-sizing:border-box;
+}
+.auth-input:focus{ border-color:var(--jarvis-cyan); }
+.auth-btn-primario{
+  width:100%; padding:14px; margin-top:4px;
+  border:none; border-radius:8px;
+  background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue));
+  color:#001428; font-family:'Orbitron',sans-serif;
+  font-weight:800; font-size:13px; letter-spacing:1.5px;
+  text-transform:uppercase; cursor:pointer;
+  transition:transform .1s, opacity .15s;
+}
+.auth-btn-primario:active{ transform:scale(.98); }
+.auth-btn-primario:disabled{ opacity:.5; cursor:not-allowed; }
+.auth-btn-link{
+  background:none; border:none; color:var(--jarvis-cyan);
+  font-size:12px; padding:10px; cursor:pointer;
+  text-decoration:underline; margin-top:4px;
+}
+.auth-btn-secundario{
+  width:100%; padding:13px; margin-top:10px;
+  border:1px solid var(--jarvis-border); border-radius:8px;
+  background:rgba(0,25,50,.6); color:var(--jarvis-text);
+  font-family:'Orbitron',sans-serif; font-weight:700;
+  font-size:11px; letter-spacing:1.2px; text-transform:uppercase;
+  cursor:pointer; transition:background .15s;
+}
+.auth-btn-secundario:active{ background:rgba(0,60,120,.6); }
+.auth-divisor{
+  text-align:center; color:var(--jarvis-text-dim);
+  font-size:10px; margin:16px 0 6px;
+  letter-spacing:2px; text-transform:uppercase;
+}
+.auth-msg{
+  margin-top:14px; padding:10px 12px;
+  border-radius:8px; font-size:12px;
+  text-align:center; font-weight:600;
+  display:none;
+}
+.auth-msg.erro{
+  display:block; background:rgba(255,45,85,.15);
+  border:1px solid rgba(255,45,85,.4);
+  color:#ff8fa5;
+}
+.auth-msg.sucesso{
+  display:block; background:rgba(0,255,157,.15);
+  border:1px solid rgba(0,255,157,.4);
+  color:var(--jarvis-success);
+}
+.btn-logout{
+  position:fixed; bottom:calc(16px + var(--safe-bottom)); right:16px;
+  z-index:9001; padding:10px 16px;
+  border:1px solid rgba(255,45,85,.5); border-radius:8px;
+  background:rgba(255,45,85,.2); color:#ff8fa5;
+  font-family:'Orbitron',sans-serif; font-weight:700;
+  font-size:10px; letter-spacing:1.2px; text-transform:uppercase;
+  cursor:pointer; backdrop-filter: blur(8px);
+}
+.btn-logout:active{ background:rgba(255,45,85,.4); }
+
 @media(max-width:380px){
     .acoes-rapidas{ grid-template-columns:1fr; }
     .subtab{ font-size:8.5px; min-width:56px; padding:10px 3px; }
@@ -1965,6 +2073,64 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
 </style>
 </head>
 <body>
+
+<!-- ================= TELA DE LOGIN ================= -->
+<div id="telaAuth" class="tela-auth">
+
+  <!-- LOGIN -->
+  <div class="auth-card" id="authLogin">
+    <div class="auth-logo">⚡</div>
+    <h1 class="auth-titulo">MShare Space</h1>
+    <p class="auth-sub">Faça login para acessar seus dados</p>
+    <form id="formLogin" class="auth-form" onsubmit="fazerLogin(event)">
+      <label class="auth-label">📧 Email</label>
+      <input class="auth-input" type="email" id="loginEmail" placeholder="seu@email.com" required autocomplete="email">
+      <label class="auth-label">🔒 Senha</label>
+      <input class="auth-input" type="password" id="loginSenha" placeholder="Sua senha" required autocomplete="current-password">
+      <button type="submit" class="auth-btn-primario" id="btnEntrar">ENTRAR</button>
+      <button type="button" class="auth-btn-link" onclick="mostrarRecuperar()">Esqueci minha senha</button>
+    </form>
+    <div class="auth-divisor">— ou —</div>
+    <button class="auth-btn-secundario" onclick="mostrarCadastro()">CRIAR CONTA</button>
+    <div class="auth-msg" id="authMsg"></div>
+  </div>
+
+  <!-- CADASTRO -->
+  <div class="auth-card" id="authCadastro" style="display:none;">
+    <div class="auth-logo">⚡</div>
+    <h1 class="auth-titulo">Criar Conta</h1>
+    <p class="auth-sub">Seus dados ficarão salvos na nuvem</p>
+    <form id="formCadastro" class="auth-form" onsubmit="fazerCadastro(event)">
+      <label class="auth-label">📧 Email</label>
+      <input class="auth-input" type="email" id="cadEmail" placeholder="seu@email.com" required autocomplete="email">
+      <label class="auth-label">🔒 Senha</label>
+      <input class="auth-input" type="password" id="cadSenha" placeholder="Mínimo 6 caracteres" required minlength="6" autocomplete="new-password">
+      <label class="auth-label">🔒 Confirmar Senha</label>
+      <input class="auth-input" type="password" id="cadSenha2" placeholder="Repita a senha" required minlength="6" autocomplete="new-password">
+      <button type="submit" class="auth-btn-primario" id="btnCadastrar">CRIAR CONTA</button>
+    </form>
+    <button class="auth-btn-secundario" onclick="mostrarLogin()">JÁ TENHO CONTA</button>
+    <div class="auth-msg" id="cadMsg"></div>
+  </div>
+
+  <!-- RECUPERAR -->
+  <div class="auth-card" id="authRecuperar" style="display:none;">
+    <div class="auth-logo">🔑</div>
+    <h1 class="auth-titulo">Recuperar Senha</h1>
+    <p class="auth-sub">Enviaremos um link para seu email</p>
+    <form id="formRecuperar" class="auth-form" onsubmit="fazerRecuperar(event)">
+      <label class="auth-label">📧 Email cadastrado</label>
+      <input class="auth-input" type="email" id="recEmail" placeholder="seu@email.com" required autocomplete="email">
+      <button type="submit" class="auth-btn-primario" id="btnRecuperar">ENVIAR LINK</button>
+    </form>
+    <button class="auth-btn-secundario" onclick="mostrarLogin()">VOLTAR AO LOGIN</button>
+    <div class="auth-msg" id="recMsg"></div>
+  </div>
+
+</div>
+
+<!-- Botão de logout -->
+<button id="btnLogout" class="btn-logout" onclick="fazerLogout()" style="display:none;">🚪 Sair</button>
 
 <div class="app-scroll">
 
@@ -2121,7 +2287,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
                     </button>
                 </div>
 
-                <!-- ══════════ AMBIENTE: GÔNDOLA ══════════ -->
                 <div class="ambiente-bloco ativo" id="ambGondola">
                     <div class="ambiente-header">
                         <span class="ambiente-titulo">🏪 GÔNDOLA</span>
@@ -2134,7 +2299,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
                     </div>
                 </div>
 
-                <!-- ══════════ AMBIENTE: GELADEIRA ══════════ -->
                 <div class="ambiente-bloco" id="ambGeladeira">
                     <div class="ambiente-header">
                         <span class="ambiente-titulo">❄️ GELADEIRA</span>
@@ -2145,7 +2309,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
                     </div>
                 </div>
 
-                <!-- BLOCO GÔNDOLA · NAB -->
                 <div class="share-bloqueavel" id="shareBlocoGondNAB" style="display:block;">
                     <div style="font-family:'Orbitron',sans-serif;font-size:11px;color:var(--jarvis-cyan);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
                         <span>🥤</span> NAB
@@ -2159,7 +2322,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
                     <button class="btn-salvar-share" id="btnSalvarGondNAB" onclick="salvarShareCategoria('gondola','nab')" disabled>💾 SALVAR NAB</button>
                 </div>
 
-                <!-- BLOCO GÔNDOLA · CERVEJAS -->
                 <div class="share-bloqueavel" id="shareBlocoGondCerveja" style="display:none;">
                     <div style="font-family:'Orbitron',sans-serif;font-size:11px;color:var(--jarvis-cyan);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
                         <span>🍺</span> CERVEJAS
@@ -2173,7 +2335,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
                     <button class="btn-salvar-share" id="btnSalvarGondCerveja" onclick="salvarShareCategoria('gondola','cerveja')" disabled>💾 SALVAR CERVEJAS</button>
                 </div>
 
-                <!-- BLOCO PONTO EXTRA NAB -->
                 <div class="share-bloqueavel" id="shareBlocoGondExtrasNAB" style="display:none;">
                     <div style="font-family:'Orbitron',sans-serif;font-size:11px;color:var(--jarvis-cyan);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
                         <span>⭐</span> PONTO EXTRA NAB
@@ -2187,7 +2348,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
                     <button class="btn-salvar-share" id="btnSalvarGondExtrasNAB" onclick="salvarShareCategoria('gondola','extras_nab')" disabled>💾 SALVAR PONTO EXTRA NAB</button>
                 </div>
 
-                <!-- BLOCO PONTO EXTRA CERVEJA -->
                 <div class="share-bloqueavel" id="shareBlocoGondExtrasCerveja" style="display:none;">
                     <div style="font-family:'Orbitron',sans-serif;font-size:11px;color:var(--jarvis-cyan);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
                         <span>⭐</span> PONTO EXTRA CERVEJA
@@ -2201,7 +2361,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
                     <button class="btn-salvar-share" id="btnSalvarGondExtrasCerveja" onclick="salvarShareCategoria('gondola','extras_cerveja')" disabled>💾 SALVAR PONTO EXTRA CERVEJA</button>
                 </div>
 
-                <!-- BLOCO GELADEIRA · NAB -->
                 <div class="share-bloqueavel" id="shareBlocoGelNAB" style="display:none;">
                     <div style="font-family:'Orbitron',sans-serif;font-size:11px;color:var(--jarvis-cyan);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
                         <span>🥤</span> NAB
@@ -2215,7 +2374,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
                     <button class="btn-salvar-share" id="btnSalvarGelNAB" onclick="salvarShareCategoria('geladeira','nab')" disabled>💾 SALVAR NAB</button>
                 </div>
 
-                <!-- BLOCO GELADEIRA · CERVEJAS -->
                 <div class="share-bloqueavel" id="shareBlocoGelCerveja" style="display:none;">
                     <div style="font-family:'Orbitron',sans-serif;font-size:11px;color:var(--jarvis-cyan);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
                         <span>🍺</span> CERVEJAS
@@ -2662,6 +2820,186 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
     <span id="toastTexto"></span>
 </div>
 <script>
+/* ================= FIREBASE ================= */
+const firebaseConfig = {
+  apiKey: "AISyArqhCe9XbaT-FJdrRdhf3-U9o6snJjE9Q".replace("AISy","AI"), // garante valor correto
+  authDomain: "mshare-space-by-yuri-lima.firebaseapp.com",
+  projectId: "mshare-space-by-yuri-lima",
+  storageBucket: "mshare-space-by-yuri-lima.firebasestorage.app",
+  messagingSenderId: "923659579982",
+  appId: "1:923659579982:web:2aa3ce61fdc00370d1091f"
+};
+// corrige a chave caso tenha vindo com espaços
+firebaseConfig.apiKey = "AIzaSyArqhCe9XbaT-FJdrRdhf3-U9o6snJjE9Q";
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const dbFire = firebase.firestore();
+
+let _currentUser = null;
+let cachedLojas = null;
+let _unsubscribeSync = null;
+
+const mensagensErroFirebase = {
+  'auth/invalid-email': 'Email inválido.',
+  'auth/user-disabled': 'Esta conta foi desativada.',
+  'auth/user-not-found': 'Email ou senha incorretos.',
+  'auth/wrong-password': 'Email ou senha incorretos.',
+  'auth/invalid-credential': 'Email ou senha incorretos.',
+  'auth/invalid-login-credentials': 'Email ou senha incorretos.',
+  'auth/email-already-in-use': 'Este email já está cadastrado.',
+  'auth/weak-password': 'A senha precisa ter no mínimo 6 caracteres.',
+  'auth/too-many-requests': 'Muitas tentativas. Aguarde alguns minutos.',
+  'auth/network-request-failed': 'Sem internet. Verifique sua conexão.',
+  'auth/missing-email': 'Digite o email.'
+};
+function traduzirErro(err){ return mensagensErroFirebase[err.code] || err.message || 'Erro inesperado.'; }
+function mostrarMsg(id, texto, tipo){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.textContent = texto;
+  el.className = 'auth-msg ' + (tipo || '');
+}
+function mostrarLogin(){
+  document.getElementById('authLogin').style.display = 'block';
+  document.getElementById('authCadastro').style.display = 'none';
+  document.getElementById('authRecuperar').style.display = 'none';
+}
+function mostrarCadastro(){
+  document.getElementById('authLogin').style.display = 'none';
+  document.getElementById('authCadastro').style.display = 'block';
+  document.getElementById('authRecuperar').style.display = 'none';
+}
+function mostrarRecuperar(){
+  document.getElementById('authLogin').style.display = 'none';
+  document.getElementById('authCadastro').style.display = 'none';
+  document.getElementById('authRecuperar').style.display = 'block';
+}
+async function fazerLogin(e){
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value.trim();
+  const senha = document.getElementById('loginSenha').value;
+  const btn = document.getElementById('btnEntrar');
+  btn.disabled = true; btn.textContent = 'ENTRANDO...';
+  mostrarMsg('authMsg','','');
+  try{ await auth.signInWithEmailAndPassword(email, senha); }
+  catch(err){
+    mostrarMsg('authMsg', traduzirErro(err), 'erro');
+    btn.disabled = false; btn.textContent = 'ENTRAR';
+  }
+}
+async function fazerCadastro(e){
+  e.preventDefault();
+  const email = document.getElementById('cadEmail').value.trim();
+  const senha = document.getElementById('cadSenha').value;
+  const senha2 = document.getElementById('cadSenha2').value;
+  if(senha !== senha2){ mostrarMsg('cadMsg','As senhas não coincidem.','erro'); return; }
+  const btn = document.getElementById('btnCadastrar');
+  btn.disabled = true; btn.textContent = 'CRIANDO...';
+  mostrarMsg('cadMsg','','');
+  try{ await auth.createUserWithEmailAndPassword(email, senha); }
+  catch(err){
+    mostrarMsg('cadMsg', traduzirErro(err), 'erro');
+    btn.disabled = false; btn.textContent = 'CRIAR CONTA';
+  }
+}
+async function fazerRecuperar(e){
+  e.preventDefault();
+  const email = document.getElementById('recEmail').value.trim();
+  const btn = document.getElementById('btnRecuperar');
+  btn.disabled = true; btn.textContent = 'ENVIANDO...';
+  mostrarMsg('recMsg','','');
+  try{
+    await auth.sendPasswordResetEmail(email);
+    mostrarMsg('recMsg','✅ Link enviado! Verifique seu email (e o spam).','sucesso');
+    btn.textContent = 'ENVIADO';
+  }catch(err){
+    mostrarMsg('recMsg', traduzirErro(err), 'erro');
+    btn.disabled = false; btn.textContent = 'ENVIAR LINK';
+  }
+}
+async function fazerLogout(){
+  if(!confirm('Sair da conta? Seus dados já estão salvos na nuvem.')) return;
+  await auth.signOut();
+}
+
+async function carregarDadosDaNuvem(uid){
+  const docRef = dbFire.collection('mshare').doc(uid).collection('dados').doc('principal');
+  try{
+    const docSnap = await docRef.get();
+    if(docSnap.exists && docSnap.data().lojas){
+      const nuvem = docSnap.data().lojas;
+      nuvem.forEach(loja => migrarShareAntigo(loja));
+      cachedLojas = nuvem;
+      localStorage.setItem(STORAGE_LOJAS, JSON.stringify(nuvem));
+      mostrarToast('☁️ Dados carregados da nuvem','✅');
+    } else {
+      const local = localStorage.getItem(STORAGE_LOJAS);
+      let dadosParaEnviar;
+      if(local){
+        try{
+          const parsed = JSON.parse(local);
+          if(Array.isArray(parsed) && parsed.length >= TOTAL_LOJAS_INICIAL) dadosParaEnviar = parsed;
+        }catch(e){}
+      }
+      if(!dadosParaEnviar) dadosParaEnviar = Array.from({length:TOTAL_LOJAS_INICIAL},()=>criarLojaVazia());
+      cachedLojas = dadosParaEnviar;
+      await docRef.set({ lojas: dadosParaEnviar, atualizadoEm: firebase.firestore.FieldValue.serverTimestamp() });
+      localStorage.setItem(STORAGE_LOJAS, JSON.stringify(dadosParaEnviar));
+      mostrarToast('☁️ Dados enviados para a nuvem','✅');
+    }
+    atualizarCardsLojas();
+  }catch(err){
+    console.error('Erro ao carregar da nuvem:', err);
+    const local = localStorage.getItem(STORAGE_LOJAS);
+    if(local){
+      try{ const parsed = JSON.parse(local); parsed.forEach(l => migrarShareAntigo(l)); cachedLojas = parsed; }
+      catch(e){ cachedLojas = Array.from({length:TOTAL_LOJAS_INICIAL},()=>criarLojaVazia()); }
+    } else {
+      cachedLojas = Array.from({length:TOTAL_LOJAS_INICIAL},()=>criarLojaVazia());
+    }
+    atualizarCardsLojas();
+    mostrarToast('⚠️ Modo offline — dados locais','⚠️');
+  }
+}
+
+function iniciarSyncTempoReal(uid){
+  if(_unsubscribeSync) _unsubscribeSync();
+  const docRef = dbFire.collection('mshare').doc(uid).collection('dados').doc('principal');
+  _unsubscribeSync = docRef.onSnapshot((doc) => {
+    if(!doc.exists) return;
+    const nuvem = doc.data().lojas;
+    if(!nuvem) return;
+    if(JSON.stringify(cachedLojas || []) === JSON.stringify(nuvem)) return;
+    const modalAberto = document.getElementById('modalLoja')?.classList.contains('aberto');
+    if(modalAberto){ mostrarToast('☁️ Atualização da nuvem aguardando','ℹ️'); return; }
+    nuvem.forEach(loja => migrarShareAntigo(loja));
+    cachedLojas = nuvem;
+    localStorage.setItem(STORAGE_LOJAS, JSON.stringify(nuvem));
+    atualizarCardsLojas();
+    mostrarToast('☁️ Sincronizado com a nuvem','🔄');
+  }, (err) => console.warn('Sync falhou:', err));
+}
+
+auth.onAuthStateChanged(async (user) => {
+  const telaAuth = document.getElementById('telaAuth');
+  const btnLogout = document.getElementById('btnLogout');
+  if(user){
+    _currentUser = user;
+    telaAuth.style.display = 'none';
+    btnLogout.style.display = 'block';
+    await carregarDadosDaNuvem(user.uid);
+    iniciarSyncTempoReal(user.uid);
+  } else {
+    _currentUser = null;
+    telaAuth.style.display = 'flex';
+    btnLogout.style.display = 'none';
+    cachedLojas = null;
+    mostrarLogin();
+  }
+});
+
+/* ================= APP ================= */
 const $ = id => document.getElementById(id);
 
 let unidadeAtualLoja = "frentes";
@@ -2994,17 +3332,32 @@ function migrarShareAntigo(loja){
     }
     return loja;
 }
+
+/* ===== Salvar / Carregar com Firestore ===== */
+function salvarLojas(d){
+    cachedLojas = d;
+    localStorage.setItem(STORAGE_LOJAS, JSON.stringify(d));
+    if(_currentUser){
+        dbFire.collection('mshare').doc(_currentUser.uid).collection('dados').doc('principal').set({
+            lojas: d,
+            atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        }).catch(err => console.error('Erro ao salvar na nuvem:', err));
+    }
+}
 function carregarLojas(){
+    if(cachedLojas) return cachedLojas;
     try{
         const d = JSON.parse(localStorage.getItem(STORAGE_LOJAS));
         if(d && Array.isArray(d) && d.length>=TOTAL_LOJAS_INICIAL){
             d.forEach(loja => migrarShareAntigo(loja));
+            cachedLojas = d;
             return d;
         }
     }catch(e){}
-    return Array.from({length:TOTAL_LOJAS_INICIAL},()=>criarLojaVazia());
+    cachedLojas = Array.from({length:TOTAL_LOJAS_INICIAL},()=>criarLojaVazia());
+    return cachedLojas;
 }
-function salvarLojas(d){ localStorage.setItem(STORAGE_LOJAS, JSON.stringify(d)); }
+
 function getLoja(i){ return carregarLojas()[i]; }
 function setLoja(i,v){ const l=carregarLojas(); l[i]=v; salvarLojas(l); }
 function adicionarNovaLoja(){
@@ -4618,7 +4971,6 @@ function gerarRelatorioCompleto(){
     montarBlocoShare("gondola", ["nab","cerveja"], "📏 SHARE DE GÔNDOLA");
     montarBlocoShare("geladeira", ["nab","cerveja"], "❄️ SHARE DE GELADEIRA");
 
-    /* Ponto Extra NAB / Cerveja — SEM unidade (4º parâmetro = true) */
     if(share.extras && share.extras.nab){
         imprimirCategoria(share.extras.nab, "PONTO EXTRA NAB", "⭐", true);
     }
@@ -4797,7 +5149,8 @@ window.addEventListener("keydown", (e)=>{
     }
 });
 
-atualizarCardsLojas();
+// Inicializa a lista de lojas (só depois que Firebase autenticar)
+setTimeout(()=>{ if(_currentUser) atualizarCardsLojas(); }, 100);
 
 </script>
 
