@@ -98,7 +98,7 @@ button{ cursor:pointer; }
     z-index:3;
 }
 @keyframes spin{ to{ transform:rotate(360deg); } }
-@keyframes pulseCore{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.12); } }
+@keyframes pulseCore{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.05); } }
 .jarvis-wave{ display:flex; align-items:center; justify-content:center; gap:4px; height:26px; margin-top:16px; }
 .jarvis-wave span{ display:block; width:3px; background:linear-gradient(180deg, var(--jarvis-cyan), var(--jarvis-blue)); border-radius:2px; animation:wave 1.2s ease-in-out infinite; }
 .jarvis-wave span:nth-child(1){ animation-delay:0s; height:8px; }
@@ -447,7 +447,7 @@ button{ cursor:pointer; }
     color:var(--jarvis-text-dim); padding:11px 4px;
     font-family:'Orbitron','Segoe UI',sans-serif;
     font-weight:700; font-size:9px;
-    transition:background .15s, color .15s, transform .1s;
+    transition:background .15s, color .15s, transform .1s, opacity .15s, filter .15s;
     border-radius:6px; display:flex; align-items:center; justify-content:center;
     gap:4px; letter-spacing:.6px; text-transform:uppercase;
     user-select:none;
@@ -458,6 +458,16 @@ button{ cursor:pointer; }
 }
 .btn-unidade:active{ transform:scale(.98); }
 .btn-unidade.ativo{ color:#001428; background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue)); border-color:var(--jarvis-cyan); font-weight:700; }
+
+/* Trava de unidade: botões não-ativos esmaecem, ativo pulsa */
+.unidades.travadas .btn-unidade:not(.ativo){
+    opacity:.45;
+    filter:grayscale(.5);
+}
+.unidades.travadas .btn-unidade.ativo{
+    box-shadow:0 0 15px rgba(0,212,255,.5);
+    animation:pulseCore 2s ease-in-out infinite;
+}
 
 .share-ambiente-tabs{
     display:grid;
@@ -2077,7 +2087,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
 <!-- ================= TELA DE LOGIN ================= -->
 <div id="telaAuth" class="tela-auth">
 
-  <!-- LOGIN -->
   <div class="auth-card" id="authLogin">
     <div class="auth-logo">⚡</div>
     <h1 class="auth-titulo">MShare Space</h1>
@@ -2095,7 +2104,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
     <div class="auth-msg" id="authMsg"></div>
   </div>
 
-  <!-- CADASTRO -->
   <div class="auth-card" id="authCadastro" style="display:none;">
     <div class="auth-logo">⚡</div>
     <h1 class="auth-titulo">Criar Conta</h1>
@@ -2113,7 +2121,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
     <div class="auth-msg" id="cadMsg"></div>
   </div>
 
-  <!-- RECUPERAR -->
   <div class="auth-card" id="authRecuperar" style="display:none;">
     <div class="auth-logo">🔑</div>
     <h1 class="auth-titulo">Recuperar Senha</h1>
@@ -2129,7 +2136,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
 
 </div>
 
-<!-- Botão de logout -->
 <button id="btnLogout" class="btn-logout" onclick="fazerLogout()" style="display:none;">🚪 Sair</button>
 
 <div class="app-scroll">
@@ -2272,9 +2278,9 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
                     <span class="ico">🔒</span> Share salvo • Pressione 2s na categoria para editar
                 </div>
 
-                <div class="unidades">
-                    <button class="btn-unidade" id="btnPrateleirasLoja" onclick="mudarUnidadeLoja('prateleiras')"><span class="ico">🗄️</span> PRATELEIRAS</button>
-                    <button class="btn-unidade ativo" id="btnFrentesLoja" onclick="mudarUnidadeLoja('frentes')"><span class="ico">📦</span> FRENTES</button>
+                <div class="unidades travadas">
+                    <button class="btn-unidade ativo" id="btnPrateleirasLoja" onclick="mudarUnidadeLoja('prateleiras')"><span class="ico">🗄️</span> PRATELEIRAS</button>
+                    <button class="btn-unidade" id="btnFrentesLoja" onclick="mudarUnidadeLoja('frentes')"><span class="ico">📦</span> FRENTES</button>
                     <button class="btn-unidade" id="btnCentimetrosLoja" onclick="mudarUnidadeLoja('cm')"><span class="ico">📐</span> CM</button>
                 </div>
 
@@ -2822,16 +2828,13 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
 <script>
 /* ================= FIREBASE ================= */
 const firebaseConfig = {
-  apiKey: "AISyArqhCe9XbaT-FJdrRdhf3-U9o6snJjE9Q".replace("AISy","AI"), // garante valor correto
+  apiKey: "AIzaSyArqhCe9XbaT-FJdrRdhf3-U9o6snJjE9Q",
   authDomain: "mshare-space-by-yuri-lima.firebaseapp.com",
   projectId: "mshare-space-by-yuri-lima",
   storageBucket: "mshare-space-by-yuri-lima.firebasestorage.app",
   messagingSenderId: "923659579982",
   appId: "1:923659579982:web:2aa3ce61fdc00370d1091f"
 };
-// corrige a chave caso tenha vindo com espaços
-firebaseConfig.apiKey = "AIzaSyArqhCe9XbaT-FJdrRdhf3-U9o6snJjE9Q";
-
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const dbFire = firebase.firestore();
@@ -2875,6 +2878,27 @@ function mostrarRecuperar(){
   document.getElementById('authCadastro').style.display = 'none';
   document.getElementById('authRecuperar').style.display = 'block';
 }
+
+/* ✨ NOVO: reseta a tela ao deslogar (corrige bug do "ENTRANDO...") */
+function resetarTelaLogin(){
+  const btnEntrar = document.getElementById('btnEntrar');
+  if(btnEntrar){ btnEntrar.disabled = false; btnEntrar.textContent = 'ENTRAR'; }
+  const btnCadastrar = document.getElementById('btnCadastrar');
+  if(btnCadastrar){ btnCadastrar.disabled = false; btnCadastrar.textContent = 'CRIAR CONTA'; }
+  const btnRecuperar = document.getElementById('btnRecuperar');
+  if(btnRecuperar){ btnRecuperar.disabled = false; btnRecuperar.textContent = 'ENVIAR LINK'; }
+  const loginSenha = document.getElementById('loginSenha');
+  if(loginSenha) loginSenha.value = '';
+  const cadSenha = document.getElementById('cadSenha');
+  if(cadSenha) cadSenha.value = '';
+  const cadSenha2 = document.getElementById('cadSenha2');
+  if(cadSenha2) cadSenha2.value = '';
+  mostrarMsg('authMsg','','');
+  mostrarMsg('cadMsg','','');
+  mostrarMsg('recMsg','','');
+  mostrarLogin();
+}
+
 async function fazerLogin(e){
   e.preventDefault();
   const email = document.getElementById('loginEmail').value.trim();
@@ -2918,10 +2942,51 @@ async function fazerRecuperar(e){
     btn.disabled = false; btn.textContent = 'ENVIAR LINK';
   }
 }
+
+/* ✨ Botão Sair: fecha o app */
 async function fazerLogout(){
-  if(!confirm('Sair da conta? Seus dados já estão salvos na nuvem.')) return;
-  await auth.signOut();
+  if(!confirm('Sair da conta? O app será fechado. Seus dados ficam salvos na nuvem.')) return;
+  if(_unsubscribeSync){ _unsubscribeSync(); _unsubscribeSync = null; }
+  try { await auth.signOut(); } catch(e){}
+
+  try { window.open('', '_self').close(); } catch(e){}
+  window.close();
+
+  setTimeout(() => {
+    document.body.innerHTML = `
+      <div style="position:fixed;inset:0;background:#000a18;color:#e6f7ff;
+                  display:flex;flex-direction:column;align-items:center;justify-content:center;
+                  font-family:'Orbitron','Segoe UI',sans-serif;text-align:center;padding:20px;z-index:99999;">
+        <div style="font-size:64px;margin-bottom:20px;filter:drop-shadow(0 0 20px #00d4ff);">⚡</div>
+        <div style="font-size:20px;font-weight:800;color:#00d4ff;letter-spacing:2px;margin-bottom:10px;text-transform:uppercase;">
+          APP FECHADO
+        </div>
+        <div style="font-size:13px;color:#7fc8e8;max-width:320px;line-height:1.5;font-weight:500;">
+          Seus dados estão seguros na nuvem.<br>Feche esta aba e abra o app novamente quando quiser.
+        </div>
+      </div>
+    `;
+    setTimeout(() => { try { window.open('', '_self').close(); } catch(e){} window.close(); }, 800);
+  }, 200);
 }
+
+/* ✨ FULLSCREEN automático */
+function ativarFullscreen(){
+  try {
+    const el = document.documentElement;
+    if(!document.fullscreenElement){
+      if(el.requestFullscreen) el.requestFullscreen().catch(()=>{});
+      else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      else if(el.msRequestFullscreen) el.msRequestFullscreen();
+    }
+  } catch(e){}
+}
+['click','touchstart','keydown'].forEach(evt => {
+  document.addEventListener(evt, function once(){
+    ativarFullscreen();
+    ['click','touchstart','keydown'].forEach(e => document.removeEventListener(e, once));
+  }, { once: true, passive: true });
+});
 
 async function carregarDadosDaNuvem(uid){
   const docRef = dbFire.collection('mshare').doc(uid).collection('dados').doc('principal');
@@ -2992,17 +3057,20 @@ auth.onAuthStateChanged(async (user) => {
     iniciarSyncTempoReal(user.uid);
   } else {
     _currentUser = null;
+    if(_unsubscribeSync){ _unsubscribeSync(); _unsubscribeSync = null; }
     telaAuth.style.display = 'flex';
     btnLogout.style.display = 'none';
     cachedLojas = null;
-    mostrarLogin();
+    resetarTelaLogin();
   }
 });
 
 /* ================= APP ================= */
 const $ = id => document.getElementById(id);
 
-let unidadeAtualLoja = "frentes";
+/* ✨ Unidade padrão: PRATELEIRAS travada */
+let unidadeAtualLoja = "prateleiras";
+let unidadeTravada = true;
 let expressaoCalc = "";
 const TOTAL_LOJAS_INICIAL = 4;
 let lojaAtiva = 0;
@@ -3333,7 +3401,6 @@ function migrarShareAntigo(loja){
     return loja;
 }
 
-/* ===== Salvar / Carregar com Firestore ===== */
 function salvarLojas(d){
     cachedLojas = d;
     localStorage.setItem(STORAGE_LOJAS, JSON.stringify(d));
@@ -3357,7 +3424,6 @@ function carregarLojas(){
     cachedLojas = Array.from({length:TOTAL_LOJAS_INICIAL},()=>criarLojaVazia());
     return cachedLojas;
 }
-
 function getLoja(i){ return carregarLojas()[i]; }
 function setLoja(i,v){ const l=carregarLojas(); l[i]=v; salvarLojas(l); }
 function adicionarNovaLoja(){
@@ -3621,8 +3687,17 @@ function montarSelecaoLoja(tipo){
     }
 }
 
+/* ✨ Prateleiras travadas como padrão ao abrir loja */
 function abrirFerramentaRupturas(i){
     lojaAtiva = i;
+    unidadeAtualLoja = "prateleiras";
+    unidadeTravada = true;
+    document.getElementById("btnPrateleirasLoja")?.classList.add("ativo");
+    document.getElementById("btnFrentesLoja")?.classList.remove("ativo");
+    document.getElementById("btnCentimetrosLoja")?.classList.remove("ativo");
+    const contUni = document.querySelector(".unidades");
+    if(contUni) contUni.classList.add("travadas");
+
     dadosDestravados = false;
     rupModoExclusao = false;
     rupParaExcluir.clear();
@@ -3786,13 +3861,82 @@ function formatarUnidade(v,unid){
     return formatarNumero(v)+" frentes";
 }
 
+/* ✨ TRAVA/DESTRAVA de unidade */
+function travarUnidade(){
+    unidadeTravada = true;
+    const cont = document.querySelector(".unidades");
+    if(cont) cont.classList.add("travadas");
+}
+function destravarUnidade(){
+    unidadeTravada = false;
+    const cont = document.querySelector(".unidades");
+    if(cont) cont.classList.remove("travadas");
+    if(navigator.vibrate) navigator.vibrate([40,60,40]);
+    mostrarToast("Unidade destravada • Toque na que quiser", "🔓");
+}
 function mudarUnidadeLoja(u){
-    unidadeAtualLoja=u;
+    if(unidadeTravada){
+        if(navigator.vibrate) navigator.vibrate([30,40,30]);
+        mostrarToast("Pressione 2s em qualquer unidade para trocar", "🔒");
+        return;
+    }
+    unidadeAtualLoja = u;
     $("btnPrateleirasLoja").classList.toggle("ativo", u==="prateleiras");
     $("btnFrentesLoja").classList.toggle("ativo", u==="frentes");
     $("btnCentimetrosLoja").classList.toggle("ativo", u==="cm");
     calcularLoja();
+    travarUnidade();
+    mostrarToast("Unidade travada em " + (u === "cm" ? "centímetros" : u), "🔒");
 }
+
+(function configurarLongPressUnidade(){
+    const botoes = ["btnPrateleirasLoja","btnFrentesLoja","btnCentimetrosLoja"];
+    const TEMPO = 2000;
+    botoes.forEach(id => {
+        const el = document.getElementById(id);
+        if(!el) return;
+        el.style.userSelect = "none";
+        el.style.webkitUserSelect = "none";
+        el.style.webkitTouchCallout = "none";
+        let pressTimer = null;
+        let pressCompletou = false;
+        let startX = 0, startY = 0;
+        function iniciarPress(e){
+            pressCompletou = false;
+            if(e.touches && e.touches[0]){ startX = e.touches[0].clientX; startY = e.touches[0].clientY; }
+            else { startX = e.clientX; startY = e.clientY; }
+            clearTimeout(pressTimer);
+            pressTimer = setTimeout(function(){
+                pressCompletou = true;
+                if(window.getSelection) window.getSelection().removeAllRanges();
+                if(!unidadeTravada) return;
+                destravarUnidade();
+            }, TEMPO);
+        }
+        function cancelarPress(){ clearTimeout(pressTimer); }
+        function detectarArrasto(e){
+            if(!pressTimer) return;
+            let cx, cy;
+            if(e.touches && e.touches[0]){ cx = e.touches[0].clientX; cy = e.touches[0].clientY; }
+            else { cx = e.clientX; cy = e.clientY; }
+            if(Math.abs(cx-startX) > 10 || Math.abs(cy-startY) > 10) clearTimeout(pressTimer);
+        }
+        function clickHandler(e){
+            if(pressCompletou){ pressCompletou = false; e.preventDefault(); e.stopPropagation(); }
+        }
+        el.addEventListener("touchstart", iniciarPress, {passive:true});
+        el.addEventListener("touchend", cancelarPress);
+        el.addEventListener("touchcancel", cancelarPress);
+        el.addEventListener("touchmove", detectarArrasto, {passive:true});
+        el.addEventListener("mousedown", iniciarPress);
+        el.addEventListener("mouseup", cancelarPress);
+        el.addEventListener("mouseleave", cancelarPress);
+        el.addEventListener("mousemove", detectarArrasto);
+        el.addEventListener("click", clickHandler, true);
+        el.addEventListener("selectstart", e => e.preventDefault());
+        el.addEventListener("contextmenu", e => e.preventDefault());
+    });
+})();
 
 function mudarAmbienteShare(amb){
     if(amb === ambienteShareAtivo) return;
@@ -4906,9 +5050,6 @@ function sdFecharHistorico(e){
     $("sdOverlayHistorico").classList.remove("sd-ativo");
 }
 
-/* ============================================================
-   RELATÓRIO — Ponto Extra SEM unidade de medida
-   ============================================================ */
 function gerarRelatorioCompleto(){
     const produtos = sdGetProdutos();
     const loja = getLoja(lojaAtiva);
@@ -4940,7 +5081,6 @@ function gerarRelatorioCompleto(){
 
     const unid = unidadeAtualLoja === "cm" ? "cm" : (unidadeAtualLoja === "prateleiras" ? "prateleiras" : "frentes");
 
-    /* semUnidade = true → NÃO mostra prateleiras/frentes/cm (usado nos Pontos Extras) */
     const imprimirCategoria = (d, catLabel, catEmoji, semUnidade) => {
         if(!d) return;
         const meta = Number(d.meta) || 0;
@@ -5149,7 +5289,6 @@ window.addEventListener("keydown", (e)=>{
     }
 });
 
-// Inicializa a lista de lojas (só depois que Firebase autenticar)
 setTimeout(()=>{ if(_currentUser) atualizarCardsLojas(); }, 100);
 
 </script>
