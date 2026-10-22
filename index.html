@@ -169,6 +169,41 @@ button{ cursor:pointer; }
     text-align:center; max-width:720px; margin-left:auto; margin-right:auto;
 }
 
+/* ===== ENGRENAGEM / MENU ===== */
+.gear-menu-wrap{ position:relative; display:inline-flex; }
+.btn-gear{
+    width:36px; height:36px; border-radius:9px;
+    background:rgba(255,255,255,0.16);
+    border:1px solid rgba(255,255,255,0.22);
+    color:white; font-size:17px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    padding:0; transition:background .15s, transform .15s;
+    font-family:inherit; line-height:1;
+}
+.btn-gear:active{ background:rgba(255,255,255,0.32); transform:scale(.94); }
+.btn-gear.aberto{ background:rgba(0,212,255,.45); border-color:var(--jarvis-cyan); }
+.gear-menu{
+    display:none; position:absolute; top:calc(100% + 8px); right:0;
+    background:linear-gradient(180deg, rgba(0,20,40,.99) 0%, rgba(0,10,24,.99) 100%);
+    border:1px solid var(--jarvis-border-strong);
+    border-radius:10px; padding:6px; min-width:190px;
+    box-shadow:0 12px 36px rgba(0,0,0,.7);
+    z-index:9999; animation:popIn .16s ease both;
+}
+.gear-menu.aberto{ display:block; }
+.gear-menu-item{
+    width:100%; display:flex; align-items:center; gap:10px;
+    padding:11px 12px; background:transparent; border:none;
+    color:var(--jarvis-text); font-family:'Orbitron','Segoe UI',sans-serif;
+    font-size:11px; font-weight:600; letter-spacing:1px;
+    text-transform:uppercase; border-radius:7px;
+    cursor:pointer; text-align:left; transition:background .15s;
+}
+.gear-menu-item:active{ background:rgba(0,212,255,.18); }
+.gear-menu-item.sair{ color:#ff8fa5; border-top:1px solid rgba(0,212,255,.18); margin-top:3px; padding-top:12px; }
+.gear-menu-item.sair:active{ background:rgba(255,45,85,.25); }
+.gear-menu-item .ico{ font-size:15px; }
+
 .container{ width:100%; max-width:720px; margin:auto; padding:14px 14px 40px; }
 .card{
     background:var(--jarvis-panel);
@@ -459,7 +494,6 @@ button{ cursor:pointer; }
 .btn-unidade:active{ transform:scale(.98); }
 .btn-unidade.ativo{ color:#001428; background:linear-gradient(135deg, var(--jarvis-cyan), var(--jarvis-blue)); border-color:var(--jarvis-cyan); font-weight:700; }
 
-/* Trava de unidade: botões não-ativos esmaecem, ativo pulsa */
 .unidades.travadas .btn-unidade:not(.ativo){
     opacity:.45;
     filter:grayscale(.5);
@@ -2047,16 +2081,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
   border:1px solid rgba(0,255,157,.4);
   color:var(--jarvis-success);
 }
-.btn-logout{
-  position:fixed; bottom:calc(16px + var(--safe-bottom)); right:16px;
-  z-index:9001; padding:10px 16px;
-  border:1px solid rgba(255,45,85,.5); border-radius:8px;
-  background:rgba(255,45,85,.2); color:#ff8fa5;
-  font-family:'Orbitron',sans-serif; font-weight:700;
-  font-size:10px; letter-spacing:1.2px; text-transform:uppercase;
-  cursor:pointer; backdrop-filter: blur(8px);
-}
-.btn-logout:active{ background:rgba(255,45,85,.4); }
 
 @media(max-width:380px){
     .acoes-rapidas{ grid-template-columns:1fr; }
@@ -2136,8 +2160,6 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
 
 </div>
 
-<button id="btnLogout" class="btn-logout" onclick="fazerLogout()" style="display:none;">🚪 Sair</button>
-
 <div class="app-scroll">
 
 <div id="splash">
@@ -2167,7 +2189,17 @@ footer .ico{ font-size:10px; color:var(--jarvis-cyan); }
         </div>
         <div class="logo"><span class="ico">⚡</span> MShare Space</div>
         <div class="right">
-            <button class="btn-header" onclick="abrirSobreApp()" title="Sobre este app" style="width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,0.16);border:1px solid rgba(255,255,255,0.22);color:white;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;">ℹ️</button>
+            <div class="gear-menu-wrap">
+                <button class="btn-gear" id="btnGear" onclick="toggleGearMenu(event)" title="Menu">⚙️</button>
+                <div class="gear-menu" id="gearMenu">
+                    <button class="gear-menu-item" onclick="fecharGearMenu();abrirSobreApp();">
+                        <span class="ico">ℹ️</span> Sobre o app
+                    </button>
+                    <button class="gear-menu-item sair" onclick="fecharGearMenu();fazerLogout();">
+                        <span class="ico">🚪</span> Sair
+                    </button>
+                </div>
+            </div>
             <span class="ico">⏰</span>
             <span id="horaAtual">--:--</span>
         </div>
@@ -2864,22 +2896,30 @@ function mostrarMsg(id, texto, tipo){
   el.className = 'auth-msg ' + (tipo || '');
 }
 function mostrarLogin(){
-  document.getElementById('authLogin').style.display = 'block';
-  document.getElementById('authCadastro').style.display = 'none';
-  document.getElementById('authRecuperar').style.display = 'none';
+  const login = document.getElementById('authLogin');
+  const cad = document.getElementById('authCadastro');
+  const rec = document.getElementById('authRecuperar');
+  if(login) login.style.display = 'block';
+  if(cad) cad.style.display = 'none';
+  if(rec) rec.style.display = 'none';
 }
 function mostrarCadastro(){
-  document.getElementById('authLogin').style.display = 'none';
-  document.getElementById('authCadastro').style.display = 'block';
-  document.getElementById('authRecuperar').style.display = 'none';
+  const login = document.getElementById('authLogin');
+  const cad = document.getElementById('authCadastro');
+  const rec = document.getElementById('authRecuperar');
+  if(login) login.style.display = 'none';
+  if(cad) cad.style.display = 'block';
+  if(rec) rec.style.display = 'none';
 }
 function mostrarRecuperar(){
-  document.getElementById('authLogin').style.display = 'none';
-  document.getElementById('authCadastro').style.display = 'none';
-  document.getElementById('authRecuperar').style.display = 'block';
+  const login = document.getElementById('authLogin');
+  const cad = document.getElementById('authCadastro');
+  const rec = document.getElementById('authRecuperar');
+  if(login) login.style.display = 'none';
+  if(cad) cad.style.display = 'none';
+  if(rec) rec.style.display = 'block';
 }
 
-/* ✨ NOVO: reseta a tela ao deslogar (corrige bug do "ENTRANDO...") */
 function resetarTelaLogin(){
   const btnEntrar = document.getElementById('btnEntrar');
   if(btnEntrar){ btnEntrar.disabled = false; btnEntrar.textContent = 'ENTRAR'; }
@@ -2943,6 +2983,31 @@ async function fazerRecuperar(e){
   }
 }
 
+/* ===== MENU ENGRENAGEM ===== */
+function toggleGearMenu(e){
+  if(e){ e.stopPropagation(); }
+  const menu = document.getElementById('gearMenu');
+  const btn = document.getElementById('btnGear');
+  if(!menu) return;
+  const abrir = !menu.classList.contains('aberto');
+  menu.classList.toggle('aberto', abrir);
+  if(btn) btn.classList.toggle('aberto', abrir);
+}
+function fecharGearMenu(){
+  const menu = document.getElementById('gearMenu');
+  const btn = document.getElementById('btnGear');
+  if(menu) menu.classList.remove('aberto');
+  if(btn) btn.classList.remove('aberto');
+}
+document.addEventListener('click', (e)=>{
+  const menu = document.getElementById('gearMenu');
+  if(!menu) return;
+  if(menu.classList.contains('aberto')){
+    const wrap = e.target.closest('.gear-menu-wrap');
+    if(!wrap) fecharGearMenu();
+  }
+});
+
 /* ✨ Botão Sair: fecha o app */
 async function fazerLogout(){
   if(!confirm('Sair da conta? O app será fechado. Seus dados ficam salvos na nuvem.')) return;
@@ -2988,6 +3053,22 @@ function ativarFullscreen(){
   }, { once: true, passive: true });
 });
 
+/* ✨ Sanitiza dados antes de enviar ao Firestore (remove undefined) */
+function sanitizarParaFirestore(obj){
+  if(obj === null || obj === undefined) return null;
+  if(Array.isArray(obj)) return obj.map(sanitizarParaFirestore);
+  if(typeof obj === 'object'){
+    const clean = {};
+    for(const k in obj){
+      if(obj[k] !== undefined){
+        clean[k] = sanitizarParaFirestore(obj[k]);
+      }
+    }
+    return clean;
+  }
+  return obj;
+}
+
 async function carregarDadosDaNuvem(uid){
   const docRef = dbFire.collection('mshare').doc(uid).collection('dados').doc('principal');
   try{
@@ -3009,7 +3090,7 @@ async function carregarDadosDaNuvem(uid){
       }
       if(!dadosParaEnviar) dadosParaEnviar = Array.from({length:TOTAL_LOJAS_INICIAL},()=>criarLojaVazia());
       cachedLojas = dadosParaEnviar;
-      await docRef.set({ lojas: dadosParaEnviar, atualizadoEm: firebase.firestore.FieldValue.serverTimestamp() });
+      await docRef.set({ lojas: sanitizarParaFirestore(dadosParaEnviar), atualizadoEm: firebase.firestore.FieldValue.serverTimestamp() });
       localStorage.setItem(STORAGE_LOJAS, JSON.stringify(dadosParaEnviar));
       mostrarToast('☁️ Dados enviados para a nuvem','✅');
     }
@@ -3048,18 +3129,15 @@ function iniciarSyncTempoReal(uid){
 
 auth.onAuthStateChanged(async (user) => {
   const telaAuth = document.getElementById('telaAuth');
-  const btnLogout = document.getElementById('btnLogout');
   if(user){
     _currentUser = user;
-    telaAuth.style.display = 'none';
-    btnLogout.style.display = 'block';
+    if(telaAuth) telaAuth.style.display = 'none';
     await carregarDadosDaNuvem(user.uid);
     iniciarSyncTempoReal(user.uid);
   } else {
     _currentUser = null;
     if(_unsubscribeSync){ _unsubscribeSync(); _unsubscribeSync = null; }
-    telaAuth.style.display = 'flex';
-    btnLogout.style.display = 'none';
+    if(telaAuth) telaAuth.style.display = 'flex';
     cachedLojas = null;
     resetarTelaLogin();
   }
@@ -3068,7 +3146,6 @@ auth.onAuthStateChanged(async (user) => {
 /* ================= APP ================= */
 const $ = id => document.getElementById(id);
 
-/* ✨ Unidade padrão: PRATELEIRAS travada */
 let unidadeAtualLoja = "prateleiras";
 let unidadeTravada = true;
 let expressaoCalc = "";
@@ -3318,9 +3395,11 @@ window.addEventListener("load",()=>{
 
 function atualizarDataHora(){
     const agora = new Date();
-    $("dataAtual").textContent = new Intl.DateTimeFormat("pt-BR",
+    const dataEl = $("dataAtual");
+    const horaEl = $("horaAtual");
+    if(dataEl) dataEl.textContent = new Intl.DateTimeFormat("pt-BR",
         {timeZone:"America/Fortaleza",day:"2-digit",month:"2-digit",year:"numeric",weekday:"long"}).format(agora);
-    $("horaAtual").textContent = new Intl.DateTimeFormat("pt-BR",
+    if(horaEl) horaEl.textContent = new Intl.DateTimeFormat("pt-BR",
         {timeZone:"America/Fortaleza",hour:"2-digit",minute:"2-digit"}).format(agora);
 }
 atualizarDataHora();
@@ -3329,9 +3408,12 @@ setInterval(atualizarDataHora,60000);
 function atualizarConexao(){
     const online = navigator.onLine;
     const dot = $("statusConexao");
-    if(online){ dot.style.background = "var(--jarvis-success)"; dot.classList.remove("offline"); }
-    else { dot.style.background = "var(--jarvis-error)"; dot.classList.add("offline"); }
-    $("textoConexao").textContent = online ? "Online" : "Offline";
+    const txt = $("textoConexao");
+    if(dot){
+        if(online){ dot.style.background = "var(--jarvis-success)"; dot.classList.remove("offline"); }
+        else { dot.style.background = "var(--jarvis-error)"; dot.classList.add("offline"); }
+    }
+    if(txt) txt.textContent = online ? "Online" : "Offline";
 }
 window.addEventListener("online",atualizarConexao);
 window.addEventListener("offline",atualizarConexao);
@@ -3339,13 +3421,17 @@ atualizarConexao();
 
 let toastTimer;
 function mostrarToast(texto,icone="✓"){
-    $("toastTexto").textContent = texto;
-    $("toastIcone").textContent = icone;
-    $("toast").classList.remove("mostrar");
-    void $("toast").offsetWidth;
-    $("toast").classList.add("mostrar");
+    const toast = $("toast");
+    const txt = $("toastTexto");
+    const ico = $("toastIcone");
+    if(!toast || !txt || !ico) return;
+    txt.textContent = texto;
+    ico.textContent = icone;
+    toast.classList.remove("mostrar");
+    void toast.offsetWidth;
+    toast.classList.add("mostrar");
     clearTimeout(toastTimer);
-    toastTimer=setTimeout(()=>{ $("toast").classList.remove("mostrar"); },2000);
+    toastTimer=setTimeout(()=>{ toast.classList.remove("mostrar"); },2000);
 }
 
 function normalizar(s){
@@ -3405,10 +3491,13 @@ function salvarLojas(d){
     cachedLojas = d;
     localStorage.setItem(STORAGE_LOJAS, JSON.stringify(d));
     if(_currentUser){
+        const dadosLimpos = sanitizarParaFirestore(d);
         dbFire.collection('mshare').doc(_currentUser.uid).collection('dados').doc('principal').set({
-            lojas: d,
+            lojas: dadosLimpos,
             atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
-        }).catch(err => console.error('Erro ao salvar na nuvem:', err));
+        }).catch(err => {
+            console.error('Erro ao salvar na nuvem:', err);
+        });
     }
 }
 function carregarLojas(){
@@ -3444,6 +3533,7 @@ function lojaTemDadosCompletos(loja){
 function atualizarCardsLojas(){
     const lojas = carregarLojas();
     const grid = $("lojasGrid");
+    if(!grid) return;
     grid.innerHTML = "";
     let totalCadastradas=0;
     const totalLojas=lojas.length;
@@ -3557,13 +3647,15 @@ function atualizarCardsLojas(){
     if(contador) contador.textContent = `${totalCadastradas} / ${totalLojas}`;
 
     const acoes = $("acoesRapidas");
-    if(temRupturas || temValidades){
-        acoes.style.display = "grid";
-        $("btnAcaoRupturas").style.display = "flex";
-        $("btnAcaoValidades").style.display = "flex";
-        $("pillRupturas").textContent = totalRupturas;
-        $("pillValidades").textContent = totalValidades;
-    } else { acoes.style.display = "none"; }
+    if(acoes){
+        if(temRupturas || temValidades){
+            acoes.style.display = "grid";
+            const bR = $("btnAcaoRupturas"); if(bR) bR.style.display = "flex";
+            const bV = $("btnAcaoValidades"); if(bV) bV.style.display = "flex";
+            const pR = $("pillRupturas"); if(pR) pR.textContent = totalRupturas;
+            const pV = $("pillValidades"); if(pV) pV.textContent = totalValidades;
+        } else { acoes.style.display = "none"; }
+    }
     atualizarBarraSelecao();
 }
 
@@ -3590,21 +3682,22 @@ function cancelarSelecao(){
 }
 function atualizarBarraSelecao(){
     const barra = $("barraSelecao");
+    if(!barra) return;
     if(modoSelecaoMultipla){
         barra.classList.add("ativa");
-        $("contSel").textContent = lojasSelecionadas.size;
-        $("btnExcluirSel").disabled = lojasSelecionadas.size === 0;
+        const c = $("contSel"); if(c) c.textContent = lojasSelecionadas.size;
+        const b = $("btnExcluirSel"); if(b) b.disabled = lojasSelecionadas.size === 0;
     } else { barra.classList.remove("ativa"); }
 }
 function abrirExcluirMultiplas(){
     if(lojasSelecionadas.size === 0){ mostrarToast("Nenhuma loja selecionada","⚠️"); return; }
     const lojas = carregarLojas();
     if(lojasSelecionadas.size >= lojas.length){ mostrarToast("Precisa manter pelo menos 1 loja","⚠️"); return; }
-    $("subtituloExcluirLoja").textContent = lojasSelecionadas.size + " loja(s)";
-    $("textoExcluirLoja").innerHTML = 'Tem certeza que deseja excluir <b>'+lojasSelecionadas.size+' loja(s)</b>?';
-    $("modalExcluirLoja").classList.add("aberto");
+    const sub = $("subtituloExcluirLoja"); if(sub) sub.textContent = lojasSelecionadas.size + " loja(s)";
+    const txt = $("textoExcluirLoja"); if(txt) txt.innerHTML = 'Tem certeza que deseja excluir <b>'+lojasSelecionadas.size+' loja(s)</b>?';
+    const m = $("modalExcluirLoja"); if(m) m.classList.add("aberto");
 }
-function fecharExcluirLoja(){ $("modalExcluirLoja").classList.remove("aberto"); lojaParaExcluir=null; }
+function fecharExcluirLoja(){ const m=$("modalExcluirLoja"); if(m) m.classList.remove("aberto"); lojaParaExcluir=null; }
 function confirmarExcluirLoja(){
     const lojas = carregarLojas();
     if(modoSelecaoMultipla && lojasSelecionadas.size > 0){
@@ -3629,22 +3722,23 @@ function confirmarExcluirLoja(){
 }
 
 function abrirSelecaoLojaRupturas(){
-    $("tituloSelecaoLoja").innerHTML = '<span class="ico">📋</span> Verificar lista de rupturas';
-    $("subtituloSelecaoLoja").textContent = "Escolha qual loja deseja visualizar";
+    const t=$("tituloSelecaoLoja"); if(t) t.innerHTML = '<span class="ico">📋</span> Verificar lista de rupturas';
+    const s=$("subtituloSelecaoLoja"); if(s) s.textContent = "Escolha qual loja deseja visualizar";
     montarSelecaoLoja("rupturas");
-    $("modalSelecaoLoja").classList.add("aberto");
+    const m=$("modalSelecaoLoja"); if(m) m.classList.add("aberto");
 }
 function abrirSelecaoLojaValidades(){
-    $("tituloSelecaoLoja").innerHTML = '<span class="ico">📅</span> Abrir validades das lojas';
-    $("subtituloSelecaoLoja").textContent = "Escolha qual loja deseja visualizar";
+    const t=$("tituloSelecaoLoja"); if(t) t.innerHTML = '<span class="ico">📅</span> Abrir validades das lojas';
+    const s=$("subtituloSelecaoLoja"); if(s) s.textContent = "Escolha qual loja deseja visualizar";
     montarSelecaoLoja("validades");
-    $("modalSelecaoLoja").classList.add("aberto");
+    const m=$("modalSelecaoLoja"); if(m) m.classList.add("aberto");
 }
-function fecharSelecaoLoja(){ $("modalSelecaoLoja").classList.remove("aberto"); }
+function fecharSelecaoLoja(){ const m=$("modalSelecaoLoja"); if(m) m.classList.remove("aberto"); }
 
 function montarSelecaoLoja(tipo){
     const lojas = carregarLojas();
     const c = $("listaSelecaoLoja");
+    if(!c) return;
     c.innerHTML="";
     let encontrou=false;
     lojas.forEach((loja,i)=>{
@@ -3687,7 +3781,6 @@ function montarSelecaoLoja(tipo){
     }
 }
 
-/* ✨ Prateleiras travadas como padrão ao abrir loja */
 function abrirFerramentaRupturas(i){
     lojaAtiva = i;
     unidadeAtualLoja = "prateleiras";
@@ -3709,7 +3802,7 @@ function abrirFerramentaRupturas(i){
     });
     const lojas = carregarLojas();
     const nome = lojas[i].info.loja || `Loja ${i+1}`;
-    $("tituloLojaAtiva").innerHTML = '<span class="ico">🏬</span> '+nome;
+    const t = $("tituloLojaAtiva"); if(t) t.innerHTML = '<span class="ico">🏬</span> '+nome;
     preencherInfoLoja();
     rupRenderLista();
     rupAtualizarContadores();
@@ -3720,10 +3813,10 @@ function abrirFerramentaRupturas(i){
     if(lojaTemDadosCompletos(loja)) trocarSubAba("share");
     else trocarSubAba("dados");
     aplicarTravaDados();
-    $("modalLoja").classList.add("aberto");
+    const m = $("modalLoja"); if(m) m.classList.add("aberto");
 }
 function fecharFerramentaRupturas(){
-    $("modalLoja").classList.remove("aberto");
+    const m = $("modalLoja"); if(m) m.classList.remove("aberto");
     dadosDestravados = false;
     rupModoExclusao = false;
     rupParaExcluir.clear();
@@ -3739,6 +3832,7 @@ function aplicarTravaDados(){
     const completa = lojaTemDadosCompletos(loja);
     const sub = $("subDados");
     const aviso = $("avisoTrava");
+    if(!sub || !aviso) return;
     sub.classList.remove("travada","destravada");
     if(completa && !dadosDestravados){ sub.classList.add("travada"); aviso.classList.add("ativo"); }
     else { aviso.classList.remove("ativo"); }
@@ -3756,6 +3850,7 @@ function tentarTrocarDados(){
 
 (function configurarLongPressDados(){
     const sub = $("subDados");
+    if(!sub) return;
     let pressTimer=null, pressAtivado=false, startX=0, startY=0;
     const TEMPO=2000;
     function iniciarPress(e){
@@ -3815,8 +3910,8 @@ function trocarSubAba(nome){
     };
     const par = mapa[nome];
     if(!par) return;
-    $(par[0]).classList.add("ativo");
-    $(par[1]).classList.add("ativo");
+    const a = $(par[0]); if(a) a.classList.add("ativo");
+    const b = $(par[1]); if(b) b.classList.add("ativo");
     if(nome === "validades") sdInicializar();
     if(nome === "share"){ carregarShareLoja(); aplicarAmbienteShare(); calcularLoja(); }
     if(nome === "rupturas"){ 
@@ -3840,16 +3935,16 @@ function salvarInfoLoja(){
     const l = getLoja(lojaAtiva);
     l.info = info;
     setLoja(lojaAtiva, l);
-    $("tituloLojaAtiva").innerHTML = '<span class="ico">🏬</span> '+(info.loja || `Loja ${lojaAtiva+1}`);
+    const t = $("tituloLojaAtiva"); if(t) t.innerHTML = '<span class="ico">🏬</span> '+(info.loja || `Loja ${lojaAtiva+1}`);
     atualizarCardsLojas();
     aplicarTravaDados();
 }
 function preencherInfoLoja(){
     const i = getLoja(lojaAtiva).info;
-    $("infoLoja").value = i.loja || "";
-    $("infoNome").value = i.nome || "";
-    $("infoEndereco").value = i.endereco || "";
-    $("infoSupervisor").value = i.supervisor || "";
+    const a=$("infoLoja"); if(a) a.value = i.loja || "";
+    const b=$("infoNome"); if(b) b.value = i.nome || "";
+    const c=$("infoEndereco"); if(c) c.value = i.endereco || "";
+    const d=$("infoSupervisor"); if(d) d.value = i.supervisor || "";
 }
 
 function numero(v){ if(v===null||v===undefined||v==="") return 0; return Number(String(v).replace(",",".")); }
@@ -3861,7 +3956,6 @@ function formatarUnidade(v,unid){
     return formatarNumero(v)+" frentes";
 }
 
-/* ✨ TRAVA/DESTRAVA de unidade */
 function travarUnidade(){
     unidadeTravada = true;
     const cont = document.querySelector(".unidades");
@@ -3881,9 +3975,9 @@ function mudarUnidadeLoja(u){
         return;
     }
     unidadeAtualLoja = u;
-    $("btnPrateleirasLoja").classList.toggle("ativo", u==="prateleiras");
-    $("btnFrentesLoja").classList.toggle("ativo", u==="frentes");
-    $("btnCentimetrosLoja").classList.toggle("ativo", u==="cm");
+    $("btnPrateleirasLoja")?.classList.toggle("ativo", u==="prateleiras");
+    $("btnFrentesLoja")?.classList.toggle("ativo", u==="frentes");
+    $("btnCentimetrosLoja")?.classList.toggle("ativo", u==="cm");
     calcularLoja();
     travarUnidade();
     mostrarToast("Unidade travada em " + (u === "cm" ? "centímetros" : u), "🔒");
@@ -3950,22 +4044,22 @@ function mudarAmbienteShare(amb){
 }
 
 function aplicarAmbienteShare(){
-    $("btnAmbGondola").classList.toggle("ativo", ambienteShareAtivo === "gondola");
-    $("btnAmbGeladeira").classList.toggle("ativo", ambienteShareAtivo === "geladeira");
-    $("ambGondola").classList.toggle("ativo", ambienteShareAtivo === "gondola");
-    $("ambGeladeira").classList.toggle("ativo", ambienteShareAtivo === "geladeira");
+    $("btnAmbGondola")?.classList.toggle("ativo", ambienteShareAtivo === "gondola");
+    $("btnAmbGeladeira")?.classList.toggle("ativo", ambienteShareAtivo === "geladeira");
+    $("ambGondola")?.classList.toggle("ativo", ambienteShareAtivo === "gondola");
+    $("ambGeladeira")?.classList.toggle("ativo", ambienteShareAtivo === "geladeira");
     atualizarBotoesCategoria();
     atualizarVisibilidadeBlocos();
 }
 
 function atualizarBotoesCategoria(){
     const cat = categoriaShareAtiva;
-    $("btnShareNABGond").classList.toggle("ativo", cat === "nab" && ambienteShareAtivo === "gondola");
-    $("btnShareCervejaGond").classList.toggle("ativo", cat === "cerveja" && ambienteShareAtivo === "gondola");
-    $("btnShareExtrasNABGond").classList.toggle("ativo", cat === "extras_nab");
-    $("btnShareExtrasCervejaGond").classList.toggle("ativo", cat === "extras_cerveja");
-    $("btnShareNABGel").classList.toggle("ativo", cat === "nab" && ambienteShareAtivo === "geladeira");
-    $("btnShareCervejaGel").classList.toggle("ativo", cat === "cerveja" && ambienteShareAtivo === "geladeira");
+    $("btnShareNABGond")?.classList.toggle("ativo", cat === "nab" && ambienteShareAtivo === "gondola");
+    $("btnShareCervejaGond")?.classList.toggle("ativo", cat === "cerveja" && ambienteShareAtivo === "gondola");
+    $("btnShareExtrasNABGond")?.classList.toggle("ativo", cat === "extras_nab");
+    $("btnShareExtrasCervejaGond")?.classList.toggle("ativo", cat === "extras_cerveja");
+    $("btnShareNABGel")?.classList.toggle("ativo", cat === "nab" && ambienteShareAtivo === "geladeira");
+    $("btnShareCervejaGel")?.classList.toggle("ativo", cat === "cerveja" && ambienteShareAtivo === "geladeira");
 
     let ambLabel = ambienteShareAtivo === "gondola" ? "Gôndola" : "Geladeira";
     let catLabel = "NAB";
@@ -3974,8 +4068,8 @@ function atualizarBotoesCategoria(){
     else if(cat === "extras_nab"){ ambLabel = "Ponto Extra"; catLabel = "NAB"; }
     else if(cat === "extras_cerveja"){ ambLabel = "Ponto Extra"; catLabel = "Cerveja"; }
 
-    $("tituloGraficoShare").textContent = "Análise " + ambLabel + " • " + catLabel;
-    $("pizzaLabelCentro").textContent = catLabel;
+    const t = $("tituloGraficoShare"); if(t) t.textContent = "Análise " + ambLabel + " • " + catLabel;
+    const l = $("pizzaLabelCentro"); if(l) l.textContent = catLabel;
 }
 
 function atualizarVisibilidadeBlocos(){
@@ -4076,7 +4170,7 @@ function aplicarBloqueioShare(){
         (shareCategoriaTemDadosSalvos("geladeira","cerveja") && !shareDestravado.geladeira.cerveja) ||
         (shareCategoriaTemDadosSalvos(null,"extras_nab") && !shareDestravado.extras.nab) ||
         (shareCategoriaTemDadosSalvos(null,"extras_cerveja") && !shareDestravado.extras.cerveja);
-    $("avisoTravaShare").classList.toggle("ativo", algumaTravada);
+    $("avisoTravaShare")?.classList.toggle("ativo", algumaTravada);
 }
 
 function atualizarBotaoSalvar(amb, cat){
@@ -4130,8 +4224,6 @@ function salvarShareCategoria(amb, cat){
     mostrarToast(msg,"🔒");
 }
 
-function calcularShareCategoria(){ calcularLoja(); }
-
 function calcularLoja(){
     const amb = ambienteShareAtivo;
     const cat = categoriaShareAtiva;
@@ -4140,14 +4232,15 @@ function calcularLoja(){
     const meu = numero($(inputId(amb,cat,"meuEspaco")).value);
     atualizarBotaoSalvar(amb, cat);
     const box = $("resultadoLoja");
+    if(!box) return;
 
     if(meta<=0||total<=0||meu<0){
-        $("shareResultadoLoja").textContent="0,00%";
-        $("statusResultadoLoja").textContent="Preencha os campos";
+        const el1=$("shareResultadoLoja"); if(el1) el1.textContent="0,00%";
+        const el2=$("statusResultadoLoja"); if(el2) el2.textContent="Preencha os campos";
         box.className="share-resultado-box neutro";
-        $("emojiResultadoLoja").textContent="📊";
-        ["resumoMetaLoja","resumoTotalLoja","resumoMeuEspacoLoja","resumoRestanteLoja","resumoShareLoja","resumoDiferencaLoja","resumoSituacaoLoja"].forEach(id=>{ $(id).textContent="--"; });
-        $("resumoMensagemLoja").textContent = "Preencha os campos para realizar o cálculo.";
+        const el3=$("emojiResultadoLoja"); if(el3) el3.textContent="📊";
+        ["resumoMetaLoja","resumoTotalLoja","resumoMeuEspacoLoja","resumoRestanteLoja","resumoShareLoja","resumoDiferencaLoja","resumoSituacaoLoja"].forEach(id=>{ const e=$(id); if(e) e.textContent="--"; });
+        const elM=$("resumoMensagemLoja"); if(elM) elM.textContent = "Preencha os campos para realizar o cálculo.";
         atualizarPainelGraficoLoja(0,0,0,0,false);
         return;
     }
@@ -4159,18 +4252,18 @@ function calcularLoja(){
     const atingiu=share>=meta;
 
     box.className = "share-resultado-box "+(atingiu?"verde":"vermelho");
-    $("emojiResultadoLoja").textContent = atingiu ? "👍" : "😔";
-    $("statusResultadoLoja").textContent = atingiu ? "META ATINGIDA!" : "META NÃO ATINGIDA";
-    $("resumoSituacaoLoja").textContent = atingiu ? "✅ ATINGIDA" : "❌ NÃO ATINGIDA";
-    $("resumoMensagemLoja").textContent = atingiu ? "🎉 Você atingiu a meta." : "⚠️ Faltam "+formatarUnidade(restante,unidadeAtualLoja)+" para a meta.";
+    const em=$("emojiResultadoLoja"); if(em) em.textContent = atingiu ? "👍" : "😔";
+    const st=$("statusResultadoLoja"); if(st) st.textContent = atingiu ? "META ATINGIDA!" : "META NÃO ATINGIDA";
+    const si=$("resumoSituacaoLoja"); if(si) si.textContent = atingiu ? "✅ ATINGIDA" : "❌ NÃO ATINGIDA";
+    const rm=$("resumoMensagemLoja"); if(rm) rm.textContent = atingiu ? "🎉 Você atingiu a meta." : "⚠️ Faltam "+formatarUnidade(restante,unidadeAtualLoja)+" para a meta.";
 
-    $("shareResultadoLoja").textContent = formatarNumero(share)+"%";
-    $("resumoMetaLoja").textContent = formatarNumero(meta)+"%";
-    $("resumoTotalLoja").textContent = formatarUnidade(total,unidadeAtualLoja);
-    $("resumoMeuEspacoLoja").textContent = formatarUnidade(meu,unidadeAtualLoja);
-    $("resumoRestanteLoja").textContent = formatarUnidade(restante,unidadeAtualLoja);
-    $("resumoShareLoja").textContent = formatarNumero(share)+"%";
-    $("resumoDiferencaLoja").textContent = (diferenca>=0?"+":"-")+formatarUnidade(Math.abs(diferenca),unidadeAtualLoja);
+    const sr=$("shareResultadoLoja"); if(sr) sr.textContent = formatarNumero(share)+"%";
+    const rmL=$("resumoMetaLoja"); if(rmL) rmL.textContent = formatarNumero(meta)+"%";
+    const rt=$("resumoTotalLoja"); if(rt) rt.textContent = formatarUnidade(total,unidadeAtualLoja);
+    const rme=$("resumoMeuEspacoLoja"); if(rme) rme.textContent = formatarUnidade(meu,unidadeAtualLoja);
+    const rr=$("resumoRestanteLoja"); if(rr) rr.textContent = formatarUnidade(restante,unidadeAtualLoja);
+    const rs=$("resumoShareLoja"); if(rs) rs.textContent = formatarNumero(share)+"%";
+    const rd=$("resumoDiferencaLoja"); if(rd) rd.textContent = (diferenca>=0?"+":"-")+formatarUnidade(Math.abs(diferenca),unidadeAtualLoja);
 
     atualizarPainelGraficoLoja(meta,share,restante,total,atingiu);
 }
@@ -4340,30 +4433,33 @@ function atualizarPizzaChart(meta, share){
         line.setAttribute("stroke-linecap", "round");
         g.appendChild(line);
     }
-    $("pizzaValorCentro").textContent = formatarNumero(share)+"%";
+    const pv = $("pizzaValorCentro"); if(pv) pv.textContent = formatarNumero(share)+"%";
 }
 function atualizarPainelGraficoLoja(meta,share,restante,total,atingiu){
     const restoPct = total>0 ? (restante/total)*100 : 0;
     atualizarPizzaChart(meta, share);
-    $("barraMetaValorLoja").textContent = formatarNumero(meta)+"%";
-    $("barraMetaFillLoja").style.width = Math.min(meta,100)+"%";
-    $("barraAtualValorLoja").textContent = formatarNumero(share)+"%";
-    $("barraAtualFillLoja").style.width = Math.min(share,100)+"%";
-    $("barraAtualFillLoja").className = "barra-preenchimento " + (atingiu ? "barra-atual-verde" : "barra-atual-vermelho");
-    $("barraRestanteValorLoja").textContent = formatarNumero(restoPct)+"%";
-    $("barraRestanteFillLoja").style.width = Math.min(restoPct,100)+"%";
-    $("barraRestanteUnidadeLoja").textContent = formatarUnidade(restante,unidadeAtualLoja);
-    $("barraRestantePercentualLoja").textContent = formatarNumero(restoPct)+"% do total";
-    $("cardMetaLoja").textContent = formatarNumero(meta)+"%";
-    $("cardShareLoja").textContent = formatarNumero(share)+"%";
-    const d = share-meta, s = d>=0?"+":"";
-    $("cardDiferencaLoja").textContent = s+formatarNumero(d)+"%";
+    const a=$("barraMetaValorLoja"); if(a) a.textContent = formatarNumero(meta)+"%";
+    const b=$("barraMetaFillLoja"); if(b) b.style.width = Math.min(meta,100)+"%";
+    const c=$("barraAtualValorLoja"); if(c) c.textContent = formatarNumero(share)+"%";
+    const d=$("barraAtualFillLoja"); 
+    if(d){
+        d.style.width = Math.min(share,100)+"%";
+        d.className = "barra-preenchimento " + (atingiu ? "barra-atual-verde" : "barra-atual-vermelho");
+    }
+    const e=$("barraRestanteValorLoja"); if(e) e.textContent = formatarNumero(restoPct)+"%";
+    const f=$("barraRestanteFillLoja"); if(f) f.style.width = Math.min(restoPct,100)+"%";
+    const g=$("barraRestanteUnidadeLoja"); if(g) g.textContent = formatarUnidade(restante,unidadeAtualLoja);
+    const h=$("barraRestantePercentualLoja"); if(h) h.textContent = formatarNumero(restoPct)+"% do total";
+    const i=$("cardMetaLoja"); if(i) i.textContent = formatarNumero(meta)+"%";
+    const j=$("cardShareLoja"); if(j) j.textContent = formatarNumero(share)+"%";
+    const dd = share-meta, s = dd>=0?"+":"";
+    const k=$("cardDiferencaLoja"); if(k) k.textContent = s+formatarNumero(dd)+"%";
 }
 
-function abrirCalculadora(){ $("modalCalculadora").classList.add("aberto"); }
-function fecharCalculadora(){ $("modalCalculadora").classList.remove("aberto"); }
-function calcAdicionar(v){ expressaoCalc+=v; $("calcExpression").textContent=expressaoCalc; $("calcResult").textContent=expressaoCalc||"0"; }
-function calcLimpar(){ expressaoCalc=""; $("calcExpression").textContent=""; $("calcResult").textContent="0"; }
+function abrirCalculadora(){ $("modalCalculadora")?.classList.add("aberto"); }
+function fecharCalculadora(){ $("modalCalculadora")?.classList.remove("aberto"); }
+function calcAdicionar(v){ expressaoCalc+=v; const e=$("calcExpression"); if(e) e.textContent=expressaoCalc; const r=$("calcResult"); if(r) r.textContent=expressaoCalc||"0"; }
+function calcLimpar(){ expressaoCalc=""; const e=$("calcExpression"); if(e) e.textContent=""; const r=$("calcResult"); if(r) r.textContent="0"; }
 function calcResultado(){
     try{
         if(!expressaoCalc)return;
@@ -4371,17 +4467,19 @@ function calcResultado(){
         if(!permitido.test(expressaoCalc)) throw new Error();
         const r=Function('"use strict";return ('+expressaoCalc+')')();
         if(!Number.isFinite(r)) throw new Error();
-        $("calcResult").textContent = Number(r).toLocaleString("pt-BR",{maximumFractionDigits:8});
-    }catch(e){ $("calcResult").textContent="Erro"; }
+        const cr=$("calcResult"); if(cr) cr.textContent = Number(r).toLocaleString("pt-BR",{maximumFractionDigits:8});
+    }catch(e){ const cr=$("calcResult"); if(cr) cr.textContent="Erro"; }
 }
 
 let rupSelecionados = new Set();
 
 function rupBuscar(){
-    const termo = $("rupBuscaInput").value.trim();
+    const input = $("rupBuscaInput");
     const arvore = $("rupArvore");
     const itensWrap = $("rupArvoreItens");
     const titulo = $("rupArvoreTitulo");
+    if(!input || !arvore || !itensWrap || !titulo) return;
+    const termo = input.value.trim();
     if(!termo){ arvore.classList.remove("ativo"); itensWrap.innerHTML = ""; return; }
     const palavras = normalizar(termo).split(/\s+/).filter(p=>p.length>0);
     const encontrados = SD_CATALOGO.filter(p => {
@@ -4428,7 +4526,9 @@ function rupToggleItem(idx, event){
     rupBuscar();
 }
 function rupMarcarTodos(){
-    const termo = $("rupBuscaInput").value.trim();
+    const input = $("rupBuscaInput");
+    if(!input) return;
+    const termo = input.value.trim();
     if(!termo) return;
     const palavras = normalizar(termo).split(/\s+/).filter(p=>p.length>0);
     const encontrados = SD_CATALOGO.filter(p => {
@@ -4551,7 +4651,8 @@ function rupExcluirSelecionados(){
     rupAtualizarModoExclusao();
     atualizarCardsLojas();
     montarRelatorio();
-    if($("rupBuscaInput").value.trim()) rupBuscar();
+    const inp = $("rupBuscaInput");
+    if(inp && inp.value.trim()) rupBuscar();
     if(navigator.vibrate) navigator.vibrate([40,40,40]);
     mostrarToast(qtd + " item(ns) excluído(s)","🗑️");
 }
@@ -4561,6 +4662,7 @@ function rupRenderLista(){
     const chaves = Object.keys(rup);
     const container = $("rupListaRegistradas");
     const btnExcluirModo = $("rupBtnExcluirModo");
+    if(!container) return;
 
     if(chaves.length === 0){
         container.innerHTML = '<div class="rup-vazio">📭 Nenhuma ruptura registrada ainda.<br>Use a busca acima para adicionar produtos.</div>';
@@ -4604,10 +4706,10 @@ function rupAtualizarContadores(){
         if(it.categoria==="cerveja"||it.categoria==="cerveja_zero"||it.categoria==="mistas") a++;
         else n++;
     });
-    $("contadorTotal").textContent=t;
-    $("contadorAlcoolicos").textContent=a;
-    $("contadorNaoAlcoolicos").textContent=n;
-    $("rupQtdBadge").textContent=t;
+    const e1=$("contadorTotal"); if(e1) e1.textContent=t;
+    const e2=$("contadorAlcoolicos"); if(e2) e2.textContent=a;
+    const e3=$("contadorNaoAlcoolicos"); if(e3) e3.textContent=n;
+    const e4=$("rupQtdBadge"); if(e4) e4.textContent=t;
 }
 
 let sdEditandoIndex = null;
@@ -4649,16 +4751,28 @@ function sdGetProdutos(){
     Object.keys(v).forEach(chave => { arr.push({ ...v[chave], _chave: chave }); });
     return arr;
 }
+
+/* ✨ FIX: sanitiza todos os campos antes de salvar no Firestore */
 function sdSetProdutos(arr){
     const l = getLoja(lojaAtiva);
     const obj = {};
     arr.forEach(p => {
-        const chave = p._chave || (p.nome+"|"+p.descricao+"|"+p.data+"||"+Date.now()+"||"+Math.floor(Math.random()*1000));
+        const nomeSeguro = String(p.nome || "").trim();
+        const descSeguro = String(p.descricao || "").trim();
+        const catSegura = String(p.categoria || "").trim();
+        const subSegura = String(p.subcategoria || "").trim();
+        const dataSegura = String(p.data || "").trim();
+        const qtdSegura = parseInt(p.quantidade, 10) || 0;
+        if(!nomeSeguro || !dataSegura) return; // segurança: não salva lixo
+        const chave = p._chave || (nomeSeguro+"|"+descSeguro+"|"+dataSegura+"||"+Date.now()+"||"+Math.floor(Math.random()*1000));
         obj[chave] = {
-            nome: p.nome, descricao: p.descricao,
-            categoria: p.categoria, subcategoria: p.subcategoria,
-            data: p.data, quantidade: p.quantidade,
-            historicoAdicoes: p.historicoAdicoes || []
+            nome: nomeSeguro,
+            descricao: descSeguro,
+            categoria: catSegura,
+            subcategoria: subSegura,
+            data: dataSegura,
+            quantidade: qtdSegura,
+            historicoAdicoes: Array.isArray(p.historicoAdicoes) ? p.historicoAdicoes : []
         };
     });
     l.validades = obj;
@@ -4677,7 +4791,7 @@ function sdToggleAlertas(){
     mostrarToast(sdAlertasAtivos ? "Alertas ativados" : "Alertas desativados", sdAlertasAtivos ? "🔔" : "🔕");
 }
 function sdCapturarSnapshot(){
-    return { nome: $("sdInpNome").value, categoria: sdCatAtual, subcategoria: sdSubAtual, data: $("sdInpData").value, qtd: $("sdInpQtd").value };
+    return { nome: $("sdInpNome")?.value || "", categoria: sdCatAtual, subcategoria: sdSubAtual, data: $("sdInpData")?.value || "", qtd: $("sdInpQtd")?.value || "" };
 }
 function sdHouveAlteracao(){
     if(!sdSnapshotOriginal) return true;
@@ -4686,10 +4800,14 @@ function sdHouveAlteracao(){
 function sdAtualizarDisplayCategoria(cat, sub){
     sdCatAtual = cat || ""; sdSubAtual = sub || "";
     const txtCat = $("sdTxtCategoria"); const txtSub = $("sdTxtSubcategoria");
-    if(cat){ txtCat.textContent = cat; txtCat.style.color = "var(--jarvis-text)"; }
-    else { txtCat.textContent = "Selecione um produto acima"; txtCat.style.color = "var(--jarvis-text-dim)"; }
-    if(sub){ txtSub.textContent = sub; txtSub.style.color = "var(--jarvis-text)"; }
-    else { txtSub.textContent = "Selecione um produto acima"; txtSub.style.color = "var(--jarvis-text-dim)"; }
+    if(txtCat){
+        if(cat){ txtCat.textContent = cat; txtCat.style.color = "var(--jarvis-text)"; }
+        else { txtCat.textContent = "Selecione um produto acima"; txtCat.style.color = "var(--jarvis-text-dim)"; }
+    }
+    if(txtSub){
+        if(sub){ txtSub.textContent = sub; txtSub.style.color = "var(--jarvis-text)"; }
+        else { txtSub.textContent = "Selecione um produto acima"; txtSub.style.color = "var(--jarvis-text-dim)"; }
+    }
 }
 function sdMostrarChip(produto, bloquearTrocar){
     sdProdutoSelecionado = produto;
@@ -4705,36 +4823,38 @@ function sdMostrarChip(produto, bloquearTrocar){
 }
 function sdEsconderChip(){
     sdProdutoSelecionado = null;
-    $("sdChipProduto").classList.remove("sd-ativo");
-    $("sdChipNome").textContent = "";
-    $("sdChipDesc").textContent = "";
-    $("sdChipTrocar").classList.remove("sd-oculto");
+    $("sdChipProduto")?.classList.remove("sd-ativo");
+    const n=$("sdChipNome"); if(n) n.textContent = "";
+    const d=$("sdChipDesc"); if(d) d.textContent = "";
+    $("sdChipTrocar")?.classList.remove("sd-oculto");
     const lupa = $("sdBtnLupa");
     if(lupa) lupa.style.display = "flex";
 }
 function sdTrocarProduto(){
     sdEsconderChip(); sdAtualizarDisplayCategoria("", "");
-    $("sdInpNome").value = ""; $("sdInpNome").focus();
+    const inp = $("sdInpNome"); if(inp){ inp.value = ""; inp.focus(); }
     setTimeout(()=>sdBuscarNoModal(), 50);
 }
 function sdMostrarBlocoProduto(produto){
-    $("sdBlocoEmoji").textContent = produto.cat.split(" ")[0];
-    $("sdBlocoNome").textContent = produto.nome;
-    $("sdBlocoDesc").textContent = produto.desc + " • " + produto.sub;
-    $("sdBlocoProduto").classList.add("sd-ativo");
+    const e=$("sdBlocoEmoji"); if(e) e.textContent = produto.cat.split(" ")[0];
+    const n=$("sdBlocoNome"); if(n) n.textContent = produto.nome;
+    const d=$("sdBlocoDesc"); if(d) d.textContent = produto.desc + " • " + produto.sub;
+    $("sdBlocoProduto")?.classList.add("sd-ativo");
 }
 function sdEsconderBlocoProduto(){
-    $("sdBlocoProduto").classList.remove("sd-ativo");
-    $("sdBlocoNome").textContent = "";
-    $("sdBlocoDesc").textContent = "";
+    $("sdBlocoProduto")?.classList.remove("sd-ativo");
+    const n=$("sdBlocoNome"); if(n) n.textContent = "";
+    const d=$("sdBlocoDesc"); if(d) d.textContent = "";
 }
 function sdConfigurarModoModal(modo){
     const campo = $("sdCampoBuscaWrap"); const bloco = $("sdBlocoProduto");
+    if(!campo || !bloco) return;
     if(modo === "novo"){ campo.style.display = "block"; bloco.classList.remove("sd-ativo"); }
     else { campo.style.display = "none"; bloco.classList.add("sd-ativo"); }
 }
 function sdAplicarBloqueioNome(){
     const inp = $("sdInpNome"); const lupa = $("sdBtnLupa");
+    if(!inp || !lupa) return;
     if(sdModoAdicionarLote){ inp.readOnly = true; inp.classList.add("sd-bloqueado"); lupa.disabled = true; }
     else { inp.readOnly = false; inp.classList.remove("sd-bloqueado"); lupa.disabled = false; }
 }
@@ -4758,12 +4878,14 @@ function sdRender(){
         if(d <= 30) criticos++;
         else if(d <= 60) atencao++;
     });
-    $("sdCntTotal").textContent = produtos.length;
-    $("sdCntVencidos").textContent = criticos;
-    $("sdCntProximos").textContent = atencao;
+    const cT=$("sdCntTotal"); if(cT) cT.textContent = produtos.length;
+    const cV=$("sdCntVencidos"); if(cV) cV.textContent = criticos;
+    const cP=$("sdCntProximos"); if(cP) cP.textContent = atencao;
     const badge = $("sdBadgeAlerta");
-    if(sdAlertasAtivos && criticos > 0){ badge.textContent = criticos; badge.style.display = "flex"; }
-    else { badge.style.display = "none"; }
+    if(badge){
+        if(sdAlertasAtivos && criticos > 0){ badge.textContent = criticos; badge.style.display = "flex"; }
+        else { badge.style.display = "none"; }
+    }
 
     if(listaGrupos.length === 0){
         lista.innerHTML = '<div class="sd-vazio">' +
@@ -4778,7 +4900,7 @@ function sdRender(){
         const cls = sdClassificar(g.piorDias);
         const qtdTotal = g.lotes.reduce((s,l) => s + l.quantidade, 0);
         const totalLotes = g.lotes.length;
-        const emoji = g.categoria.split(" ")[0];
+        const emoji = (g.categoria || "📦").split(" ")[0];
         const lotesHTML = g.lotes.map(l => {
             const dias = sdDiasRestantes(l.data);
             const clsL = sdClassificar(dias);
@@ -4815,7 +4937,7 @@ function sdRender(){
             '</div>'+
             '<div class="sd-lotes">'+
                 lotesHTML+
-                '<button class="sd-btn-add-lote" onclick="sdAdicionarLote(\''+g.nome.replace(/\'/g,"\\\'")+'\',\''+g.categoria.replace(/\'/g,"\\\'")+'\',\''+g.subcategoria.replace(/\'/g,"\\\'")+'\');event.stopPropagation();">➕ Adicionar outro lote (validade diferente)</button>'+
+                '<button class="sd-btn-add-lote" onclick="sdAdicionarLote(\''+g.nome.replace(/\'/g,"\\\'")+'\',\''+(g.categoria||"").replace(/\'/g,"\\\'")+'\',\''+(g.subcategoria||"").replace(/\'/g,"\\\'")+'\');event.stopPropagation();">➕ Adicionar outro lote (validade diferente)</button>'+
             '</div>'+
         '</div>';
     }).join("");
@@ -4826,8 +4948,9 @@ function sdToggleGrupo(el){ el.parentElement.classList.toggle("sd-aberto"); }
 function sdBuscarNoModal(){
     if(sdModoAdicionarLote) return;
     if(sdProdutoSelecionado) return;
-    const termo = $("sdInpNome").value.trim();
-    const box = $("sdSugModal");
+    const inp = $("sdInpNome"); const box = $("sdSugModal");
+    if(!inp || !box) return;
+    const termo = inp.value.trim();
     if(!termo){ box.classList.remove("sd-ativo"); box.innerHTML = ""; return; }
     const palavras = normalizar(termo).split(/\s+/).filter(p=>p.length>0);
     const encontrados = SD_CATALOGO.filter(p => {
@@ -4857,15 +4980,17 @@ function sdToggleSugestoes(){
     if(sdModoAdicionarLote) return;
     if(sdProdutoSelecionado) return;
     const inp = $("sdInpNome");
+    if(!inp) return;
     if(!inp.value.trim()){ inp.focus(); sdBuscarNoModal(); } else sdBuscarNoModal();
 }
 function sdEscolherProduto(idx){
     if(sdModoAdicionarLote) return;
     const p = SD_CATALOGO[idx];
+    if(!p) return;
     sdAtualizarDisplayCategoria(p.cat, p.sub);
-    $("sdSugModal").classList.remove("sd-ativo");
+    $("sdSugModal")?.classList.remove("sd-ativo");
     sdMostrarChip(p, false);
-    setTimeout(()=>$("sdInpData").focus(), 100);
+    setTimeout(()=>$("sdInpData")?.focus(), 100);
 }
 document.addEventListener("click", (e)=>{
     const box = $("sdSugModal");
@@ -4873,7 +4998,7 @@ document.addEventListener("click", (e)=>{
     if(!wrap && box) box.classList.remove("sd-ativo");
 });
 function sdAbrirModal(){
-    $("sdOverlay").classList.add("sd-ativo");
+    $("sdOverlay")?.classList.add("sd-ativo");
     sdEditandoIndex = null;
     sdModoAdicionarLote = false;
     sdProdutoSelecionado = null;
@@ -4881,24 +5006,24 @@ function sdAbrirModal(){
     sdEsconderChip();
     sdEsconderBlocoProduto();
     sdConfigurarModoModal("novo");
-    $("sdInpNome").value = "";
-    $("sdInpQtd").value = 1;
-    $("sdTituloModal").textContent = "Adicionar produto";
+    const inp = $("sdInpNome"); if(inp) inp.value = "";
+    const qtd = $("sdInpQtd"); if(qtd) qtd.value = 1;
+    const titulo = $("sdTituloModal"); if(titulo) titulo.textContent = "Adicionar produto";
     sdAtualizarDisplayCategoria("", "");
     const d = new Date(); d.setDate(d.getDate() + 7);
-    $("sdInpData").value = d.toISOString().split("T")[0];
-    $("sdSugModal").classList.remove("sd-ativo");
+    const dt = $("sdInpData"); if(dt) dt.value = d.toISOString().split("T")[0];
+    $("sdSugModal")?.classList.remove("sd-ativo");
     sdSnapshotOriginal = sdCapturarSnapshot();
 }
 function sdFecharModal(e){
     if(e && e.target.id !== "sdOverlay") return;
     if(!sdHouveAlteracao()){ sdFecharModalForcado(); return; }
-    $("sdOverlayConfirm").classList.add("sd-ativo");
+    $("sdOverlayConfirm")?.classList.add("sd-ativo");
 }
 function sdFecharModalForcado(){
-    $("sdOverlay").classList.remove("sd-ativo");
-    $("sdInpNome").value = "";
-    $("sdInpQtd").value = 1;
+    $("sdOverlay")?.classList.remove("sd-ativo");
+    const inp=$("sdInpNome"); if(inp) inp.value = "";
+    const qtd=$("sdInpQtd"); if(qtd) qtd.value = 1;
     sdEditandoIndex = null;
     sdSnapshotOriginal = null;
     sdCatAtual = ""; sdSubAtual = "";
@@ -4907,33 +5032,35 @@ function sdFecharModalForcado(){
     sdAplicarBloqueioNome();
     sdEsconderChip();
     sdEsconderBlocoProduto();
-    $("sdSugModal").classList.remove("sd-ativo");
+    $("sdSugModal")?.classList.remove("sd-ativo");
 }
 function sdPedirConfirmacao(){
     const nomeFinal = sdProdutoSelecionado
         ? (sdProdutoSelecionado.nome + " — " + sdProdutoSelecionado.desc)
         : (sdEditandoIndex !== null || sdModoAdicionarLote)
-            ? $("sdBlocoNome").textContent + " — " + $("sdBlocoDesc").textContent.split(" • ")[0]
-            : $("sdInpNome").value.trim();
+            ? ($("sdBlocoNome")?.textContent || "") + " — " + ($("sdBlocoDesc")?.textContent || "").split(" • ")[0]
+            : ($("sdInpNome")?.value || "").trim();
     if(!nomeFinal){ alert("Digite ou selecione um produto antes de finalizar."); return; }
     if(!sdCatAtual){ alert("Escolha um produto da lista para definir a categoria."); return; }
     if(sdEditandoIndex !== null && !sdHouveAlteracao()){ sdFecharModalForcado(); return; }
-    $("sdOverlayConfirm").classList.add("sd-ativo");
+    $("sdOverlayConfirm")?.classList.add("sd-ativo");
 }
-function sdVoltarEditar(){ $("sdOverlayConfirm").classList.remove("sd-ativo"); }
-function sdDescartarTudo(){ $("sdOverlayConfirm").classList.remove("sd-ativo"); sdFecharModalForcado(); }
+function sdVoltarEditar(){ $("sdOverlayConfirm")?.classList.remove("sd-ativo"); }
+function sdDescartarTudo(){ $("sdOverlayConfirm")?.classList.remove("sd-ativo"); sdFecharModalForcado(); }
+
+/* ✨ FIX: inclui sempre o campo `descricao` (evita undefined e perda de dados na nuvem) */
 function sdConfirmarSalvar(){
     let nomeBase, descBase;
     if(sdProdutoSelecionado){ nomeBase = sdProdutoSelecionado.nome; descBase = sdProdutoSelecionado.desc; }
     else if(sdEditandoIndex !== null || sdModoAdicionarLote){
-        const blocoDescTexto = $("sdBlocoDesc").textContent;
-        nomeBase = $("sdBlocoNome").textContent;
+        const blocoDescTexto = $("sdBlocoDesc")?.textContent || "";
+        nomeBase = $("sdBlocoNome")?.textContent || "";
         const partes = blocoDescTexto.split(" • ");
         descBase = partes.slice(0, -1).join(" • ");
-    } else { nomeBase = $("sdInpNome").value.trim(); descBase = ""; }
+    } else { nomeBase = ($("sdInpNome")?.value || "").trim(); descBase = ""; }
     const nome = descBase ? (nomeBase + " — " + descBase) : nomeBase;
-    const data = $("sdInpData").value;
-    const qtd = parseInt($("sdInpQtd").value) || 1;
+    const data = $("sdInpData")?.value || "";
+    const qtd = parseInt($("sdInpQtd")?.value) || 1;
     if(!nome){ alert("Digite ou selecione um produto"); return; }
     if(!sdCatAtual){ alert("Escolha um produto da lista"); return; }
     if(!data){ alert("Escolha a data de validade"); return; }
@@ -4941,19 +5068,26 @@ function sdConfirmarSalvar(){
     const produtos = sdGetProdutos();
     if(sdEditandoIndex !== null){
         const antigo = produtos[sdEditandoIndex];
+        if(!antigo){ sdFecharModalForcado(); return; }
         produtos[sdEditandoIndex] = {
             _chave: antigo._chave,
-            nome, categoria: sdCatAtual, subcategoria: sdSubAtual,
-            data, quantidade: qtd,
+            nome,
+            descricao: descBase || "",
+            categoria: sdCatAtual,
+            subcategoria: sdSubAtual,
+            data,
+            quantidade: qtd,
             historicoAdicoes: antigo.historicoAdicoes || []
         };
         sdSetProdutos(produtos);
         sdEditandoIndex = null;
         sdModoAdicionarLote = false;
-        $("sdOverlayConfirm").classList.remove("sd-ativo");
+        $("sdOverlayConfirm")?.classList.remove("sd-ativo");
         sdFecharModalForcado();
         sdRender();
         atualizarCardsLojas();
+        montarRelatorio();
+        mostrarToast("Lote atualizado com sucesso","✅");
         return;
     }
     const idxExistente = produtos.findIndex(p =>
@@ -4962,19 +5096,30 @@ function sdConfirmarSalvar(){
     if(idxExistente !== -1){
         const ex = produtos[idxExistente];
         ex.quantidade = (parseInt(ex.quantidade) || 0) + qtd;
+        if(!ex.descricao) ex.descricao = descBase || "";
         if(!ex.historicoAdicoes) ex.historicoAdicoes = [];
         ex.historicoAdicoes.push({ qtd: qtd, ts: Date.now() });
         produtos[idxExistente] = ex;
     } else {
-        produtos.push({ nome, categoria: sdCatAtual, subcategoria: sdSubAtual, data, quantidade: qtd, historicoAdicoes: [] });
+        produtos.push({
+            nome,
+            descricao: descBase || "",
+            categoria: sdCatAtual,
+            subcategoria: sdSubAtual,
+            data,
+            quantidade: qtd,
+            historicoAdicoes: []
+        });
     }
     sdSetProdutos(produtos);
     sdEditandoIndex = null;
     sdModoAdicionarLote = false;
-    $("sdOverlayConfirm").classList.remove("sd-ativo");
+    $("sdOverlayConfirm")?.classList.remove("sd-ativo");
     sdFecharModalForcado();
     sdRender();
     atualizarCardsLojas();
+    montarRelatorio();
+    mostrarToast("Produto salvo com sucesso","✅");
 }
 function sdEditarProduto(index){
     const produtos = sdGetProdutos();
@@ -4983,39 +5128,39 @@ function sdEditarProduto(index){
     sdEditandoIndex = index;
     sdModoAdicionarLote = false;
     sdAplicarBloqueioNome();
-    $("sdTituloModal").textContent = "Editar produto";
+    const titulo = $("sdTituloModal"); if(titulo) titulo.textContent = "Editar produto";
     sdAtualizarDisplayCategoria(p.categoria, p.subcategoria);
-    $("sdInpData").value = p.data;
-    $("sdInpQtd").value = p.quantidade;
+    const dt=$("sdInpData"); if(dt) dt.value = p.data;
+    const qtd=$("sdInpQtd"); if(qtd) qtd.value = p.quantidade;
     const partes = p.nome.split(" — ");
     const nomeBase = partes[0];
     const descBase = partes.slice(1).join(" — ") || "";
     sdConfigurarModoModal("editar");
     sdEsconderChip();
     sdMostrarBlocoProduto({ nome: nomeBase, desc: descBase, cat: p.categoria, sub: p.subcategoria });
-    $("sdOverlay").classList.add("sd-ativo");
-    $("sdSugModal").classList.remove("sd-ativo");
+    $("sdOverlay")?.classList.add("sd-ativo");
+    $("sdSugModal")?.classList.remove("sd-ativo");
     sdSnapshotOriginal = sdCapturarSnapshot();
 }
 function sdAdicionarLote(nome, categoria, subcategoria){
     sdEditandoIndex = null;
     sdModoAdicionarLote = true;
     sdAplicarBloqueioNome();
-    $("sdTituloModal").textContent = "Adicionar outro lote";
+    const titulo = $("sdTituloModal"); if(titulo) titulo.textContent = "Adicionar outro lote";
     sdAtualizarDisplayCategoria(categoria, subcategoria);
-    $("sdInpQtd").value = 1;
+    const qtd=$("sdInpQtd"); if(qtd) qtd.value = 1;
     const d = new Date(); d.setDate(d.getDate() + 7);
-    $("sdInpData").value = d.toISOString().split("T")[0];
+    const dt=$("sdInpData"); if(dt) dt.value = d.toISOString().split("T")[0];
     const partes = nome.split(" — ");
     const nomeBase = partes[0];
     const descBase = partes.slice(1).join(" — ") || "";
     sdConfigurarModoModal("lote");
     sdEsconderChip();
     sdMostrarBlocoProduto({ nome: nomeBase, desc: descBase, cat: categoria, sub: subcategoria });
-    $("sdInpNome").value = "";
-    $("sdOverlay").classList.add("sd-ativo");
-    $("sdSugModal").classList.remove("sd-ativo");
-    $("sdInpData").focus();
+    const inp=$("sdInpNome"); if(inp) inp.value = "";
+    $("sdOverlay")?.classList.add("sd-ativo");
+    $("sdSugModal")?.classList.remove("sd-ativo");
+    $("sdInpData")?.focus();
     sdSnapshotOriginal = sdCapturarSnapshot();
 }
 function sdRemoverProduto(index){
@@ -5027,6 +5172,8 @@ function sdRemoverProduto(index){
         sdSetProdutos(produtos);
         sdRender();
         atualizarCardsLojas();
+        montarRelatorio();
+        mostrarToast("Lote removido","🗑️");
     }
 }
 function sdAbrirHistorico(index){
@@ -5034,20 +5181,21 @@ function sdAbrirHistorico(index){
     const p = produtos[index];
     if(!p) return;
     const hist = p.historicoAdicoes || [];
-    $("sdHistoricoProduto").textContent = p.nome;
+    const elProd = $("sdHistoricoProduto"); if(elProd) elProd.textContent = p.nome;
     const lista = $("sdHistoricoLista");
+    if(!lista) return;
     if(hist.length === 0){
         lista.innerHTML = '<div class="sd-historico-item" style="justify-content:center;color:var(--jarvis-text-dim);">Nenhuma adição registrada</div>';
     } else {
         const inv = [...hist].reverse();
         lista.innerHTML = inv.map(h => '<div class="sd-historico-item"><span class="sd-qtd">➕ '+h.qtd+' un</span><span class="sd-data-hora">'+sdFormatarDataHora(h.ts)+'</span></div>').join("");
     }
-    $("sdHistoricoTotal").innerHTML = '<span>📊 Total atual:</span><span>'+p.quantidade+' un</span>';
-    $("sdOverlayHistorico").classList.add("sd-ativo");
+    const tot = $("sdHistoricoTotal"); if(tot) tot.innerHTML = '<span>📊 Total atual:</span><span>'+p.quantidade+' un</span>';
+    $("sdOverlayHistorico")?.classList.add("sd-ativo");
 }
 function sdFecharHistorico(e){
     if(e && e.target.id !== "sdOverlayHistorico") return;
-    $("sdOverlayHistorico").classList.remove("sd-ativo");
+    $("sdOverlayHistorico")?.classList.remove("sd-ativo");
 }
 
 function gerarRelatorioCompleto(){
@@ -5140,10 +5288,10 @@ function gerarRelatorioCompleto(){
         t += "\n🗓️ VALIDADES (" + produtos.length + ")\n";
         const agrupado = {};
         produtos.forEach(p => {
-            const chave = p.nome + "||" + p.descricao + "||" + p.data;
+            const chave = p.nome + "||" + (p.descricao || "") + "||" + p.data;
             if(!agrupado[chave]){
                 agrupado[chave] = {
-                    nome: p.nome, descricao: p.descricao,
+                    nome: p.nome, descricao: p.descricao || "",
                     categoria: p.categoria, subcategoria: p.subcategoria,
                     data: p.data, quantidade: 0
                 };
@@ -5157,8 +5305,8 @@ function gerarRelatorioCompleto(){
             porCat[p.categoria].push(p);
         });
         Object.keys(porCat).forEach(cat => {
-            const emojiCat = cat.split(" ")[0];
-            const nomeCat = cat.replace(/^\S+\s/, "");
+            const emojiCat = (cat || "📦").split(" ")[0];
+            const nomeCat = (cat || "Sem categoria").replace(/^\S+\s/, "");
             t += "\n" + emojiCat + " " + nomeCat.toUpperCase() + "\n";
             const porProd = {};
             porCat[cat].forEach(p => {
@@ -5226,11 +5374,14 @@ function montarRelatorio(){
         (share.geladeira && (share.geladeira.nab || share.geladeira.cerveja)) ||
         (share.extras && (share.extras.nab || share.extras.cerveja))
     );
-    $("toolsInfoTexto").textContent =
+    const info = $("toolsInfoTexto");
+    if(info) info.textContent =
         "🔒 Somente leitura • 📋 " + totalR + " ruptura(s) • 🗓️ " + totalV + " validade(s)" + (temShare ? " • 📏 share salvo" : "");
     const btn = $("toolsBtnCopiar");
-    btn.classList.remove("sd-copiado");
-    btn.innerHTML = "📋 Copiar informações";
+    if(btn){
+        btn.classList.remove("sd-copiado");
+        btn.innerHTML = "📋 Copiar informações";
+    }
 }
 
 async function copiarRelatorio(){
@@ -5247,18 +5398,22 @@ async function copiarRelatorio(){
         document.execCommand("copy");
         ta.remove();
     }
-    btn.classList.add("sd-copiado");
-    btn.innerHTML = "✅ Copiado!";
-    setTimeout(()=>{ btn.classList.remove("sd-copiado"); btn.innerHTML = "📋 Copiar informações"; }, 2000);
+    if(btn){
+        btn.classList.add("sd-copiado");
+        btn.innerHTML = "✅ Copiado!";
+        setTimeout(()=>{ btn.classList.remove("sd-copiado"); btn.innerHTML = "📋 Copiar informações"; }, 2000);
+    }
 }
 
-function abrirSobreApp(){ $("modalSobreApp").classList.add("aberto"); }
+function abrirSobreApp(){ $("modalSobreApp")?.classList.add("aberto"); }
 function fecharSobreApp(e){
     if(e && e.target.id !== "modalSobreApp") return;
-    $("modalSobreApp").classList.remove("aberto");
+    $("modalSobreApp")?.classList.remove("aberto");
 }
 
 window.addEventListener("popstate", ()=>{
+    const gear = $("gearMenu");
+    if(gear && gear.classList.contains("aberto")){ fecharGearMenu(); history.pushState(null, "", location.href); return; }
     const sdOverlay = $("sdOverlay");
     if(sdOverlay && sdOverlay.classList.contains("sd-ativo")){ sdFecharModalForcado(); history.pushState(null, "", location.href); return; }
     const sdConfirm = $("sdOverlayConfirm");
@@ -5278,6 +5433,7 @@ history.pushState(null, "", location.href);
 
 window.addEventListener("keydown", (e)=>{
     if(e.key === "Escape"){
+        fecharGearMenu();
         const sdOverlay = $("sdOverlay");
         if(sdOverlay && sdOverlay.classList.contains("sd-ativo")){ sdFecharModalForcado(); return; }
         const sdConfirm = $("sdOverlayConfirm");
