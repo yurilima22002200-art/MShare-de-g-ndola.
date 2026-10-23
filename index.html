@@ -724,123 +724,29 @@ button{ cursor:pointer; border:none; background:none; }
   text-transform:uppercase; margin-top:3px;
   font-weight:700; letter-spacing:1px;
 }
-.ruptura-busca-wrap{ position:relative; margin-bottom:10px; }
-.ruptura-busca-wrap input{
-  width:100%; padding:12px 46px 12px 13px;
-  border:1px solid var(--line); background:rgba(0,15,35,.7);
-  color:var(--txt); outline:none;
-  font-size:14px; font-weight:500;
-  transition:border-color .15s; border-radius:10px;
-  font-family:inherit;
+
+/* NOVO BOTÃO DE ADICIONAR RUPTURA */
+.rup-btn-add-novo {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  background: rgba(0, 212, 255, .12);
+  border: 1.5px dashed var(--c1);
+  color: var(--c1);
+  border-radius: 9px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: background .15s ease;
 }
-.ruptura-busca-wrap input:focus{ border-color:var(--c1); }
-.ruptura-busca-wrap input::placeholder{ color:var(--dis); }
-.ruptura-busca-wrap .rup-lupa{
-  position:absolute; right:5px; top:50%; transform:translateY(-50%);
-  width:34px; height:34px; border-radius:8px;
-  border:1px solid var(--line);
-  background:rgba(0,212,255,.12); color:var(--c1);
-  font-size:14px;
-  display:flex; align-items:center; justify-content:center;
-}
-.rup-arvore{
-  display:none;
-  background:rgba(0,15,35,.7); border:1px solid var(--line);
-  border-radius:12px; padding:9px; margin-bottom:10px;
-  max-height:400px; overflow-y:auto;
-}
-.rup-arvore.ativo{ display:block; }
-.rup-arvore-header{
-  padding:8px 11px;
-  font-size:9.5px; color:var(--dim);
-  background:rgba(0,30,60,.8);
-  border-bottom:1px solid var(--line);
-  font-weight:700; letter-spacing:1px;
-  text-transform:uppercase;
-  font-family:'Orbitron',sans-serif;
-  border-radius:8px 8px 0 0;
-  margin:-9px -9px 8px -9px;
-  display:flex; align-items:center; justify-content:space-between;
-  gap:7px; position:sticky; top:-9px; z-index:5;
-}
-.rup-arvore-header .rup-marcar-todos{
-  background:rgba(0,212,255,.12);
-  border:1px solid var(--line);
-  color:var(--c1);
-  padding:4px 9px; border-radius:12px;
-  font-size:9px; font-weight:800;
-  letter-spacing:.4px; text-transform:uppercase;
-  font-family:'Orbitron',sans-serif;
-}
-.rup-arvore-header .rup-marcar-todos:active{ background:rgba(0,212,255,.28); }
-.rup-item-selecionavel{
-  display:flex; align-items:center; gap:9px;
-  padding:9px 10px;
-  border-bottom:1px solid rgba(0,212,255,.06);
-  transition:background .12s ease;
-  border-radius:7px;
-}
-.rup-item-selecionavel:last-child{ border-bottom:none; }
-.rup-item-selecionavel:active{ background:rgba(0,60,120,.3); }
-.rup-item-selecionavel.marcado{
-  background:rgba(0,212,255,.12);
-  border-left:3px solid var(--c1);
-}
-.rup-item-selecionavel.ja-registrado{ opacity:.45; cursor:not-allowed; }
-.rup-check-box{
-  width:20px; height:20px; border-radius:5px;
-  border:2px solid var(--line); background:rgba(0,15,35,.7);
-  display:flex; align-items:center; justify-content:center;
-  flex-shrink:0; transition:all .15s ease;
-}
-.rup-item-selecionavel.marcado .rup-check-box{
-  background:linear-gradient(135deg,var(--c1),var(--c2));
-  border-color:var(--c1);
-}
-.rup-item-selecionavel.marcado .rup-check-box::after{
-  content:"✓"; color:#001428; font-size:13px; font-weight:900;
-}
-.rup-item-selecionavel .rup-info{ flex:1; min-width:0; }
-.rup-item-selecionavel .rup-nome{
-  font-size:12px; font-weight:700; color:var(--txt);
-  line-height:1.3; word-break:break-word;
-}
-.rup-item-selecionavel .rup-meta{
-  font-size:10px; color:var(--dim); margin-top:2px;
-  line-height:1.3; word-break:break-word; font-weight:500;
-}
-.rup-item-selecionavel .rup-badge-reg{
-  font-size:8.5px; font-weight:800;
-  color:var(--ok); background:rgba(0,255,157,.15);
-  border:1px solid rgba(0,255,157,.35);
-  padding:2px 6px; border-radius:5px;
-  letter-spacing:.3px; text-transform:uppercase;
-  font-family:'Orbitron',sans-serif; flex-shrink:0;
-}
-.rup-btn-salvar-sel{
-  position:sticky; bottom:-9px;
-  width:calc(100% + 18px);
-  margin-left:-9px; margin-right:-9px; margin-top:9px;
-  padding:12px;
-  border:none; border-top:1px solid var(--line);
-  background:linear-gradient(135deg,var(--c1),var(--c2));
-  color:#001428;
-  font-family:'Orbitron',sans-serif;
-  font-weight:800; font-size:11px;
-  letter-spacing:1.3px; text-transform:uppercase;
-  display:flex; align-items:center; justify-content:center; gap:7px;
-  border-radius:0 0 12px 12px;
-  transition:background .15s ease; z-index:6;
-}
-.rup-btn-salvar-sel:active{ background:linear-gradient(135deg,var(--c2),var(--c1)); }
-.rup-btn-salvar-sel:disabled{
-  opacity:.4; cursor:not-allowed;
-  background:rgba(0,40,90,.5); color:var(--dim);
-}
-.rup-btn-salvar-sel .rup-count{
-  background:rgba(0,20,40,.4);
-  padding:2px 9px; border-radius:10px; font-size:10.5px;
-}
+.rup-btn-add-novo:active { background: rgba(0, 212, 255, .25); }
+
 .rup-lista-titulo{
   font-family:'Orbitron',sans-serif;
   font-size:10.5px; font-weight:700;
@@ -958,6 +864,64 @@ button{ cursor:pointer; border:none; background:none; }
   color:var(--c1); background:rgba(0,212,255,.12);
   border:1px solid rgba(0,212,255,.35); border-radius:4px;
   vertical-align:middle; white-space:nowrap;
+}
+
+/* NOVO MODAL DE RUPTURAS */
+.rup-item-selecionavel{
+  display:flex; align-items:center; gap:9px;
+  padding:9px 10px;
+  border-bottom:1px solid rgba(0,212,255,.06);
+  transition:background .12s ease;
+  border-radius:7px;
+}
+.rup-item-selecionavel:last-child{ border-bottom:none; }
+.rup-item-selecionavel:active{ background:rgba(0,60,120,.3); }
+.rup-item-selecionavel.marcado{
+  background:rgba(0,212,255,.12);
+  border-left:3px solid var(--c1);
+}
+.rup-item-selecionavel.ja-registrado{ opacity:.45; cursor:not-allowed; }
+.rup-check-box{
+  width:20px; height:20px; border-radius:5px;
+  border:2px solid var(--line); background:rgba(0,15,35,.7);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; transition:all .15s ease;
+}
+.rup-item-selecionavel.marcado .rup-check-box{
+  background:linear-gradient(135deg,var(--c1),var(--c2));
+  border-color:var(--c1);
+}
+.rup-item-selecionavel.marcado .rup-check-box::after{
+  content:"✓"; color:#001428; font-size:13px; font-weight:900;
+}
+.rup-item-selecionavel .rup-info{ flex:1; min-width:0; }
+.rup-item-selecionavel .rup-nome{
+  font-size:12px; font-weight:700; color:var(--txt);
+  line-height:1.3; word-break:break-word;
+}
+.rup-item-selecionavel .rup-meta{
+  font-size:10px; color:var(--dim); margin-top:2px;
+  line-height:1.3; word-break:break-word; font-weight:500;
+}
+.rup-item-selecionavel .rup-badge-reg{
+  font-size:8.5px; font-weight:800;
+  color:var(--ok); background:rgba(0,255,157,.15);
+  border:1px solid rgba(0,255,157,.35);
+  padding:2px 6px; border-radius:5px;
+  letter-spacing:.3px; text-transform:uppercase;
+  font-family:'Orbitron',sans-serif; flex-shrink:0;
+}
+.rup-btn-salvar-sel{
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--c1), var(--c2));
+  color: #001428;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800; font-size: 11px; letter-spacing: 1.3px; text-transform: uppercase;
+  transition: transform .15s ease;
+}
+.rup-btn-salvar-sel:active{ transform: scale(.97); }
+.rup-btn-salvar-sel:disabled{
+  background: rgba(0,40,90,.5) !important; color: var(--dim) !important; cursor: not-allowed;
 }
 
 /* ================= LISTA SELEÇÃO LOJA ================= */
@@ -2273,26 +2237,12 @@ footer .ico{ font-size:9px; color:var(--c1); }
         </div>
       </div>
 
-      <div class="ruptura-busca-wrap">
-        <input type="text" id="rupBuscaInput"
-               placeholder="Buscar produto para adicionar como ruptura..."
-               autocomplete="off"
-               oninput="rupBuscar()" onfocus="rupBuscar()">
-        <button type="button" class="rup-lupa" onclick="rupBuscar()">🔎</button>
-      </div>
+      <!-- NOVO BOTÃO DE ADICIONAR -->
+      <button class="rup-btn-add-novo" onclick="abrirModalRuptura()">
+        ➕ Adicionar Ruptura
+      </button>
 
-      <div class="rup-arvore" id="rupArvore">
-        <div class="rup-arvore-header">
-          <span id="rupArvoreTitulo">Resultados</span>
-          <button type="button" class="rup-marcar-todos" onclick="rupMarcarTodos()">Marcar todos</button>
-        </div>
-        <div id="rupArvoreItens"></div>
-        <button class="rup-btn-salvar-sel" id="rupBtnSalvarSel" onclick="rupSalvarSelecionados()" disabled>
-          ✔️ Salvar selecionados <span class="rup-count" id="rupSelCount">0</span>
-        </button>
-      </div>
-
-      <div class="rup-lista-titulo">
+      <div class="rup-lista-titulo" style="margin-top: 12px;">
         <span>📋 Rupturas Registradas</span>
         <span class="rup-badge-num" id="rupQtdBadge">0</span>
       </div>
@@ -2355,6 +2305,34 @@ footer .ico{ font-size:9px; color:var(--c1); }
       </div>
     </div>
 
+  </div>
+</div>
+
+<!-- NOVO MODAL PARA ADICIONAR RUPTURA -->
+<div class="sd-overlay" id="rupOverlay" onclick="rupFecharModal(event)">
+  <div class="sd-modal" onclick="event.stopPropagation()">
+    <div class="sd-modal-topo">
+      <h2>Adicionar Ruptura</h2>
+      <button type="button" class="sd-modal-fechar" onclick="rupFecharModalForcado()">✖</button>
+    </div>
+
+    <div class="sd-campo" style="margin-bottom:0;">
+      <label>Buscar produto</label>
+      <input type="text" id="rupBuscaInput" placeholder="Ex: gua ant 350" autocomplete="off" oninput="rupBuscar()">
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; margin-bottom:6px;">
+      <span id="rupArvoreTitulo" style="font-size:10px; color:var(--dim); font-weight:700; letter-spacing:1px; text-transform:uppercase;">Resultados</span>
+      <button type="button" class="rup-marcar-todos" onclick="rupMarcarTodos()" style="background:rgba(0,212,255,.12); border:1px solid var(--line); color:var(--c1); padding:4px 9px; border-radius:12px; font-size:9px; font-weight:800; letter-spacing:.4px; text-transform:uppercase; font-family:'Orbitron',sans-serif;">Marcar todos</button>
+    </div>
+
+    <div id="rupArvoreItens" style="max-height:45vh; overflow-y:auto; border-radius:10px; border:1px solid var(--line); background:rgba(0,15,35,.7); padding: 4px;">
+      <!-- Resultados inseridos via JS -->
+    </div>
+
+    <button class="rup-btn-salvar-sel" id="rupBtnSalvarSel" onclick="rupSalvarSelecionados()" disabled style="position:static; width:100%; margin-top:15px; border-radius:10px; border:none; height:auto; padding:12px; font-size:11px; display:flex; justify-content:center; align-items:center; gap:7px;">
+      ✔️ Salvar selecionados <span class="rup-count" id="rupSelCount" style="background:rgba(0,20,40,.4); padding:2px 9px; border-radius:10px;">0</span>
+    </button>
   </div>
 </div>
 
@@ -3572,6 +3550,7 @@ function abrirFerramentaRupturas(i){
 }
 function fecharFerramentaRupturas(){
     const m = $("modalLoja"); if(m) m.classList.remove("aberto");
+    rupFecharModalForcado(); // GARANTE QUE O MODAL DE RUPTURA SE FECHE SE ESTIVER ABERTO
     dadosDestravados = false;
     rupModoExclusao = false;
     rupParaExcluir.clear();
@@ -4226,28 +4205,59 @@ function calcResultado(){
     }catch(e){ const cr=$("calcResult"); if(cr) cr.textContent="Erro"; }
 }
 
+/* ================= LÓGICA DE RUPTURAS (ATUALIZADA COM O NOVO MODAL) ================= */
 let rupSelecionados = new Set();
+
+function abrirModalRuptura() {
+    const inp = $("rupBuscaInput");
+    if(inp) inp.value = "";
+    rupSelecionados.clear();
+    rupAtualizarBotaoSalvar();
+    const titulo = $("rupArvoreTitulo");
+    if(titulo) titulo.textContent = "Resultados";
+    const itens = $("rupArvoreItens");
+    if(itens) itens.innerHTML = "";
+    
+    $("rupOverlay").classList.add("sd-ativo");
+    setTimeout(() => { if(inp) inp.focus(); }, 300);
+}
+
+function rupFecharModal(e) {
+    if(e && e.target.id !== "rupOverlay") return;
+    rupFecharModalForcado();
+}
+
+function rupFecharModalForcado() {
+    $("rupOverlay")?.classList.remove("sd-ativo");
+}
 
 function rupBuscar(){
     const input = $("rupBuscaInput");
-    const arvore = $("rupArvore");
     const itensWrap = $("rupArvoreItens");
     const titulo = $("rupArvoreTitulo");
-    if(!input || !arvore || !itensWrap || !titulo) return;
+    if(!input || !itensWrap || !titulo) return;
+    
     const termo = input.value.trim();
-    if(!termo){ arvore.classList.remove("ativo"); itensWrap.innerHTML = ""; return; }
+    if(!termo){ 
+        itensWrap.innerHTML = ""; 
+        titulo.textContent = "Resultados";
+        rupAtualizarBotaoSalvar();
+        return; 
+    }
+    
     const palavras = normalizar(termo).split(/\s+/).filter(p=>p.length>0);
     const encontrados = SD_CATALOGO.filter(p => {
         const texto = p.nome + " " + p.desc + " " + p.sub;
         return matchAbreviado(texto, palavras);
     }).slice(0, 60);
+    
     if(encontrados.length === 0){
         titulo.textContent = "Nenhum resultado";
-        itensWrap.innerHTML = '<div class="rup-vazio" style="padding:20px 10px;font-size:12px;">Nenhum produto encontrado</div>';
-        arvore.classList.add("ativo");
+        itensWrap.innerHTML = '<div class="rup-vazio" style="padding:20px 10px;font-size:12px; text-align:center; color:var(--dim);">Nenhum produto encontrado</div>';
         rupAtualizarBotaoSalvar();
         return;
     }
+    
     titulo.textContent = encontrados.length + " produto(s) encontrado(s)";
     const l = getLoja(lojaAtiva);
     const registrados = l.rupturas || {};
@@ -4266,9 +4276,10 @@ function rupBuscar(){
             (jaReg ? '<span class="rup-badge-reg">✓ já salvo</span>' : '')+
         '</div>';
     }).join("");
-    arvore.classList.add("ativo");
+    
     rupAtualizarBotaoSalvar();
 }
+
 function rupToggleItem(idx, event){
     if(event) event.stopPropagation();
     const p = SD_CATALOGO[idx];
@@ -4280,6 +4291,7 @@ function rupToggleItem(idx, event){
     else rupSelecionados.add(idx);
     rupBuscar();
 }
+
 function rupMarcarTodos(){
     const input = $("rupBuscaInput");
     if(!input) return;
@@ -4302,6 +4314,7 @@ function rupMarcarTodos(){
     });
     rupBuscar();
 }
+
 function rupAtualizarBotaoSalvar(){
     const btn = $("rupBtnSalvarSel");
     const count = $("rupSelCount");
@@ -4310,6 +4323,7 @@ function rupAtualizarBotaoSalvar(){
     count.textContent = n;
     btn.disabled = n === 0;
 }
+
 function rupSalvarSelecionados(){
     if(rupSelecionados.size === 0){ mostrarToast("Nenhum produto selecionado","⚠️"); return; }
     const l = getLoja(lojaAtiva);
@@ -4333,8 +4347,13 @@ function rupSalvarSelecionados(){
     rupRenderLista();
     rupAtualizarContadores();
     atualizarCardsLojas();
-    montarRelatorio();
-    rupBuscar();
+    montarRelatorio(); // <--- Atualiza o bloco de notas (relatório)
+    
+    rupFecharModalForcado(); // <--- FECHA O MODAL
+    
+    const inp = $("rupBuscaInput"); if(inp) inp.value = "";
+    const itens = $("rupArvoreItens"); if(itens) itens.innerHTML = "";
+    
     if(navigator.vibrate) navigator.vibrate(40);
     if(adicionados > 0){
         mostrarToast(adicionados + " produto(s) salvo(s)" + (pulados > 0 ? " • " + pulados + " já existiam" : ""),"✅");
@@ -4406,8 +4425,6 @@ function rupExcluirSelecionados(){
     rupAtualizarModoExclusao();
     atualizarCardsLojas();
     montarRelatorio();
-    const inp = $("rupBuscaInput");
-    if(inp && inp.value.trim()) rupBuscar();
     if(navigator.vibrate) navigator.vibrate([40,40,40]);
     mostrarToast(qtd + " item(ns) excluído(s)","🗑️");
 }
@@ -4420,7 +4437,7 @@ function rupRenderLista(){
     if(!container) return;
 
     if(chaves.length === 0){
-        container.innerHTML = '<div class="rup-vazio">📭 Nenhuma ruptura registrada ainda.<br>Use a busca acima para adicionar produtos.</div>';
+        container.innerHTML = '<div class="rup-vazio">📭 Nenhuma ruptura registrada ainda.<br>Use o botão acima para adicionar produtos.</div>';
         if(btnExcluirModo) btnExcluirModo.style.display = "none";
         rupModoExclusao = false;
         rupParaExcluir.clear();
@@ -5167,6 +5184,8 @@ function fecharSobreApp(e){
 window.addEventListener("popstate", ()=>{
     const gear = $("gearMenu");
     if(gear && gear.classList.contains("aberto")){ fecharGearMenu(); history.pushState(null, "", location.href); return; }
+    const rupOverlay = $("rupOverlay");
+    if(rupOverlay && rupOverlay.classList.contains("sd-ativo")){ rupFecharModalForcado(); history.pushState(null, "", location.href); return; }
     const sdOverlay = $("sdOverlay");
     if(sdOverlay && sdOverlay.classList.contains("sd-ativo")){ sdFecharModalForcado(); history.pushState(null, "", location.href); return; }
     const sdConfirm = $("sdOverlayConfirm");
@@ -5187,6 +5206,8 @@ history.pushState(null, "", location.href);
 window.addEventListener("keydown", (e)=>{
     if(e.key === "Escape"){
         fecharGearMenu();
+        const rupOverlay = $("rupOverlay");
+        if(rupOverlay && rupOverlay.classList.contains("sd-ativo")){ rupFecharModalForcado(); return; }
         const sdOverlay = $("sdOverlay");
         if(sdOverlay && sdOverlay.classList.contains("sd-ativo")){ sdFecharModalForcado(); return; }
         const sdConfirm = $("sdOverlayConfirm");
