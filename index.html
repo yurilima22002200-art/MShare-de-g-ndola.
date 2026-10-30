@@ -521,7 +521,6 @@ button{ cursor:pointer; border:none; background:none; }
 }
 .input:focus{ border-color:var(--c1); }
 
-/* Grade de 3 campos do share */
 .share-fields-3{
   display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
   gap:8px; margin-bottom:10px;
@@ -724,8 +723,6 @@ button{ cursor:pointer; border:none; background:none; }
   text-transform:uppercase; margin-top:3px;
   font-weight:700; letter-spacing:1px;
 }
-
-/* NOVO BOTÃO DE ADICIONAR RUPTURA */
 .rup-btn-add-novo {
   width: 100%;
   padding: 12px;
@@ -746,7 +743,6 @@ button{ cursor:pointer; border:none; background:none; }
   transition: background .15s ease;
 }
 .rup-btn-add-novo:active { background: rgba(0, 212, 255, .25); }
-
 .rup-lista-titulo{
   font-family:'Orbitron',sans-serif;
   font-size:10.5px; font-weight:700;
@@ -865,8 +861,6 @@ button{ cursor:pointer; border:none; background:none; }
   border:1px solid rgba(0,212,255,.35); border-radius:4px;
   vertical-align:middle; white-space:nowrap;
 }
-
-/* NOVO MODAL DE RUPTURAS */
 .rup-item-selecionavel{
   display:flex; align-items:center; gap:9px;
   padding:9px 10px;
@@ -1688,8 +1682,619 @@ footer .ico{ font-size:9px; color:var(--c1); }
   border:1px solid rgba(0,255,157,.4); color:var(--ok);
 }
 
-/* Esconde lupa quando chip do produto está ativo */
 .sd-campo-busca:has(.sd-chip-produto.sd-ativo) .sd-btn-lupa{ display:none!important; }
+
+/* ===================================================== */
+/* ========== MAPEAMENTO (DESIGN JARVIS) =============== */
+/* ===================================================== */
+.map-wrap{
+  display:flex; flex-direction:column;
+  gap:12px; width:100%; max-width:100%;
+  margin:0 auto; padding:0;
+  overflow-x:hidden;
+}
+.map-wrap *{ word-break:break-word; overflow-wrap:anywhere; }
+
+/* Cabeçalho */
+.map-title{
+  font-family:'Orbitron',sans-serif;
+  font-size:12px; font-weight:700; color:var(--c1);
+  letter-spacing:1.5px; text-transform:uppercase;
+  display:flex; align-items:center; gap:7px;
+  margin:0 0 4px 0;
+}
+.map-sub{
+  font-size:10.5px; color:var(--dim);
+  margin:0 0 12px 0; line-height:1.4;
+}
+
+/* Caixa de orientação */
+.map-orientacao{
+  background:rgba(255,185,0,.1);
+  border-left:3px solid var(--warn);
+  border-radius:0 8px 8px 0;
+  padding:9px 11px; margin-bottom:12px;
+  font-size:10.5px; line-height:1.5;
+  color:#ffd24d; word-wrap:break-word;
+}
+.map-orientacao strong{ color:var(--warn); }
+
+/* Caixa de campo (meta / descrição) */
+.map-box{
+  background:rgba(0,25,50,.55);
+  border:1px solid var(--line);
+  border-radius:10px; padding:11px 12px;
+  margin-bottom:12px;
+}
+.map-box.travada{
+  border-color:var(--ok);
+  background:rgba(0,255,157,.08);
+}
+.map-box.travada label{ color:var(--ok); }
+.map-box label{
+  display:flex; align-items:center; gap:5px;
+  font-family:'Orbitron',sans-serif;
+  font-size:9.5px; font-weight:700; color:var(--c1);
+  letter-spacing:1px; text-transform:uppercase;
+  margin-bottom:6px;
+}
+.map-box .map-hint{
+  font-size:9.5px; color:var(--dim);
+  margin-top:6px; line-height:1.45;
+}
+.map-box .map-botoes{
+  display:flex; gap:8px; margin-top:9px; flex-wrap:wrap;
+}
+.map-box .map-botoes button{ flex:1 1 auto; }
+
+/* Inputs do mapeamento */
+.map-input{
+  width:100%; max-width:100%;
+  padding:11px 12px; font-size:14px;
+  border:1px solid var(--line); border-radius:8px;
+  background:rgba(0,15,35,.7); color:var(--txt);
+  outline:none; transition:border-color .15s;
+  font-family:inherit;
+}
+.map-input:focus{ border-color:var(--c1); }
+.map-input::placeholder{ color:var(--dis); }
+.map-input[readonly]{
+  background:rgba(0,25,50,.4);
+  color:var(--dim); cursor:not-allowed;
+  border-style:dashed;
+}
+
+/* Botões gerais do mapeamento */
+.map-btn{
+  border:1px solid var(--line);
+  background:rgba(0,25,50,.6); color:var(--txt);
+  padding:11px 14px; font-family:'Orbitron',sans-serif;
+  font-weight:700; font-size:10px;
+  letter-spacing:1.1px; text-transform:uppercase;
+  border-radius:9px; cursor:pointer;
+  transition:background .15s, transform .1s;
+  display:inline-flex; align-items:center; justify-content:center;
+  gap:6px; min-height:42px; max-width:100%;
+  white-space:normal; line-height:1.3;
+  touch-action:manipulation;
+  -webkit-user-select:none; user-select:none;
+}
+.map-btn:active{ transform:scale(.98); }
+.map-btn:disabled{ opacity:.45; cursor:not-allowed; }
+.map-btn.primary{
+  background:linear-gradient(135deg,var(--c1),var(--c2));
+  color:#001428; border-color:var(--c1); font-weight:800;
+}
+.map-btn.ok{
+  background:linear-gradient(135deg,var(--ok),#00cc7a);
+  color:#001428; border-color:var(--ok); font-weight:800;
+}
+.map-btn.danger{
+  background:rgba(255,45,85,.18);
+  border-color:var(--err); color:#ff8fa5;
+}
+.map-btn.danger:hover{ background:rgba(255,45,85,.3); }
+.map-btn.whats{
+  background:linear-gradient(135deg,#25d366,#1da851);
+  color:#fff; border-color:#25d366;
+}
+.map-btn.secondary{
+  background:rgba(255,255,255,.06);
+  border-color:rgba(255,255,255,.15);
+}
+.map-btn.unlock{
+  position:relative; overflow:hidden;
+}
+.map-btn.unlock.holding{
+  background:linear-gradient(135deg,var(--warn),#e69c00);
+  color:#001428; border-color:var(--warn);
+}
+.map-btn.unlock.holding::after{
+  content:''; position:absolute;
+  left:0; bottom:0; height:4px;
+  background:#fff; border-radius:2px;
+  animation:encher 2s linear forwards;
+}
+@keyframes encher{ from{width:0;} to{width:100%;} }
+
+/* Linha de ações */
+.map-actions-row{
+  display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;
+}
+.map-actions-row .map-btn{ flex:1 1 140px; }
+
+/* Gôndola */
+.map-gondola-block{
+  background:rgba(0,25,50,.45);
+  border:1px solid var(--c1);
+  border-radius:12px; padding:12px;
+  margin-bottom:12px; overflow:hidden;
+}
+.map-gondola-header{
+  display:flex; justify-content:space-between; align-items:center;
+  gap:8px; flex-wrap:wrap;
+  padding-bottom:8px; margin-bottom:10px;
+  border-bottom:1px dashed var(--c1);
+}
+.map-gondola-header h3{
+  margin:0; font-family:'Orbitron',sans-serif;
+  font-size:11.5px; color:var(--c1);
+  letter-spacing:1.3px; text-transform:uppercase;
+  word-wrap:break-word;
+}
+.map-gondola-actions{ display:flex; gap:6px; flex-wrap:wrap; }
+.map-gondola-actions .map-btn{
+  padding:8px 10px; font-size:8.5px; min-height:36px;
+}
+
+/* Card de prateleira */
+.map-shelf-card{
+  background:rgba(0,15,35,.6);
+  border:1px solid var(--line);
+  border-radius:10px; padding:11px 12px;
+  margin-bottom:9px; position:relative;
+  overflow:hidden;
+}
+.map-shelf-card.saved{
+  border-color:var(--ok);
+  background:rgba(0,255,157,.06);
+}
+.map-shelf-card.selected-for-delete{
+  border-color:var(--err);
+  background:rgba(255,45,85,.1);
+}
+.map-shelf-head{
+  display:flex; justify-content:space-between; align-items:center;
+  gap:8px; margin-bottom:9px;
+}
+.map-shelf-head h3{
+  margin:0; font-family:'Orbitron',sans-serif;
+  font-size:10.5px; color:var(--c1);
+  letter-spacing:1.1px; text-transform:uppercase;
+  word-wrap:break-word;
+}
+.map-delete-checkbox{
+  width:22px; height:22px; cursor:pointer;
+  accent-color:var(--err); flex-shrink:0;
+}
+.map-field-row{
+  display:flex; gap:8px; flex-wrap:wrap; align-items:flex-end;
+}
+.map-field-row .map-field{ flex:1 1 120px; min-width:0; }
+.map-field-row .map-field label{
+  display:block; font-size:9px; font-weight:600;
+  color:var(--dim); margin-bottom:4px;
+  text-transform:uppercase; letter-spacing:.7px;
+  font-family:'Orbitron',sans-serif;
+}
+.map-values-view{
+  display:flex; gap:6px; flex-wrap:wrap;
+  font-size:10.5px; align-items:center;
+}
+.map-values-view span{
+  background:rgba(0,212,255,.1);
+  border:1px solid rgba(0,212,255,.25);
+  color:var(--txt); padding:4px 8px;
+  border-radius:6px; font-weight:600;
+  max-width:100%; word-wrap:break-word;
+}
+.map-values-view span strong{ color:var(--c1); }
+.map-btn-edit-small{
+  padding:5px 9px !important;
+  font-size:8.5px !important;
+  background:rgba(255,185,0,.2) !important;
+  border:1px solid var(--warn) !important;
+  color:var(--warn) !important;
+  border-radius:6px !important;
+  min-height:auto !important;
+}
+.map-btn-edit-small:hover{ background:rgba(255,185,0,.35) !important; }
+
+/* Botão salvar gôndola */
+.map-btn-salvar-gondola{
+  width:100%; margin-top:10px; padding:12px;
+  background:linear-gradient(135deg,var(--ok),#00cc7a);
+  color:#001428; border:none; border-radius:8px;
+  font-family:'Orbitron',sans-serif;
+  font-weight:800; font-size:10.5px;
+  letter-spacing:1.1px; text-transform:uppercase;
+  cursor:pointer; transition:transform .1s;
+}
+.map-btn-salvar-gondola:active{ transform:scale(.98); }
+.map-btn-salvar-gondola.salvo{
+  background:rgba(0,255,157,.15);
+  color:var(--ok);
+  border:1px solid var(--ok);
+}
+
+/* Erros */
+.map-error{
+  color:var(--err); font-size:9.5px; margin-top:5px;
+  font-weight:600; word-wrap:break-word;
+}
+
+/* Barra de exclusão */
+.map-delete-bar{
+  background:rgba(255,45,85,.12);
+  border:1px solid var(--err);
+  border-radius:9px; padding:10px 12px;
+  margin-bottom:10px; font-size:10px;
+  color:#ff8fa5; font-weight:600;
+  display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:8px;
+}
+.map-delete-bar > span{ flex:1 1 100%; }
+.map-delete-bar .map-bar-actions{
+  display:flex; gap:6px; flex-wrap:wrap; width:100%;
+}
+.map-delete-bar .map-bar-actions .map-btn{
+  flex:1 1 auto; padding:8px 10px; font-size:9px; min-height:34px;
+}
+
+/* Resumo por gôndola */
+.map-gondola-resumo-card{
+  background:rgba(0,25,50,.55);
+  border:1px solid var(--c1);
+  border-radius:12px; padding:12px;
+  margin-bottom:12px; overflow:hidden;
+}
+.map-gondola-resumo-card h4{
+  margin:0 0 10px; font-family:'Orbitron',sans-serif;
+  font-size:11px; color:var(--c1);
+  letter-spacing:1.2px; text-transform:uppercase;
+  padding-bottom:6px; border-bottom:1px dashed var(--c1);
+  word-wrap:break-word;
+}
+.map-gondola-resumo-card.falhou{
+  border-color:var(--err);
+  background:rgba(255,45,85,.06);
+}
+.map-gondola-resumo-card.falhou h4{
+  color:var(--err); border-bottom-color:var(--err);
+}
+
+/* Linha resumo prateleira */
+.map-prat-resumo-linha{
+  background:rgba(0,15,35,.6);
+  border:1px solid var(--line);
+  border-radius:8px; padding:10px 12px;
+  margin-bottom:8px; font-size:11px;
+  line-height:1.5; word-wrap:break-word;
+}
+.map-prat-resumo-linha.falhou{
+  border-color:var(--err); border-width:2px;
+  background:rgba(255,45,85,.08);
+}
+.map-prat-titulo{
+  font-family:'Orbitron',sans-serif;
+  font-weight:700; color:var(--c1); font-size:10px;
+  margin-bottom:6px; display:block;
+  letter-spacing:1px; text-transform:uppercase;
+}
+.map-prat-resumo-linha.falhou .map-prat-titulo{ color:var(--err); }
+.map-prat-item{
+  display:flex; justify-content:space-between; gap:10px;
+  padding:3px 0; border-bottom:1px dotted rgba(0,212,255,.1);
+}
+.map-prat-item:last-child{ border-bottom:none; }
+.map-prat-item .map-rotulo{ color:var(--dim); font-weight:500; flex:1 1 auto; min-width:0; }
+.map-prat-item .map-valor{ font-weight:800; color:var(--txt); text-align:right; flex-shrink:0; }
+.map-prat-item .map-valor.verde{ color:var(--ok); }
+.map-prat-item .map-valor.vermelho{ color:var(--err); }
+.map-prat-falta{
+  margin-top:6px; font-size:10px; font-weight:700;
+  color:#ff8fa5; background:rgba(255,45,85,.18);
+  padding:6px 9px; border-radius:5px; word-wrap:break-word;
+  border:1px dashed var(--err);
+}
+.map-prat-aviso{
+  margin-top:6px; font-size:10px; font-weight:600;
+  color:#ff8fa5; background:rgba(255,45,85,.15);
+  padding:6px 9px; border-radius:5px; word-wrap:break-word;
+}
+
+/* Total gôndola */
+.map-gondola-total{
+  background:rgba(0,212,255,.1);
+  color:var(--c1);
+  font-size:10.5px; font-weight:700;
+  padding:10px 12px; border-radius:7px;
+  margin-top:8px; line-height:1.55; word-wrap:break-word;
+  border:1px solid rgba(0,212,255,.25);
+}
+.map-gondola-total.green{
+  background:rgba(0,255,157,.12);
+  color:var(--ok);
+  border-color:rgba(0,255,157,.4);
+}
+.map-gondola-total.red{
+  background:rgba(255,45,85,.12);
+  color:#ff8fa5;
+  border-color:var(--err);
+}
+.map-gondola-total .map-linha{
+  display:flex; justify-content:space-between; gap:10px; padding:2px 0;
+}
+.map-gondola-total .map-linha .map-rotulo{ font-weight:600; }
+.map-gondola-total .map-linha .map-valor{ font-weight:800; }
+
+/* Resumo geral */
+.map-resumo-geral-title{
+  font-family:'Orbitron',sans-serif;
+  font-size:12px; color:var(--c1);
+  letter-spacing:1.3px; text-transform:uppercase;
+  margin:16px 0 10px;
+  padding-top:12px; border-top:2px solid var(--c1);
+}
+.map-resumo-geral-box{
+  background:rgba(0,25,50,.55);
+  border:1px solid var(--c1);
+  border-radius:12px; padding:12px;
+  margin-top:6px; overflow:hidden;
+}
+.map-resumo-geral-box.falhou{
+  border-color:var(--err);
+  background:rgba(255,45,85,.08);
+}
+.map-resumo-linha{
+  display:flex; justify-content:space-between; gap:12px;
+  padding:8px 0; font-size:12px;
+  border-bottom:1px solid rgba(0,212,255,.1);
+  line-height:1.45; word-wrap:break-word;
+}
+.map-resumo-linha:last-child{ border-bottom:none; }
+.map-resumo-linha .map-rotulo{
+  color:var(--dim); font-weight:600; flex:1 1 auto; min-width:0;
+}
+.map-resumo-linha .map-valor{
+  font-weight:800; text-align:right; color:var(--txt);
+  flex-shrink:0;
+}
+.map-resumo-linha .map-valor.azul{ color:var(--c1); }
+.map-resumo-linha .map-valor.verde{ color:var(--ok); }
+.map-resumo-linha .map-valor.cinza{ color:var(--dim); }
+.map-resumo-linha .map-valor.vermelho{ color:var(--err); }
+.map-resumo-linha.destaque{
+  background:rgba(0,212,255,.1);
+  margin:4px -12px; padding:10px 12px;
+  border-top:1px solid var(--c1);
+  border-bottom:1px solid var(--c1);
+}
+.map-resumo-geral-box.falhou .map-resumo-linha.destaque{
+  background:rgba(255,45,85,.12);
+  border-top-color:var(--err); border-bottom-color:var(--err);
+}
+
+/* Falta geral */
+.map-resumo-falta-geral{
+  margin-top:12px;
+  background:rgba(255,45,85,.12);
+  border:1px dashed var(--err);
+  border-radius:8px; padding:12px;
+  color:#ff8fa5; font-weight:600;
+  font-size:11px; line-height:1.55;
+  word-wrap:break-word;
+}
+.map-falta-titulo{
+  display:block; font-family:'Orbitron',sans-serif;
+  font-weight:800; font-size:10.5px;
+  margin-bottom:8px; letter-spacing:.7px;
+  text-transform:uppercase;
+}
+.map-falta-lista{
+  margin:6px 0 0 0; padding-left:18px;
+}
+.map-falta-lista li{
+  margin-bottom:5px; line-height:1.5; word-wrap:break-word;
+}
+
+/* Status meta */
+.map-meta-status{
+  border-radius:9px; padding:12px; margin-top:14px;
+  font-size:11.5px; font-weight:700; text-align:center;
+  line-height:1.5; word-wrap:break-word;
+  font-family:'Orbitron',sans-serif; letter-spacing:.5px;
+}
+.map-meta-status.ok{
+  background:rgba(0,255,157,.15);
+  border:1px solid var(--ok);
+  color:var(--ok);
+}
+.map-meta-status.fail{
+  background:rgba(255,45,85,.15);
+  border:1px solid var(--err);
+  color:#ff8fa5;
+}
+.map-meta-detail{
+  display:block; font-size:10px; font-weight:500;
+  margin-top:6px; letter-spacing:.3px;
+  font-family:'Segoe UI',sans-serif;
+}
+
+/* Histórico */
+.map-hist-search{
+  margin-bottom:12px;
+}
+.map-hist-item{
+  background:rgba(0,15,35,.6);
+  border:1px solid var(--line);
+  border-radius:10px; padding:12px;
+  margin-bottom:10px; overflow:hidden;
+}
+.map-hist-header{
+  display:flex; justify-content:space-between; align-items:flex-start;
+  flex-wrap:wrap; gap:6px; margin-bottom:8px;
+  padding-bottom:6px; border-bottom:1px solid var(--line);
+}
+.map-hist-date{
+  font-family:'Orbitron',sans-serif;
+  font-weight:700; color:var(--c1);
+  font-size:10.5px; display:block;
+  word-wrap:break-word; letter-spacing:.7px;
+}
+.map-hist-desc{
+  display:inline-block;
+  background:rgba(0,136,255,.15);
+  color:var(--c1); font-size:9.5px; font-weight:700;
+  padding:3px 8px; border-radius:20px;
+  margin-top:4px; max-width:100%; word-wrap:break-word;
+  border:1px solid rgba(0,136,255,.35);
+}
+.map-hist-tag{
+  background:rgba(0,212,255,.15);
+  color:var(--c1);
+  font-size:9px; font-weight:800;
+  padding:3px 8px; border-radius:20px;
+  flex-shrink:0; border:1px solid var(--line);
+}
+.map-hist-meta{
+  font-family:'Orbitron',sans-serif;
+  font-size:9.5px; font-weight:700;
+  padding:4px 9px; border-radius:20px;
+  display:inline-block; margin-bottom:6px;
+  word-wrap:break-word; max-width:100%;
+  letter-spacing:.3px;
+}
+.map-hist-meta.ok{
+  background:rgba(0,255,157,.15);
+  color:var(--ok); border:1px solid rgba(0,255,157,.4);
+}
+.map-hist-meta.fail{
+  background:rgba(255,45,85,.15);
+  color:#ff8fa5; border:1px solid rgba(255,45,85,.4);
+}
+.map-hist-preview{
+  font-size:10.5px; color:var(--dim);
+  background:rgba(0,25,50,.6);
+  padding:8px 10px; border-radius:6px;
+  line-height:1.5; margin-bottom:8px;
+  word-wrap:break-word; border:1px solid var(--line);
+}
+.map-hist-resumo{
+  display:flex; gap:6px; flex-wrap:wrap; margin-top:8px;
+}
+.map-hist-resumo span{
+  background:rgba(0,212,255,.1);
+  color:var(--c1); font-size:9px; font-weight:700;
+  padding:4px 8px; border-radius:20px;
+  word-wrap:break-word; max-width:100%;
+  border:1px solid rgba(0,212,255,.25);
+}
+.map-hist-resumo span.green{
+  background:rgba(0,255,157,.12);
+  color:var(--ok);
+  border-color:rgba(0,255,157,.4);
+}
+.map-hist-btn-row{
+  display:flex; gap:6px; margin-top:8px; flex-wrap:wrap;
+}
+.map-hist-btn-row .map-btn{
+  padding:8px 12px; font-size:9px; min-height:34px;
+  flex:1 1 auto;
+}
+.map-empty-history{
+  text-align:center; color:var(--dim);
+  font-size:11px; padding:24px 8px;
+  word-wrap:break-word;
+}
+
+/* Detalhe histórico (cards) */
+.map-detalhe-gondola-card{
+  background:rgba(0,25,50,.55);
+  border:1px solid var(--c1);
+  border-radius:10px; padding:12px;
+  margin-bottom:12px; overflow:hidden;
+}
+.map-detalhe-gondola-card h4{
+  margin:0 0 10px;
+  font-family:'Orbitron',sans-serif;
+  font-size:11px; color:var(--c1);
+  letter-spacing:1.2px; text-transform:uppercase;
+  padding-bottom:6px; border-bottom:1px dashed var(--c1);
+  word-wrap:break-word;
+}
+.map-detalhe-prat-linha{
+  background:rgba(0,15,35,.6);
+  border:1px solid var(--line);
+  border-radius:8px; padding:10px 12px;
+  margin-bottom:8px;
+  font-size:11px; line-height:1.5;
+  word-wrap:break-word;
+}
+.map-detalhe-titulo{
+  font-family:'Orbitron',sans-serif;
+  font-weight:700; color:var(--c1);
+  font-size:10px; margin-bottom:8px;
+  letter-spacing:1px; text-transform:uppercase;
+}
+.map-detalhe-campos{
+  display:flex; gap:8px; flex-wrap:wrap; margin-bottom:6px;
+}
+.map-detalhe-campos .map-campo{ flex:1 1 120px; min-width:0; }
+.map-detalhe-campos .map-campo label{
+  font-size:9px; font-weight:600;
+  color:var(--dim); margin-bottom:4px;
+  text-transform:uppercase; letter-spacing:.7px;
+  font-family:'Orbitron',sans-serif;
+  display:block;
+}
+.map-detalhe-campos .map-campo .map-input{
+  padding:8px 10px; font-size:12.5px;
+}
+.map-detalhe-resumo{
+  display:flex; flex-wrap:wrap; gap:6px; margin-top:6px;
+}
+.map-detalhe-resumo span{
+  background:rgba(0,212,255,.1);
+  border:1px solid rgba(0,212,255,.25);
+  padding:4px 8px; border-radius:6px;
+  font-size:9.5px; word-wrap:break-word;
+  color:var(--txt); font-weight:600;
+}
+.map-detalhe-total-gondola{
+  background:rgba(0,212,255,.1);
+  color:var(--c1);
+  border:1px solid rgba(0,212,255,.25);
+  font-size:10.5px; font-weight:700;
+  padding:10px; border-radius:7px;
+  margin-top:6px; line-height:1.55;
+  word-wrap:break-word;
+}
+.map-detalhe-total-gondola.green{
+  background:rgba(0,255,157,.12);
+  color:var(--ok);
+  border-color:rgba(0,255,157,.4);
+}
+
+/* Avisos */
+.map-aviso{
+  font-size:10px; color:var(--dim);
+  margin-top:10px; word-wrap:break-word;
+  line-height:1.5; padding:9px 11px;
+  background:rgba(0,80,160,.15);
+  border-left:3px solid var(--c1);
+  border-radius:0 8px 8px 0;
+}
 
 /* ================= RESPONSIVE ================= */
 @media(max-width:380px){
@@ -1711,11 +2316,7 @@ footer .ico{ font-size:9px; color:var(--c1); }
   .share-fields-3 .label{ font-size:7.5px; }
 }
 
-/* =====================================================
-   CORREÇÃO: TEXTOS NÃO CORTADOS E ALINHAMENTO PERFEITO
-   ===================================================== */
-
-/* Labels dos botões não devem cortar */
+/* Correções gerais de texto */
 .btn-cat-share, .btn-ambiente, .btn-unidade {
   white-space:normal !important;
   overflow:visible !important;
@@ -1725,8 +2326,6 @@ footer .ico{ font-size:9px; color:var(--c1); }
   text-align:center;
   word-break:normal !important;
 }
-
-/* Labels das barras e subtabs */
 .barra-topo-label, .subtab {
   white-space:normal !important;
   overflow:visible !important;
@@ -1736,8 +2335,6 @@ footer .ico{ font-size:9px; color:var(--c1); }
 .barra-info-extra { flex-wrap:wrap; gap:3px 8px !important; }
 .barra-info-extra span { white-space:normal !important; word-break:break-word; }
 .btn-acao .txt { white-space:normal !important; word-break:break-word; }
-
-/* Cards e Nomes de produtos */
 .loja-card-nome, .loja-card-info, .loja-card-status, .sd-grupo-header .sd-nome {
   white-space:normal !important;
   overflow:visible !important;
@@ -1745,29 +2342,22 @@ footer .ico{ font-size:9px; color:var(--c1); }
   word-break:break-word;
   line-height:1.3 !important;
 }
-
-/* 
-   FIX DO ALINHAMENTO DO SHARE 
-   (Meta, Espaço Total, Meu Espaço)
-*/
 .share-fields-3 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
   margin-bottom: 10px;
-  align-items: stretch !important; /* Força as colunas a terem a mesma altura */
+  align-items: stretch !important;
 }
-
 .share-fields-3 .share-field {
   display: grid !important;
-  grid-template-rows: 1fr auto !important; /* Label ocupa o espaço, input fica fixo na base */
+  grid-template-rows: 1fr auto !important;
   min-width: 0;
 }
-
 .share-fields-3 .label {
   margin: 0 0 6px 0 !important;
   display: flex !important;
-  align-items: flex-end !important; /* Alinha o texto pela base do label */
+  align-items: flex-end !important;
   justify-content: flex-start !important;
   line-height: 1.2 !important;
   white-space: normal !important;
@@ -1775,18 +2365,15 @@ footer .ico{ font-size:9px; color:var(--c1); }
   text-overflow: clip !important;
   letter-spacing: .2px !important;
   word-break: normal !important;
-  min-height: 2.2em !important; /* Garante espaço para 2 linhas de texto */
+  min-height: 2.2em !important;
   padding-bottom: 2px;
 }
-
 .share-fields-3 .input {
   margin: 0 !important;
   width: 100% !important;
-  height: 42px !important; /* Altura idêntica para todas as caixas */
+  height: 42px !important;
   box-sizing: border-box !important;
 }
-
-/* Ajustes finos para telas pequenas */
 @media (max-width:360px){
   .share-fields-3 .label{ font-size:7.5px !important; min-height:2.4em !important; }
   .btn-cat-share{ font-size:8px !important; padding:7px 4px !important; letter-spacing:.1px !important; }
@@ -1794,7 +2381,7 @@ footer .ico{ font-size:9px; color:var(--c1); }
   .btn-unidade{ font-size:7.5px !important; padding:8px 3px !important; }
 }
 
-/* ESTILOS EXTRAS PARA A LISTA IMC NO MODAL */
+/* IMC salvo */
 .imc-saved-item {
   display:flex; justify-content:space-between; align-items:center;
   background:rgba(0,0,0,.3);
@@ -1951,6 +2538,7 @@ footer .ico{ font-size:9px; color:var(--c1); }
 
 </div>
 
+<!-- ================= MODAL PRINCIPAL DA LOJA (com nova aba Mapeamento) ================= -->
 <div class="modal" id="modalLoja">
   <div class="modal-box">
 
@@ -1968,8 +2556,10 @@ footer .ico{ font-size:9px; color:var(--c1); }
       <button class="subtab" id="subRupturas" onclick="trocarSubAba('rupturas')"><span class="ic">📋</span>Rupturas</button>
       <button class="subtab" id="subValidades" onclick="trocarSubAba('validades')"><span class="ic">📅</span>Validades</button>
       <button class="subtab" id="subFerramentas" onclick="trocarSubAba('ferramentas')"><span class="ic">📝</span>Notas</button>
+      <button class="subtab" id="subMapeamento" onclick="trocarSubAba('mapeamento')"><span class="ic">📐</span>Mapeamento</button>
     </div>
 
+    <!-- ========== PAINEL DADOS ========== -->
     <div class="subtab-painel ativo" id="painelDados">
       <div class="loja-info">
         <div class="loja-info-titulo"><span class="ico">🏬</span> INFORMAÇÕES DA LOJA</div>
@@ -2001,6 +2591,7 @@ footer .ico{ font-size:9px; color:var(--c1); }
       </div>
     </div>
 
+    <!-- ========== PAINEL SHARE ========== -->
     <div class="subtab-painel" id="painelShare">
       <div class="loja-info">
         <div class="loja-info-titulo"><span class="ico">📏</span> MEDIR SHARE</div>
@@ -2162,7 +2753,7 @@ footer .ico{ font-size:9px; color:var(--c1); }
 
         <button class="btn-calculadora" onclick="abrirCalculadora()"><span class="ico">🧮</span> CALCULADORA</button>
 
-        <!-- NOVO BLOCO IMC -->
+        <!-- BLOCO IMC -->
         <div style="margin-top: 15px; border-top: 1px dashed var(--line); padding-top: 15px;">
           <button type="button" class="btn-calculadora" id="btnIMC" 
                   onmousedown="iniciarPressIMC()" onmouseup="cancelarPressIMC()" onmouseleave="cancelarPressIMC()" 
@@ -2174,7 +2765,7 @@ footer .ico{ font-size:9px; color:var(--c1); }
           <div id="imcListaCadastrados" style="margin-top: 10px; display: none; background: rgba(0,0,0,.3); padding: 10px; border-radius: 8px; border: 1px solid var(--line);"></div>
         </div>
 
-        <!-- BLOCO DE HISTÓRICO IMC (INDEPENDENTE E TRAVADO) -->
+        <!-- HISTÓRICO IMC -->
         <div style="margin-top: 15px;">
           <div class="share-bloco-titulo" style="color: var(--warn);"><span>📅</span> Histórico IMC (Somente Leitura)</div>
           <div class="tools-notepad" id="imcHistoricoNotepad" style="min-height: auto; max-height: 250px; background: rgba(0,0,0,.4); border-color: var(--line);" oncopy="return false" oncut="return false" oncontextmenu="return false;">Nenhum registro este mês.</div>
@@ -2251,6 +2842,7 @@ footer .ico{ font-size:9px; color:var(--c1); }
       </div>
     </div>
 
+    <!-- ========== PAINEL RUPTURAS ========== -->
     <div class="subtab-painel" id="painelRupturas">
       <div class="ruptura-contadores">
         <div class="ruptura-contador">
@@ -2267,7 +2859,6 @@ footer .ico{ font-size:9px; color:var(--c1); }
         </div>
       </div>
 
-      <!-- NOVO BOTÃO DE ADICIONAR -->
       <button class="rup-btn-add-novo" onclick="abrirModalRuptura()">
         ➕ Adicionar Ruptura
       </button>
@@ -2295,6 +2886,7 @@ footer .ico{ font-size:9px; color:var(--c1); }
       <div id="rupListaRegistradas"></div>
     </div>
 
+    <!-- ========== PAINEL VALIDADES ========== -->
     <div class="subtab-painel" id="painelValidades">
       <div class="sd-wrapper">
         <div class="sd-header">
@@ -2318,6 +2910,7 @@ footer .ico{ font-size:9px; color:var(--c1); }
       </div>
     </div>
 
+    <!-- ========== PAINEL FERRAMENTAS (NOTAS) ========== -->
     <div class="subtab-painel" id="painelFerramentas">
       <div class="tools-bloco">
         <div class="tools-titulo">📝 Relatório da Loja</div>
@@ -2335,10 +2928,79 @@ footer .ico{ font-size:9px; color:var(--c1); }
       </div>
     </div>
 
+    <!-- ========== PAINEL MAPEAMENTO (NOVO) ========== -->
+    <div class="subtab-painel" id="painelMapeamento">
+      <div class="map-wrap">
+        <h2 class="map-title"><span class="ico">📐</span> MAPEAMENTO DE SHARE POR FRENTES</h2>
+        <p class="map-sub">Mapeie por gôndola, preencha as prateleiras e gere o resumo.</p>
+
+        <!-- STEP 1: Configuração inicial -->
+        <div id="mapStep1">
+          <div class="map-orientacao">
+            <strong>⚠️ Como medir:</strong> de cima para baixo, e em cada prateleira da esquerda para a direita. Informe o total de produtos e quantos são da sua marca. Campos em branco contam como 0.
+          </div>
+
+          <div class="map-box">
+            <label for="mapDescricao">📝 Descrição / Local</label>
+            <input type="text" id="mapDescricao" class="map-input" maxlength="60" placeholder="Ex: Loja Centro, Corredor 3...">
+            <div class="map-hint">Use para identificar onde foi feita a medição. Você poderá buscar por ela no histórico.</div>
+            <div class="map-error" id="mapErroDesc" style="display:none;"></div>
+          </div>
+
+          <div class="map-box" id="mapMetaBox">
+            <label for="mapMetaPorcentagem">🎯 Porcentagem desejada (meta)</label>
+            <input type="number" id="mapMetaPorcentagem" class="map-input" min="0" max="100" step="0.1" inputmode="decimal" placeholder="Ex: 30">
+            <div class="map-hint" id="mapMetaHint">Informe a meta em % (ex.: 30 para 30%). A meta travará automaticamente ao começar a digitar a quantidade de gôndolas.</div>
+            <div class="map-botoes">
+              <button id="mapBtnDestravarMeta" class="map-btn unlock" style="display:none;">🔓 Segurar 2s para destravar</button>
+            </div>
+            <div class="map-error" id="mapErroMeta" style="display:none;"></div>
+          </div>
+
+          <div class="map-box">
+            <label for="mapQtdGondolas">Quantas gôndolas (módulos) existem?</label>
+            <input type="number" id="mapQtdGondolas" class="map-input" min="1" inputmode="numeric" placeholder="Ex: 3" oninput="mapTravarMetaAoDigitarGondolas()">
+            <div class="map-error" id="mapErroGondolas" style="display:none;"></div>
+          </div>
+
+          <div class="map-actions-row">
+            <button class="map-btn primary" onclick="mapIniciarGondolas()" id="mapBtnContinuar">Continuar →</button>
+            <button class="map-btn secondary" onclick="mapAbrirHistorico()" id="mapBtnHistorico">📁 Histórico</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Preenchimento das prateleiras -->
+        <div id="mapStep2" style="display:none;">
+          <div id="mapFormPrateleiras"></div>
+          <div class="map-error" id="mapErroForm" style="display:none;"></div>
+          <div class="map-actions-row">
+            <button class="map-btn ok" onclick="mapGerarResumo()" id="mapBtnGerarResumo">Gerar Resumo ✔</button>
+            <button class="map-btn secondary" onclick="mapReiniciar()" id="mapBtnRecomecar">Recomeçar</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Resumo final -->
+        <div id="mapStep3" style="display:none;">
+          <h2 class="map-title" style="margin-bottom:10px;">📊 Resumo Final</h2>
+          <div id="mapResumoGondolas"></div>
+          <div id="mapResumoGeral"></div>
+
+          <div class="map-meta-status" id="mapMetaStatus"></div>
+
+          <div class="map-actions-row">
+            <button class="map-btn primary" onclick="mapVoltarParaEdicao()" id="mapBtnEditar">✏️ Editar</button>
+            <button class="map-btn ok" onclick="mapCompartilharECopiar()" id="mapBtnCopiar">📤 Copiar</button>
+            <button class="map-btn whats" onclick="mapAbrirWhatsApp()" id="mapBtnWhatsApp">💬 WhatsApp</button>
+            <button class="map-btn secondary" onclick="mapReiniciar()" id="mapBtnNova">Nova</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
-<!-- NOVO MODAL PARA ADICIONAR RUPTURA -->
+<!-- ================= MODAL RUPTURA (adicionar) ================= -->
 <div class="sd-overlay" id="rupOverlay" onclick="rupFecharModal(event)">
   <div class="sd-modal" onclick="event.stopPropagation()">
     <div class="sd-modal-topo">
@@ -2357,7 +3019,6 @@ footer .ico{ font-size:9px; color:var(--c1); }
     </div>
 
     <div id="rupArvoreItens" style="max-height:45vh; overflow-y:auto; border-radius:10px; border:1px solid var(--line); background:rgba(0,15,35,.7); padding: 4px;">
-      <!-- Resultados inseridos via JS -->
     </div>
 
     <button class="rup-btn-salvar-sel" id="rupBtnSalvarSel" onclick="rupSalvarSelecionados()" disabled style="position:static; width:100%; margin-top:15px; border-radius:10px; border:none; height:auto; padding:12px; font-size:11px; display:flex; justify-content:center; align-items:center; gap:7px;">
@@ -2366,15 +3027,14 @@ footer .ico{ font-size:9px; color:var(--c1); }
   </div>
 </div>
 
-<!-- NOVO MODAL IMC (Cadastro) -->
+<!-- ================= MODAL IMC (Cadastro) ================= -->
 <div class="sd-overlay" id="modalIMC" onclick="fecharModalIMC(event)">
   <div class="sd-modal" onclick="event.stopPropagation()">
     <div class="sd-modal-topo">
       <h2>Cadastrar IMC</h2>
       <button type="button" class="sd-modal-fechar" onclick="fecharModalIMCForcado()">✖</button>
     </div>
-    
-    <!-- CONTAINER DE ITENS JÁ CADASTRADOS (COM LIXEIRA) -->
+
     <div id="imcSalvosContainer" style="display:none; margin-bottom: 15px; border-bottom: 1px dashed var(--line); padding-bottom: 15px;">
         <div style="font-size: 10px; color: var(--dim); font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Itens Já Cadastrados</div>
         <div id="imcSalvosLista"></div>
@@ -2391,7 +3051,6 @@ footer .ico{ font-size:9px; color:var(--c1); }
     </div>
 
     <div id="imcArvoreItens" style="max-height:45vh; overflow-y:auto; border-radius:10px; border:1px solid var(--line); background:rgba(0,15,35,.7); padding: 4px;">
-      <!-- Resultados inseridos via JS -->
     </div>
 
     <button class="rup-btn-salvar-sel" id="imcBtnSalvarSel" onclick="imcSalvarSelecionados()" disabled style="position:static; width:100%; margin-top:15px; border-radius:10px; border:none; height:auto; padding:12px; font-size:11px; display:flex; justify-content:center; align-items:center; gap:7px; background: linear-gradient(135deg, var(--ok), #00cc7a); color: #001428;">
@@ -2406,7 +3065,7 @@ footer .ico{ font-size:9px; color:var(--c1); }
   </div>
 </div>
 
-<!-- NOVO MODAL DE CHECK DIÁRIO IMC -->
+<!-- ================= MODAL CHECK DIÁRIO IMC ================= -->
 <div class="sd-overlay" id="modalCheckIMC" onclick="fecharModalCheckIMC(event)">
   <div class="sd-modal" onclick="event.stopPropagation()">
     <div class="sd-modal-topo">
@@ -2414,9 +3073,8 @@ footer .ico{ font-size:9px; color:var(--c1); }
       <button type="button" class="sd-modal-fechar" onclick="fecharModalCheckIMCForcado()">✖</button>
     </div>
     <div style="font-size:12px; color:var(--dim); margin-bottom:15px;">Marque as opções que se aplicam aos itens hoje:</div>
-    
+
     <div id="checkIMCLista" style="max-height:50vh; overflow-y:auto; display:flex; flex-direction:column; gap:10px;">
-      <!-- Itens via JS -->
     </div>
 
     <button class="rup-btn-salvar-sel" onclick="salvarCheckIMCDiario()" style="position:static; width:100%; margin-top:15px; border-radius:10px; border:none; height:auto; padding:12px; font-size:11px; display:flex; justify-content:center; align-items:center; gap:7px;">
@@ -2425,6 +3083,7 @@ footer .ico{ font-size:9px; color:var(--c1); }
   </div>
 </div>
 
+<!-- ================= MODAL SD (Validade) ================= -->
 <div class="sd-overlay" id="sdOverlay" onclick="sdFecharModal(event)">
   <div class="sd-modal" onclick="event.stopPropagation()">
     <div class="sd-modal-topo">
@@ -2491,6 +3150,7 @@ footer .ico{ font-size:9px; color:var(--c1); }
   </div>
 </div>
 
+<!-- ================= CONFIRM SALVAR SD ================= -->
 <div class="sd-overlay-confirm" id="sdOverlayConfirm">
   <div class="sd-confirm-box">
     <span class="sd-confirm-icone">💾</span>
@@ -2504,6 +3164,7 @@ footer .ico{ font-size:9px; color:var(--c1); }
   </div>
 </div>
 
+<!-- ================= HISTÓRICO SD ================= -->
 <div class="sd-overlay-historico" id="sdOverlayHistorico" onclick="sdFecharHistorico(event)">
   <div class="sd-historico-box" onclick="event.stopPropagation()">
     <div class="sd-historico-topo">
@@ -2516,12 +3177,13 @@ footer .ico{ font-size:9px; color:var(--c1); }
   </div>
 </div>
 
+<!-- ================= MODAL SOBRE ================= -->
 <div class="modal" id="modalSobreApp" onclick="fecharSobreApp(event)">
   <div class="modal-box pequeno" onclick="event.stopPropagation()">
     <div class="modal-header">
       <div>
         <div class="modal-title"><span class="ico">ℹ️</span> SOBRE ESTE APP</div>
-        <div class="modal-sub">MShare Space • V.1.0</div>
+        <div class="modal-sub">MShare Space • V.1.1</div>
       </div>
       <button class="fechar" onclick="fecharSobreApp()">✖</button>
     </div>
@@ -2529,7 +3191,7 @@ footer .ico{ font-size:9px; color:var(--c1); }
     <div class="sobre-bloco">
       <div class="sobre-emoji">⚡</div>
       <div class="sobre-titulo">MShare Space</div>
-      <div class="sobre-versao">📌 Versão V.1.0</div>
+      <div class="sobre-versao">📌 Versão V.1.1</div>
     </div>
 
     <div class="sobre-secao">
@@ -2547,6 +3209,13 @@ footer .ico{ font-size:9px; color:var(--c1); }
           <div>
             <b>Medir Share de Gôndola e Geladeira</b>
             <div class="sobre-item-desc">Calcular o percentual de espaço ocupado em cada ambiente comparado à meta desejada.</div>
+          </div>
+        </div>
+        <div class="sobre-item">
+          <span class="sobre-item-ico">📐</span>
+          <div>
+            <b>Mapeamento por Frentes</b>
+            <div class="sobre-item-desc">Mapear gôndola por gôndola, prateleira por prateleira, com meta, resumo e histórico mensal.</div>
           </div>
         </div>
         <div class="sobre-item">
@@ -2584,7 +3253,7 @@ footer .ico{ font-size:9px; color:var(--c1); }
       <div class="sobre-secao-titulo">💡 Características</div>
       <div class="sobre-tags">
         <span class="sobre-tag">100% Offline</span>
-        <span class="sobre-tag">Salva no dispositivo</span>
+        <span class="sobre-tag">Salva na nuvem</span>
         <span class="sobre-tag">Interface Jarvis</span>
         <span class="sobre-tag">Tela cheia</span>
         <span class="sobre-tag">Rápido e leve</span>
@@ -2608,6 +3277,7 @@ footer .ico{ font-size:9px; color:var(--c1); }
   </div>
 </div>
 
+<!-- ================= MODAL EXCLUIR LOJA ================= -->
 <div class="modal" id="modalExcluirLoja">
   <div class="modal-box pequeno">
     <div class="modal-header">
@@ -2633,6 +3303,7 @@ footer .ico{ font-size:9px; color:var(--c1); }
   </div>
 </div>
 
+<!-- ================= MODAL SELEÇÃO LOJA ================= -->
 <div class="modal" id="modalSelecaoLoja">
   <div class="modal-box pequeno">
     <div class="modal-header">
@@ -2646,6 +3317,7 @@ footer .ico{ font-size:9px; color:var(--c1); }
   </div>
 </div>
 
+<!-- ================= MODAL CALCULADORA ================= -->
 <div class="modal" id="modalCalculadora">
   <div class="modal-box pequeno" style="max-width:380px;">
     <div class="modal-header">
@@ -2680,11 +3352,43 @@ footer .ico{ font-size:9px; color:var(--c1); }
   </div>
 </div>
 
+<!-- ================= TOAST ================= -->
+<!-- ================= MODAL HISTÓRICO MAPEAMENTO ================= -->
+<div class="sd-overlay" id="mapModalHistorico" onclick="mapFecharHistorico(event)">
+  <div class="sd-modal" onclick="event.stopPropagation()">
+    <div class="sd-modal-topo">
+      <h2>📁 Histórico de Medições</h2>
+      <button type="button" class="sd-modal-fechar" onclick="mapFecharHistorico()">✖</button>
+    </div>
+    <div class="map-hist-search">
+      <input type="text" class="map-input" id="mapBuscaHistorico" placeholder="🔎 Buscar por descrição..." oninput="mapRenderizarHistorico()">
+    </div>
+    <div class="modal-scroll" id="mapConteudoHistorico" style="max-height:55dvh; overflow-y:auto;"></div>
+    <div class="modal-actions" style="display:flex; gap:8px; margin-top:12px; flex-wrap:wrap;">
+      <button class="map-btn danger" onclick="mapExcluirHistoricoMantendoUltima()">🗑️ Excluir</button>
+      <button class="map-btn secondary" onclick="mapFecharHistorico()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MODAL DETALHE MAPEAMENTO ================= -->
+<div class="sd-overlay" id="mapModalDetalhe" onclick="mapFecharDetalhe(event)">
+  <div class="sd-modal" onclick="event.stopPropagation()">
+    <div class="sd-modal-topo">
+      <h2 id="mapDetalheTitulo">Detalhes da Medição</h2>
+      <button type="button" class="sd-modal-fechar" onclick="mapFecharDetalhe()">✖</button>
+    </div>
+    <div class="modal-scroll" id="mapConteudoDetalhe" style="max-height:55dvh; overflow-y:auto;"></div>
+    <div class="modal-actions" id="mapDetalheAcoes" style="display:flex; gap:8px; margin-top:12px; flex-wrap:wrap;"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast">
   <span id="toastIcone" class="ico">✓</span>
   <span id="toastTexto"></span>
 </div>
 
+</body>
 <script>
 /* ===== FIREBASE ===== */
 const firebaseConfig = {
@@ -2975,10 +3679,8 @@ auth.onAuthStateChanged(async (user) => {
     if(telaAuth) telaAuth.style.display = 'none';
     await carregarDadosDaNuvem(user.uid);
     iniciarSyncTempoReal(user.uid);
-    setTimeout(checarIMCDiarioGlobal, 2000); // CHECA O IMC AO ENTRAR
-    setInterval(checarIMCDiarioGlobal, 60000); // VERIFICA A CADA 1 MINUTO SE PRECISA EXIBIR NOVAMENTE
-    
-    // RESET AUTOMÁTICO MENSAL (Verifica a cada minuto)
+    setTimeout(checarIMCDiarioGlobal, 2000);
+    setInterval(checarIMCDiarioGlobal, 60000);
     setInterval(() => {
         const lojas = carregarLojas();
         let mudou = false;
@@ -3337,6 +4039,9 @@ function criarLojaVazia(){
             historico: [],
             ultimoCheck: '',
             mesReferencia: ''
+        },
+        mapeamento: {
+            historico: []
         }
     };
 }
@@ -3354,6 +4059,12 @@ function migrarShareAntigo(loja){
     if(!loja.imc) {
         loja.imc = { cadastrados: [], historico: [], ultimoCheck: '', mesReferencia: '' };
     }
+    if(!loja.mapeamento) {
+        loja.mapeamento = { historico: [] };
+    }
+    if(!Array.isArray(loja.mapeamento.historico)) {
+        loja.mapeamento.historico = [];
+    }
     return loja;
 }
 
@@ -3361,7 +4072,7 @@ function verificarResetMensalIMC(loja) {
     if(!loja.imc) {
         loja.imc = { cadastrados: [], historico: [], ultimoCheck: '', mesReferencia: '' };
     }
-    const mesAtual = new Date().toISOString().slice(0,7); // YYYY-MM
+    const mesAtual = new Date().toISOString().slice(0,7);
     if(loja.imc.mesReferencia !== mesAtual) {
         loja.imc.cadastrados = [];
         loja.imc.historico = [];
@@ -3706,6 +4417,7 @@ function abrirFerramentaRupturas(i){
     sdInicializar();
     renderizarIMC(getLoja(lojaAtiva));
     renderizarHistoricoIMC(getLoja(lojaAtiva));
+    if(typeof mapInicializar === 'function') mapInicializar();
     const loja = getLoja(i);
     if(lojaTemDadosCompletos(loja)) trocarSubAba("share");
     else trocarSubAba("dados");
@@ -3807,7 +4519,8 @@ function trocarSubAba(nome){
         share:      ["subShare","painelShare"],
         rupturas:   ["subRupturas","painelRupturas"],
         validades:  ["subValidades","painelValidades"],
-        ferramentas:["subFerramentas","painelFerramentas"]
+        ferramentas:["subFerramentas","painelFerramentas"],
+        mapeamento: ["subMapeamento","painelMapeamento"]
     };
     const par = mapa[nome];
     if(!par) return;
@@ -3824,6 +4537,7 @@ function trocarSubAba(nome){
     }
     if(nome === "dados") aplicarTravaDados();
     if(nome === "ferramentas") montarRelatorio();
+    if(nome === "mapeamento"){ if(typeof mapRender === 'function') mapRender(); }
 }
 
 function salvarInfoLoja(){
@@ -4411,7 +5125,6 @@ function cancelarPressIMC(){
 function clickIMC(e){
     if(imcPressCompletou){ imcPressCompletou = false; return; }
     const loja = getLoja(lojaAtiva);
-    // Só exige long press se JÁ tiver produtos cadastrados E não estiver destravado
     if(!loja.imc || loja.imc.cadastrados.length === 0) {
         abrirModalIMC();
     } else if (imcEditavel) {
@@ -4504,7 +5217,7 @@ function imcMarcarTodos() {
     if(!input) return;
     const termo = input.value.trim();
     let encontrados = [];
-    if(!termo) return; // Só marca se tiver algo pesquisado
+    if(!termo) return;
     
     const palavras = normalizar(termo).split(/\s+/).filter(p=>p.length>0);
     encontrados = SD_CATALOGO.filter(p => {
@@ -4540,14 +5253,12 @@ function imcSalvarSelecionados() {
         return { nome: p.nome, desc: p.desc, cat: p.cat, sub: p.sub };
     });
 
-    // Log removals
     antigos.forEach(old => {
         if(!novos.find(n => n.nome === old.nome && n.desc === old.desc)) {
             addIMCHistorico(loja, old.nome + ' (' + old.desc + ')', 'Removido do IMC');
         }
     });
 
-    // Log additions
     novos.forEach(n => {
         if(!antigos.find(old => old.nome === n.nome && old.desc === n.desc)) {
             addIMCHistorico(loja, n.nome + ' (' + n.desc + ')', 'Adicionado ao IMC');
@@ -4569,7 +5280,6 @@ function removerProdutoIMC(nome, desc) {
     addIMCHistorico(loja, nome + ' (' + desc + ')', 'Removido do IMC');
     setLoja(lojaAtiva, loja);
     
-    // Atualiza os checkboxes do modal se estiver aberto
     const idx = SD_CATALOGO.findIndex(p => p.nome === nome && p.desc === desc);
     if(idx !== -1) imcSelecionados.delete(idx);
     
@@ -4642,7 +5352,6 @@ function checarIMCDiarioGlobal() {
     const minuto = agora.getMinutes();
     const totalMinutos = hora * 60 + minuto;
     
-    // Se estiver fora do horário (antes das 08:00 ou depois das 16:20), não mostra
     if(totalMinutos < 8 * 60 || totalMinutos > 16 * 60 + 20) {
         return;
     }
@@ -4661,7 +5370,6 @@ function checarIMCDiarioGlobal() {
                 const diffMs = agora - ultimo;
                 const diffHoras = diffMs / (1000 * 60 * 60);
                 
-                // Se passou 2 horas ou mais, mostra de novo
                 if(diffHoras >= 2) {
                     precisaChecar = true;
                 }
@@ -4718,7 +5426,6 @@ function abrirCheckIMCDiario() {
         </div>`;
     }).join('');
     
-    // Aplica o bloqueio inicial se necessário
     loja.imc.cadastrados.forEach((p, idx) => handleRupturaChange(idx));
     
     $("modalCheckIMC").classList.add("sd-ativo");
@@ -4767,7 +5474,6 @@ function salvarCheckIMCDiario() {
     const dataStr = agora.toISOString().slice(0,10);
     const horaStr = agora.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
     
-    // Remove os registros do IMC de hoje que foram adicionados à lista de rupturas principal
     if(!loja.rupturas) loja.rupturas = {};
     Object.keys(loja.rupturas).forEach(k => {
         if(loja.rupturas[k].isIMC) delete loja.rupturas[k];
@@ -4810,7 +5516,7 @@ function salvarCheckIMCDiario() {
     
     if(!loja.imc.historico) loja.imc.historico = [];
     loja.imc.historico = loja.imc.historico.concat(novosRegistros);
-    loja.imc.ultimoCheck = agora.toISOString(); // Salva o timestamp exato
+    loja.imc.ultimoCheck = agora.toISOString();
     
     setLoja(lojaAtiva, loja);
     renderizarHistoricoIMC(loja);
@@ -5067,7 +5773,6 @@ function rupRenderLista(){
     container.innerHTML = itens.map(it => {
         const tag = it.categoriaComercial ? '<span class="tag-categoria">'+it.categoriaComercial+'</span>' : '';
         
-        // VERIFICA SE O ITEM FAZ PARTE DO IMC
         const isCadastradoIMC = l.imc && l.imc.cadastrados && l.imc.cadastrados.some(p => p.nome === it.nome && p.desc === it.descricao);
         const tagIMC = (it.isIMC || isCadastradoIMC) ? '<span class="tag-categoria" style="background:rgba(0,255,157,.15); border-color:rgba(0,255,157,.35); color:var(--ok);">IMC</span>' : '';
         
@@ -5297,7 +6002,6 @@ function sdRender(){
         const totalLotes = g.lotes.length;
         const emoji = (g.categoria || "📦").split(" ")[0];
         
-        // VERIFICA SE O PRODUTO FAZ PARTE DO IMC
         const isCadastradoIMC = loja.imc && loja.imc.cadastrados && loja.imc.cadastrados.some(p => p.nome === g.nome);
         const tagIMC = isCadastradoIMC ? '<span class="tag-categoria" style="background:rgba(0,255,157,.15); border-color:rgba(0,255,157,.35); color:var(--ok); font-size:7.5px; margin-left:4px;">IMC</span>' : '';
         
@@ -5598,6 +6302,7 @@ function sdFecharHistorico(e){
     $("sdOverlayHistorico")?.classList.remove("sd-ativo");
 }
 
+/* ================= RELATÓRIO ================= */
 function gerarRelatorioCompleto(){
     const produtos = sdGetProdutos();
     const loja = getLoja(lojaAtiva);
@@ -5613,6 +6318,7 @@ function gerarRelatorioCompleto(){
     const temShareGel = (share.geladeira && (share.geladeira.nab || share.geladeira.cerveja));
     const temExtras = (share.extras && (share.extras.nab || share.extras.cerveja));
     const temIMC = (loja.imc && loja.imc.cadastrados && loja.imc.cadastrados.length > 0);
+    const temMapeamento = (loja.mapeamento && Array.isArray(loja.mapeamento.historico) && loja.mapeamento.historico.length > 0);
 
     let t = "";
     t += "⚡ MSHARE SPACE — RELATÓRIO\n";
@@ -5622,7 +6328,7 @@ function gerarRelatorioCompleto(){
     t += "👨‍💼 Supervisor: " + (info.supervisor || "—") + "\n";
     t += "📅 " + dataFmt + " — ⏰ " + horaFmt + "\n";
 
-    if(!temRupturas && !temValidades && !temShareGond && !temShareGel && !temExtras && !temIMC){
+    if(!temRupturas && !temValidades && !temShareGond && !temShareGel && !temExtras && !temIMC && !temMapeamento){
         t += "\n📭 Nenhum registro nesta loja.\n";
         t += "\n⚡ MShare Space • Yuri Lima\n";
         return t;
@@ -5689,6 +6395,22 @@ function gerarRelatorioCompleto(){
                 t += "📦 " + h.produto + "\n";
                 t += "➡️ Status: " + h.status + "\n\n";
             });
+        }
+    }
+
+    if(temMapeamento) {
+        t += "\n📐 MAPEAMENTOS REGISTRADOS\n";
+        const hist = loja.mapeamento.historico;
+        t += "Total de registros: " + hist.length + "\n";
+        const ultimo = hist[hist.length - 1];
+        if(ultimo) {
+            t += "\nÚLTIMO MAPEAMENTO:\n";
+            t += "📝 " + (ultimo.descricao || "(sem descrição)") + "\n";
+            t += "📅 " + (ultimo.dataHoraGravacao || "") + "\n";
+            t += "🎯 Meta: " + (ultimo.meta || 0) + "%\n";
+            t += "📊 Share Final: " + (ultimo.pctMarca || "0") + "%\n";
+            t += "📦 Total de produtos: " + (ultimo.somaTotal || 0) + "\n";
+            t += "✅ Sua marca: " + (ultimo.somaMarca || 0) + "\n";
         }
     }
 
@@ -5779,7 +6501,7 @@ function montarRelatorio(){
         if(!l.trim()){ out.push("\n"); return; }
         if(l.startsWith("⚡ MSHARE SPACE")){ out.push('<span class="rp-header">'+l+'</span>'); return; }
         if(l.match(/^[📅🏬👤📍👨‍💼]/)){ out.push('<span class="rp-info">'+l+'</span>'); return; }
-        if(l.match(/^[📏❄️📋🗓️📊📅]/)){ out.push('<span class="rp-secao">'+l+'</span>'); return; }
+        if(l.match(/^[📏❄️📋🗓️📊📅📐]/)){ out.push('<span class="rp-secao">'+l+'</span>'); return; }
         if(l.match(/^[🥤🍺⭐] [A-ZÁÉÍÓÚÂÊÔÃÕÇ]/)){ out.push('<span class="rp-cat">'+l+'</span>'); return; }
         if(l.includes("META ATINGIDA")){
             out.push('<span class="rp-info">'+l.replace("META ATINGIDA 👍", '<span class="rp-ok">META ATINGIDA 👍</span>')+'</span>');
@@ -5806,6 +6528,7 @@ function montarRelatorio(){
     const loja = getLoja(lojaAtiva);
     const totalR = Object.keys(loja.rupturas || {}).length;
     const totalV = sdGetProdutos().length;
+    const totalM = (loja.mapeamento && Array.isArray(loja.mapeamento.historico)) ? loja.mapeamento.historico.length : 0;
     const share = loja.share || {};
     const temShare = !!(
         (share.gondola && (share.gondola.nab || share.gondola.cerveja)) ||
@@ -5814,7 +6537,9 @@ function montarRelatorio(){
     );
     const info = $("toolsInfoTexto");
     if(info) info.textContent =
-        "🔒 Somente leitura • 📋 " + totalR + " ruptura(s) • 🗓️ " + totalV + " validade(s)" + (temShare ? " • 📏 share salvo" : "");
+        "🔒 Somente leitura • 📋 " + totalR + " ruptura(s) • 🗓️ " + totalV + " validade(s)" + 
+        (totalM > 0 ? " • 📐 " + totalM + " mapeamento(s)" : "") +
+        (temShare ? " • 📏 share salvo" : "");
     const btn = $("toolsBtnCopiar");
     if(btn){
         btn.classList.remove("sd-copiado");
@@ -5843,12 +6568,14 @@ async function copiarRelatorio(){
     }
 }
 
+/* ================= SOBRE ================= */
 function abrirSobreApp(){ $("modalSobreApp")?.classList.add("aberto"); }
 function fecharSobreApp(e){
     if(e && e.target.id !== "modalSobreApp") return;
     $("modalSobreApp")?.classList.remove("aberto");
 }
 
+/* ================= NAVEGAÇÃO / ESC ================= */
 window.addEventListener("popstate", ()=>{
     const gear = $("gearMenu");
     if(gear && gear.classList.contains("aberto")){ fecharGearMenu(); history.pushState(null, "", location.href); return; }
@@ -5864,6 +6591,10 @@ window.addEventListener("popstate", ()=>{
     if(sdConfirm && sdConfirm.classList.contains("sd-ativo")){ sdConfirm.classList.remove("sd-ativo"); history.pushState(null, "", location.href); return; }
     const sdHist = $("sdOverlayHistorico");
     if(sdHist && sdHist.classList.contains("sd-ativo")){ sdHist.classList.remove("sd-ativo"); history.pushState(null, "", location.href); return; }
+    const mapHist = $("mapModalHistorico");
+    if(mapHist && mapHist.classList.contains("sd-ativo")){ if(typeof mapFecharHistorico === 'function') mapFecharHistorico(); history.pushState(null, "", location.href); return; }
+    const mapDet = $("mapModalDetalhe");
+    if(mapDet && mapDet.classList.contains("sd-ativo")){ if(typeof mapFecharDetalhe === 'function') mapFecharDetalhe(); history.pushState(null, "", location.href); return; }
     const modalLoja = $("modalLoja");
     if(modalLoja && modalLoja.classList.contains("aberto")){ fecharFerramentaRupturas(); history.pushState(null, "", location.href); return; }
     const modais = ["modalSobreApp", "modalCalculadora", "modalSelecaoLoja", "modalExcluirLoja"];
@@ -5888,6 +6619,10 @@ window.addEventListener("keydown", (e)=>{
         if(sdOverlay && sdOverlay.classList.contains("sd-ativo")){ sdFecharModalForcado(); return; }
         const sdConfirm = $("sdOverlayConfirm");
         if(sdConfirm && sdConfirm.classList.contains("sd-ativo")){ sdConfirm.classList.remove("sd-ativo"); return; }
+        const mapHist = $("mapModalHistorico");
+        if(mapHist && mapHist.classList.contains("sd-ativo")){ if(typeof mapFecharHistorico === 'function') mapFecharHistorico(); return; }
+        const mapDet = $("mapModalDetalhe");
+        if(mapDet && mapDet.classList.contains("sd-ativo")){ if(typeof mapFecharDetalhe === 'function') mapFecharDetalhe(); return; }
         const modalSobre = $("modalSobreApp");
         if(modalSobre && modalSobre.classList.contains("aberto")){ modalSobre.classList.remove("aberto"); return; }
         const modalLoja = $("modalLoja");
@@ -5896,7 +6631,1162 @@ window.addEventListener("keydown", (e)=>{
 });
 
 setTimeout(()=>{ if(_currentUser) atualizarCardsLojas(); }, 100);
-</script>
 
+/* ================= MAPEAMENTO ================= */
+const MAP_STATE = {
+    qtdGondolas: 0,
+    gondolas: [],
+    metaGlobal: 0,
+    metaTravada: false,
+    destravarTimer: null,
+    descricaoGlobal: '',
+    dadosGlobais: [],
+    dataHoraMedicao: '',
+    registroEmEdicaoId: null,
+    modoExclusao: null
+};
+
+function mapGetLoja(){
+    return getLoja(lojaAtiva);
+}
+function mapGetHistorico(){
+    const l = mapGetLoja();
+    if(!l.mapeamento) l.mapeamento = { historico: [] };
+    if(!Array.isArray(l.mapeamento.historico)) l.mapeamento.historico = [];
+    return l.mapeamento.historico;
+}
+function mapSalvarHistorico(lista){
+    const l = mapGetLoja();
+    l.mapeamento = l.mapeamento || {};
+    l.mapeamento.historico = lista;
+    setLoja(lojaAtiva, l);
+    return true;
+}
+function mapGerarId(){
+    return 'map_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+}
+function mapFormatarDataHora(d){
+    const pad = n => String(n).padStart(2, '0');
+    return `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+function mapPercentual(parte, total){
+    return total ? ((parte / total) * 100).toFixed(1) : '0.0';
+}
+function mapCalcularFaltamFrentes(metaPct, totalAtual, marcaAtual){
+    if (totalAtual <= 0) return 0;
+    const marcaNecessaria = (metaPct / 100) * totalAtual;
+    const falta = Math.ceil(marcaNecessaria - marcaAtual);
+    return falta > 0 ? falta : 0;
+}
+function mapEscapeHtml(texto){
+    if (texto === null || texto === undefined) return '';
+    return String(texto)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+/* Limpa meses anteriores (mesma lógica do app original) */
+function mapLimparMesesAnteriores(lista){
+    const agora = new Date();
+    return lista.filter(item => {
+        if (!item || !item.dataHoraGravacaoISO) return false;
+        const d = new Date(item.dataHoraGravacaoISO);
+        if (isNaN(d.getTime())) return false;
+        return d.getMonth() === agora.getMonth() && d.getFullYear() === agora.getFullYear();
+    });
+}
+
+/* Inicializa quando entra na aba */
+function mapInicializar(){
+    mapResetUI();
+    mapConfigurarBotaoDestravar();
+}
+
+function mapResetUI(){
+    const s1 = $("mapStep1"); const s2 = $("mapStep2"); const s3 = $("mapStep3");
+    if(s1) s1.style.display = "block";
+    if(s2) s2.style.display = "none";
+    if(s3) s3.style.display = "none";
+    const d = $("mapDescricao"); if(d) d.value = "";
+    const m = $("mapMetaPorcentagem"); if(m){ m.value = ""; m.readOnly = false; }
+    const q = $("mapQtdGondolas"); if(q) q.value = "";
+    const fp = $("mapFormPrateleiras"); if(fp) fp.innerHTML = "";
+    const rg = $("mapResumoGondolas"); if(rg) rg.innerHTML = "";
+    const rgeral = $("mapResumoGeral"); if(rgeral) rgeral.innerHTML = "";
+    const ms = $("mapMetaStatus"); if(ms){ ms.className = "map-meta-status"; ms.innerHTML = ""; }
+    ["mapErroDesc","mapErroMeta","mapErroGondolas","mapErroForm"].forEach(id => {
+        const e = $(id); if(e){ e.style.display = "none"; e.textContent = ""; }
+    });
+    const metaBox = $("mapMetaBox"); if(metaBox) metaBox.classList.remove("travada");
+    const btnDes = $("mapBtnDestravarMeta"); if(btnDes){ btnDes.style.display = "none"; btnDes.classList.remove("holding"); }
+    const hint = $("mapMetaHint");
+    if(hint) hint.textContent = "Informe a meta em % (ex.: 30 para 30%). A meta travará automaticamente ao começar a digitar a quantidade de gôndolas.";
+    MAP_STATE.metaTravada = false;
+    MAP_STATE.metaGlobal = 0;
+    MAP_STATE.qtdGondolas = 0;
+    MAP_STATE.gondolas = [];
+    MAP_STATE.descricaoGlobal = "";
+    MAP_STATE.dadosGlobais = [];
+    MAP_STATE.registroEmEdicaoId = null;
+    MAP_STATE.modoExclusao = null;
+    mapCancelarDestravar();
+}
+
+function mapRender(){
+    if(!MAP_STATE.gondolas.length && !MAP_STATE.metaGlobal){
+        mapResetUI();
+    }
+}
+
+/* Configura botão destravar (long press 2s) */
+function mapConfigurarBotaoDestravar(){
+    const btn = $("mapBtnDestravarMeta");
+    if(!btn) return;
+    if(btn.dataset.configurado === 'true') return;
+    btn.dataset.configurado = 'true';
+
+    const iniciar = (e) => {
+        if(e) e.preventDefault();
+        if(!MAP_STATE.metaTravada) return;
+        mapCancelarDestravar();
+        btn.classList.add('holding');
+        MAP_STATE.destravarTimer = setTimeout(() => {
+            btn.classList.remove('holding');
+            mapDestravarMeta();
+        }, 2000);
+    };
+    const cancelar = (e) => {
+        if(e) e.preventDefault();
+        mapCancelarDestravar();
+        btn.classList.remove('holding');
+    };
+
+    btn.addEventListener('touchstart', iniciar, {passive:false});
+    btn.addEventListener('touchend', cancelar, {passive:false});
+    btn.addEventListener('touchcancel', cancelar, {passive:false});
+    btn.addEventListener('mousedown', iniciar);
+    btn.addEventListener('mouseup', cancelar);
+    btn.addEventListener('mouseleave', cancelar);
+    btn.addEventListener('contextmenu', e => e.preventDefault());
+    btn.addEventListener('selectstart', e => e.preventDefault());
+}
+function mapCancelarDestravar(){
+    if(MAP_STATE.destravarTimer){ clearTimeout(MAP_STATE.destravarTimer); MAP_STATE.destravarTimer = null; }
+}
+function mapDestravarMeta(){
+    MAP_STATE.metaTravada = false;
+    const input = $("mapMetaPorcentagem");
+    if(input) input.readOnly = false;
+    const box = $("mapMetaBox"); if(box) box.classList.remove("travada");
+    const btn = $("mapBtnDestravarMeta"); if(btn){ btn.style.display = "none"; btn.classList.remove("holding"); }
+    const hint = $("mapMetaHint");
+    if(hint) hint.textContent = "Informe a meta em % (ex.: 30 para 30%). A meta travará automaticamente ao começar a digitar a quantidade de gôndolas.";
+}
+
+function mapTravarMetaAoDigitarGondolas(){
+    if(MAP_STATE.metaTravada) return;
+    const metaInput = $("mapMetaPorcentagem");
+    const gondInput = $("mapQtdGondolas");
+    if(!metaInput || !gondInput) return;
+    if(gondInput.value === '' || gondInput.value === null) return;
+    const metaVal = parseFloat(metaInput.value);
+    if(metaInput.value === '' || isNaN(metaVal) || metaVal < 0 || metaVal > 100) return;
+    MAP_STATE.metaGlobal = metaVal;
+    MAP_STATE.metaTravada = true;
+    metaInput.readOnly = true;
+    const box = $("mapMetaBox"); if(box) box.classList.add("travada");
+    const btnDes = $("mapBtnDestravarMeta"); if(btnDes) btnDes.style.display = "inline-flex";
+    const hint = $("mapMetaHint");
+    if(hint) hint.textContent = "Meta travada automaticamente. Para alterar, segure o botão \"Destravar\" por 2 segundos.";
+    const eMeta = $("mapErroMeta"); if(eMeta) eMeta.style.display = "none";
+    mapConfigurarBotaoDestravar();
+}
+
+/* STEP 1 → STEP 2 */
+function mapIniciarGondolas(){
+    const descInput = $("mapDescricao");
+    const erroDesc = $("mapErroDesc");
+    const erroMeta = $("mapErroMeta");
+    const input = $("mapQtdGondolas");
+    const erroG = $("mapErroGondolas");
+    if(erroDesc){ erroDesc.style.display = "none"; erroDesc.textContent = ""; }
+    if(erroMeta){ erroMeta.style.display = "none"; erroMeta.textContent = ""; }
+    if(erroG){ erroG.style.display = "none"; erroG.textContent = ""; }
+
+    const descVal = descInput ? descInput.value.trim() : "";
+    if (!descVal) {
+        if(erroDesc){ erroDesc.textContent = "Informe uma descrição (ex.: Loja Centro)."; erroDesc.style.display = "block"; }
+        return;
+    }
+    MAP_STATE.descricaoGlobal = descVal;
+
+    const metaInput = $("mapMetaPorcentagem");
+    const metaVal = parseFloat(metaInput.value);
+    if (metaInput.value === '' || isNaN(metaVal) || metaVal < 0 || metaVal > 100) {
+        if(erroMeta){ erroMeta.textContent = "Informe uma meta válida entre 0 e 100%."; erroMeta.style.display = "block"; }
+        return;
+    }
+    MAP_STATE.metaGlobal = metaVal;
+
+    const qtd = parseInt(input.value, 10);
+    if (!qtd || qtd < 1 || qtd > 50) {
+        if(erroG){ erroG.textContent = "Informe um número válido de gôndolas (1 a 50)."; erroG.style.display = "block"; }
+        return;
+    }
+    MAP_STATE.qtdGondolas = qtd;
+    MAP_STATE.gondolas = [];
+
+    const container = $("mapFormPrateleiras");
+    if(container) container.innerHTML = "";
+
+    for (let g = 1; g <= MAP_STATE.qtdGondolas; g++) {
+        MAP_STATE.gondolas.push({ numero: g, prateleiras: [] });
+        mapCriarBlocoGondola(g);
+    }
+
+    const s1 = $("mapStep1"); if(s1) s1.style.display = "none";
+    const s2 = $("mapStep2"); if(s2) s2.style.display = "block";
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function mapCriarBlocoGondola(num) {
+    const container = $("mapFormPrateleiras");
+    if(!container) return;
+    const block = document.createElement("div");
+    block.className = "map-gondola-block";
+    block.id = `mapGondolaBlock${num}`;
+    block.innerHTML = `
+      <div class="map-gondola-header">
+        <h3>🏪 Gôndola ${num}</h3>
+        <div class="map-gondola-actions">
+          <button class="map-btn primary" onclick="mapAdicionarPrateleira(${num})">+ Prateleira</button>
+          <button class="map-btn danger" onclick="mapEntrarModoExclusao(${num})">− Remover</button>
+        </div>
+      </div>
+      <div class="map-delete-bar" id="mapDeleteBar${num}" style="display:none;">
+        <span>🗑️ Marque as prateleiras para excluir:</span>
+        <div class="map-bar-actions">
+          <button class="map-btn secondary" onclick="mapMarcarTodas(${num})">Marcar todas</button>
+          <button class="map-btn danger" onclick="mapConfirmarExclusao(${num})">Excluir marcadas</button>
+          <button class="map-btn secondary" onclick="mapCancelarExclusao(${num})">Cancelar</button>
+        </div>
+      </div>
+      <div id="mapPrateleirasG${num}"></div>
+      <button class="map-btn-salvar-gondola" id="mapBtnSalvarG${num}" onclick="mapSalvarGondola(${num})">✓ Salvar todas as prateleiras da Gôndola ${num}</button>
+    `;
+    container.appendChild(block);
+
+    const qtdPrat = parseInt(prompt(`Quantas prateleiras tem a Gôndola ${num}?`, '3'), 10);
+    const qtd = (isNaN(qtdPrat) || qtdPrat < 1) ? 1 : Math.min(qtdPrat, 100);
+    for (let p = 1; p <= qtd; p++) {
+        mapAdicionarCardPrateleira(num, p);
+    }
+}
+
+function mapAdicionarCardPrateleira(gondolaNum, pratNum) {
+    const g = MAP_STATE.gondolas.find(x => x.numero === gondolaNum);
+    if (!g) return;
+    const container = $("mapPrateleirasG" + gondolaNum);
+    if (!container) return;
+
+    const i = pratNum;
+    const card = document.createElement("div");
+    card.className = "map-shelf-card";
+    card.id = `mapCard_g${gondolaNum}_p${i}`;
+    card.dataset.gondola = gondolaNum;
+    card.dataset.prateleira = i;
+    card.dataset.editando = 'true';
+
+    card.innerHTML = `
+      <div class="map-shelf-head">
+        <h3>Prateleira ${i}</h3>
+        <input type="checkbox" class="map-delete-checkbox" style="display:none;" data-gondola="${gondolaNum}" data-prateleira="${i}" onchange="mapToggleSelecaoExclusao(${gondolaNum}, ${i}, this.checked)">
+      </div>
+      <div class="map-field-row">
+        <div class="map-field">
+          <label for="mapTotal_g${gondolaNum}_p${i}">Quantidade total</label>
+          <input type="number" class="map-input" id="mapTotal_g${gondolaNum}_p${i}" min="0" placeholder="0" inputmode="numeric">
+        </div>
+        <div class="map-field">
+          <label for="mapMarca_g${gondolaNum}_p${i}">Sua marca</label>
+          <input type="number" class="map-input" id="mapMarca_g${gondolaNum}_p${i}" min="0" placeholder="0" inputmode="numeric">
+        </div>
+      </div>
+      <div class="map-error" id="mapErro_g${gondolaNum}_p${i}" style="display:none;"></div>
+    `;
+    container.appendChild(card);
+}
+
+function mapSalvarGondola(gondolaNum) {
+    const g = MAP_STATE.gondolas.find(x => x.numero === gondolaNum);
+    if (!g) return;
+    const cards = document.querySelectorAll(`[id^="mapCard_g${gondolaNum}_p"]`);
+    if (!cards.length) { alert("Adicione pelo menos uma prateleira."); return; }
+
+    let valido = true;
+    const novasPrateleiras = [];
+
+    for (const card of cards) {
+        const p = parseInt(card.dataset.prateleira, 10);
+        const totalInput = $("mapTotal_g" + gondolaNum + "_p" + p);
+        const marcaInput = $("mapMarca_g" + gondolaNum + "_p" + p);
+        const erroPrat = $("mapErro_g" + gondolaNum + "_p" + p);
+        if (erroPrat) { erroPrat.style.display = "none"; erroPrat.textContent = ""; }
+        if (!totalInput || !marcaInput) continue;
+
+        const total = totalInput.value === '' ? 0 : parseInt(totalInput.value, 10);
+        const marca = marcaInput.value === '' ? 0 : parseInt(marcaInput.value, 10);
+
+        if (isNaN(total) || total < 0) {
+            if (erroPrat) { erroPrat.textContent = "Quantidade total inválida."; erroPrat.style.display = "block"; }
+            valido = false; continue;
+        }
+        if (isNaN(marca) || marca < 0) {
+            if (erroPrat) { erroPrat.textContent = "Quantidade da sua marca inválida."; erroPrat.style.display = "block"; }
+            valido = false; continue;
+        }
+        if (marca > total) {
+            if (erroPrat) { erroPrat.textContent = "⚠️ A quantidade da sua marca não pode ser maior que o total."; erroPrat.style.display = "block"; }
+            valido = false; continue;
+        }
+        novasPrateleiras.push({ prateleira: p, total, marca, naoMarca: total - marca });
+    }
+
+    if (!valido) return;
+
+    g.prateleiras = novasPrateleiras;
+
+    cards.forEach(card => {
+        const p = parseInt(card.dataset.prateleira, 10);
+        const v = novasPrateleiras.find(x => x.prateleira === p);
+        if (!v) return;
+        card.dataset.editando = 'false';
+        card.classList.add('saved');
+
+        const fieldRow = card.querySelector('.map-field-row');
+        const oldView = card.querySelector('.map-values-view');
+        if (oldView) oldView.remove();
+
+        const viewDiv = document.createElement('div');
+        viewDiv.className = 'map-values-view';
+        viewDiv.innerHTML = `
+          <span>Total: <strong>${v.total}</strong></span>
+          <span>Sua marca: <strong>${v.marca}</strong></span>
+          <span>Não é sua: <strong>${v.total - v.marca}</strong></span>
+          <button type="button" class="map-btn map-btn-edit-small" onclick="mapEditarCard(${gondolaNum}, ${p})">✏️ Editar</button>
+        `;
+        if(fieldRow){
+            fieldRow.style.display = 'none';
+            fieldRow.parentNode.insertBefore(viewDiv, fieldRow.nextSibling);
+        }
+    });
+
+    const btn = $("mapBtnSalvarG" + gondolaNum);
+    if (btn) {
+        btn.classList.add('salvo');
+        btn.textContent = `✓ Gôndola ${gondolaNum} salva! Toque para salvar novamente`;
+    }
+    mostrarToast(`Gôndola ${gondolaNum} salva`, "✅");
+}
+
+function mapEditarCard(gondolaNum, pratNum) {
+    const card = $("mapCard_g" + gondolaNum + "_p" + pratNum);
+    if (!card) return;
+    const g = MAP_STATE.gondolas.find(x => x.numero === gondolaNum);
+    const v = g ? g.prateleiras.find(p => p.prateleira === pratNum) : null;
+    const totalInput = $("mapTotal_g" + gondolaNum + "_p" + pratNum);
+    const marcaInput = $("mapMarca_g" + gondolaNum + "_p" + pratNum);
+    if (totalInput) totalInput.value = v ? v.total : 0;
+    if (marcaInput) marcaInput.value = v ? v.marca : 0;
+    const fieldRow = card.querySelector('.map-field-row');
+    if (fieldRow) fieldRow.style.display = 'flex';
+    const view = card.querySelector('.map-values-view');
+    if (view) view.remove();
+    const erroPrat = $("mapErro_g" + gondolaNum + "_p" + pratNum);
+    if (erroPrat) { erroPrat.style.display = "none"; erroPrat.textContent = ""; }
+    card.classList.remove('saved');
+    card.dataset.editando = 'true';
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const btn = $("mapBtnSalvarG" + gondolaNum);
+    if (btn) {
+        btn.classList.remove('salvo');
+        btn.textContent = `✓ Salvar todas as prateleiras da Gôndola ${gondolaNum}`;
+    }
+}
+
+function mapAdicionarPrateleira(gondolaNum) {
+    if (MAP_STATE.modoExclusao) mapCancelarExclusao(gondolaNum);
+    const g = MAP_STATE.gondolas.find(x => x.numero === gondolaNum);
+    if (!g) return;
+    const nextPrat = g.prateleiras.length > 0 ? Math.max(...g.prateleiras.map(p => p.prateleira)) + 1 : 1;
+    mapAdicionarCardPrateleira(gondolaNum, nextPrat);
+    const btn = $("mapBtnSalvarG" + gondolaNum);
+    if (btn) {
+        btn.classList.remove('salvo');
+        btn.textContent = `✓ Salvar todas as prateleiras da Gôndola ${gondolaNum}`;
+    }
+    setTimeout(() => {
+        const card = $("mapCard_g" + gondolaNum + "_p" + nextPrat);
+        if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 50);
+}
+
+function mapEntrarModoExclusao(gondolaNum) {
+    const g = MAP_STATE.gondolas.find(x => x.numero === gondolaNum);
+    if (!g) return;
+    const cards = document.querySelectorAll(`[id^="mapCard_g${gondolaNum}_p"]`);
+    if (cards.length <= 1) { alert("É necessário ter pelo menos 1 prateleira nesta gôndola."); return; }
+    MAP_STATE.modoExclusao = gondolaNum;
+    const bar = $("mapDeleteBar" + gondolaNum); if(bar) bar.style.display = "flex";
+    cards.forEach(card => {
+        const cb = card.querySelector('.map-delete-checkbox');
+        if (cb) { cb.style.display = "block"; cb.checked = false; }
+        card.classList.remove('selected-for-delete');
+    });
+}
+
+function mapCancelarExclusao(gondolaNum) {
+    MAP_STATE.modoExclusao = null;
+    const bar = $("mapDeleteBar" + gondolaNum); if(bar) bar.style.display = "none";
+    const cards = document.querySelectorAll(`[id^="mapCard_g${gondolaNum}_p"]`);
+    cards.forEach(card => {
+        const cb = card.querySelector('.map-delete-checkbox');
+        if (cb) { cb.checked = false; cb.style.display = "none"; }
+        card.classList.remove('selected-for-delete');
+    });
+}
+
+function mapToggleSelecaoExclusao(gondolaNum, pratNum, checked) {
+    const card = $("mapCard_g" + gondolaNum + "_p" + pratNum);
+    if (!card) return;
+    if (checked) card.classList.add('selected-for-delete');
+    else card.classList.remove('selected-for-delete');
+}
+
+function mapMarcarTodas(gondolaNum) {
+    const cards = document.querySelectorAll(`[id^="mapCard_g${gondolaNum}_p"]`);
+    if (!cards.length) return;
+    let todasMarcadas = true;
+    cards.forEach(card => {
+        const cb = card.querySelector('.map-delete-checkbox');
+        if (!cb || !cb.checked) todasMarcadas = false;
+    });
+    const novoEstado = !todasMarcadas;
+    cards.forEach(card => {
+        const cb = card.querySelector('.map-delete-checkbox');
+        if (cb) {
+            cb.checked = novoEstado;
+            if (novoEstado) card.classList.add('selected-for-delete');
+            else card.classList.remove('selected-for-delete');
+        }
+    });
+}
+
+function mapConfirmarExclusao(gondolaNum) {
+    const cards = document.querySelectorAll(`[id^="mapCard_g${gondolaNum}_p"]`);
+    const marcadas = [];
+    cards.forEach(card => {
+        const cb = card.querySelector('.map-delete-checkbox');
+        if (cb && cb.checked) marcadas.push(parseInt(card.dataset.prateleira, 10));
+    });
+    if (!marcadas.length) { alert("Marque pelo menos uma prateleira para excluir."); return; }
+    if (marcadas.length >= cards.length) { alert("Não é possível excluir todas as prateleiras. Mantenha pelo menos 1."); return; }
+    if (!confirm(`Excluir ${marcadas.length} prateleira(s) da Gôndola ${gondolaNum}?`)) return;
+
+    const g = MAP_STATE.gondolas.find(x => x.numero === gondolaNum);
+    if (!g) return;
+
+    const restantes = [];
+    cards.forEach(card => {
+        const p = parseInt(card.dataset.prateleira, 10);
+        if (!marcadas.includes(p)) {
+            const v = g.prateleiras.find(x => x.prateleira === p) || { prateleira: p, total: 0, marca: 0, naoMarca: 0 };
+            restantes.push(v);
+        }
+    });
+
+    g.prateleiras = [];
+    const container = $("mapPrateleirasG" + gondolaNum);
+    if(container) container.innerHTML = "";
+
+    restantes.forEach((v, idx) => {
+        const novoNum = idx + 1;
+        g.prateleiras.push({ prateleira: novoNum, total: v.total, marca: v.marca, naoMarca: v.naoMarca });
+        mapAdicionarCardPrateleira(gondolaNum, novoNum);
+        setTimeout(() => {
+            const totalInput = $("mapTotal_g" + gondolaNum + "_p" + novoNum);
+            const marcaInput = $("mapMarca_g" + gondolaNum + "_p" + novoNum);
+            if (totalInput) totalInput.value = v.total;
+            if (marcaInput) marcaInput.value = v.marca;
+        }, 0);
+    });
+
+    MAP_STATE.modoExclusao = null;
+    const bar = $("mapDeleteBar" + gondolaNum); if(bar) bar.style.display = "none";
+
+    const btn = $("mapBtnSalvarG" + gondolaNum);
+    if (btn) {
+        btn.classList.remove('salvo');
+        btn.textContent = `✓ Salvar todas as prateleiras da Gôndola ${gondolaNum}`;
+    }
+}
+
+/* STEP 2 → STEP 3 (Gerar Resumo) */
+function mapGerarResumo() {
+    if (MAP_STATE.modoExclusao) MAP_STATE.modoExclusao = null;
+    document.querySelectorAll('.map-delete-bar').forEach(b => b.style.display = "none");
+    const erroForm = $("mapErroForm");
+    if(erroForm){ erroForm.style.display = "none"; erroForm.textContent = ""; }
+
+    let valido = true;
+    const dadosFinal = [];
+
+    for (const g of MAP_STATE.gondolas) {
+        const cards = document.querySelectorAll(`[id^="mapCard_g${g.numero}_p"]`);
+        for (const card of cards) {
+            const p = parseInt(card.dataset.prateleira, 10);
+            if (card.dataset.editando === 'true') {
+                const totalInput = $("mapTotal_g" + g.numero + "_p" + p);
+                const marcaInput = $("mapMarca_g" + g.numero + "_p" + p);
+                const erroPrat = $("mapErro_g" + g.numero + "_p" + p);
+                if (erroPrat) { erroPrat.style.display = "none"; erroPrat.textContent = ""; }
+                if (!totalInput || !marcaInput) continue;
+                const total = totalInput.value === '' ? 0 : parseInt(totalInput.value, 10);
+                const marca = marcaInput.value === '' ? 0 : parseInt(marcaInput.value, 10);
+                if (isNaN(total) || total < 0) { if(erroPrat){ erroPrat.textContent = "Total inválido"; erroPrat.style.display = "block"; } valido = false; continue; }
+                if (isNaN(marca) || marca < 0) { if(erroPrat){ erroPrat.textContent = "Marca inválida"; erroPrat.style.display = "block"; } valido = false; continue; }
+                if (marca > total) { if(erroPrat){ erroPrat.textContent = "⚠️"; erroPrat.style.display = "block"; } valido = false; continue; }
+                const existing = g.prateleiras.find(x => x.prateleira === p);
+                if (existing) { existing.total = total; existing.marca = marca; existing.naoMarca = total - marca; }
+                else g.prateleiras.push({ prateleira: p, total, marca, naoMarca: total - marca });
+            }
+            const existing = g.prateleiras.find(x => x.prateleira === p);
+            if (existing) dadosFinal.push({ ...existing });
+        }
+    }
+
+    if (!valido) {
+        if(erroForm){ erroForm.textContent = "Corrija os campos destacados e salve cada gôndola antes de gerar o resumo."; erroForm.style.display = "block"; }
+        return;
+    }
+
+    MAP_STATE.dadosGlobais = dadosFinal;
+    MAP_STATE.dataHoraMedicao = mapFormatarDataHora(new Date());
+    mapRenderizarResumo();
+
+    let somaTotal = 0, somaMarca = 0;
+    MAP_STATE.gondolas.forEach(g => g.prateleiras.forEach(p => { somaTotal += p.total; somaMarca += p.marca; }));
+    const pctReal = somaTotal ? (somaMarca / somaTotal) * 100 : 0;
+    const atingiu = pctReal >= MAP_STATE.metaGlobal;
+    const faltamFrentes = mapCalcularFaltamFrentes(MAP_STATE.metaGlobal, somaTotal, somaMarca);
+
+    mapGravarHistoricoAutomatico(MAP_STATE.metaGlobal, pctReal.toFixed(1), faltamFrentes);
+
+    const metaStatus = $("mapMetaStatus");
+    if (metaStatus) {
+        if (atingiu) {
+            metaStatus.className = 'map-meta-status ok';
+            metaStatus.innerHTML = `✅ Meta atingida! ${pctReal.toFixed(1)}% (Meta: ${MAP_STATE.metaGlobal}%).`;
+        } else {
+            metaStatus.className = 'map-meta-status fail';
+            metaStatus.innerHTML = `❌ Meta não atingida: ${pctReal.toFixed(1)}% (Meta: ${MAP_STATE.metaGlobal}%).<span class="map-meta-detail">Faltam ${faltamFrentes} frentes</span>`;
+        }
+    }
+}
+
+function mapVoltarParaEdicao() {
+    const s2 = $("mapStep2"); if(s2) s2.style.display = "block";
+    const s3 = $("mapStep3"); if(s3) s3.style.display = "none";
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* Histórico (Firestore / nuvem) */
+function mapGravarHistoricoAutomatico(meta, pctMarca, faltamFrentes) {
+    const agora = new Date();
+    let somaTotal = 0, somaMarca = 0;
+    MAP_STATE.gondolas.forEach(g => g.prateleiras.forEach(p => { somaTotal += p.total; somaMarca += p.marca; }));
+    const somaNaoMarca = somaTotal - somaMarca;
+    const registro = {
+        id: mapGerarId(),
+        dataHoraGravacaoISO: agora.toISOString(),
+        dataHoraGravacao: mapFormatarDataHora(agora),
+        descricao: MAP_STATE.descricaoGlobal,
+        qtdGondolas: MAP_STATE.gondolas.length,
+        gondolas: MAP_STATE.gondolas.map(g => ({ numero: g.numero, prateleiras: g.prateleiras.map(p => ({ ...p })) })),
+        dados: MAP_STATE.gondolas.flatMap(g => g.prateleiras),
+        somaTotal, somaMarca, somaNaoMarca,
+        pctMarca: mapPercentual(somaMarca, somaTotal),
+        pctNaoMarca: mapPercentual(somaNaoMarca, somaTotal),
+        meta: meta, faltamFrentes: faltamFrentes
+    };
+    let lista = mapGetHistorico();
+    lista = mapLimparMesesAnteriores(lista);
+    lista.push(registro);
+    const ok = mapSalvarHistorico(lista);
+    if(ok) mostrarToast("Mapeamento salvo na nuvem!", "☁️");
+    return ok;
+}
+
+/* RENDER do Resumo (Gôndolas + Geral) */
+function mapRenderizarResumo() {
+    const resumoGondolas = $("mapResumoGondolas");
+    if(!resumoGondolas) return;
+    resumoGondolas.innerHTML = '';
+    let somaTotal = 0, somaMarca = 0;
+
+    let totalGeral = 0, marcaGeral = 0;
+    MAP_STATE.gondolas.forEach(g => g.prateleiras.forEach(p => { totalGeral += p.total; marcaGeral += p.marca; }));
+    const metaGeralAtingida = totalGeral > 0 ? (marcaGeral / totalGeral) * 100 >= MAP_STATE.metaGlobal : false;
+
+    const faltasPorPrateleira = [];
+
+    MAP_STATE.gondolas.forEach(g => {
+        const prats = g.prateleiras.filter(p => p.total > 0 || p.marca > 0);
+        if (!prats.length) return;
+
+        let gTotal = 0, gMarca = 0;
+        prats.forEach(p => { gTotal += p.total; gMarca += p.marca; });
+        somaTotal += gTotal;
+        somaMarca += gMarca;
+
+        const card = document.createElement('div');
+        card.className = 'map-gondola-resumo-card';
+        const gAtingiu = gTotal > 0 ? (gMarca / gTotal) * 100 >= MAP_STATE.metaGlobal : false;
+        if (!metaGeralAtingida && !gAtingiu) card.classList.add('falhou');
+
+        let html = `<h4>🏪 Gôndola ${g.numero}</h4>`;
+
+        prats.forEach(p => {
+            const pctPrat = p.total > 0 ? (p.marca / p.total) * 100 : 0;
+            const pratAtingiu = pctPrat >= MAP_STATE.metaGlobal;
+            const classeFalhou = (!metaGeralAtingida && !pratAtingiu) ? ' falhou' : '';
+            const classeValor = (!metaGeralAtingida && !pratAtingiu) ? 'vermelho' : 'verde';
+            const faltaPrat = mapCalcularFaltamFrentes(MAP_STATE.metaGlobal, p.total, p.marca);
+
+            if (!metaGeralAtingida && !pratAtingiu && faltaPrat > 0) {
+                faltasPorPrateleira.push({ gondola: g.numero, prateleira: p.prateleira, falta: faltaPrat, pct: pctPrat });
+            }
+
+            html += `
+              <div class="map-prat-resumo-linha${classeFalhou}">
+                <span class="map-prat-titulo">Prateleira ${p.prateleira}</span>
+                <div class="map-prat-item"><span class="map-rotulo">Quantidade total de produtos</span><span class="map-valor">${p.total}</span></div>
+                <div class="map-prat-item"><span class="map-rotulo">Quantidade da sua marca</span><span class="map-valor ${classeValor}">${p.marca}</span></div>
+                <div class="map-prat-item"><span class="map-rotulo">Quantidade que não é sua marca</span><span class="map-valor">${p.total - p.marca}</span></div>
+                <div class="map-prat-item"><span class="map-rotulo">Porcentagem da sua marca</span><span class="map-valor ${classeValor}">${mapPercentual(p.marca, p.total)}%</span></div>
+                ${(!metaGeralAtingida && !pratAtingiu && faltaPrat > 0) ? `<div class="map-prat-falta">⚠️ Faltam ${faltaPrat} frentes para atingir a meta de ${MAP_STATE.metaGlobal}% nesta prateleira</div>` : ''}
+                ${(!metaGeralAtingida && !pratAtingiu && faltaPrat === 0) ? `<div class="map-prat-aviso">⚠️ Esta prateleira não atingiu a meta de ${MAP_STATE.metaGlobal}%</div>` : ''}
+              </div>
+            `;
+        });
+
+        const classeTotal = (!metaGeralAtingida && !gAtingiu) ? 'red' : 'green';
+        html += `
+          <div class="map-gondola-total ${classeTotal}">
+            <div class="map-linha"><span class="map-rotulo">Gôndola ${g.numero} — Total de produtos:</span><span class="map-valor">${gTotal}</span></div>
+            <div class="map-linha"><span class="map-rotulo">Produtos da sua marca:</span><span class="map-valor">${gMarca}</span></div>
+            <div class="map-linha"><span class="map-rotulo">Produtos que não são da sua marca:</span><span class="map-valor">${gTotal - gMarca}</span></div>
+            <div class="map-linha"><span class="map-rotulo">Porcentagem da sua marca nesta gôndola:</span><span class="map-valor">${mapPercentual(gMarca, gTotal)}%</span></div>
+          </div>
+        `;
+        card.innerHTML = html;
+        resumoGondolas.appendChild(card);
+    });
+
+    const somaNaoMarca = somaTotal - somaMarca;
+    const pctMarca = mapPercentual(somaMarca, somaTotal);
+    const pctNaoMarca = mapPercentual(somaNaoMarca, somaTotal);
+    const metaAtingida = somaTotal > 0 ? (somaMarca / somaTotal) * 100 >= MAP_STATE.metaGlobal : false;
+
+    const resumoGeral = $("mapResumoGeral");
+    if(!resumoGeral) return;
+    const classeGeral = metaAtingida ? '' : ' falhou';
+    const classeValorPct = metaAtingida ? 'verde' : 'vermelho';
+
+    let faltasHTML = '';
+    if (!metaAtingida && faltasPorPrateleira.length > 0) {
+        const faltaTotal = mapCalcularFaltamFrentes(MAP_STATE.metaGlobal, somaTotal, somaMarca);
+        faltasHTML = `
+          <div class="map-resumo-falta-geral">
+            <span class="map-falta-titulo">Meta não atingida: faltam ${faltaTotal} frentes no total</span>
+            <div>Onde está faltando:</div>
+            <ul class="map-falta-lista">
+              ${faltasPorPrateleira.map(f => `<li><strong>Gôndola ${f.gondola} — Prateleira ${f.prateleira}:</strong> Faltam ${f.falta} frentes (${f.pct.toFixed(1)}% / ${MAP_STATE.metaGlobal}%)</li>`).join('')}
+            </ul>
+          </div>
+        `;
+    }
+
+    resumoGeral.innerHTML = `
+      <h3 class="map-resumo-geral-title">📊 Resumo Geral</h3>
+      <div class="map-resumo-geral-box${classeGeral}">
+        <div class="map-resumo-linha"><span class="map-rotulo">Quantidade total de produtos</span><span class="map-valor azul">${somaTotal}</span></div>
+        <div class="map-resumo-linha"><span class="map-rotulo">Quantidade da sua marca</span><span class="map-valor ${classeValorPct}">${somaMarca}</span></div>
+        <div class="map-resumo-linha"><span class="map-rotulo">Quantidade que não é sua marca</span><span class="map-valor cinza">${somaNaoMarca}</span></div>
+        <div class="map-resumo-linha destaque"><span class="map-rotulo">Porcentagem final da sua marca</span><span class="map-valor ${classeValorPct}">${pctMarca}%</span></div>
+        <div class="map-resumo-linha"><span class="map-rotulo">Porcentagem que não é sua marca</span><span class="map-valor cinza">${pctNaoMarca}%</span></div>
+      </div>
+      ${faltasHTML}
+    `;
+
+    const s2 = $("mapStep2"); if(s2) s2.style.display = "none";
+    const s3 = $("mapStep3"); if(s3) s3.style.display = "block";
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* Compartilhar / Copiar / WhatsApp */
+function mapGerarTextoCompartilhar() {
+    let somaTotal = 0, somaMarca = 0;
+    MAP_STATE.gondolas.forEach(g => g.prateleiras.forEach(p => { somaTotal += p.total; somaMarca += p.marca; }));
+    const somaNaoMarca = somaTotal - somaMarca;
+    const pctMarca = mapPercentual(somaMarca, somaTotal);
+    const pctNaoMarca = mapPercentual(somaNaoMarca, somaTotal);
+    const pctRealNum = somaTotal ? (somaMarca / somaTotal) * 100 : 0;
+    const atingiu = pctRealNum >= MAP_STATE.metaGlobal;
+    const faltam = mapCalcularFaltamFrentes(MAP_STATE.metaGlobal, somaTotal, somaMarca);
+
+    let txt = '';
+    txt += `MEDIÇÃO DE SHARE DE GÔNDOLA POR FRENTES\n`;
+    txt += `--------------------------------\n`;
+    txt += `Descrição / Local: ${MAP_STATE.descricaoGlobal}\n`;
+    txt += `Data e hora: ${MAP_STATE.dataHoraMedicao}\n`;
+    txt += `Meta desejada: ${MAP_STATE.metaGlobal}%\n`;
+    txt += `Quantidade de gôndolas: ${MAP_STATE.gondolas.length}\n`;
+    txt += `================================\n\n`;
+
+    MAP_STATE.gondolas.forEach(g => {
+        const prats = g.prateleiras.filter(p => p.total > 0 || p.marca > 0);
+        if (!prats.length) return;
+        let gTotal = 0, gMarca = 0;
+        prats.forEach(p => { gTotal += p.total; gMarca += p.marca; });
+
+        txt += `GÔNDOLA ${g.numero}\n`;
+        txt += `--------------------------------\n`;
+        prats.forEach(p => {
+            const faltaPrat = mapCalcularFaltamFrentes(MAP_STATE.metaGlobal, p.total, p.marca);
+            const pctPrat = p.total > 0 ? (p.marca / p.total) * 100 : 0;
+            txt += `Prateleira ${p.prateleira}\n`;
+            txt += `  Quantidade total de produtos: ${p.total}\n`;
+            txt += `  Quantidade da sua marca: ${p.marca}\n`;
+            txt += `  Quantidade que não é sua marca: ${p.total - p.marca}\n`;
+            txt += `  Porcentagem da sua marca: ${mapPercentual(p.marca, p.total)}%\n`;
+            if (pctPrat < MAP_STATE.metaGlobal && faltaPrat > 0) {
+                txt += `  Faltam ${faltaPrat} frentes para atingir a meta\n`;
+            }
+            txt += `\n`;
+        });
+        txt += `Resumo da Gôndola ${g.numero}\n`;
+        txt += `  Total de produtos: ${gTotal}\n`;
+        txt += `  Produtos da sua marca: ${gMarca}\n`;
+        txt += `  Produtos que não são da sua marca: ${gTotal - gMarca}\n`;
+        txt += `  Porcentagem da sua marca: ${mapPercentual(gMarca, gTotal)}%\n`;
+        txt += `================================\n\n`;
+    });
+
+    txt += `RESUMO GERAL\n`;
+    txt += `================================\n`;
+    txt += `Quantidade total de produtos: ${somaTotal}\n`;
+    txt += `Quantidade da sua marca: ${somaMarca}\n`;
+    txt += `Quantidade que não é sua marca: ${somaNaoMarca}\n`;
+    txt += `Porcentagem final da sua marca: ${pctMarca}%\n`;
+    txt += `Porcentagem que não é sua marca: ${pctNaoMarca}%\n`;
+    txt += `--------------------------------\n`;
+    if (atingiu) {
+        txt += `Meta de ${MAP_STATE.metaGlobal}%: ATINGIDA\n`;
+    } else {
+        txt += `Meta de ${MAP_STATE.metaGlobal}%: NÃO ATINGIDA\n`;
+        txt += `Faltam ${faltam} frentes da sua marca para atingir a meta.\n`;
+        txt += `\nOnde está faltando:\n`;
+        MAP_STATE.gondolas.forEach(g => {
+            g.prateleiras.forEach(p => {
+                const faltaPrat = mapCalcularFaltamFrentes(MAP_STATE.metaGlobal, p.total, p.marca);
+                const pctPrat = p.total > 0 ? (p.marca / p.total) * 100 : 0;
+                if (pctPrat < MAP_STATE.metaGlobal && faltaPrat > 0) {
+                    txt += `  Gôndola ${g.numero} - Prateleira ${p.prateleira}: faltam ${faltaPrat} frentes\n`;
+                }
+            });
+        });
+    }
+    return txt;
+}
+
+function mapCompartilharECopiar() {
+    const texto = mapGerarTextoCompartilhar();
+    const finalizar = () => mostrarToast("Informações copiadas! Cole no WhatsApp.", "✅");
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(texto).then(finalizar).catch(() => mapCopiarFallback(texto, finalizar));
+    } else mapCopiarFallback(texto, finalizar);
+}
+
+function mapAbrirWhatsApp() {
+    const texto = mapGerarTextoCompartilhar();
+    const url = 'https://wa.me/?text=' + encodeURIComponent(texto);
+    try {
+        window.open(url, '_blank');
+    } catch (e) {
+        mostrarToast("Não foi possível abrir o WhatsApp", "⚠️");
+    }
+}
+
+function mapCopiarFallback(texto, finalizar) {
+    try {
+        const ta = document.createElement('textarea');
+        ta.value = texto; ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed'; ta.style.top = '-1000px'; ta.style.left = '-1000px';
+        document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, ta.value.length);
+        let ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+        document.body.removeChild(ta);
+        if (ok) finalizar();
+        else window.prompt("Copie o texto abaixo:", texto);
+    } catch (e) { window.prompt("Copie o texto abaixo:", texto); }
+}
+
+function mapReiniciar() {
+    mapResetUI();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ================= HISTÓRICO MAPEAMENTO (MODAL) ================= */
+function mapAbrirHistorico() {
+    let lista = mapGetHistorico();
+    const antes = lista.length;
+    lista = mapLimparMesesAnteriores(lista);
+    if (lista.length !== antes) mapSalvarHistorico(lista);
+
+    const buscaInput = $("mapBuscaHistorico");
+    if(buscaInput) buscaInput.value = "";
+
+    mapRenderizarHistorico();
+    const modal = $("mapModalHistorico");
+    if(modal) modal.classList.add("sd-ativo");
+}
+function mapFecharHistorico(e) {
+    if(e && e.target.id !== "mapModalHistorico") return;
+    const modal = $("mapModalHistorico");
+    if(modal) modal.classList.remove("sd-ativo");
+}
+function mapRenderizarHistorico() {
+    const container = $("mapConteudoHistorico");
+    if(!container) return;
+    const buscaInput = $("mapBuscaHistorico");
+    const busca = (buscaInput ? buscaInput.value : "").trim().toLowerCase();
+    let lista = mapGetHistorico();
+    lista = mapLimparMesesAnteriores(lista);
+    if (busca) lista = lista.filter(reg => ((reg && reg.descricao) || '').toLowerCase().includes(busca));
+    if (!lista.length) {
+        container.innerHTML = `<div class="map-empty-history">${busca ? "Nenhuma medição encontrada com essa descrição." : "Nenhuma medição gravada neste mês ainda.<br>As medições são gravadas automaticamente ao gerar o resumo."}</div>`;
+        return;
+    }
+    const ordenada = [...lista].sort((a, b) => new Date(b.dataHoraGravacaoISO) - new Date(a.dataHoraGravacaoISO));
+    container.innerHTML = '';
+    ordenada.forEach((reg, idx) => {
+        const meta = reg.meta || 0;
+        const pct = parseFloat(reg.pctMarca) || 0;
+        const atingiu = pct >= meta;
+        const metaClasse = atingiu ? 'ok' : 'fail';
+        const metaTexto = atingiu
+            ? `🎯 Meta atingida! (${meta}%)`
+            : `🎯 Meta não atingida (${meta}%) — Faltam ${reg.faltamFrentes || 0} frentes`;
+        const desc = reg.descricao || '(sem descrição)';
+        const qtdGond = reg.qtdGondolas || (Array.isArray(reg.gondolas) ? reg.gondolas.length : 0);
+        const preview = `${qtdGond} gôndola(s) • ${reg.somaTotal || 0} produtos`;
+
+        const item = document.createElement('div');
+        item.className = 'map-hist-item';
+        item.innerHTML = `
+          <div class="map-hist-header">
+            <div style="min-width:0; flex:1;">
+              <span class="map-hist-date">📅 ${mapEscapeHtml(reg.dataHoraGravacao)}</span>
+              <span class="map-hist-desc">${mapEscapeHtml(desc)}</span>
+            </div>
+            <span class="map-hist-tag">#${ordenada.length - idx}</span>
+          </div>
+          <span class="map-hist-meta ${metaClasse}">${metaTexto}</span>
+          <div class="map-hist-preview">${mapEscapeHtml(preview)}</div>
+          <div class="map-hist-resumo">
+            <span>Total: ${reg.somaTotal || 0}</span>
+            <span class="green">Sua marca: ${reg.somaMarca || 0} (${reg.pctMarca || 0}%)</span>
+            <span>Não é sua: ${reg.somaNaoMarca || 0} (${reg.pctNaoMarca || 0}%)</span>
+          </div>
+          <div class="map-hist-btn-row"></div>
+        `;
+        const btnRow = item.querySelector('.map-hist-btn-row');
+        const btnConsultar = document.createElement('button');
+        btnConsultar.className = 'map-btn secondary';
+        btnConsultar.textContent = '👁️ Consultar';
+        btnConsultar.addEventListener('click', () => mapAbrirDetalhe(reg.id, false));
+        const btnEditar = document.createElement('button');
+        btnEditar.className = 'map-btn primary';
+        btnEditar.textContent = '✏️ Editar';
+        btnEditar.addEventListener('click', () => mapAbrirDetalhe(reg.id, true));
+        const btnExcluir = document.createElement('button');
+        btnExcluir.className = 'map-btn danger';
+        btnExcluir.textContent = '🗑️ Excluir';
+        btnExcluir.addEventListener('click', () => mapExcluirRegistro(reg.id));
+        btnRow.appendChild(btnConsultar);
+        btnRow.appendChild(btnEditar);
+        btnRow.appendChild(btnExcluir);
+        container.appendChild(item);
+    });
+}
+
+function mapExcluirRegistro(id) {
+    if(!confirm("Excluir este registro de mapeamento?")) return;
+    let lista = mapGetHistorico();
+    lista = lista.filter(r => r.id !== id);
+    mapSalvarHistorico(lista);
+    mapRenderizarHistorico();
+    atualizarCardsLojas();
+    montarRelatorio();
+    mostrarToast("Registro excluído", "🗑️");
+}
+
+function mapExcluirHistoricoMantendoUltima() {
+    let lista = mapGetHistorico();
+    lista = mapLimparMesesAnteriores(lista);
+    if (lista.length <= 1) { alert("Só há uma medição no histórico. Nada foi apagado."); return; }
+    const confirmou = confirm(`Apagar TODO o histórico, mantendo apenas a última medição?\n\nSerão removidas ${lista.length - 1} medição(ões).\nA medição mais recente será mantida.\n\nEssa ação não pode ser desfeita.`);
+    if (!confirmou) return;
+    const ordenada = [...lista].sort((a, b) => new Date(b.dataHoraGravacaoISO) - new Date(a.dataHoraGravacaoISO));
+    const ultima = ordenada[0];
+    mapSalvarHistorico([ultima]);
+    const buscaInput = $("mapBuscaHistorico");
+    if(buscaInput) buscaInput.value = '';
+    mapRenderizarHistorico();
+    atualizarCardsLojas();
+    montarRelatorio();
+    alert("🗑️ Histórico apagado. A última medição foi mantida.");
+}
+
+/* DETALHE / EDIÇÃO DE REGISTRO */
+function mapAbrirDetalhe(id, modoEdicao) {
+    const lista = mapGetHistorico();
+    const reg = lista.find(r => r.id === id);
+    if (!reg) { alert("Registro não encontrado."); return; }
+    MAP_STATE.registroEmEdicaoId = id;
+    const meta = reg.meta || 0;
+    const pct = parseFloat(reg.pctMarca) || 0;
+    const atingiu = pct >= meta;
+    const metaClasse = atingiu ? 'ok' : 'fail';
+    const metaTexto = atingiu
+        ? `🎯 Meta atingida! (${meta}%)`
+        : `🎯 Meta não atingida (${meta}%) — Faltam ${reg.faltamFrentes || 0} frentes`;
+
+    const modalContent = $("mapConteudoDetalhe");
+    const titulo = $("mapDetalheTitulo");
+    if(titulo) titulo.textContent = modoEdicao ? '✏️ Editar Medição' : '👁️ Consultar Medição';
+    if(!modalContent) return;
+    modalContent.innerHTML = '';
+
+    const descDiv = document.createElement('div');
+    descDiv.style.marginBottom = '10px';
+    descDiv.innerHTML = `<label style="font-size:0.82rem; color:var(--c1); display:block; margin-bottom:5px; font-family:'Orbitron',sans-serif; font-size:9.5px; font-weight:700; letter-spacing:1px; text-transform:uppercase;">📝 Descrição / Local</label>`;
+    const inputDesc = document.createElement('input');
+    inputDesc.type = 'text';
+    inputDesc.id = 'mapEditDescricao';
+    inputDesc.className = 'map-input';
+    inputDesc.maxLength = 60;
+    inputDesc.value = reg.descricao || '';
+    if (!modoEdicao) inputDesc.readOnly = true;
+    descDiv.appendChild(inputDesc);
+    modalContent.appendChild(descDiv);
+
+    const dataDiv = document.createElement('div');
+    dataDiv.style.cssText = 'margin-bottom:10px; font-size:10.5px; color:var(--dim); font-weight:500;';
+    dataDiv.textContent = '📅 ' + reg.dataHoraGravacao;
+    modalContent.appendChild(dataDiv);
+
+    const metaSpan = document.createElement('span');
+    metaSpan.className = `map-hist-meta ${metaClasse}`;
+    metaSpan.style.cssText = 'display:inline-block; margin-bottom:10px;';
+    metaSpan.textContent = metaTexto;
+    modalContent.appendChild(metaSpan);
+
+    const gondolasReg = Array.isArray(reg.gondolas) ? reg.gondolas : [];
+
+    gondolasReg.forEach((g, gi) => {
+        const card = document.createElement('div');
+        card.className = 'map-detalhe-gondola-card';
+        const header = document.createElement('h4');
+        header.textContent = '🏪 Gôndola ' + (g.numero || (gi + 1));
+        card.appendChild(header);
+
+        const prats = Array.isArray(g.prateleiras) ? g.prateleiras : [];
+        let gTotal = 0, gMarca = 0;
+
+        prats.forEach((p, pi) => {
+            gTotal += p.total || 0;
+            gMarca += p.marca || 0;
+
+            const linha = document.createElement('div');
+            linha.className = 'map-detalhe-prat-linha';
+
+            const tituloPrat = document.createElement('div');
+            tituloPrat.className = 'map-detalhe-titulo';
+            tituloPrat.textContent = 'Prateleira ' + (pi + 1);
+            linha.appendChild(tituloPrat);
+
+            const campos = document.createElement('div');
+            campos.className = 'map-detalhe-campos';
+
+            const campoT = document.createElement('div');
+            campoT.className = 'map-campo';
+            campoT.innerHTML = `<label>Quantidade total de produtos</label>`;
+            const inpTotal = document.createElement('input');
+            inpTotal.type = 'number';
+            inpTotal.className = 'map-input';
+            inpTotal.id = `mapDetTotal_${gi}_${pi}`;
+            inpTotal.value = p.total || 0;
+            if (!modoEdicao) inpTotal.readOnly = true;
+            campoT.appendChild(inpTotal);
+
+            const campoM = document.createElement('div');
+            campoM.className = 'map-campo';
+            campoM.innerHTML = `<label>Quantidade da sua marca</label>`;
+            const inpMarca = document.createElement('input');
+            inpMarca.type = 'number';
+            inpMarca.className = 'map-input';
+            inpMarca.id = `mapDetMarca_${gi}_${pi}`;
+            inpMarca.value = p.marca || 0;
+            if (!modoEdicao) inpMarca.readOnly = true;
+            campoM.appendChild(inpMarca);
+
+            campos.appendChild(campoT);
+            campos.appendChild(campoM);
+            linha.appendChild(campos);
+
+            const pctPrat = p.total > 0 ? (p.marca / p.total) * 100 : 0;
+            const pratAtingiu = pctPrat >= meta;
+            const faltaPrat = mapCalcularFaltamFrentes(meta, p.total, p.marca);
+
+            const resumo = document.createElement('div');
+            resumo.className = 'map-detalhe-resumo';
+            resumo.innerHTML = `
+              <span>Qtd que não é sua: ${(p.total || 0) - (p.marca || 0)}</span>
+              <span>% Sua marca: ${mapPercentual(p.marca, p.total)}%</span>
+            `;
+            linha.appendChild(resumo);
+
+            if (!pratAtingiu && faltaPrat > 0) {
+                const falta = document.createElement('div');
+                falta.className = 'map-prat-falta';
+                falta.textContent = `⚠️ Faltam ${faltaPrat} frentes para atingir a meta de ${meta}% nesta prateleira`;
+                linha.appendChild(falta);
+            }
+
+            card.appendChild(linha);
+        });
+
+        const classeTotal = (gTotal > 0 && (gMarca / gTotal) * 100 >= meta) ? 'green' : '';
+        const faltaG = mapCalcularFaltamFrentes(meta, gTotal, gMarca);
+        const totalG = document.createElement('div');
+        totalG.className = 'map-detalhe-total-gondola ' + classeTotal;
+        totalG.innerHTML = `
+          <div>Gôndola ${g.numero || (gi + 1)}: ${gTotal} total de produtos</div>
+          <div>Produtos da sua marca: ${gMarca} (${mapPercentual(gMarca, gTotal)}%)</div>
+          <div>Produtos que não são da sua marca: ${gTotal - gMarca} (${mapPercentual(gTotal - gMarca, gTotal)}%)</div>
+          ${faltaG > 0 ? `<div style="margin-top:6px; color:#ff8fa5; background:rgba(255,45,85,.15); padding:6px 8px; border-radius:5px; border:1px dashed var(--err);">⚠️ Faltam ${faltaG} frentes nesta gôndola para atingir a meta</div>` : ''}
+        `;
+        card.appendChild(totalG);
+
+        modalContent.appendChild(card);
+    });
+
+    const aviso = document.createElement('div');
+    aviso.className = 'map-aviso';
+    aviso.innerHTML = modoEdicao
+        ? 'Altere os valores e toque em Salvar. Isso criará um novo registro com data e hora da edição.'
+        : '👁️ Modo somente leitura. Para alterar, feche e toque em ✏️ Editar.';
+    modalContent.appendChild(aviso);
+
+    const acoes = $("mapDetalheAcoes");
+if (acoes) {
+  acoes.innerHTML = '';
+  // Remove o botão "Fechar" de baixo, deixando apenas o "X" do topo
+  if (modoEdicao) {
+    const btnSalvar = document.createElement('button');
+    btnSalvar.className = 'map-btn primary';
+    btnSalvar.textContent = '💾 Salvar';
+    btnSalvar.style.width = '100%'; // deixa o botão de salvar bem grande e centralizado
+    btnSalvar.addEventListener('click', mapSalvarEdicaoRegistro);
+    acoes.appendChild(btnSalvar);
+  }
+}
+
+    const modal = $("mapModalDetalhe");
+    if(modal) modal.classList.add("sd-ativo");
+}
+
+function mapFecharDetalhe(e) {
+    if(e && e.target.id !== "mapModalDetalhe") return;
+    const modal = $("mapModalDetalhe");
+    if(modal) modal.classList.remove("sd-ativo");
+    MAP_STATE.registroEmEdicaoId = null;
+}
+
+function mapSalvarEdicaoRegistro() {
+    if (!MAP_STATE.registroEmEdicaoId) return;
+    const lista = mapGetHistorico();
+    const idx = lista.findIndex(r => r.id === MAP_STATE.registroEmEdicaoId);
+    if (idx === -1) { alert("Registro não encontrado."); return; }
+    const reg = lista[idx];
+    const novaDesc = ($("mapEditDescricao")?.value || '').trim();
+    const gondolasReg = Array.isArray(reg.gondolas) ? reg.gondolas : [];
+
+    const novasGondolas = [];
+    let valido = true;
+    for (let gi = 0; gi < gondolasReg.length; gi++) {
+        const g = gondolasReg[gi];
+        const prats = Array.isArray(g.prateleiras) ? g.prateleiras : [];
+        const novasPrats = [];
+        for (let pi = 0; pi < prats.length; pi++) {
+            const totalInput = $("mapDetTotal_" + gi + "_" + pi);
+            const marcaInput = $("mapDetMarca_" + gi + "_" + pi);
+            if (!totalInput || !marcaInput) continue;
+            const total = totalInput.value === '' ? 0 : parseInt(totalInput.value, 10);
+            const marca = marcaInput.value === '' ? 0 : parseInt(marcaInput.value, 10);
+            if (isNaN(total) || total < 0) { alert(`Quantidade total inválida na Gôndola ${g.numero || gi + 1}, Prateleira ${pi + 1}`); valido = false; break; }
+            if (isNaN(marca) || marca < 0) { alert(`Quantidade da sua marca inválida na Gôndola ${g.numero || gi + 1}, Prateleira ${pi + 1}`); valido = false; break; }
+            if (marca > total) { alert(`A quantidade da sua marca não pode ser maior que o total na Gôndola ${g.numero || gi + 1}, Prateleira ${pi + 1}`); valido = false; break; }
+            novasPrats.push({ prateleira: pi + 1, total, marca, naoMarca: total - marca });
+        }
+        if (!valido) break;
+        novasGondolas.push({ numero: g.numero || (gi + 1), prateleiras: novasPrats });
+    }
+    if (!valido) return;
+
+    let somaTotal = 0, somaMarca = 0;
+    novasGondolas.forEach(g => g.prateleiras.forEach(p => { somaTotal += p.total; somaMarca += p.marca; }));
+    const somaNaoMarca = somaTotal - somaMarca;
+    const meta = reg.meta || 0;
+    const faltamFrentes = mapCalcularFaltamFrentes(meta, somaTotal, somaMarca);
+
+    const agora = new Date();
+    const novoRegistro = {
+        id: mapGerarId(),
+        dataHoraGravacaoISO: agora.toISOString(),
+        dataHoraGravacao: mapFormatarDataHora(agora),
+        descricao: novaDesc,
+        qtdGondolas: novasGondolas.length,
+        gondolas: novasGondolas,
+        dados: novasGondolas.flatMap(g => g.prateleiras),
+        somaTotal, somaMarca, somaNaoMarca,
+        pctMarca: mapPercentual(somaMarca, somaTotal),
+        pctNaoMarca: mapPercentual(somaNaoMarca, somaTotal),
+        meta: meta, faltamFrentes: faltamFrentes, editadoDe: reg.id
+    };
+    lista.push(novoRegistro);
+    if (mapSalvarHistorico(lista)) {
+        mapFecharDetalhe();
+        mapRenderizarHistorico();
+        atualizarCardsLojas();
+        montarRelatorio();
+        alert("✅ Alterações salvas como novo registro com data e hora da edição.");
+    }
+}
+
+/* ================= FIM ================= */
+</script>
 </body>
 </html>
